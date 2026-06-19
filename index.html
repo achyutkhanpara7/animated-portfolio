@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Achyut Khanpara — UX / Product Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --blue: #2196F3;
+      --dark: #0D0D0D;
+      --body: #555555;
+      --muted: #AAAAAA;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--dark);
+      background: #fff;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ───────────────────────────────────────────── */
+    .nav-pill {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 999;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 999px;
+      padding: 8px 20px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      box-shadow: 0 2px 24px rgba(0,0,0,0.10);
+      border: 1px solid rgba(255,255,255,0.6);
+      transition: box-shadow 0.3s;
+    }
+    .nav-pill.scrolled { box-shadow: 0 4px 32px rgba(0,0,0,0.15); }
+
+    .nav-avatar {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2196F3, #1565C0);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 800; color: #fff;
+      flex-shrink: 0;
+    }
+
+    .nav-name {
+      font-size: 14px; font-weight: 800; letter-spacing: 0.08em;
+      color: var(--dark); white-space: nowrap;
+    }
+
+    .nav-links { display: flex; gap: 4px; }
+    .nav-links a {
+      font-size: 14px; font-weight: 500; color: #444;
+      padding: 6px 14px; border-radius: 999px;
+      text-decoration: none; transition: background 0.2s, color 0.2s;
+    }
+    .nav-links a:hover { background: #f0f0f0; color: var(--dark); }
+
+    /* ── HERO ──────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      background: linear-gradient(160deg, #87CEEB 0%, #5BB8F5 40%, #3EA8F0 70%, #2196F3 100%);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-clouds {
+      position: absolute; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 420px 180px at 15% 30%, rgba(255,255,255,0.55) 0%, transparent 70%),
+        radial-gradient(ellipse 280px 120px at 70% 20%, rgba(255,255,255,0.45) 0%, transparent 70%),
+        radial-gradient(ellipse 380px 140px at 85% 50%, rgba(255,255,255,0.3) 0%, transparent 70%);
+    }
+
+    .hero-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 40px;
+      width: 100%; display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px; align-items: center;
+      padding-top: 80px;
+    }
+
+    .hero-eyebrow {
+      font-size: 16px; font-weight: 600; color: rgba(255,255,255,0.95);
+      margin-bottom: 18px; display: flex; align-items: center; gap: 8px;
+      opacity: 0; animation: fadeUp 0.6s ease forwards;
+      animation-delay: 0.1s;
+    }
+
+    .hero-h1 {
+      font-size: clamp(64px, 9vw, 120px);
+      font-weight: 900; line-height: 0.92; color: #fff;
+      letter-spacing: -0.02em;
+    }
+    .hero-h1 .line1 {
+      display: block; opacity: 0;
+      animation: fadeUp 0.7s ease forwards; animation-delay: 0.25s;
+    }
+    .hero-h1 .line2 {
+      display: block; opacity: 0;
+      animation: fadeUp 0.7s ease forwards; animation-delay: 0.4s;
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: clamp(56px, 8vw, 108px); font-weight: 700;
+    }
+
+    .hero-sub {
+      margin-top: 28px; font-size: 17px; font-weight: 500;
+      color: rgba(255,255,255,0.9); display: flex; align-items: center; gap: 8px;
+      opacity: 0; animation: fadeUp 0.6s ease forwards; animation-delay: 0.55s;
+    }
+
+    .hero-company-badge {
+      background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 999px; padding: 3px 12px 3px 6px;
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 15px; font-weight: 600; color: #fff;
+    }
+    .hero-company-dot {
+      width: 18px; height: 18px; border-radius: 50%;
+      background: rgba(255,255,255,0.9);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-company-dot span { font-size: 9px; font-weight: 900; color: var(--blue); }
+
+    /* Photo placeholder */
+    .hero-photo-wrap {
+      display: flex; align-items: flex-end; justify-content: center;
+      opacity: 0; animation: fadeUp 0.8s ease forwards; animation-delay: 0.3s;
+    }
+    .hero-photo-placeholder {
+      width: min(380px, 90%);
+      aspect-ratio: 3/4;
+      background: linear-gradient(160deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.08) 100%);
+      border: 2px solid rgba(255,255,255,0.4);
+      border-radius: 24px 24px 0 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 12px;
+    }
+    .hero-initials-circle {
+      width: 96px; height: 96px; border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      border: 3px solid rgba(255,255,255,0.6);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 32px; font-weight: 900; color: #fff;
+      letter-spacing: 0.04em;
+    }
+    .hero-photo-label {
+      font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.7);
+      text-align: center;
+    }
+
+    .hero-bottom {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      max-width: 1200px; margin: 0 auto; padding: 0 40px 24px;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.15em;
+      color: rgba(255,255,255,0.8); text-transform: uppercase;
+    }
+
+    /* ── SECTION SHARED ────────────────────────────────── */
+    .section-wrap {
+      max-width: 1200px; margin: 0 auto; padding: 0 40px;
+    }
+
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--blue); margin-bottom: 32px;
+    }
+    .eyebrow-diamond { color: var(--blue); font-size: 10px; }
+
+    /* ── WHAT I DO ─────────────────────────────────────── */
+    #whatido {
+      padding: 120px 0;
+      background: #fff;
+    }
+
+    .whatido-text {
+      font-size: clamp(32px, 5vw, 68px);
+      font-weight: 800; line-height: 1.1; letter-spacing: -0.02em;
+      color: var(--dark); max-width: 900px;
+      -webkit-mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
+      mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
+    }
+    .whatido-text .accent-italic {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      color: var(--blue); font-weight: 700;
+    }
+    .whatido-text .fade-out { color: var(--muted); }
+
+    /* ── STATS ─────────────────────────────────────────── */
+    #stats {
+      padding: 0 0 120px;
+      background: #fff;
+    }
+    .stats-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+      border-top: 1px solid #e8e8e8; padding-top: 60px;
+    }
+    .stat-number {
+      font-size: clamp(52px, 6vw, 80px); font-weight: 900;
+      color: var(--blue); line-height: 1; letter-spacing: -0.03em;
+    }
+    .stat-label {
+      font-size: 20px; font-weight: 700; color: var(--dark); margin: 12px 0 8px;
+    }
+    .stat-desc { font-size: 15px; color: var(--body); line-height: 1.6; }
+
+    /* ── SELECTED WORK ─────────────────────────────────── */
+    #work { padding: 120px 0; background: #f8f8f8; }
+
+    .work-heading-wrap { text-align: center; margin-bottom: 64px; }
+    .work-heading {
+      font-size: clamp(36px, 5vw, 64px); font-weight: 900;
+      letter-spacing: -0.02em; color: var(--dark); line-height: 1.1;
+    }
+    .work-heading .italic-accent {
+      font-family: 'Playfair Display', serif; font-style: italic; font-weight: 700;
+    }
+    .work-subtext { font-size: 17px; color: var(--body); margin-top: 16px; }
+
+    .work-card {
+      border-radius: 24px; overflow: hidden;
+      background: linear-gradient(135deg, #3A9FE8 0%, #1E7FD4 60%, #1565C0 100%);
+      padding: 48px; margin-bottom: 24px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      cursor: default;
+    }
+    .work-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 24px 60px rgba(33,150,243,0.3);
+    }
+    .work-card-left { display: flex; flex-direction: column; }
+
+    .work-card-meta {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 28px;
+    }
+    .work-card-num {
+      font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.7);
+      background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 999px; padding: 4px 14px;
+    }
+    .work-card-year {
+      font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.6);
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 999px; padding: 4px 14px;
+    }
+
+    .work-card-title {
+      font-size: clamp(24px, 3vw, 36px); font-weight: 800;
+      color: #fff; line-height: 1.2; letter-spacing: -0.01em;
+      margin-bottom: 20px;
+    }
+
+    .work-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+    .work-tag {
+      font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.8);
+      border: 1px solid rgba(255,255,255,0.35); border-radius: 999px;
+      padding: 4px 12px;
+    }
+
+    .work-card-desc { font-size: 15px; color: rgba(255,255,255,0.75); line-height: 1.7; margin-bottom: 32px; }
+
+    .work-card-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 14px; font-weight: 700; color: #fff;
+      background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 999px; padding: 10px 22px;
+      text-decoration: none; transition: background 0.2s;
+      align-self: flex-start;
+    }
+    .work-card-cta:hover { background: rgba(255,255,255,0.25); }
+    .work-card-cta.soon {
+      opacity: 0.6; cursor: not-allowed; pointer-events: none;
+    }
+
+    .work-card-right { display: flex; align-items: center; justify-content: center; }
+    .work-mockup {
+      width: 100%; max-width: 340px; aspect-ratio: 16/10;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .work-mockup::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 32px;
+      background: rgba(255,255,255,0.1);
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+    }
+    .work-mockup-inner {
+      display: flex; flex-direction: column; gap: 8px;
+      padding: 44px 20px 20px; width: 100%;
+    }
+    .mockup-bar {
+      height: 8px; border-radius: 4px;
+      background: rgba(255,255,255,0.2);
+    }
+    .mockup-bar.short { width: 60%; }
+    .mockup-bar.medium { width: 80%; }
+    .mockup-bar.tall { height: 48px; border-radius: 8px; }
+
+    /* ── ABOUT ─────────────────────────────────────────── */
+    #about { padding: 120px 0; background: #fff; }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; align-items: center;
+    }
+    .about-photo-placeholder {
+      aspect-ratio: 4/5;
+      background: linear-gradient(135deg, #e8f4fd 0%, #c5e1f5 100%);
+      border-radius: 20px;
+      border: 3px solid #fff;
+      box-shadow: 8px 12px 40px rgba(0,0,0,0.12);
+      transform: rotate(-3deg);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 12px;
+    }
+    .about-photo-initials {
+      width: 80px; height: 80px; border-radius: 50%;
+      background: var(--blue); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px; font-weight: 900; letter-spacing: 0.02em;
+    }
+    .about-photo-label { font-size: 13px; color: var(--body); font-weight: 500; }
+
+    .about-heading {
+      font-size: clamp(32px, 4vw, 52px); font-weight: 800;
+      color: var(--dark); letter-spacing: -0.02em; line-height: 1.15;
+      margin-bottom: 28px;
+    }
+    .about-heading .italic-accent {
+      font-family: 'Playfair Display', serif; font-style: italic; font-weight: 700;
+    }
+    .about-body { font-size: 17px; color: var(--body); line-height: 1.8; margin-bottom: 20px; }
+
+    /* ── EXPERIENCE ────────────────────────────────────── */
+    #experience { padding: 120px 0; background: #f8f8f8; }
+
+    .exp-header { max-width: 700px; margin-bottom: 64px; }
+    .exp-heading {
+      font-size: clamp(36px, 4vw, 56px); font-weight: 800;
+      letter-spacing: -0.02em; color: var(--dark); line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .exp-sub { font-size: 17px; color: var(--body); }
+
+    .timeline { position: relative; padding-left: 40px; }
+    .timeline::before {
+      content: ''; position: absolute; left: 12px; top: 8px; bottom: 8px;
+      width: 2px; background: #ddd;
+    }
+
+    .timeline-item {
+      position: relative; margin-bottom: 40px;
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .timeline-item.visible { opacity: 1; transform: none; }
+
+    .timeline-dot {
+      position: absolute; left: -34px; top: 6px;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: var(--blue); border: 3px solid #f8f8f8;
+      z-index: 1;
+    }
+
+    .timeline-date {
+      display: inline-flex; font-size: 12px; font-weight: 700;
+      color: var(--blue); background: #e3f2fd; border-radius: 999px;
+      padding: 3px 12px; margin-bottom: 10px; letter-spacing: 0.04em;
+    }
+
+    .timeline-card {
+      background: #fff; border-radius: 16px; padding: 24px 28px;
+      border: 1px solid #eee;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .timeline-card:hover {
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+      transform: translateX(4px);
+    }
+    .timeline-title { font-size: 17px; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+    .timeline-org { font-size: 14px; color: var(--blue); font-weight: 600; }
+    .timeline-desc { font-size: 14px; color: var(--body); margin-top: 8px; line-height: 1.6; }
+
+    /* ── FOOTER ────────────────────────────────────────── */
+    #contact {
+      background: linear-gradient(160deg, #87CEEB 0%, #5BB8F5 40%, #2196F3 100%);
+      padding: 120px 0 60px;
+      position: relative; overflow: hidden;
+    }
+
+    .footer-watermark {
+      position: absolute; bottom: -20px; left: 50%;
+      transform: translateX(-50%);
+      font-size: clamp(80px, 18vw, 220px); font-weight: 900;
+      color: rgba(255,255,255,0.08); letter-spacing: 0.1em;
+      white-space: nowrap; pointer-events: none; user-select: none;
+      line-height: 1;
+    }
+
+    .footer-inner { position: relative; z-index: 1; }
+
+    .footer-headline {
+      font-size: clamp(32px, 5vw, 72px); font-weight: 900;
+      color: #fff; letter-spacing: -0.02em; line-height: 1.1;
+      max-width: 800px; margin-bottom: 40px;
+    }
+    .footer-headline .italic-accent {
+      font-family: 'Playfair Display', serif; font-style: italic; font-weight: 700;
+    }
+
+    .footer-email {
+      font-size: 20px; font-weight: 600; color: rgba(255,255,255,0.9);
+      text-decoration: none; border-bottom: 2px solid rgba(255,255,255,0.4);
+      padding-bottom: 2px; transition: color 0.2s, border-color 0.2s;
+      display: inline-block; margin-bottom: 40px;
+    }
+    .footer-email:hover { color: #fff; border-color: #fff; }
+
+    .footer-socials { display: flex; gap: 12px; margin-bottom: 80px; }
+    .social-btn {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: rgba(255,255,255,0.15); border: 1.5px solid rgba(255,255,255,0.4);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; text-decoration: none; font-size: 15px; font-weight: 700;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .social-btn:hover { background: rgba(255,255,255,0.28); transform: scale(1.08); }
+
+    .footer-copyright {
+      font-size: 12px; color: rgba(255,255,255,0.6);
+      letter-spacing: 0.08em;
+    }
+
+    /* ── ANIMATIONS ────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    .reveal {
+      opacity: 0; transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* ── RESPONSIVE ────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; padding-top: 100px; }
+      .hero-photo-wrap { display: none; }
+      .about-grid { grid-template-columns: 1fr; }
+      .about-photo-placeholder { max-width: 260px; margin: 0 auto; }
+      .work-card { grid-template-columns: 1fr; }
+      .work-card-right { display: none; }
+      .stats-grid { grid-template-columns: 1fr; gap: 40px; }
+      .nav-pill { padding: 8px 14px; gap: 12px; }
+      .nav-links a { padding: 6px 10px; font-size: 13px; }
+    }
+
+    @media (max-width: 600px) {
+      .section-wrap { padding: 0 20px; }
+      .hero-inner { padding: 0 20px; padding-top: 100px; }
+      .hero-bottom { padding: 0 20px 20px; flex-direction: column; gap: 4px; align-items: flex-start; }
+      #work, #whatido, #stats, #about, #experience { padding: 80px 0; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav-pill" id="nav">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div class="nav-avatar">AK</div>
+      <span class="nav-name">ACHYUT</span>
+    </div>
+    <div class="nav-links">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#contact" style="background:#0D0D0D;color:#fff;font-weight:600;">Resume</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-clouds"></div>
+    <div class="hero-inner">
+      <div>
+        <p class="hero-eyebrow">👋 Hey, I'm Achyut</p>
+        <h1 class="hero-h1">
+          <span class="line1">product</span>
+          <span class="line2">designer</span>
+        </h1>
+        <p class="hero-sub">
+          Building enterprise &amp; AI products @&nbsp;
+          <span class="hero-company-badge">
+            <span class="hero-company-dot"><span>WL</span></span>
+            WorldLink
+          </span>
+        </p>
+      </div>
+      <div class="hero-photo-wrap">
+        <div class="hero-photo-placeholder">
+          <div class="hero-initials-circle">AK</div>
+          <p class="hero-photo-label">Achyut Khanpara<br>UX / Product Designer</p>
+        </div>
+      </div>
+    </div>
+    <div class="hero-bottom">
+      <span>📍 Based in &nbsp; Dallas–Fort Worth, TX</span>
+      <span>Create &gt; Consume</span>
+    </div>
+  </section>
+
+  <!-- WHAT I DO -->
+  <section id="whatido">
+    <div class="section-wrap">
+      <div class="eyebrow reveal">
+        <span class="eyebrow-diamond">◆</span> What I Do
+      </div>
+      <p class="whatido-text reveal">
+        I turn messy, real-world problems into products people
+        <span class="accent-italic">actually understand</span>
+        — interfaces that feel obvious, systems that scale, and details that quietly
+        <span class="fade-out">do the work.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section id="stats">
+    <div class="section-wrap">
+      <div class="stats-grid">
+        <div class="reveal">
+          <div class="stat-number">3+</div>
+          <div class="stat-label">Years designing</div>
+          <div class="stat-desc">enterprise AI products, design systems &amp; research</div>
+        </div>
+        <div class="reveal reveal-delay-1">
+          <div class="stat-number">Fortune 100</div>
+          <div class="stat-label">Clients</div>
+          <div class="stat-desc">Citi, AbbVie, Samsung — products that scale</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SELECTED WORK -->
+  <section id="work">
+    <div class="section-wrap">
+      <div class="work-heading-wrap">
+        <div class="eyebrow reveal" style="display:flex;justify-content:center;">
+          <span class="eyebrow-diamond">◆</span>&nbsp; Selected Work
+        </div>
+        <h2 class="work-heading reveal">
+          check out some of <span class="italic-accent">my work</span>
+        </h2>
+        <p class="work-subtext reveal">A few products I've helped shape, and the thinking behind them.</p>
+      </div>
+
+      <!-- Card 01 -->
+      <div class="work-card reveal">
+        <div class="work-card-left">
+          <div class="work-card-meta">
+            <span class="work-card-num">01</span>
+            <span class="work-card-year">2025</span>
+          </div>
+          <h3 class="work-card-title">Compliance that doesn't slow you down.</h3>
+          <div class="work-tags">
+            <span class="work-tag">GRC</span>
+            <span class="work-tag">AI/ML</span>
+            <span class="work-tag">Enterprise</span>
+            <span class="work-tag">B2B</span>
+          </div>
+          <p class="work-card-desc">Built the UX for an AI-powered GRC platform — extraction engine, gap analysis, and architecture scanner — for Fortune 100 clients.</p>
+          <a href="case-study.html" class="work-card-cta">View Case Study →</a>
+        </div>
+        <div class="work-card-right">
+          <div class="work-mockup">
+            <div class="work-mockup-inner">
+              <div class="mockup-bar short"></div>
+              <div class="mockup-bar medium"></div>
+              <div class="mockup-bar tall"></div>
+              <div class="mockup-bar short"></div>
+              <div class="mockup-bar medium"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 02 -->
+      <div class="work-card reveal" style="background:linear-gradient(135deg,#1976D2 0%,#1565C0 60%,#0D47A1 100%);">
+        <div class="work-card-left">
+          <div class="work-card-meta">
+            <span class="work-card-num">02</span>
+            <span class="work-card-year">2024–25</span>
+          </div>
+          <h3 class="work-card-title">A design system built to scale across Fortune 100.</h3>
+          <div class="work-tags">
+            <span class="work-tag">Design Systems</span>
+            <span class="work-tag">Figma</span>
+            <span class="work-tag">Tailwind CSS</span>
+            <span class="work-tag">WCAG 2.2</span>
+          </div>
+          <p class="work-card-desc">Architected WorldKit from scratch — Figma tokens, Storybook, and a component library used across enterprise AI products.</p>
+          <span class="work-card-cta soon">Coming Soon</span>
+        </div>
+        <div class="work-card-right">
+          <div class="work-mockup">
+            <div class="work-mockup-inner">
+              <div class="mockup-bar medium"></div>
+              <div class="mockup-bar short"></div>
+              <div class="mockup-bar tall"></div>
+              <div class="mockup-bar medium"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 03 -->
+      <div class="work-card reveal" style="background:linear-gradient(135deg,#0277BD 0%,#01579B 60%,#003c6e 100%);">
+        <div class="work-card-left">
+          <div class="work-card-meta">
+            <span class="work-card-num">03</span>
+            <span class="work-card-year">2025</span>
+          </div>
+          <h3 class="work-card-title">Making store ops feel like a conversation.</h3>
+          <div class="work-tags">
+            <span class="work-tag">Retail AI</span>
+            <span class="work-tag">Operations</span>
+            <span class="work-tag">Dashboard</span>
+          </div>
+          <p class="work-card-desc">Designed an AI-powered ops platform for 7-Eleven store managers — real-time inventory, anomaly detection, and intelligent alerts.</p>
+          <span class="work-card-cta soon">Coming Soon</span>
+        </div>
+        <div class="work-card-right">
+          <div class="work-mockup">
+            <div class="work-mockup-inner">
+              <div class="mockup-bar short"></div>
+              <div class="mockup-bar tall"></div>
+              <div class="mockup-bar medium"></div>
+              <div class="mockup-bar short"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-wrap">
+      <div class="eyebrow reveal">
+        <span class="eyebrow-diamond">◆</span> About Me
+      </div>
+      <div class="about-grid">
+        <div class="reveal">
+          <div class="about-photo-placeholder">
+            <div class="about-photo-initials">AK</div>
+            <p class="about-photo-label" style="color:var(--body);font-size:13px;font-weight:500;">Achyut Khanpara</p>
+          </div>
+        </div>
+        <div>
+          <h2 class="about-heading reveal">
+            a little about <span class="italic-accent">myself</span>
+          </h2>
+          <p class="about-body reveal">
+            My journey into design spans both engineering and UX — I hold a B.E. in Computer Engineering and an M.S. in UX Design from Arizona State University (4.0 GPA). Today I design enterprise AI products at WorldLink, working with Fortune 100 clients to turn complex compliance workflows into experiences people actually want to use.
+          </p>
+          <p class="about-body reveal reveal-delay-1">
+            I'm drawn to problems at the intersection of user needs, business goals, and technical constraints — the kind of work where good design genuinely changes outcomes.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-wrap">
+      <div class="exp-header">
+        <div class="eyebrow reveal">
+          <span class="eyebrow-diamond">◆</span> The Journey So Far
+        </div>
+        <h2 class="exp-heading reveal">roles that shaped the work</h2>
+        <p class="exp-sub reveal">From computer engineering to enterprise UX — two degrees and counting.</p>
+      </div>
+
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <span class="timeline-date">Jun 2025 – Present</span>
+          <div class="timeline-card">
+            <div class="timeline-title">UX Designer</div>
+            <div class="timeline-org">WorldLink Labs — Dallas, TX</div>
+            <div class="timeline-desc">Leading UX for enterprise AI products including GRC platforms, design system (WorldKit), and AI operations dashboards for Fortune 100 clients.</div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <span class="timeline-date">Jun 2024 – May 2025</span>
+          <div class="timeline-card">
+            <div class="timeline-title">M.S. UX Design</div>
+            <div class="timeline-org">Arizona State University — 4.0 GPA</div>
+            <div class="timeline-desc">Specialized in interaction design, design research, and human-computer interaction with a focus on enterprise software.</div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <span class="timeline-date">2020 – 2024</span>
+          <div class="timeline-card">
+            <div class="timeline-title">B.E. Computer Engineering</div>
+            <div class="timeline-org">University</div>
+            <div class="timeline-desc">Foundation in software engineering, UI development, and systems thinking that informs every design decision.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER / CONTACT -->
+  <footer id="contact">
+    <div class="section-wrap footer-inner">
+      <div class="eyebrow reveal" style="color:rgba(255,255,255,0.7);">
+        <span style="color:rgba(255,255,255,0.7)">◆</span> Let's Connect
+      </div>
+      <h2 class="footer-headline reveal">
+        let's design <span class="italic-accent">incredible</span><br>work together.
+      </h2>
+      <a href="mailto:achyutkhanpara7@gmail.com" class="footer-email reveal">
+        achyutkhanpara7@gmail.com
+      </a>
+      <div class="footer-socials reveal">
+        <a href="#" class="social-btn" title="LinkedIn">in</a>
+        <a href="#" class="social-btn" title="Behance">Be</a>
+        <a href="#" class="social-btn" title="Twitter / X">𝕏</a>
+      </div>
+      <p class="footer-copyright reveal">© 2026 Achyut Khanpara. All rights reserved.</p>
+    </div>
+    <div class="footer-watermark">ACHYUT</div>
+  </footer>
+
+  <script>
+    // Scroll-based nav shadow
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // IntersectionObserver for .reveal elements
+    const revealEls = document.querySelectorAll('.reveal, .timeline-item');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    revealEls.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
