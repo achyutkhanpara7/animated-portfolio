@@ -146,7 +146,9 @@
       display: flex; align-items: center; justify-content: center;
       font-size: 11px; font-weight: 900; color: #fff;
       letter-spacing: 0.04em; flex-shrink: 0;
+      overflow: hidden;
     }
+    .nav-avatar img { width: 100%; height: 100%; object-fit: cover; }
     .nav-name {
       font-size: 13px; font-weight: 800;
       letter-spacing: 0.1em; color: #0D0D0D;
@@ -281,32 +283,26 @@
       width: 100%;
       max-width: 400px;
       aspect-ratio: 3/4;
-      background: linear-gradient(170deg, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.08) 100%);
-      border: 1.5px solid rgba(255,255,255,0.45);
+      border: 2px solid rgba(255,255,255,0.5);
       border-bottom: none;
       border-radius: 24px 24px 0 0;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: 16px;
-      backdrop-filter: blur(8px);
-      position: relative; overflow: hidden;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.25);
     }
-    .hero-photo-card::before {
+    .hero-photo-card img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+      display: block;
+    }
+    .hero-photo-card::after {
       content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(circle at 50% 30%, rgba(255,255,255,0.12) 0%, transparent 60%);
+      position: absolute; bottom: 0; left: 0; right: 0; height: 40%;
+      background: linear-gradient(to top, rgba(30,100,200,0.35) 0%, transparent 100%);
+      pointer-events: none;
     }
-    .ak-circle {
-      width: 110px; height: 110px; border-radius: 50%;
-      background: rgba(255,255,255,0.22);
-      border: 3px solid rgba(255,255,255,0.55);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 36px; font-weight: 900; color: #fff;
-      letter-spacing: 0.04em; position: relative; z-index: 1;
-    }
-    .hero-photo-label {
-      font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.7);
-      text-align: center; line-height: 1.5; position: relative; z-index: 1;
-    }
+    .ak-circle { display: none; }
+    .hero-photo-label { display: none; }
 
     /* Bottom bar */
     .hero-bottom {
@@ -468,19 +464,17 @@
     }
     .about-photo {
       aspect-ratio: 4/5;
-      background: linear-gradient(145deg, #E3F2FD 0%, #BBDEFB 55%, #90CAF9 100%);
       border-radius: 22px; border: 3px solid #fff;
-      box-shadow: 10px 14px 48px rgba(0,0,0,0.13);
+      box-shadow: 10px 14px 48px rgba(0,0,0,0.15);
       transform: rotate(-2.5deg);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: 14px;
+      overflow: hidden;
     }
-    .about-initials {
-      width: 88px; height: 88px; border-radius: 50%;
-      background: #2196F3; color: #fff;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 28px; font-weight: 900;
+    .about-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+      display: block;
     }
+    .about-initials { display: none; }
     .about-h {
       font-size: clamp(30px, 4vw, 52px); font-weight: 800;
       letter-spacing: -0.022em; line-height: 1.15;
@@ -612,7 +606,7 @@
 <!-- ══ NAV ════════════════════════════════════════════════ -->
 <nav id="nav">
   <a href="#hero" class="nav-brand">
-    <div class="nav-avatar">AK</div>
+    <div class="nav-avatar"><img src="photo.jpg" alt="Achyut" onerror="this.style.display='none';this.parentElement.innerHTML='AK';" /></div>
     <span class="nav-name">ACHYUT</span>
   </a>
   <div class="nav-sep"></div>
@@ -649,8 +643,7 @@
 
     <div class="hero-right" id="hPhoto">
       <div class="hero-photo-card">
-        <div class="ak-circle">AK</div>
-        <p class="hero-photo-label">Achyut Khanpara<br>UX / Product Designer</p>
+        <img src="photo.jpg" alt="Achyut Khanpara" />
       </div>
     </div>
   </div>
@@ -797,8 +790,7 @@
     <div class="about-grid">
       <div class="r">
         <div class="about-photo">
-          <div class="about-initials">AK</div>
-          <p style="font-size:13px;color:#666;font-weight:500;">Achyut Khanpara</p>
+          <img src="photo.jpg" alt="Achyut Khanpara" />
         </div>
       </div>
       <div>

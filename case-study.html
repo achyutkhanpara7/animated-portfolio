@@ -47,7 +47,9 @@
       background: linear-gradient(135deg, #2196F3, #1565C0);
       display: flex; align-items: center; justify-content: center;
       font-size: 11px; font-weight: 900; color: #fff;
+      overflow: hidden;
     }
+    .nav-avatar img { width: 100%; height: 100%; object-fit: cover; }
     .nav-name { font-size: 13px; font-weight: 800; letter-spacing: 0.1em; color: #0D0D0D; }
     .nav-dots { color: #bbb; letter-spacing: 4px; font-size: 16px; }
 
@@ -238,7 +240,7 @@
   <a href="index.html" class="nav-back">← Back</a>
   <div class="nav-sep"></div>
   <div class="nav-center">
-    <div class="nav-avatar">AK</div>
+    <div class="nav-avatar"><img src="photo.jpg" alt="Achyut" onerror="this.style.display='none';this.parentElement.innerHTML='AK';" /></div>
     <span class="nav-name">ACHYUT</span>
     <span class="nav-dots">···</span>
   </div>
