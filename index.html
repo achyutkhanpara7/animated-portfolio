@@ -684,6 +684,154 @@
       .role-stat { min-width: calc(50% - 4px); flex: 1 1 calc(50% - 4px); }
     }
 
+    /* ════════════════════════════════════════
+       STRENGTHS
+    ════════════════════════════════════════ */
+    #strengths {
+      padding: 128px 0;
+      background: #fff;
+      overflow: hidden;
+    }
+    .strengths-header {
+      text-align: center;
+      margin-bottom: 72px;
+    }
+    .strengths-title {
+      font-size: clamp(32px, 4.5vw, 56px);
+      font-weight: 800; letter-spacing: -0.025em;
+      line-height: 1.12; color: #0D0D0D;
+    }
+
+    /* ── Asymmetric grid ── */
+    .strengths-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+      align-items: start;
+      position: relative;
+    }
+
+    /* connector lines */
+    .strengths-grid::before,
+    .strengths-grid::after {
+      content: '';
+      position: absolute;
+      pointer-events: none;
+      border: 1.5px solid #DDEEFF;
+      border-radius: 8px;
+    }
+    /* horizontal connector across top */
+    .strengths-grid::before {
+      top: 72px; left: 34%; right: 34%;
+      height: 0; border-top: none; border-bottom: none; border-left: none; border-right: none;
+      border-top: 1.5px solid #DDEEFF;
+    }
+
+    .str-card {
+      background: #fff;
+      border: 1.5px solid #EAEAEA;
+      border-radius: 22px;
+      padding: 36px 32px 40px;
+      position: relative;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s cubic-bezier(0.22,1,0.36,1);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04), 0 8px 32px rgba(0,0,0,0.04);
+    }
+    .str-card:hover {
+      border-color: #90CAF9;
+      box-shadow: 0 8px 20px rgba(33,150,243,0.1), 0 20px 56px rgba(33,150,243,0.08);
+      transform: translateY(-5px);
+    }
+
+    /* Color tints per card */
+    .str-card-1 { background: linear-gradient(145deg, #F0F8FF 0%, #fff 60%); }
+    .str-card-2 { background: linear-gradient(145deg, #EEF6FF 0%, #fff 60%); }
+    .str-card-3 { background: linear-gradient(145deg, #F5F0FF 0%, #fff 60%); }
+    .str-card-4 { background: linear-gradient(145deg, #F0FFF8 0%, #fff 60%); }
+
+    /* Grid placement — asymmetric layout */
+    .str-card-1 { grid-column: 2; grid-row: 1; margin-top: 0; }
+    .str-card-2 { grid-column: 3; grid-row: 1; margin-top: 48px; }
+    .str-card-3 { grid-column: 2; grid-row: 2; margin-top: 0; }
+    .str-card-4 { grid-column: 1; grid-row: 1 / 3; align-self: center; }
+
+    /* Connector corner accents */
+    .str-card::before {
+      content: '';
+      position: absolute;
+      width: 28px; height: 28px;
+      border-color: #DDEEFF;
+      border-style: solid;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .str-card:hover::before { opacity: 1; }
+    .str-card-1::before { top: -14px; left: -14px; border-width: 2px 0 0 2px; border-radius: 4px 0 0 0; }
+    .str-card-2::before { top: -14px; right: -14px; border-width: 2px 2px 0 0; border-radius: 0 4px 0 0; left: auto; }
+    .str-card-3::before { bottom: -14px; left: -14px; border-width: 0 0 2px 2px; border-radius: 0 0 0 4px; top: auto; }
+    .str-card-4::before { bottom: -14px; right: -14px; border-width: 0 2px 2px 0; border-radius: 0 0 4px 0; top: auto; left: auto; }
+
+    .str-num {
+      position: absolute; top: 24px; right: 28px;
+      font-size: 12px; font-weight: 700;
+      color: #C8DEFF; letter-spacing: 0.04em;
+    }
+    .str-icon {
+      width: 48px; height: 48px;
+      border-radius: 14px;
+      background: rgba(33,150,243,0.08);
+      border: 1.5px solid rgba(33,150,243,0.14);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 24px;
+    }
+    .str-icon svg { width: 22px; height: 22px; stroke: #2196F3; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .str-title {
+      font-size: 18px; font-weight: 800;
+      color: #0D0D0D; margin-bottom: 12px;
+      letter-spacing: -0.015em; line-height: 1.25;
+    }
+    .str-body {
+      font-size: 15px; color: #666; line-height: 1.75;
+    }
+
+    /* reveal animation for strength cards */
+    .str-card {
+      opacity: 0;
+      transform: translateY(32px);
+    }
+    .str-card.s-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .str-card { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .strengths-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+      }
+      .str-card-1 { grid-column: 1; grid-row: 1; margin-top: 0; }
+      .str-card-2 { grid-column: 2; grid-row: 1; margin-top: 32px; }
+      .str-card-3 { grid-column: 2; grid-row: 2; margin-top: 0; }
+      .str-card-4 { grid-column: 1; grid-row: 2; align-self: auto; }
+      .strengths-grid::before { display: none; }
+    }
+    @media (max-width: 560px) {
+      .strengths-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .str-card-1, .str-card-2, .str-card-3, .str-card-4 {
+        grid-column: 1; grid-row: auto; margin-top: 0;
+      }
+    }
+
     #about { padding: 128px 0; background: #fff; }
 
     .about-grid {
@@ -1111,6 +1259,61 @@
   </div>
 </section>
 
+<!-- ══ STRENGTHS ══════════════════════════════════════════ -->
+<section id="strengths">
+  <div class="wrap">
+
+    <div class="strengths-header r">
+      <div class="eyebrow" style="margin-bottom:18px;">◆ &nbsp;My Strengths</div>
+      <h2 class="strengths-title">Here's what I bring<br>to the table</h2>
+    </div>
+
+    <div class="strengths-grid">
+
+      <!-- Card 01 — center top -->
+      <div class="str-card str-card-1" data-str-delay="0">
+        <span class="str-num">01</span>
+        <div class="str-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div class="str-title">Complexity to Clarity</div>
+        <p class="str-body">I turn messy workflows, technical constraints, and ambiguous requirements into simple, usable product experiences that teams can understand and ship.</p>
+      </div>
+
+      <!-- Card 02 — right top -->
+      <div class="str-card str-card-2" data-str-delay="100">
+        <span class="str-num">02</span>
+        <div class="str-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
+        </div>
+        <div class="str-title">AI-First Product Thinking</div>
+        <p class="str-body">I use AI as a design partner to explore ideas faster, prototype smarter, and create intelligent workflows that feel practical, trustworthy, and human-centered.</p>
+      </div>
+
+      <!-- Card 03 — center bottom -->
+      <div class="str-card str-card-3" data-str-delay="200">
+        <span class="str-num">03</span>
+        <div class="str-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+        </div>
+        <div class="str-title">Systems That Scale</div>
+        <p class="str-body">I care about design systems, reusable patterns, accessibility, and clean handoff so products stay consistent as teams and features grow.</p>
+      </div>
+
+      <!-- Card 04 — left spanning -->
+      <div class="str-card str-card-4" data-str-delay="300">
+        <span class="str-num">04</span>
+        <div class="str-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <div class="str-title">Cross-Functional Collaboration</div>
+        <p class="str-body">I work closely with PMs, engineers, and stakeholders to align on goals, reduce confusion, and move from ideas to execution with clarity.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- ══ EXPERIENCE ═════════════════════════════════════════ -->
 <section id="experience">
   <div class="wrap">
@@ -1388,6 +1591,27 @@
   }, { threshold: 0.15 });
 
   document.querySelectorAll('#experience .timeline, .roles-card, .work-card').forEach(el => sectionObs.observe(el));
+
+  /* ══════════════════════════════════════════════════════════
+     STRENGTHS CARDS — staggered entrance
+  ══════════════════════════════════════════════════════════ */
+  (function initStrengths() {
+    const cards = document.querySelectorAll('.str-card');
+    if (!cards.length) return;
+
+    const strObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const card  = e.target;
+        const delay = parseInt(card.dataset.strDelay || 0, 10);
+        card.style.transition = `opacity 0.65s cubic-bezier(0.22,1,0.36,1) ${delay}ms, transform 0.65s cubic-bezier(0.22,1,0.36,1) ${delay}ms, border-color 0.25s ease, box-shadow 0.25s ease`;
+        card.classList.add('s-visible');
+        strObs.unobserve(card);
+      });
+    }, { threshold: 0.15 });
+
+    cards.forEach(c => strObs.observe(c));
+  })();
 
 </script>
 </body>
