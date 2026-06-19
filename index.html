@@ -288,7 +288,7 @@
     .hero-inner {
       position: relative; z-index: 4;
       max-width: 860px; margin: 0 auto;
-      width: 100%; padding: 110px 40px 100px;
+      width: 100%; padding: 110px 40px 160px;
       display: flex; flex-direction: column;
       align-items: center; text-align: center;
       gap: 0;
@@ -839,41 +839,37 @@
        HERO CAPABILITY MARQUEE
     ════════════════════════════════════════ */
 
-    /* Glass container — absolutely positioned inside #hero */
+    /* Full-width glass band — absolute at the bottom of #hero */
     .hm-glass {
       position: absolute;
-      bottom: 52px;              /* sit inside the hero fade zone */
-      left: 50%;
-      transform: translateX(-50%);
-      width: calc(100% - 48px);
-      max-width: 1280px;
-      height: 86px;
-      background: rgba(255,255,255,0.32);
-      backdrop-filter: blur(18px) saturate(160%);
-      -webkit-backdrop-filter: blur(18px) saturate(160%);
-      border: 1px solid rgba(255,255,255,0.48);
-      border-radius: 28px;
-      box-shadow: 0 18px 60px rgba(13,96,170,0.14), 0 2px 8px rgba(0,0,0,0.06);
-      overflow: hidden;          /* horizontal clip only — full height is fixed */
-      display: flex;
-      align-items: center;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      padding: 18px 0 22px;
+      background: rgba(255,255,255,0.26);
+      backdrop-filter: blur(20px) saturate(160%);
+      -webkit-backdrop-filter: blur(20px) saturate(160%);
+      border-top: 1px solid rgba(255,255,255,0.42);
+      border-bottom: none;
+      overflow: hidden;
       z-index: 4;
     }
 
-    /* left / right fade masks inside the glass box */
+    /* left / right fade masks */
     .hm-glass::before,
     .hm-glass::after {
       content: '';
-      position: absolute; top: 0; bottom: 0; width: 100px;
+      position: absolute; top: 0; bottom: 0; width: 120px;
       pointer-events: none; z-index: 2;
     }
     .hm-glass::before {
       left: 0;
-      background: linear-gradient(to right, rgba(220,240,255,0.65) 0%, transparent 100%);
+      background: linear-gradient(to right, rgba(80,170,230,0.35) 0%, transparent 100%);
     }
     .hm-glass::after {
       right: 0;
-      background: linear-gradient(to left, rgba(220,240,255,0.65) 0%, transparent 100%);
+      background: linear-gradient(to left, rgba(40,140,210,0.35) 0%, transparent 100%);
     }
 
     /* scrolling track */
@@ -882,8 +878,8 @@
       align-items: center;
       gap: 14px;
       width: max-content;
-      padding: 0 24px;
-      animation: hmScroll 40s linear infinite;
+      padding: 0 32px;
+      animation: hmScroll 42s linear infinite;
       will-change: transform;
     }
     .hm-glass:hover .hm-track { animation-play-state: paused; }
@@ -903,47 +899,43 @@
       align-items: center;
       height: 48px;
       padding: 0 22px;
-      background: rgba(255,255,255,0.80);
-      border: 1px solid rgba(37,147,230,0.22);
+      background: rgba(255,255,255,0.82);
+      border: 1px solid rgba(255,255,255,0.70);
       border-radius: 999px;
-      box-shadow: 0 2px 8px rgba(33,150,243,0.10);
+      box-shadow: 0 2px 10px rgba(0,80,160,0.10), 0 1px 3px rgba(0,0,0,0.06);
       white-space: nowrap;
       cursor: default;
       flex-shrink: 0;
       transition: background 0.2s, border-color 0.2s, box-shadow 0.2s, transform 0.2s;
     }
     .hm-pill:hover {
-      background: rgba(220,240,255,0.95);
-      border-color: rgba(37,147,230,0.45);
-      box-shadow: 0 4px 16px rgba(33,150,243,0.18);
+      background: rgba(255,255,255,0.97);
+      border-color: rgba(37,147,230,0.50);
+      box-shadow: 0 4px 18px rgba(33,150,243,0.20);
       transform: translateY(-2px);
     }
     .hm-pill-label {
       font-family: 'Inter', 'Manrope', sans-serif;
       font-size: 14px;
       font-weight: 700;
-      color: #1f2f46;
+      color: #0f2236;
       letter-spacing: 0.01em;
       line-height: 1;
     }
-    .hm-pill:hover .hm-pill-label { color: #0d47a1; }
+    .hm-pill:hover .hm-pill-label { color: #0a3d91; }
 
     /* diamond separator */
     .hm-sep {
       display: inline-flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-      width: 14px; height: 14px;
-      opacity: 0.5;
+      flex-shrink: 0; width: 14px; height: 14px;
+      opacity: 0.55;
     }
     .hm-sep svg { width: 7px; height: 7px; }
 
     @media (max-width: 768px) {
-      .hm-glass { bottom: 32px; height: 72px; border-radius: 20px; }
+      .hm-glass { padding: 14px 0 16px; }
       .hm-pill { height: 42px; padding: 0 16px; }
       .hm-pill-label { font-size: 12.5px; }
-    }
-    @media (max-width: 480px) {
-      .hm-glass { width: calc(100% - 32px); bottom: 24px; }
     }
 
     /* ════════════════════════════════════════
@@ -1172,7 +1164,7 @@
     }
     @media (max-width: 640px) {
       .wrap { padding: 0 22px; }
-      .hero-inner { padding: 0 22px; padding-top: 110px; padding-bottom: 60px; }
+      .hero-inner { padding: 0 22px; padding-top: 110px; padding-bottom: 140px; }
       .hero-bottom { padding: 0 22px 18px; font-size: 10px; }
       #whatido, #stats, #work, #about, #experience { padding: 80px 0; }
       .nav-link:not(.cta) { display: none; }
