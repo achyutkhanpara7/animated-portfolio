@@ -449,7 +449,7 @@
     ════════════════════════════════════════ */
     #roles {
       padding: 120px 0 128px;
-      background: #FDF6F0;
+      background: #F5F5F5;
     }
     .roles-header { text-align: center; margin-bottom: 48px; }
     .roles-eyebrow {
@@ -489,14 +489,19 @@
     /* card */
     .roles-card {
       background: #fff;
-      border: 1.5px solid #D8D8D8;
-      border-radius: 20px;
-      padding: 52px 56px 44px;
+      border: 1.5px solid #E0E0E0;
+      border-radius: 0 20px 20px 20px;
+      padding: 56px 60px 48px;
       text-align: center;
       position: relative; z-index: 1;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.06);
     }
-    .role-panel { display: none; }
-    .role-panel.active { display: block; }
+    .role-panel { display: none; animation: none; }
+    .role-panel.active { display: block; animation: fadePanel 0.35s ease; }
+    @keyframes fadePanel {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: none; }
+    }
 
     .role-panel-title {
       font-size: clamp(20px, 2.5vw, 28px); font-weight: 700;
@@ -763,6 +768,71 @@
   </div>
 </section>
 
+<!-- ══ ROLE TABS ══════════════════════════════════════════ -->
+<section id="roles">
+  <div class="wrap">
+
+    <div class="roles-header r">
+      <div class="roles-eyebrow">About Me</div>
+      <h2 class="roles-title">A different story for<br>every role.</h2>
+    </div>
+
+    <!-- tabs -->
+    <div class="roles-tabs r">
+      <button class="role-tab active" data-tab="recruiters">Recruiters &amp; Hiring Managers</button>
+      <button class="role-tab" data-tab="designers">Designers</button>
+      <button class="role-tab" data-tab="engineers">Engineers &amp; PMs</button>
+    </div>
+
+    <!-- card -->
+    <div class="roles-card r">
+
+      <!-- Panel: Recruiters -->
+      <div class="role-panel active" id="panel-recruiters">
+        <div class="role-panel-title">Dear recruiters &amp; hiring managers</div>
+        <p class="role-panel-body">
+          CS engineer turned UX designer — I care about two things: understanding users deeply and shipping work that moves the needle. I hold an M.S. in UX Design from Arizona State University (4.0 GPA) and I'm currently leading design for enterprise AI products at WorldLink, working with Fortune 100 clients like Citi, AbbVie, and Samsung.
+        </p>
+        <span class="role-panel-cta">Worth a conversation?</span>
+        <div class="role-stats">
+          <div class="role-stat"><span class="role-stat-num">3+</span><span class="role-stat-lbl">Years of crafting</span></div>
+          <div class="role-stat"><span class="role-stat-num">F100</span><span class="role-stat-lbl">Clients served</span></div>
+          <div class="role-stat"><span class="role-stat-num">10+</span><span class="role-stat-lbl">Certifications</span></div>
+        </div>
+      </div>
+
+      <!-- Panel: Designers -->
+      <div class="role-panel" id="panel-designers">
+        <div class="role-panel-title">Dear fellow designer</div>
+        <p class="role-panel-body">
+          I start in research, not Figma. I built WorldKit — a full design system with Figma tokens, component libraries, and Storybook — from scratch while shipping a live product. I prototype in code when it matters, and I'm always down to nerd out about systems thinking, WCAG, or how AI is reshaping the way we design.
+        </p>
+        <span class="role-panel-cta">Let's swap notes!</span>
+        <div class="role-stats">
+          <div class="role-stat"><span class="role-stat-num">0→1</span><span class="role-stat-lbl">Design system built</span></div>
+          <div class="role-stat"><span class="role-stat-num">5+</span><span class="role-stat-lbl">Products shipped</span></div>
+          <div class="role-stat"><span class="role-stat-num">AA</span><span class="role-stat-lbl">WCAG 2.2 compliant</span></div>
+        </div>
+      </div>
+
+      <!-- Panel: Engineers & PMs -->
+      <div class="role-panel" id="panel-engineers">
+        <div class="role-panel-title">Dear collaborators</div>
+        <p class="role-panel-body">
+          I work autonomously and bring product sense to every decision. My background in computer engineering means I speak your language — I understand APIs, constraints, and tradeoffs. I've introduced async review workflows and design-to-dev handoff systems that shift teams from pixel-pushing to shared ownership.
+        </p>
+        <span class="role-panel-cta">Let's build something together.</span>
+        <div class="role-stats">
+          <div class="role-stat"><span class="role-stat-num">3+</span><span class="role-stat-lbl">Years crafting</span></div>
+          <div class="role-stat"><span class="role-stat-num">B.E.</span><span class="role-stat-lbl">Computer Engineering</span></div>
+          <div class="role-stat"><span class="role-stat-num">40%</span><span class="role-stat-lbl">Faster reviews</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- ══ WORK ═══════════════════════════════════════════════ -->
 <section id="work">
   <div class="wrap">
@@ -857,71 +927,6 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ ROLE TABS ══════════════════════════════════════════ -->
-<section id="roles">
-  <div class="wrap">
-
-    <div class="roles-header r">
-      <div class="roles-eyebrow">About Me</div>
-      <h2 class="roles-title">A different story for<br>every role.</h2>
-    </div>
-
-    <!-- tabs -->
-    <div class="roles-tabs r">
-      <button class="role-tab active" data-tab="recruiters">Recruiters &amp; Hiring Managers</button>
-      <button class="role-tab" data-tab="designers">Designers</button>
-      <button class="role-tab" data-tab="engineers">Engineers &amp; PMs</button>
-    </div>
-
-    <!-- card -->
-    <div class="roles-card r">
-
-      <!-- Panel: Recruiters -->
-      <div class="role-panel active" id="panel-recruiters">
-        <div class="role-panel-title">Dear recruiters &amp; hiring managers</div>
-        <p class="role-panel-body">
-          CS engineer turned UX designer — I care about two things: understanding users deeply and shipping work that moves the needle. I hold an M.S. in UX Design from Arizona State University (4.0 GPA) and I'm currently leading design for enterprise AI products at WorldLink, working with Fortune 100 clients like Citi, AbbVie, and Samsung.
-        </p>
-        <span class="role-panel-cta">Worth a conversation?</span>
-        <div class="role-stats">
-          <div class="role-stat"><span class="role-stat-num">3+</span><span class="role-stat-lbl">Years of crafting</span></div>
-          <div class="role-stat"><span class="role-stat-num">F100</span><span class="role-stat-lbl">Clients served</span></div>
-          <div class="role-stat"><span class="role-stat-num">10+</span><span class="role-stat-lbl">Certifications</span></div>
-        </div>
-      </div>
-
-      <!-- Panel: Designers -->
-      <div class="role-panel" id="panel-designers">
-        <div class="role-panel-title">Dear fellow designer</div>
-        <p class="role-panel-body">
-          I start in research, not Figma. I built WorldKit — a full design system with Figma tokens, component libraries, and Storybook — from scratch while shipping a live product. I prototype in code when it matters, and I'm always down to nerd out about systems thinking, WCAG, or how AI is reshaping the way we design.
-        </p>
-        <span class="role-panel-cta">Let's swap notes!</span>
-        <div class="role-stats">
-          <div class="role-stat"><span class="role-stat-num">0→1</span><span class="role-stat-lbl">Design system built</span></div>
-          <div class="role-stat"><span class="role-stat-num">5+</span><span class="role-stat-lbl">Products shipped</span></div>
-          <div class="role-stat"><span class="role-stat-num">AA</span><span class="role-stat-lbl">WCAG 2.2 compliant</span></div>
-        </div>
-      </div>
-
-      <!-- Panel: Engineers & PMs -->
-      <div class="role-panel" id="panel-engineers">
-        <div class="role-panel-title">Dear collaborators</div>
-        <p class="role-panel-body">
-          I work autonomously and bring product sense to every decision. My background in computer engineering means I speak your language — I understand APIs, constraints, and tradeoffs. I've introduced async review workflows and design-to-dev handoff systems that shift teams from pixel-pushing to shared ownership.
-        </p>
-        <span class="role-panel-cta">Let's build something together.</span>
-        <div class="role-stats">
-          <div class="role-stat"><span class="role-stat-num">3+</span><span class="role-stat-lbl">Years crafting</span></div>
-          <div class="role-stat"><span class="role-stat-num">B.E.</span><span class="role-stat-lbl">Computer Engineering</span></div>
-          <div class="role-stat"><span class="role-stat-num">40%</span><span class="role-stat-lbl">Faster reviews</span></div>
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
