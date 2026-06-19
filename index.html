@@ -339,16 +339,89 @@
       text-transform: uppercase; color: #2196F3; margin-bottom: 28px;
     }
 
+    /* ── Scroll progress bar ── */
+    #scroll-progress {
+      position: fixed; top: 0; left: 0; z-index: 9999;
+      height: 3px; width: 0%;
+      background: linear-gradient(90deg, #2196F3, #64B5F6, #2196F3);
+      background-size: 200% 100%;
+      animation: shimmerProgress 2.5s linear infinite;
+      transition: width 0.1s linear;
+      pointer-events: none;
+    }
+    @keyframes shimmerProgress {
+      0%   { background-position: 100% 0; }
+      100% { background-position: -100% 0; }
+    }
+
     /* reveal */
     .r {
-      opacity: 0; transform: translateY(28px);
-      transition: opacity 0.65s ease, transform 0.65s ease;
+      opacity: 0; transform: translateY(36px);
+      transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1),
+                  transform 0.7s cubic-bezier(0.22,1,0.36,1);
     }
     .r.v { opacity: 1; transform: none; }
     .r.d1 { transition-delay: 0.08s; }
-    .r.d2 { transition-delay: 0.16s; }
-    .r.d3 { transition-delay: 0.24s; }
-    .r.d4 { transition-delay: 0.32s; }
+    .r.d2 { transition-delay: 0.18s; }
+    .r.d3 { transition-delay: 0.28s; }
+    .r.d4 { transition-delay: 0.38s; }
+
+    /* slide from left */
+    .r-left {
+      opacity: 0; transform: translateX(-40px);
+      transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1),
+                  transform 0.7s cubic-bezier(0.22,1,0.36,1);
+    }
+    .r-left.v { opacity: 1; transform: none; }
+
+    /* slide from right */
+    .r-right {
+      opacity: 0; transform: translateX(40px);
+      transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1),
+                  transform 0.7s cubic-bezier(0.22,1,0.36,1);
+    }
+    .r-right.v { opacity: 1; transform: none; }
+
+    /* scale in */
+    .r-scale {
+      opacity: 0; transform: scale(0.9);
+      transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1),
+                  transform 0.65s cubic-bezier(0.22,1,0.36,1);
+    }
+    .r-scale.v { opacity: 1; transform: scale(1); }
+
+    /* word-by-word split text */
+    .split-word {
+      display: inline-block;
+      opacity: 0; transform: translateY(22px);
+      transition: opacity 0.5s cubic-bezier(0.22,1,0.36,1),
+                  transform 0.5s cubic-bezier(0.22,1,0.36,1);
+    }
+    .split-word.v { opacity: 1; transform: none; }
+
+    /* line underline sweep on section titles */
+    .line-reveal {
+      position: relative; display: inline-block;
+    }
+    .line-reveal::after {
+      content: '';
+      position: absolute; bottom: -4px; left: 0;
+      height: 3px; width: 0%;
+      background: linear-gradient(90deg, #2196F3, #64B5F6);
+      border-radius: 2px;
+      transition: width 0.8s cubic-bezier(0.22,1,0.36,1) 0.3s;
+    }
+    .line-reveal.v::after { width: 100%; }
+
+    /* cursor glow in hero */
+    #hero-glow {
+      position: absolute; width: 500px; height: 500px;
+      border-radius: 50%; pointer-events: none; z-index: 1;
+      background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 65%);
+      transform: translate(-50%, -50%);
+      transition: transform 0.08s linear;
+      will-change: transform;
+    }
 
     /* ════════════════════════════════════════
        WHAT I DO
@@ -405,8 +478,10 @@
       margin-bottom: 20px;
       display: grid; grid-template-columns: 1fr 1fr;
       gap: 48px; align-items: center;
-      transition: transform 0.28s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.28s ease;
+      transition: box-shadow 0.28s ease;
       cursor: default;
+      transform-style: preserve-3d;
+      will-change: transform;
     }
     .wc1 { background: linear-gradient(140deg, #42AFFF 0%, #1E8FE8 50%, #1565C0 100%); }
     .wc2 { background: linear-gradient(140deg, #1E7FD4 0%, #1565C0 55%, #0D47A1 100%); }
@@ -738,6 +813,9 @@
 </head>
 <body>
 
+<!-- scroll progress -->
+<div id="scroll-progress"></div>
+
 <!-- ══ INTRO ══════════════════════════════════════════════ -->
 <div id="intro">
   <div class="intro-name">
@@ -770,6 +848,7 @@
 
 <!-- ══ HERO ═══════════════════════════════════════════════ -->
 <section id="hero">
+  <div id="hero-glow"></div>
   <div class="cloud cloud-1"></div>
   <div class="cloud cloud-2"></div>
   <div class="cloud cloud-3"></div>
@@ -829,12 +908,12 @@
 <section id="stats">
   <div class="wrap">
     <div class="stats-row">
-      <div class="r">
-        <div class="stat-num">4+</div>
+      <div class="r-left">
+        <div class="stat-num" data-count="4" data-suffix="+">4+</div>
         <div class="stat-title">Years designing</div>
         <div class="stat-desc">enterprise AI products, design systems &amp; research</div>
       </div>
-      <div class="r d1">
+      <div class="r-right">
         <div class="stat-num">Fortune&nbsp;100</div>
         <div class="stat-title">Clients</div>
         <div class="stat-desc">Citi, AbbVie, Samsung — products that scale</div>
@@ -922,7 +1001,7 @@
     </div>
 
     <!-- Card 01 -->
-    <div class="work-card wc1 r">
+    <div class="work-card wc1 r" data-tilt>
       <div>
         <div class="wc-meta">
           <span class="wc-badge">01</span>
@@ -951,7 +1030,7 @@
     </div>
 
     <!-- Card 02 -->
-    <div class="work-card wc2 r">
+    <div class="work-card wc2 r d1" data-tilt>
       <div>
         <div class="wc-meta">
           <span class="wc-badge">02</span>
@@ -979,7 +1058,7 @@
     </div>
 
     <!-- Card 03 -->
-    <div class="work-card wc3 r">
+    <div class="work-card wc3 r d2" data-tilt>
       <div>
         <div class="wc-meta">
           <span class="wc-badge">03</span>
@@ -1013,7 +1092,7 @@
   <div class="wrap">
     <div class="eyebrow r">◆ &nbsp;About Me</div>
     <div class="about-grid">
-      <div class="r">
+      <div class="r-left">
         <div class="about-photo">
           <img src="photo.jpg" alt="Achyut Khanpara" />
         </div>
@@ -1091,17 +1170,18 @@
 </footer>
 
 <script>
-  /* ── INTRO SEQUENCE ────────────────────────────────────── */
+  /* ══════════════════════════════════════════════════════════
+     INTRO SEQUENCE
+  ══════════════════════════════════════════════════════════ */
   const iFirst = document.getElementById('iFirst');
   const iLast  = document.getElementById('iLast');
   const d1 = document.getElementById('d1');
   const d2 = document.getElementById('d2');
   const d3 = document.getElementById('d3');
-  const iBar = document.getElementById('iBar');
+  const iBar  = document.getElementById('iBar');
   const intro = document.getElementById('intro');
   const nav   = document.getElementById('nav');
 
-  // hero elements
   const hAvail = document.getElementById('hAvail');
   const hEye   = document.getElementById('hEye');
   const hL1    = document.getElementById('hL1');
@@ -1110,28 +1190,14 @@
   const hStats = document.getElementById('hStats');
   const hSub   = document.getElementById('hSub');
 
-
   function runIntro() {
-    // Step 1: grow progress bar
     setTimeout(() => { iBar.classList.add('grow'); }, 100);
-
-    // Step 2: first name slides up
     setTimeout(() => { iFirst.classList.add('show'); }, 200);
-
-    // Step 3: dots pop in
     setTimeout(() => { d1.classList.add('show'); }, 480);
     setTimeout(() => { d2.classList.add('show'); }, 560);
     setTimeout(() => { d3.classList.add('show'); }, 640);
-
-    // Step 4: last name slides up
     setTimeout(() => { iLast.classList.add('show'); }, 720);
-
-    // Step 5: hold a beat, then exit
-    setTimeout(() => {
-      intro.classList.add('exit');
-    }, 1900);
-
-    // Step 6: after exit, remove intro + show nav + trigger hero
+    setTimeout(() => { intro.classList.add('exit'); }, 1900);
     setTimeout(() => {
       intro.style.display = 'none';
       nav.classList.add('visible');
@@ -1146,26 +1212,142 @@
     setTimeout(() => { hL2.classList.add('show');    }, 340);
     setTimeout(() => { hL3.classList.add('show');    }, 480);
     setTimeout(() => { hStats.classList.add('show'); }, 600);
-    setTimeout(() => { hSub.classList.add('show');   }, 720);
+    if (hSub) setTimeout(() => { hSub.classList.add('show'); }, 720);
   }
 
   runIntro();
 
-  /* ── NAV SCROLL ────────────────────────────────────────── */
+  /* ══════════════════════════════════════════════════════════
+     SCROLL PROGRESS BAR
+  ══════════════════════════════════════════════════════════ */
+  const progressBar = document.getElementById('scroll-progress');
+  function updateProgress() {
+    const scrolled = window.scrollY;
+    const total    = document.documentElement.scrollHeight - window.innerHeight;
+    progressBar.style.width = (scrolled / total * 100) + '%';
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     NAV SCROLL EFFECT
+  ══════════════════════════════════════════════════════════ */
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 50);
+    updateProgress();
+  }, { passive: true });
+
+  /* ══════════════════════════════════════════════════════════
+     SCROLL REVEAL — up / left / right / scale
+  ══════════════════════════════════════════════════════════ */
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('v');
+        revealObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.r, .r-left, .r-right, .r-scale').forEach(el => revealObs.observe(el));
+
+  /* ══════════════════════════════════════════════════════════
+     WORD-BY-WORD SPLIT TEXT — #whatido
+  ══════════════════════════════════════════════════════════ */
+  (function splitWhatido() {
+    const el = document.querySelector('.whatido-text');
+    if (!el) return;
+    const html = el.innerHTML;
+    // wrap each word (outside tags) in a split-word span
+    const wrapped = html.replace(/(<[^>]+>)|([^\s<]+)/g, (match, tag, word) => {
+      if (tag) return tag;
+      return `<span class="split-word">${word}</span> `;
+    });
+    el.innerHTML = wrapped;
+    const words = el.querySelectorAll('.split-word');
+    const wordObs = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        words.forEach((w, i) => {
+          setTimeout(() => w.classList.add('v'), i * 55);
+        });
+        wordObs.disconnect();
+      }
+    }, { threshold: 0.2 });
+    wordObs.observe(el);
+  })();
+
+  /* ══════════════════════════════════════════════════════════
+     HERO CURSOR GLOW
+  ══════════════════════════════════════════════════════════ */
+  const heroEl  = document.getElementById('hero');
+  const heroGlow = document.getElementById('hero-glow');
+  if (heroEl && heroGlow) {
+    heroEl.addEventListener('mousemove', (e) => {
+      const rect = heroEl.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      heroGlow.style.left = x + 'px';
+      heroGlow.style.top  = y + 'px';
+    });
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     HERO CLOUD PARALLAX ON SCROLL
+  ══════════════════════════════════════════════════════════ */
+  const clouds = document.querySelectorAll('.cloud');
+  const parallaxSpeeds = [0.06, 0.04, 0.07, 0.03, 0.05];
+  window.addEventListener('scroll', () => {
+    const sy = window.scrollY;
+    clouds.forEach((c, i) => {
+      c.style.transform = `translateY(${sy * parallaxSpeeds[i]}px)`;
+    });
+  }, { passive: true });
+
+  /* ══════════════════════════════════════════════════════════
+     3D TILT ON WORK CARDS
+  ══════════════════════════════════════════════════════════ */
+  document.querySelectorAll('[data-tilt]').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top  + rect.height / 2;
+      const dx = (e.clientX - cx) / (rect.width  / 2);
+      const dy = (e.clientY - cy) / (rect.height / 2);
+      const rotY =  dx * 6;
+      const rotX = -dy * 4;
+      card.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-6px)`;
+      card.style.boxShadow = `${-rotY * 2}px ${rotX * 2 + 20}px 60px rgba(21,101,192,0.28)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+      card.style.boxShadow = '';
+    });
   });
 
-  /* ── SCROLL REVEAL ─────────────────────────────────────── */
-  const ro = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('v'); ro.unobserve(e.target); }
-    });
-  }, { threshold: 0.1 });
+  /* ══════════════════════════════════════════════════════════
+     COUNTER ANIMATION — stat numbers
+  ══════════════════════════════════════════════════════════ */
+  document.querySelectorAll('[data-count]').forEach(el => {
+    const target  = parseInt(el.dataset.count, 10);
+    const suffix  = el.dataset.suffix || '';
+    const cntObs  = new IntersectionObserver((entries) => {
+      if (!entries[0].isIntersecting) return;
+      cntObs.disconnect();
+      let start = 0;
+      const duration = 1200;
+      const step = (timestamp) => {
+        if (!start) start = timestamp;
+        const progress = Math.min((timestamp - start) / duration, 1);
+        const ease = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.floor(ease * target) + suffix;
+        if (progress < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    }, { threshold: 0.5 });
+    cntObs.observe(el);
+  });
 
-  document.querySelectorAll('.r').forEach(el => ro.observe(el));
-
-  /* ── ROLE TABS ──────────────────────────────────────────── */
+  /* ══════════════════════════════════════════════════════════
+     ROLE TABS
+  ══════════════════════════════════════════════════════════ */
   document.querySelectorAll('.role-tab').forEach(tab => {
     tab.addEventListener('click', () => {
       const key = tab.dataset.tab;
@@ -1179,6 +1361,29 @@
       document.getElementById('panel-' + key).classList.add('active');
     });
   });
+
+  /* ══════════════════════════════════════════════════════════
+     SECTION ENTRANCE — stagger children inside revealed blocks
+  ══════════════════════════════════════════════════════════ */
+  const sectionObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const children = e.target.querySelectorAll('.titem, .role-stat, .wc-tag');
+      children.forEach((child, i) => {
+        child.style.transitionDelay = `${i * 0.07}s`;
+        child.style.opacity = '0';
+        child.style.transform = 'translateY(16px)';
+        setTimeout(() => {
+          child.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+          child.style.opacity = '1';
+          child.style.transform = 'none';
+        }, i * 70 + 100);
+      });
+      sectionObs.unobserve(e.target);
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('#experience .timeline, .roles-card, .work-card').forEach(el => sectionObs.observe(el));
 
 </script>
 </body>
