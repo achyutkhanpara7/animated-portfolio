@@ -839,106 +839,99 @@
        HERO CAPABILITY MARQUEE
     ════════════════════════════════════════ */
     #hero-marquee {
-      background: linear-gradient(180deg, #dff0fb 0%, #eef8fe 40%, #f7fcff 100%);
-      padding: 20px 0 24px;
-      margin-top: -36px;       /* pull up into hero fade */
+      background: #ffffff;
+      padding: 0;
+      margin-top: -2px;
       position: relative;
-      overflow: visible;       /* never clip pill shadows */
+      overflow: visible;
       z-index: 2;
     }
 
-    /* inner clip to hide pill overflow horizontally only */
+    /* inner clip — horizontal only, vertical breathing room for shadows */
     .hm-track-wrap {
       overflow: hidden;
       width: 100%;
-      padding: 10px 0 14px;    /* room for shadow above and below */
+      padding: 18px 0 20px;
+      position: relative;
     }
 
-    /* fade masks */
-    #hero-marquee::before,
-    #hero-marquee::after {
+    /* fade masks that match the white background */
+    .hm-track-wrap::before,
+    .hm-track-wrap::after {
       content: '';
-      position: absolute; top: 0; bottom: 0; width: 140px;
+      position: absolute; top: 0; bottom: 0; width: 120px;
       pointer-events: none; z-index: 3;
     }
-    #hero-marquee::before {
+    .hm-track-wrap::before {
       left: 0;
-      background: linear-gradient(to right, #dff0fb 0%, transparent 100%);
+      background: linear-gradient(to right, #ffffff 0%, transparent 100%);
     }
-    #hero-marquee::after {
+    .hm-track-wrap::after {
       right: 0;
-      background: linear-gradient(to left, #f7fcff 0%, transparent 100%);
+      background: linear-gradient(to left, #ffffff 0%, transparent 100%);
     }
 
     .hm-track {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
       width: max-content;
       animation: hmScroll 40s linear infinite;
     }
-    .hm-track-wrap:hover .hm-track {
-      animation-play-state: paused;
-    }
+    .hm-track-wrap:hover .hm-track { animation-play-state: paused; }
     @keyframes hmScroll {
       0%   { transform: translateX(0); }
       100% { transform: translateX(-50%); }
     }
     @media (prefers-reduced-motion: reduce) {
       .hm-track { animation: none; }
-      .hm-track-wrap { overflow-x: auto; scrollbar-width: none; }
-      .hm-track-wrap::-webkit-scrollbar { display: none; }
+      .hm-track-wrap { overflow-x: auto; }
     }
 
     /* pill */
     .hm-pill {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      height: 50px;
-      padding: 0 22px 0 16px;
+      height: 46px;
+      padding: 0 24px;
       background: #ffffff;
-      border: 1.5px solid rgba(33,150,243,0.18);
+      border: 1.5px solid rgba(33,150,243,0.22);
       border-radius: 100px;
-      box-shadow: 0 3px 12px rgba(33,150,243,0.10), 0 1px 3px rgba(0,0,0,0.05);
+      box-shadow: 0 2px 10px rgba(33,150,243,0.10), 0 1px 3px rgba(0,0,0,0.04);
       white-space: nowrap;
       cursor: default;
-      transition: background 0.22s ease, border-color 0.22s ease,
-                  box-shadow 0.22s ease, transform 0.22s ease;
+      transition: background 0.2s, border-color 0.2s, box-shadow 0.2s, transform 0.2s;
       flex-shrink: 0;
     }
     .hm-pill:hover {
-      background: #dceefb;
-      border-color: rgba(33,150,243,0.42);
-      box-shadow: 0 6px 20px rgba(33,150,243,0.18), 0 2px 5px rgba(0,0,0,0.06);
-      transform: translateY(-3px);
+      background: #e8f4fd;
+      border-color: rgba(33,150,243,0.45);
+      box-shadow: 0 5px 18px rgba(33,150,243,0.16);
+      transform: translateY(-2px);
     }
-
     .hm-pill-label {
       font-family: 'Inter', 'Manrope', sans-serif;
-      font-size: 14px;
-      font-weight: 650;
-      color: #0f2644;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #12253f;
       letter-spacing: 0.01em;
       line-height: 1;
     }
     .hm-pill:hover .hm-pill-label { color: #0d47a1; }
 
-    /* sparkle separator */
+    /* SVG dot separator — avoids unicode rendering issues */
     .hm-sep {
-      display: inline-flex; align-items: center;
-      color: rgba(33,150,243,0.45);
-      font-size: 13px;
+      display: inline-flex; align-items: center; justify-content: center;
       flex-shrink: 0;
-      user-select: none;
-      line-height: 1;
+      width: 16px; height: 16px;
+      opacity: 0.45;
     }
+    .hm-sep svg { width: 8px; height: 8px; }
 
     @media (max-width: 768px) {
-      #hero-marquee { margin-top: -20px; padding: 16px 0 18px; }
-      .hm-track-wrap { padding: 8px 0 10px; }
-      .hm-pill { height: 42px; padding: 0 18px 0 14px; }
-      .hm-pill-label { font-size: 13px; }
+      .hm-track-wrap { padding: 14px 0 16px; }
+      .hm-pill { height: 40px; padding: 0 18px; }
+      .hm-pill-label { font-size: 12.5px; }
     }
 
     /* ════════════════════════════════════════
@@ -1273,25 +1266,25 @@
     <div class="hm-track" id="hm-track">
 
       <span class="hm-pill"><span class="hm-pill-label">Enterprise UX</span></span>
-      <span class="hm-sep">✦</span>
+      <span class="hm-sep"><svg viewBox="0 0 8 8" fill="#2196F3"><polygon points="4,0 8,4 4,8 0,4"/></svg></span>
       <span class="hm-pill"><span class="hm-pill-label">AI Products</span></span>
-      <span class="hm-sep">✦</span>
+      <span class="hm-sep"><svg viewBox="0 0 8 8" fill="#2196F3"><polygon points="4,0 8,4 4,8 0,4"/></svg></span>
       <span class="hm-pill"><span class="hm-pill-label">Design Systems</span></span>
-      <span class="hm-sep">✦</span>
+      <span class="hm-sep"><svg viewBox="0 0 8 8" fill="#2196F3"><polygon points="4,0 8,4 4,8 0,4"/></svg></span>
       <span class="hm-pill"><span class="hm-pill-label">UX Research</span></span>
-      <span class="hm-sep">✦</span>
+      <span class="hm-sep"><svg viewBox="0 0 8 8" fill="#2196F3"><polygon points="4,0 8,4 4,8 0,4"/></svg></span>
       <span class="hm-pill"><span class="hm-pill-label">Product Strategy</span></span>
-      <span class="hm-sep">✦</span>
+      <span class="hm-sep"><svg viewBox="0 0 8 8" fill="#2196F3"><polygon points="4,0 8,4 4,8 0,4"/></svg></span>
       <span class="hm-pill"><span class="hm-pill-label">Accessibility</span></span>
-      <span class="hm-sep">✦</span>
+      <span class="hm-sep"><svg viewBox="0 0 8 8" fill="#2196F3"><polygon points="4,0 8,4 4,8 0,4"/></svg></span>
       <span class="hm-pill"><span class="hm-pill-label">Figma</span></span>
-      <span class="hm-sep">✦</span>
+      <span class="hm-sep"><svg viewBox="0 0 8 8" fill="#2196F3"><polygon points="4,0 8,4 4,8 0,4"/></svg></span>
       <span class="hm-pill"><span class="hm-pill-label">Claude</span></span>
-      <span class="hm-sep">✦</span>
+      <span class="hm-sep"><svg viewBox="0 0 8 8" fill="#2196F3"><polygon points="4,0 8,4 4,8 0,4"/></svg></span>
       <span class="hm-pill"><span class="hm-pill-label">Framer</span></span>
-      <span class="hm-sep">✦</span>
+      <span class="hm-sep"><svg viewBox="0 0 8 8" fill="#2196F3"><polygon points="4,0 8,4 4,8 0,4"/></svg></span>
       <span class="hm-pill"><span class="hm-pill-label">Cursor</span></span>
-      <span class="hm-sep">✦</span>
+      <span class="hm-sep"><svg viewBox="0 0 8 8" fill="#2196F3"><polygon points="4,0 8,4 4,8 0,4"/></svg></span>
 
     </div><!-- /.hm-track -->
   </div><!-- /.hm-track-wrap -->
