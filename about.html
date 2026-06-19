@@ -17,12 +17,12 @@
       overflow-x: hidden;
     }
 
-    /* ── NAV ── */
+    /* ════════════ NAV ════════════ */
     #nav {
       position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-      z-index: 100;
+      z-index: 200;
       display: flex; align-items: center; gap: 6px;
-      background: rgba(255,255,255,0.85);
+      background: rgba(255,255,255,0.88);
       backdrop-filter: blur(20px);
       border: 1px solid rgba(33,150,243,0.12);
       border-radius: 100px;
@@ -47,314 +47,489 @@
     }
     .nav-link:hover { color: #2196F3; background: rgba(33,150,243,0.07); }
     .nav-link.active { color: #2196F3; }
-    .nav-link.cta {
-      background: #0D0D0D; color: #fff;
-      padding: 8px 20px;
-    }
+    .nav-link.cta { background: #0D0D0D; color: #fff; padding: 8px 20px; }
     .nav-link.cta:hover { background: #2196F3; }
 
-    /* ── HERO / INTRO BAND ── */
+    /* ════════════ HERO ════════════ */
     #about-hero {
+      min-height: 100vh;
       background: linear-gradient(165deg, #9DD8F0 0%, #6EC4EE 25%, #4BAEE8 55%, #2B99E0 80%, #1A8BD8 100%);
-      padding: 160px 0 100px;
-      position: relative;
-      overflow: hidden;
-    }
-    /* cloud blobs */
-    #about-hero::before {
-      content: '';
-      position: absolute; top: -10%; left: -5%;
-      width: 600px; height: 300px;
-      background: rgba(255,255,255,0.35);
-      border-radius: 50%;
-      filter: blur(70px);
-      pointer-events: none;
-    }
-    #about-hero::after {
-      content: '';
-      position: absolute; bottom: -10%; right: -5%;
-      width: 500px; height: 280px;
-      background: rgba(255,255,255,0.22);
-      border-radius: 50%;
-      filter: blur(60px);
-      pointer-events: none;
-    }
-    /* bottom fade into white */
-    .about-hero-fade {
-      position: absolute; bottom: -1px; left: 0; right: 0; height: 120px;
-      background: linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.7) 60%, #ffffff 100%);
-      pointer-events: none; z-index: 2;
+      position: relative; overflow: hidden;
+      display: flex; align-items: center;
     }
 
-    .about-hero-inner {
-      max-width: 1100px; margin: 0 auto; padding: 0 48px;
-      position: relative; z-index: 3;
-      display: grid; grid-template-columns: 340px 1fr; gap: 72px; align-items: center;
+    /* animated rings */
+    .ah-ring {
+      position: absolute; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.15);
+      pointer-events: none; animation: ringExpand 6s ease-in-out infinite;
+    }
+    .ah-ring-1 { width: 500px; height: 500px; top: -100px; right: -150px; animation-delay: 0s; }
+    .ah-ring-2 { width: 700px; height: 700px; top: -200px; right: -250px; animation-delay: 1.5s; }
+    .ah-ring-3 { width: 300px; height: 300px; bottom: -80px; left: -80px; animation-delay: 3s; }
+    @keyframes ringExpand {
+      0%,100% { transform: scale(1); opacity: 0.5; }
+      50%      { transform: scale(1.06); opacity: 1; }
     }
 
-    /* photo card */
-    .about-photo-card {
-      background: rgba(255,255,255,0.22);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255,255,255,0.50);
-      border-radius: 28px;
-      padding: 28px 28px 32px;
-      display: flex; flex-direction: column; align-items: center; gap: 18px;
-      box-shadow: 0 16px 60px rgba(13,96,170,0.16);
+    /* floating blobs */
+    .ah-blob {
+      position: absolute; border-radius: 50%;
+      background: rgba(255,255,255,0.18); filter: blur(50px);
+      pointer-events: none;
+      animation: blobFloat 8s ease-in-out infinite;
     }
-    .about-photo {
-      width: 100%; border-radius: 18px; overflow: hidden;
-      aspect-ratio: 3/4;
-      background: rgba(255,255,255,0.15);
+    .ah-blob-1 { width: 380px; height: 220px; top: 8%; left: -6%; animation-delay: 0s; }
+    .ah-blob-2 { width: 280px; height: 180px; bottom: 15%; right: -4%; animation-delay: 2.5s; }
+    .ah-blob-3 { width: 200px; height: 140px; top: 55%; left: 8%; animation-delay: 5s; }
+    @keyframes blobFloat {
+      0%,100% { transform: translateY(0) scale(1); }
+      50%      { transform: translateY(-18px) scale(1.04); }
     }
-    .about-photo img {
-      width: 100%; height: 100%; object-fit: cover; display: block;
+
+    /* floating dots */
+    .ah-dot {
+      position: absolute; border-radius: 50%;
+      background: rgba(255,255,255,0.55);
+      pointer-events: none; animation: dotPulse 4s ease-in-out infinite;
     }
-    .about-avail {
+    .ah-dot:nth-child(1)  { width:6px;  height:6px;  top:22%; left:15%; animation-delay:0s; }
+    .ah-dot:nth-child(2)  { width:4px;  height:4px;  top:65%; left:22%; animation-delay:1s; }
+    .ah-dot:nth-child(3)  { width:8px;  height:8px;  top:35%; right:18%; animation-delay:2s; }
+    .ah-dot:nth-child(4)  { width:5px;  height:5px;  bottom:30%; right:28%; animation-delay:0.5s; }
+    .ah-dot:nth-child(5)  { width:3px;  height:3px;  top:80%; left:45%; animation-delay:1.5s; }
+    @keyframes dotPulse {
+      0%,100% { opacity: 0.4; transform: scale(1); }
+      50%      { opacity: 1; transform: scale(1.5); }
+    }
+
+    .ah-inner {
+      position: relative; z-index: 5;
+      max-width: 1100px; margin: 0 auto; padding: 140px 48px 100px;
+      display: grid; grid-template-columns: 1fr 360px; gap: 80px; align-items: center;
+    }
+
+    /* left — text */
+    .ah-text { color: #fff; }
+    .ah-greeting {
       display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(255,255,255,0.25);
-      border: 1px solid rgba(255,255,255,0.45);
-      border-radius: 100px; padding: 7px 16px;
-      font-size: 12.5px; font-weight: 700; color: #fff;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 100px; padding: 8px 18px;
+      font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+      color: rgba(255,255,255,0.90);
+      margin-bottom: 28px;
+      animation: fadeUp 0.7s ease both;
     }
-    .avail-dot {
-      width: 8px; height: 8px; border-radius: 50%;
-      background: #4ADE80;
+    .ah-h1 {
+      font-size: clamp(36px, 5vw, 64px); font-weight: 900;
+      letter-spacing: -0.03em; line-height: 1.08;
+      margin-bottom: 24px;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+    .ah-accent { font-family: 'Caveat', cursive; font-weight: 700; font-size: 1.1em; }
+    .ah-bio {
+      font-size: 17px; line-height: 1.80; color: rgba(255,255,255,0.88);
+      max-width: 540px; margin-bottom: 44px;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+    .ah-btns {
+      display: flex; gap: 12px;
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
+    .ah-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; border-radius: 100px; border: none; cursor: pointer;
+      font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+    }
+    .ah-btn:hover { transform: translateY(-2px); }
+    .ah-btn.primary { background: #fff; color: #1565C0; box-shadow: 0 4px 20px rgba(0,0,0,0.12); }
+    .ah-btn.primary:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.18); }
+    .ah-btn.ghost {
+      background: rgba(255,255,255,0.16); color: #fff;
+      border: 1.5px solid rgba(255,255,255,0.40);
+    }
+    .ah-btn.ghost:hover { background: rgba(255,255,255,0.26); }
+
+    /* right — photo card */
+    .ah-card {
+      background: rgba(255,255,255,0.18);
+      backdrop-filter: blur(24px);
+      border: 1px solid rgba(255,255,255,0.48);
+      border-radius: 32px;
+      padding: 24px;
+      box-shadow: 0 20px 60px rgba(13,96,170,0.22);
+      animation: fadeUp 0.8s 0.25s ease both;
+      position: relative;
+    }
+    .ah-card::before {
+      content: '';
+      position: absolute; inset: 0; border-radius: 32px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .ah-photo {
+      width: 100%; border-radius: 20px; overflow: hidden;
+      aspect-ratio: 4/5;
+      background: rgba(255,255,255,0.10);
+      margin-bottom: 20px;
+    }
+    .ah-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .ah-card-footer {
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .ah-avail {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12.5px; font-weight: 700; color: rgba(255,255,255,0.90);
+    }
+    .ah-avail-dot {
+      width: 8px; height: 8px; border-radius: 50%; background: #4ADE80;
       box-shadow: 0 0 0 3px rgba(74,222,128,0.3);
-      animation: pulse 2s ease-in-out infinite;
+      animation: avPulse 2s ease-in-out infinite;
     }
-    @keyframes pulse {
+    @keyframes avPulse {
       0%,100% { box-shadow: 0 0 0 3px rgba(74,222,128,0.3); }
       50%      { box-shadow: 0 0 0 6px rgba(74,222,128,0.12); }
     }
-    .about-card-name {
-      font-size: 20px; font-weight: 800; color: #fff; letter-spacing: -0.01em;
-    }
-    .about-socials { display: flex; gap: 10px; }
-    .about-social-btn {
-      width: 40px; height: 40px; border-radius: 12px;
-      background: rgba(255,255,255,0.20);
-      border: 1px solid rgba(255,255,255,0.40);
+    .ah-socials { display: flex; gap: 8px; }
+    .ah-soc {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.35);
       display: flex; align-items: center; justify-content: center;
-      font-size: 12px; font-weight: 800; color: #fff;
-      text-decoration: none;
+      color: #fff; font-size: 11px; font-weight: 800; text-decoration: none;
       transition: background 0.2s, transform 0.2s;
     }
-    .about-social-btn:hover { background: rgba(255,255,255,0.35); transform: scale(1.1); }
-    .about-card-btns { display: flex; gap: 10px; width: 100%; }
-    .about-btn {
-      flex: 1; padding: 12px 0; border-radius: 100px; border: none; cursor: pointer;
-      font-family: 'Manrope', sans-serif; font-size: 13.5px; font-weight: 700;
-      text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 7px;
-      transition: opacity 0.2s, transform 0.2s;
-    }
-    .about-btn:hover { opacity: 0.88; transform: translateY(-1px); }
-    .about-btn.secondary {
-      background: rgba(255,255,255,0.22); color: #fff;
-      border: 1px solid rgba(255,255,255,0.45);
-    }
-    .about-btn.primary {
-      background: #2196F3; color: #fff;
+    .ah-soc:hover { background: rgba(255,255,255,0.32); transform: scale(1.1); }
+
+    /* hero bottom fade */
+    .ah-fade {
+      position: absolute; bottom: -1px; left: 0; right: 0; height: 130px;
+      background: linear-gradient(to bottom, transparent, #fff);
+      pointer-events: none; z-index: 4;
     }
 
-    /* right intro text */
-    .about-intro { color: #fff; }
-    .about-greeting {
-      font-size: 17px; font-weight: 600; opacity: 0.85; margin-bottom: 12px;
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: none; }
     }
-    .about-h1 {
-      font-size: clamp(32px, 4.5vw, 54px); font-weight: 900;
-      letter-spacing: -0.025em; line-height: 1.12; margin-bottom: 22px;
+
+    /* ════════════ STATS BAR ════════════ */
+    #stats-bar {
+      background: #f8fcff;
+      border-top: 1px solid rgba(33,150,243,0.08);
+      border-bottom: 1px solid rgba(33,150,243,0.08);
+      padding: 0;
     }
-    .about-role-cycle { display: block; }
-    .about-role-word {
-      color: #fff;
-      background: rgba(255,255,255,0.22);
-      border-radius: 8px;
-      padding: 2px 10px;
-      display: inline-block;
-    }
-    .about-bio {
-      font-size: 16px; line-height: 1.80; color: rgba(255,255,255,0.88);
-      max-width: 560px; margin-bottom: 40px;
-    }
-    /* mini stats row */
-    .about-stats {
+    .stats-bar-inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 48px;
       display: grid; grid-template-columns: repeat(4, 1fr);
-      gap: 0;
     }
-    .about-stat {
-      display: flex; flex-direction: column; align-items: flex-start;
-      padding: 0 24px 0 0;
-      border-right: 1px solid rgba(255,255,255,0.25);
+    .sb-stat {
+      padding: 36px 32px;
+      border-right: 1px solid rgba(33,150,243,0.08);
+      display: flex; flex-direction: column; gap: 4px;
+      position: relative;
     }
-    .about-stat:last-child { border-right: none; padding-left: 24px; padding-right: 0; }
-    .about-stat:not(:first-child) { padding-left: 24px; }
-    .about-stat-num {
-      font-size: 32px; font-weight: 900; color: #fff; line-height: 1;
-      letter-spacing: -0.02em;
+    .sb-stat:last-child { border-right: none; }
+    .sb-stat::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, #2196F3, #64C8F5);
+      border-radius: 0 0 3px 3px;
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.6s ease;
     }
-    .about-stat-lbl { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.72); margin-top: 4px; }
+    .sb-stat.v::before { transform: scaleX(1); }
+    .sb-num {
+      font-size: clamp(28px, 3.5vw, 44px); font-weight: 900;
+      color: #0D1A2B; letter-spacing: -0.025em;
+    }
+    .sb-num span { color: #2196F3; }
+    .sb-lbl { font-size: 13px; font-weight: 600; color: #6b8299; }
 
-    /* ── CONTENT AREA ── */
-    .about-content {
-      max-width: 1100px; margin: 0 auto; padding: 80px 48px 120px;
+    /* ════════════ PHILOSOPHY ════════════ */
+    #philosophy {
+      padding: 100px 0 80px;
+      background: #fff;
+      overflow: hidden;
     }
-
-    /* section label */
-    .ab-label {
+    .phil-inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 48px;
+    }
+    .section-eyebrow {
       display: inline-flex; align-items: center; gap: 8px;
       font-size: 13px; font-weight: 700; letter-spacing: 0.14em;
-      text-transform: uppercase; color: #2196F3; margin-bottom: 28px;
+      text-transform: uppercase; color: #2196F3; margin-bottom: 16px;
+    }
+    .section-h2 {
+      font-family: 'Caveat', cursive;
+      font-size: clamp(36px, 5vw, 60px); font-weight: 700;
+      color: #0D1A2B; letter-spacing: -0.01em; margin-bottom: 20px;
+    }
+    .section-lead {
+      font-size: 17px; line-height: 1.80; color: #4a5568;
+      max-width: 680px; margin-bottom: 64px;
     }
 
-    /* ── Experience ── */
-    .ab-section { margin-bottom: 72px; }
-    .exp-list { display: flex; flex-direction: column; gap: 12px; }
+    /* fan cards */
+    .phil-cards {
+      display: flex; justify-content: center;
+      gap: 0; position: relative; height: 420px; margin: 0 -20px;
+    }
+    .phil-card {
+      position: absolute;
+      width: 260px;
+      border-radius: 24px;
+      padding: 28px 26px;
+      cursor: default;
+      transition: transform 0.45s cubic-bezier(.22,.68,0,1.3), box-shadow 0.3s ease, z-index 0s;
+      will-change: transform;
+    }
+    .phil-card:nth-child(1) { background: #fde8d8; left: calc(50% - 580px); top: 60px; transform: rotate(-12deg); box-shadow: 0 8px 32px rgba(253,152,80,0.18); }
+    .phil-card:nth-child(2) { background: #d8f0e8; left: calc(50% - 320px); top: 30px; transform: rotate(-6deg); box-shadow: 0 8px 32px rgba(72,187,120,0.18); }
+    .phil-card:nth-child(3) { background: #dbeafe; left: calc(50% - 60px); top: 10px; transform: rotate(0deg);  box-shadow: 0 8px 32px rgba(59,130,246,0.18); z-index: 3; }
+    .phil-card:nth-child(4) { background: #fde8f0; left: calc(50% + 200px); top: 30px; transform: rotate(6deg);  box-shadow: 0 8px 32px rgba(236,72,153,0.18); }
+    .phil-card:nth-child(5) { background: #fef3c7; left: calc(50% + 460px); top: 60px; transform: rotate(12deg); box-shadow: 0 8px 32px rgba(251,191,36,0.18); }
+
+    .phil-card:hover {
+      transform: translateY(-30px) rotate(0deg) scale(1.04) !important;
+      z-index: 10 !important;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.16) !important;
+    }
+    .phil-card-title {
+      font-family: 'Caveat', cursive;
+      font-size: 24px; font-weight: 700; color: #1a2a3a;
+      line-height: 1.2; margin-bottom: 14px;
+    }
+    .phil-card-body {
+      font-size: 13.5px; line-height: 1.75; color: #3a4a5a; font-weight: 500;
+    }
+
+    /* ════════════ EXPERIENCE ════════════ */
+    #experience {
+      padding: 80px 0 100px;
+      background: linear-gradient(180deg, #f8fcff 0%, #fff 100%);
+    }
+    .exp-inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 48px;
+    }
+
+    /* timeline */
+    .exp-timeline {
+      position: relative; padding-left: 32px;
+      display: flex; flex-direction: column; gap: 0;
+    }
+    .exp-timeline::before {
+      content: '';
+      position: absolute; left: 7px; top: 8px; bottom: 8px; width: 2px;
+      background: linear-gradient(to bottom, #2196F3 0%, rgba(33,150,243,0.1) 100%);
+    }
+
     .exp-item {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 20px 28px;
+      position: relative; padding: 0 0 32px 28px;
+      opacity: 0; transform: translateX(-20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .exp-item.v { opacity: 1; transform: none; }
+    .exp-item::before {
+      content: '';
+      position: absolute; left: -25px; top: 8px;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: #fff; border: 3px solid #2196F3;
+      box-shadow: 0 0 0 4px rgba(33,150,243,0.12);
+    }
+    .exp-item.current::before {
+      background: #2196F3;
+      box-shadow: 0 0 0 4px rgba(33,150,243,0.20), 0 0 0 8px rgba(33,150,243,0.06);
+      animation: dotGlow 2s ease-in-out infinite;
+    }
+    @keyframes dotGlow {
+      0%,100% { box-shadow: 0 0 0 4px rgba(33,150,243,0.20), 0 0 0 8px rgba(33,150,243,0.06); }
+      50%      { box-shadow: 0 0 0 6px rgba(33,150,243,0.28), 0 0 0 12px rgba(33,150,243,0.10); }
+    }
+
+    .exp-card {
       background: #fff;
       border: 1.5px solid rgba(33,150,243,0.10);
-      border-radius: 18px;
+      border-radius: 20px;
+      padding: 22px 28px;
+      display: flex; justify-content: space-between; align-items: center;
       box-shadow: 0 2px 12px rgba(33,150,243,0.05);
       transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
     }
-    .exp-item:hover {
+    .exp-card:hover {
       border-color: rgba(33,150,243,0.28);
       box-shadow: 0 6px 24px rgba(33,150,243,0.10);
-      transform: translateX(4px);
+      transform: translateX(6px);
     }
-    .exp-left {}
-    .exp-role {
-      font-size: 16px; font-weight: 800; color: #0D1A2B; margin-bottom: 4px;
-    }
-    .exp-company {
-      font-size: 13.5px; font-weight: 600; color: #2196F3;
-    }
-    .exp-date {
-      font-size: 12.5px; font-weight: 700;
-      color: #1a6ab5;
-      background: rgba(33,150,243,0.08);
-      border: 1px solid rgba(33,150,243,0.15);
-      border-radius: 100px;
-      padding: 6px 16px;
-      white-space: nowrap;
-    }
-    /* current role accent */
-    .exp-item.current {
+    .exp-item.current .exp-card {
       border-color: rgba(33,150,243,0.25);
-      background: linear-gradient(135deg, #f0f8ff 0%, #fff 100%);
+      background: linear-gradient(135deg, #f0f9ff 0%, #fff 100%);
     }
-    .exp-item.current .exp-date {
-      background: #2196F3; color: #fff; border-color: #2196F3;
-    }
-
-    /* ── Education ── */
-    .edu-list { display: flex; flex-direction: column; gap: 12px; }
-    .edu-item {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 20px 28px;
-      background: #f7fcff;
-      border: 1.5px solid rgba(33,150,243,0.10);
-      border-radius: 18px;
-      transition: border-color 0.2s, transform 0.2s;
-    }
-    .edu-item:hover {
-      border-color: rgba(33,150,243,0.28);
-      transform: translateX(4px);
-    }
-    .edu-degree { font-size: 16px; font-weight: 800; color: #0D1A2B; margin-bottom: 4px; }
-    .edu-school { font-size: 13.5px; font-weight: 600; color: #2196F3; }
-    .edu-year {
-      font-size: 12.5px; font-weight: 700; color: #1a6ab5;
-      background: rgba(33,150,243,0.08);
+    .exp-role { font-size: 16px; font-weight: 800; color: #0D1A2B; margin-bottom: 4px; }
+    .exp-company { font-size: 13.5px; font-weight: 600; color: #2196F3; }
+    .exp-date {
+      font-size: 12px; font-weight: 700;
+      background: rgba(33,150,243,0.08); color: #1565C0;
       border: 1px solid rgba(33,150,243,0.15);
-      border-radius: 100px;
-      padding: 6px 16px; white-space: nowrap;
+      border-radius: 100px; padding: 6px 16px; white-space: nowrap;
+    }
+    .exp-item.current .exp-date { background: #2196F3; color: #fff; border-color: #2196F3; }
+
+    /* ════════════ EDUCATION + TOOLS ════════════ */
+    #edu-tools {
+      padding: 80px 0 100px;
+      background: #fff;
+    }
+    .et-inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 48px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 72px;
     }
 
-    /* ── Two column layout for Tools + Skills ── */
-    .ab-two-col {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 56px;
-      margin-bottom: 72px;
+    /* edu cards */
+    .edu-card {
+      background: linear-gradient(135deg, #f0f9ff 0%, #e8f4fd 100%);
+      border: 1.5px solid rgba(33,150,243,0.14);
+      border-radius: 20px; padding: 26px 28px;
+      margin-bottom: 14px;
+      display: flex; justify-content: space-between; align-items: flex-start;
+      transition: transform 0.2s, border-color 0.2s;
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.2s;
+    }
+    .edu-card.v { opacity: 1; transform: none; }
+    .edu-card:hover { transform: translateY(-3px); border-color: rgba(33,150,243,0.30); }
+    .edu-deg { font-size: 15.5px; font-weight: 800; color: #0D1A2B; margin-bottom: 5px; }
+    .edu-school { font-size: 13px; font-weight: 600; color: #2196F3; }
+    .edu-yr {
+      font-size: 12px; font-weight: 700; color: #1565C0;
+      background: rgba(33,150,243,0.10);
+      border-radius: 100px; padding: 5px 14px;
+      white-space: nowrap; margin-left: 16px;
     }
 
-    /* ── Tools grid ── */
-    .tools-grid {
+    /* tools bento */
+    .tools-bento {
       display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
     }
-    .tool-item {
+    .tool-card {
+      background: #fff; border: 1.5px solid rgba(33,150,243,0.10);
+      border-radius: 18px; padding: 20px 20px;
       display: flex; align-items: center; gap: 14px;
-      padding: 16px 20px;
-      background: #fff;
-      border: 1.5px solid rgba(33,150,243,0.10);
-      border-radius: 16px;
       box-shadow: 0 2px 10px rgba(33,150,243,0.05);
-      transition: border-color 0.2s, transform 0.2s;
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+      opacity: 0; transform: translateY(16px);
+      transition: opacity 0.45s ease, transform 0.45s ease, border-color 0.2s, box-shadow 0.2s;
     }
-    .tool-item:hover {
-      border-color: rgba(33,150,243,0.28);
-      transform: translateY(-2px);
-    }
-    .tool-icon {
-      width: 40px; height: 40px; border-radius: 10px;
-      background: rgba(33,150,243,0.08);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px; flex-shrink: 0;
-    }
+    .tool-card.v { opacity: 1; transform: none; }
+    .tool-card:hover { transform: translateY(-3px); border-color: rgba(33,150,243,0.28); box-shadow: 0 6px 24px rgba(33,150,243,0.10); }
+    .tool-icon { font-size: 26px; flex-shrink: 0; }
     .tool-name { font-size: 14px; font-weight: 800; color: #0D1A2B; }
-    .tool-desc { font-size: 11.5px; font-weight: 600; color: #888; margin-top: 2px; }
+    .tool-cat { font-size: 11.5px; font-weight: 600; color: #888; margin-top: 2px; }
 
-    /* ── Skills tags ── */
+    /* ════════════ SKILLS ════════════ */
+    #skills {
+      padding: 80px 0 120px;
+      background: linear-gradient(180deg, #f8fcff 0%, #fff 100%);
+    }
+    .skills-inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 48px;
+    }
     .skills-cloud {
-      display: flex; flex-wrap: wrap; gap: 10px;
+      display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px;
     }
     .skill-tag {
-      padding: 9px 18px;
-      background: #f0f8ff;
-      border: 1.5px solid rgba(33,150,243,0.15);
+      padding: 10px 20px;
+      background: #fff;
+      border: 1.5px solid rgba(33,150,243,0.14);
       border-radius: 100px;
-      font-size: 13px; font-weight: 700; color: #1a3a5c;
-      transition: background 0.2s, border-color 0.2s, transform 0.2s;
+      font-size: 13.5px; font-weight: 700; color: #1a3a5c;
+      cursor: default;
+      opacity: 0; transform: scale(0.92);
+      transition: opacity 0.35s ease, transform 0.35s ease, background 0.2s, border-color 0.2s;
     }
+    .skill-tag.v { opacity: 1; transform: scale(1); }
     .skill-tag:hover {
-      background: #dceefb;
-      border-color: rgba(33,150,243,0.40);
-      transform: translateY(-2px);
+      background: #dceefb; border-color: rgba(33,150,243,0.40);
+      transform: translateY(-2px) scale(1.04);
     }
 
-    /* ── Scroll reveal ── */
-    .r {
-      opacity: 0; transform: translateY(28px);
-      transition: opacity 0.65s ease, transform 0.65s ease;
+    /* ════════════ CTA BAND ════════════ */
+    #cta-band {
+      background: linear-gradient(165deg, #9DD8F0 0%, #4BAEE8 55%, #1A8BD8 100%);
+      padding: 80px 48px;
+      text-align: center; position: relative; overflow: hidden;
     }
+    #cta-band::before {
+      content: 'ACHYUT';
+      position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%);
+      font-size: clamp(60px, 14vw, 180px); font-weight: 900;
+      color: rgba(255,255,255,0.06); white-space: nowrap; pointer-events: none;
+      letter-spacing: 0.1em;
+    }
+    .cta-label {
+      font-size: 13px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: rgba(255,255,255,0.75);
+      margin-bottom: 16px; display: block;
+    }
+    .cta-h {
+      font-size: clamp(28px, 4vw, 52px); font-weight: 900;
+      color: #fff; letter-spacing: -0.025em; line-height: 1.1;
+      margin-bottom: 12px;
+    }
+    .cta-h .cave { font-family: 'Caveat', cursive; font-weight: 700; }
+    .cta-sub {
+      font-size: 16px; color: rgba(255,255,255,0.80);
+      margin-bottom: 40px;
+    }
+    .cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .cta-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 15px 32px; border-radius: 100px; border: none; cursor: pointer;
+      font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .cta-btn:hover { transform: translateY(-3px); }
+    .cta-btn.white { background: #fff; color: #1565C0; box-shadow: 0 4px 20px rgba(0,0,0,0.12); }
+    .cta-btn.white:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.18); }
+    .cta-btn.outline { background: rgba(255,255,255,0.18); color: #fff; border: 1.5px solid rgba(255,255,255,0.45); }
+    .cta-btn.outline:hover { background: rgba(255,255,255,0.28); }
+
+    /* ════════════ SCROLL REVEAL ════════════ */
+    .r { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
     .r.v { opacity: 1; transform: none; }
-    .r-left {
-      opacity: 0; transform: translateX(-28px);
-      transition: opacity 0.65s ease, transform 0.65s ease;
-    }
-    .r-left.v { opacity: 1; transform: none; }
 
-    /* ── Responsive ── */
-    @media (max-width: 900px) {
-      .about-hero-inner { grid-template-columns: 1fr; gap: 40px; }
-      .about-photo-card { max-width: 320px; margin: 0 auto; }
-      .about-stats { grid-template-columns: repeat(2, 1fr); gap: 20px; }
-      .about-stat { border-right: none; padding: 0; }
-      .ab-two-col { grid-template-columns: 1fr; gap: 48px; }
+    /* ════════════ RESPONSIVE ════════════ */
+    @media (max-width: 960px) {
+      .ah-inner { grid-template-columns: 1fr; padding: 130px 32px 80px; }
+      .ah-card { max-width: 320px; margin: 0 auto; }
+      .stats-bar-inner { grid-template-columns: repeat(2, 1fr); }
+      .sb-stat:nth-child(2) { border-right: none; }
+      .et-inner { grid-template-columns: 1fr; gap: 56px; }
+      .phil-cards { height: 520px; }
+      .phil-card { width: 220px; }
+      .phil-card:nth-child(1) { left: calc(50% - 480px); }
+      .phil-card:nth-child(2) { left: calc(50% - 260px); }
+      .phil-card:nth-child(3) { left: calc(50% - 40px); }
+      .phil-card:nth-child(4) { left: calc(50% + 180px); }
+      .phil-card:nth-child(5) { left: calc(50% + 400px); }
     }
     @media (max-width: 640px) {
-      .about-hero-inner { padding: 0 22px; }
-      .about-content { padding: 60px 22px 80px; }
-      .about-stats { grid-template-columns: repeat(2, 1fr); }
-      .tools-grid { grid-template-columns: 1fr; }
+      .ah-inner, .exp-inner, .phil-inner, .et-inner, .skills-inner { padding: 0 22px; }
+      .ah-inner { padding-top: 120px; }
+      .stats-bar-inner { grid-template-columns: repeat(2,1fr); padding: 0 22px; }
+      .phil-cards { display: flex; flex-direction: column; height: auto; gap: 14px; margin: 0; }
+      .phil-card { position: static; width: 100%; transform: none !important; }
+      .tools-bento { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-<!-- ══ NAV ════════════════════════════════════════════════ -->
+<!-- NAV -->
 <nav id="nav">
   <a href="index.html" class="nav-brand">
     <div class="nav-avatar"><img src="photo.jpg" alt="Achyut" onerror="this.style.display='none';this.parentElement.innerHTML='AK';" /></div>
@@ -368,296 +543,261 @@
   </div>
 </nav>
 
-<!-- ══ HERO ═══════════════════════════════════════════════ -->
+<!-- ══ HERO ══ -->
 <section id="about-hero">
-  <div class="about-hero-inner">
+  <div class="ah-blob ah-blob-1"></div>
+  <div class="ah-blob ah-blob-2"></div>
+  <div class="ah-blob ah-blob-3"></div>
+  <div class="ah-ring ah-ring-1"></div>
+  <div class="ah-ring ah-ring-2"></div>
+  <div class="ah-ring ah-ring-3"></div>
+  <div class="ah-dot"></div>
+  <div class="ah-dot"></div>
+  <div class="ah-dot"></div>
+  <div class="ah-dot"></div>
+  <div class="ah-dot"></div>
 
-    <!-- Photo card (left) -->
-    <div class="about-photo-card r-left">
-      <div class="about-photo">
-        <img src="photo.jpg" alt="Achyut Khanpara" onerror="this.style.background='linear-gradient(135deg,#90CAF9,#1E90D8)'" />
-      </div>
-      <div class="about-avail">
-        <span class="avail-dot"></span> Available for work
-      </div>
-      <div class="about-card-name">Achyut Khanpara</div>
-      <div class="about-socials">
-        <a href="https://linkedin.com/in/achyut-khanpara/" target="_blank" class="about-social-btn" title="LinkedIn">in</a>
-        <a href="#" class="about-social-btn" title="Instagram">IG</a>
-        <a href="#" class="about-social-btn" title="Behance">Be</a>
-      </div>
-      <div class="about-card-btns">
-        <a href="#" class="about-btn secondary">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Download CV
-        </a>
-        <a href="mailto:achyutkhanpara7@gmail.com" class="about-btn primary">
+  <div class="ah-inner">
+    <!-- left text -->
+    <div class="ah-text">
+      <div class="ah-greeting">👋 &nbsp;Hey there, I'm Achyut</div>
+      <h1 class="ah-h1">
+        Product Designer<br>
+        &amp; <span class="ah-accent">UX Researcher</span><br>
+        Based in the US.
+      </h1>
+      <p class="ah-bio">
+        I specialize in creating clean, user-friendly digital experiences by blending creativity with functionality. With a strong background in interactive design, I focus on crafting designs that not only look great but also provide smooth and engaging user interactions, helping ideas come to life seamlessly.
+      </p>
+      <div class="ah-btns">
+        <a href="mailto:achyutkhanpara7@gmail.com" class="ah-btn primary">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
           Contact Me
         </a>
+        <a href="#" class="ah-btn ghost">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download CV
+        </a>
       </div>
     </div>
 
-    <!-- Intro text (right) -->
-    <div class="about-intro r">
-      <p class="about-greeting">👋 Hey there,</p>
-      <h1 class="about-h1">
-        I'm Achyut Khanpara,<br>
-        <span class="about-role-cycle">
-          <span class="about-role-word" id="roleWord">Product Designer</span>
-        </span><br>
-        Based in the United States.
-      </h1>
-      <p class="about-bio">
-        I specialize in creating clean, user-friendly digital experiences by blending creativity with functionality. With a strong background in interactive design, I focus on crafting designs that not only look great but also provide smooth and engaging user interactions, helping ideas come to life seamlessly.
-      </p>
-      <div class="about-stats">
-        <div class="about-stat">
-          <span class="about-stat-num">15+</span>
-          <span class="about-stat-lbl">Completed Projects</span>
+    <!-- right photo card -->
+    <div class="ah-card">
+      <div class="ah-photo">
+        <img src="photo.jpg" alt="Achyut Khanpara" />
+      </div>
+      <div class="ah-card-footer">
+        <div class="ah-avail">
+          <span class="ah-avail-dot"></span> Available for work
         </div>
-        <div class="about-stat">
-          <span class="about-stat-num">4+</span>
-          <span class="about-stat-lbl">Years of Experience</span>
-        </div>
-        <div class="about-stat">
-          <span class="about-stat-num">15+</span>
-          <span class="about-stat-lbl">Happy Clients</span>
-        </div>
-        <div class="about-stat">
-          <span class="about-stat-num">10+</span>
-          <span class="about-stat-lbl">Certifications</span>
+        <div class="ah-socials">
+          <a href="https://linkedin.com/in/achyut-khanpara/" target="_blank" class="ah-soc">in</a>
+          <a href="#" class="ah-soc">IG</a>
+          <a href="#" class="ah-soc">Be</a>
         </div>
       </div>
     </div>
-
   </div>
-  <div class="about-hero-fade"></div>
+
+  <div class="ah-fade"></div>
 </section>
 
-<!-- ══ CONTENT ════════════════════════════════════════════ -->
-<div class="about-content">
+<!-- ══ STATS BAR ══ -->
+<section id="stats-bar">
+  <div class="stats-bar-inner">
+    <div class="sb-stat r"><span class="sb-num">15<span>+</span></span><span class="sb-lbl">Completed Projects</span></div>
+    <div class="sb-stat r"><span class="sb-num">4<span>+</span></span><span class="sb-lbl">Years of Experience</span></div>
+    <div class="sb-stat r"><span class="sb-num">15<span>+</span></span><span class="sb-lbl">Happy Clients</span></div>
+    <div class="sb-stat r"><span class="sb-num">10<span>+</span></span><span class="sb-lbl">Certifications</span></div>
+  </div>
+</section>
 
-  <!-- Experience -->
-  <div class="ab-section r">
-    <div class="ab-label">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2196F3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
-      Experience
+<!-- ══ PHILOSOPHY ══ -->
+<section id="philosophy">
+  <div class="phil-inner">
+    <div class="section-eyebrow r">◆ &nbsp;My Design Philosophy</div>
+    <h2 class="section-h2 r">how i think about design</h2>
+    <p class="section-lead r">
+      i see design as a powerful strategic tool to solve complex business challenges and create lasting value. i believe designers carry a responsibility not just towards their work, but also towards society and the people they design for.
+    </p>
+
+    <div class="phil-cards">
+      <div class="phil-card">
+        <div class="phil-card-title">clarity through chaos</div>
+        <div class="phil-card-body">Ambiguity is part of the process, not a barrier. Sitting with the unknown, working through the overwhelm — clarity is what makes the process rewarding.</div>
+      </div>
+      <div class="phil-card">
+        <div class="phil-card-title">craft is everywhere</div>
+        <div class="phil-card-body">Whether it's fashion, photography, or brand — I'm drawn to work that carries intention. I constantly look beyond screens for inspiration.</div>
+      </div>
+      <div class="phil-card">
+        <div class="phil-card-title">depth over surface</div>
+        <div class="phil-card-body">I don't stop at the obvious. I dig into the root of problems, especially complex systems, to deeply understand people and design solutions that genuinely improve everyday experiences.</div>
+      </div>
+      <div class="phil-card">
+        <div class="phil-card-title">design without borders</div>
+        <div class="phil-card-body">From writing PRDs to troubleshooting with developers and stakeholders — I step in where needed. Ownership means doing what it takes.</div>
+      </div>
+      <div class="phil-card">
+        <div class="phil-card-title">less is more</div>
+        <div class="phil-card-body">Great design isn't about adding more, it's about removing what doesn't matter. I balance quality with constraints and focus on what truly helps the user move forward.</div>
+      </div>
     </div>
-    <div class="exp-list">
+  </div>
+</section>
+
+<!-- ══ EXPERIENCE ══ -->
+<section id="experience">
+  <div class="exp-inner">
+    <div class="section-eyebrow r">◆ &nbsp;Experience</div>
+    <h2 class="section-h2 r" style="font-family:'Manrope',sans-serif;font-size:clamp(28px,4vw,48px);font-weight:900;letter-spacing:-0.025em;margin-bottom:48px;">The Journey So Far</h2>
+
+    <div class="exp-timeline">
       <div class="exp-item current">
-        <div class="exp-left">
-          <div class="exp-role">UX Designer &amp; Researcher</div>
-          <div class="exp-company">Worldlink</div>
+        <div class="exp-card">
+          <div><div class="exp-role">UX Designer &amp; Researcher</div><div class="exp-company">Worldlink</div></div>
+          <div class="exp-date">Oct 2025 – Present</div>
         </div>
-        <div class="exp-date">Oct 2025 – Present</div>
       </div>
       <div class="exp-item">
-        <div class="exp-left">
-          <div class="exp-role">UX Designer &amp; Researcher</div>
-          <div class="exp-company">Sayaam For All</div>
+        <div class="exp-card">
+          <div><div class="exp-role">UX Designer &amp; Researcher</div><div class="exp-company">Sayaam For All</div></div>
+          <div class="exp-date">Jun 2025 – Oct 2025</div>
         </div>
-        <div class="exp-date">Jun 2025 – Oct 2025</div>
       </div>
       <div class="exp-item">
-        <div class="exp-left">
-          <div class="exp-role">UX Designer &amp; Researcher</div>
-          <div class="exp-company">Arizona State University</div>
+        <div class="exp-card">
+          <div><div class="exp-role">UX Designer &amp; Researcher</div><div class="exp-company">Arizona State University</div></div>
+          <div class="exp-date">Jul 2024 – May 2025</div>
         </div>
-        <div class="exp-date">Jul 2024 – May 2025</div>
       </div>
       <div class="exp-item">
-        <div class="exp-left">
-          <div class="exp-role">UX Researcher</div>
-          <div class="exp-company">StreamerStakes</div>
+        <div class="exp-card">
+          <div><div class="exp-role">UX Researcher</div><div class="exp-company">StreamerStakes</div></div>
+          <div class="exp-date">Sep 2024 – Dec 2024</div>
         </div>
-        <div class="exp-date">Sep 2024 – Dec 2024</div>
       </div>
       <div class="exp-item">
-        <div class="exp-left">
-          <div class="exp-role">UX Designer &amp; Researcher</div>
-          <div class="exp-company">Infotop Solutions Pvt. Ltd.</div>
+        <div class="exp-card">
+          <div><div class="exp-role">UX Designer &amp; Researcher</div><div class="exp-company">Infotop Solutions Pvt. Ltd.</div></div>
+          <div class="exp-date">Sep 2022 – Jun 2023</div>
         </div>
-        <div class="exp-date">Sep 2022 – Jun 2023</div>
       </div>
       <div class="exp-item">
-        <div class="exp-left">
-          <div class="exp-role">UX Designer &amp; Researcher</div>
-          <div class="exp-company">Thinkwik Technologies Pvt. Ltd.</div>
+        <div class="exp-card">
+          <div><div class="exp-role">UX Designer &amp; Researcher</div><div class="exp-company">Thinkwik Technologies Pvt. Ltd.</div></div>
+          <div class="exp-date">May 2022 – Aug 2022</div>
         </div>
-        <div class="exp-date">May 2022 – Aug 2022</div>
       </div>
       <div class="exp-item">
-        <div class="exp-left">
-          <div class="exp-role">UX Design Intern</div>
-          <div class="exp-company">Simform Solutions Pvt. Ltd.</div>
+        <div class="exp-card">
+          <div><div class="exp-role">UX Design Intern</div><div class="exp-company">Simform Solutions Pvt. Ltd.</div></div>
+          <div class="exp-date">Jan 2022 – Feb 2022</div>
         </div>
-        <div class="exp-date">Jan 2022 – Feb 2022</div>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- Education -->
-  <div class="ab-section r">
-    <div class="ab-label">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2196F3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-      Education
-    </div>
-    <div class="edu-list">
-      <div class="edu-item">
-        <div>
-          <div class="edu-degree">Master of Science in User Experience</div>
-          <div class="edu-school">Arizona State University</div>
-        </div>
-        <div class="edu-year">2023 – 2025</div>
+<!-- ══ EDUCATION + TOOLS ══ -->
+<section id="edu-tools">
+  <div class="et-inner">
+    <!-- Education -->
+    <div>
+      <div class="section-eyebrow r">◆ &nbsp;Education</div>
+      <h2 class="section-h2 r" style="font-family:'Manrope',sans-serif;font-size:clamp(24px,3vw,38px);font-weight:900;letter-spacing:-0.025em;margin-bottom:28px;">Academic Background</h2>
+      <div class="edu-card">
+        <div><div class="edu-deg">Master of Science in User Experience</div><div class="edu-school">Arizona State University</div></div>
+        <div class="edu-yr">2023 – 2025</div>
       </div>
-      <div class="edu-item">
-        <div>
-          <div class="edu-degree">B.E. in Computer Engineering</div>
-          <div class="edu-school">Gujarat Technological University</div>
-        </div>
-        <div class="edu-year">2018 – 2022</div>
+      <div class="edu-card">
+        <div><div class="edu-deg">B.E. in Computer Engineering</div><div class="edu-school">Gujarat Technological University</div></div>
+        <div class="edu-yr">2018 – 2022</div>
       </div>
     </div>
-  </div>
-
-  <!-- Tools + Skills two-col -->
-  <div class="ab-two-col">
 
     <!-- Tools -->
-    <div class="r">
-      <div class="ab-label">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2196F3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        Tools &amp; Stakes
-      </div>
-      <div class="tools-grid">
-        <div class="tool-item">
-          <div class="tool-icon">🎨</div>
-          <div>
-            <div class="tool-name">Figma</div>
-            <div class="tool-desc">Design Tool</div>
-          </div>
-        </div>
-        <div class="tool-item">
-          <div class="tool-icon">⚡</div>
-          <div>
-            <div class="tool-name">Framer</div>
-            <div class="tool-desc">No Code Dev</div>
-          </div>
-        </div>
-        <div class="tool-item">
-          <div class="tool-icon">✏️</div>
-          <div>
-            <div class="tool-name">Illustrator</div>
-            <div class="tool-desc">Vector Design</div>
-          </div>
-        </div>
-        <div class="tool-item">
-          <div class="tool-icon">🖼️</div>
-          <div>
-            <div class="tool-name">Photoshop</div>
-            <div class="tool-desc">Photo Editing</div>
-          </div>
-        </div>
-        <div class="tool-item">
-          <div class="tool-icon">📋</div>
-          <div>
-            <div class="tool-name">Notion</div>
-            <div class="tool-desc">Project Mgmt</div>
-          </div>
-        </div>
-        <div class="tool-item">
-          <div class="tool-icon">🤖</div>
-          <div>
-            <div class="tool-name">ChatGPT</div>
-            <div class="tool-desc">AI Assistant</div>
-          </div>
-        </div>
+    <div>
+      <div class="section-eyebrow r">◆ &nbsp;Tools &amp; Stack</div>
+      <h2 class="section-h2 r" style="font-family:'Manrope',sans-serif;font-size:clamp(24px,3vw,38px);font-weight:900;letter-spacing:-0.025em;margin-bottom:28px;">What I Work With</h2>
+      <div class="tools-bento">
+        <div class="tool-card"><div class="tool-icon">🎨</div><div><div class="tool-name">Figma</div><div class="tool-cat">Design Tool</div></div></div>
+        <div class="tool-card"><div class="tool-icon">⚡</div><div><div class="tool-name">Framer</div><div class="tool-cat">No Code Dev</div></div></div>
+        <div class="tool-card"><div class="tool-icon">✏️</div><div><div class="tool-name">Illustrator</div><div class="tool-cat">Vector Design</div></div></div>
+        <div class="tool-card"><div class="tool-icon">🖼️</div><div><div class="tool-name">Photoshop</div><div class="tool-cat">Photo Editing</div></div></div>
+        <div class="tool-card"><div class="tool-icon">📋</div><div><div class="tool-name">Notion</div><div class="tool-cat">Project Mgmt</div></div></div>
+        <div class="tool-card"><div class="tool-icon">🤖</div><div><div class="tool-name">ChatGPT</div><div class="tool-cat">AI Assistant</div></div></div>
       </div>
     </div>
-
-    <!-- Skills -->
-    <div class="r">
-      <div class="ab-label">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2196F3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-        Skills
-      </div>
-      <div class="skills-cloud">
-        <span class="skill-tag">A/B Testing</span>
-        <span class="skill-tag">Accessibility</span>
-        <span class="skill-tag">Design Research</span>
-        <span class="skill-tag">Design Systems</span>
-        <span class="skill-tag">Prototyping</span>
-        <span class="skill-tag">Visual Design</span>
-        <span class="skill-tag">Interaction Design</span>
-        <span class="skill-tag">Journey Mapping</span>
-        <span class="skill-tag">Typography</span>
-        <span class="skill-tag">Qualitative Research</span>
-        <span class="skill-tag">Quantitative Research</span>
-        <span class="skill-tag">No Code</span>
-        <span class="skill-tag">Mix-methods Research</span>
-        <span class="skill-tag">Usability Testing</span>
-        <span class="skill-tag">User Experience (UX)</span>
-        <span class="skill-tag">User Research</span>
-        <span class="skill-tag">Data Visualization</span>
-        <span class="skill-tag">Information Architecture</span>
-      </div>
-    </div>
-
   </div>
+</section>
 
-</div><!-- /.about-content -->
+<!-- ══ SKILLS ══ -->
+<section id="skills">
+  <div class="skills-inner">
+    <div class="section-eyebrow r">◆ &nbsp;Skills</div>
+    <h2 class="section-h2 r" style="font-family:'Manrope',sans-serif;font-size:clamp(28px,4vw,48px);font-weight:900;letter-spacing:-0.025em;margin-bottom:36px;">What I Bring to the Table</h2>
+    <div class="skills-cloud">
+      <span class="skill-tag">A/B Testing</span>
+      <span class="skill-tag">Accessibility</span>
+      <span class="skill-tag">Design Research</span>
+      <span class="skill-tag">Design Systems</span>
+      <span class="skill-tag">Prototyping</span>
+      <span class="skill-tag">Visual Design</span>
+      <span class="skill-tag">Interaction Design</span>
+      <span class="skill-tag">Journey Mapping</span>
+      <span class="skill-tag">Typography</span>
+      <span class="skill-tag">Qualitative Research</span>
+      <span class="skill-tag">Quantitative Research</span>
+      <span class="skill-tag">No Code</span>
+      <span class="skill-tag">Mix-methods Research</span>
+      <span class="skill-tag">Usability Testing</span>
+      <span class="skill-tag">User Experience (UX)</span>
+      <span class="skill-tag">User Research</span>
+      <span class="skill-tag">Data Visualization</span>
+      <span class="skill-tag">Information Architecture</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA BAND ══ -->
+<section id="cta-band">
+  <span class="cta-label">◆ &nbsp;Let's Work Together</span>
+  <h2 class="cta-h">Let's design <span class="cave">incredible</span><br>work together.</h2>
+  <p class="cta-sub">Open to full-time roles, freelance projects, and collaborations.</p>
+  <div class="cta-btns">
+    <a href="mailto:achyutkhanpara7@gmail.com" class="cta-btn white">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      achyutkhanpara7@gmail.com
+    </a>
+    <a href="https://linkedin.com/in/achyut-khanpara/" target="_blank" class="cta-btn outline">LinkedIn →</a>
+  </div>
+</section>
 
 <script>
-  /* ── Role word cycler ── */
-  const roles = ['Product Designer', 'UX Researcher', 'Design Strategist'];
-  let ri = 0;
-  const rw = document.getElementById('roleWord');
-  if (rw) {
-    setInterval(() => {
-      rw.style.opacity = '0';
-      rw.style.transform = 'translateY(6px)';
-      rw.style.transition = 'opacity 0.3s, transform 0.3s';
-      setTimeout(() => {
-        ri = (ri + 1) % roles.length;
-        rw.textContent = roles[ri];
-        rw.style.opacity = '1';
-        rw.style.transform = 'none';
-      }, 320);
-    }, 2800);
+  /* ── Scroll reveal ── */
+  function reveal(selector, options = {}) {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (!e.isIntersecting) return;
+        const delay = options.stagger ? i * (options.stagger || 60) : 0;
+        setTimeout(() => e.target.classList.add('v'), delay);
+        obs.unobserve(e.target);
+      });
+    }, { threshold: 0, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll(selector).forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight) { el.classList.add('v'); }
+      else obs.observe(el);
+    });
   }
 
-  /* ── Scroll reveal ── */
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (!e.isIntersecting) return;
-      e.target.classList.add('v');
-      obs.unobserve(e.target);
-    });
-  }, { threshold: 0, rootMargin: '0px 0px -60px 0px' });
-
-  document.querySelectorAll('.r, .r-left').forEach(el => {
-    const rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight) {
-      el.classList.add('v');
-    } else {
-      obs.observe(el);
-    }
-  });
-
-  /* stagger exp/edu items */
-  document.querySelectorAll('.exp-item, .edu-item, .tool-item, .skill-tag').forEach((el, i) => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(16px)';
-    el.style.transition = `opacity 0.45s ease ${i * 0.05}s, transform 0.45s ease ${i * 0.05}s`;
-    const io = new IntersectionObserver(([entry]) => {
-      if (!entry.isIntersecting) return;
-      el.style.opacity = '1';
-      el.style.transform = 'none';
-      io.unobserve(el);
-    }, { rootMargin: '0px 0px -40px 0px' });
-    io.observe(el);
-  });
+  reveal('.r');
+  reveal('.sb-stat');
+  reveal('.exp-item', { stagger: 80 });
+  reveal('.edu-card', { stagger: 100 });
+  reveal('.tool-card', { stagger: 60 });
+  reveal('.skill-tag', { stagger: 30 });
 </script>
 </body>
 </html>
