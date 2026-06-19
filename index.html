@@ -16,6 +16,7 @@
       background: #fff;
       overflow-x: hidden;
     }
+    body.intro-active { overflow: hidden; }
 
     /* ════════════════════════════════════════
        INTRO SCREEN
@@ -1191,6 +1192,7 @@
   const hSub   = document.getElementById('hSub');
 
   function runIntro() {
+    document.body.classList.add('intro-active');
     setTimeout(() => { iBar.classList.add('grow'); }, 100);
     setTimeout(() => { iFirst.classList.add('show'); }, 200);
     setTimeout(() => { d1.classList.add('show'); }, 480);
@@ -1200,6 +1202,8 @@
     setTimeout(() => { intro.classList.add('exit'); }, 1900);
     setTimeout(() => {
       intro.style.display = 'none';
+      document.body.classList.remove('intro-active');
+      window.scrollTo({ top: 0, behavior: 'instant' });
       nav.classList.add('visible');
       triggerHero();
     }, 2750);
