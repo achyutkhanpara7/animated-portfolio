@@ -174,6 +174,61 @@
     /* ════════════════════════════════════════
        HERO  — animated mesh bg
     ════════════════════════════════════════ */
+
+    /* floating ring accents */
+    .hero-ring {
+      position: absolute; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.15);
+      pointer-events: none;
+    }
+    .hero-ring-1 {
+      width: 520px; height: 520px;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      animation: ringPulse 6s ease-in-out infinite;
+    }
+    .hero-ring-2 {
+      width: 780px; height: 780px;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      animation: ringPulse 6s ease-in-out infinite 1.5s;
+    }
+    .hero-ring-3 {
+      width: 1060px; height: 1060px;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      animation: ringPulse 6s ease-in-out infinite 3s;
+    }
+    @keyframes ringPulse {
+      0%,100% { opacity: 0.4; transform: translate(-50%,-50%) scale(1); }
+      50%      { opacity: 0.12; transform: translate(-50%,-50%) scale(1.05); }
+    }
+
+    /* floating dots */
+    .hero-dot {
+      position: absolute; border-radius: 50%;
+      background: rgba(255,255,255,0.55);
+      pointer-events: none;
+    }
+    .hd1 { width:6px; height:6px; top:18%; left:14%; animation: floatDot 7s ease-in-out infinite; }
+    .hd2 { width:4px; height:4px; top:65%; left:8%;  animation: floatDot 9s ease-in-out infinite 1s; }
+    .hd3 { width:8px; height:8px; top:28%; right:12%; animation: floatDot 8s ease-in-out infinite 2s; }
+    .hd4 { width:5px; height:5px; top:72%; right:18%; animation: floatDot 6s ease-in-out infinite 0.5s; }
+    .hd5 { width:3px; height:3px; top:42%; left:22%; animation: floatDot 10s ease-in-out infinite 3s; }
+    .hd6 { width:7px; height:7px; top:55%; right:28%; animation: floatDot 7.5s ease-in-out infinite 1.8s; }
+    @keyframes floatDot {
+      0%,100% { transform: translateY(0) translateX(0); opacity: 0.6; }
+      33%      { transform: translateY(-18px) translateX(8px); opacity: 1; }
+      66%      { transform: translateY(10px) translateX(-6px); opacity: 0.4; }
+    }
+
+    /* hero bottom wave */
+    .hero-wave {
+      position: absolute; bottom: -2px; left: 0; right: 0;
+      height: 80px; pointer-events: none; z-index: 3;
+    }
+    .hero-wave svg { width: 100%; height: 100%; }
+
     #hero {
       min-height: 100vh;
       background: linear-gradient(165deg, #9DD8F0 0%, #6EC4EE 25%, #4BAEE8 55%, #2B99E0 80%, #1A8BD8 100%);
@@ -856,6 +911,17 @@
   <div class="cloud cloud-3"></div>
   <div class="cloud cloud-4"></div>
   <div class="cloud cloud-5"></div>
+  <!-- concentric rings -->
+  <div class="hero-ring hero-ring-1"></div>
+  <div class="hero-ring hero-ring-2"></div>
+  <div class="hero-ring hero-ring-3"></div>
+  <!-- floating dots -->
+  <div class="hero-dot hd1"></div>
+  <div class="hero-dot hd2"></div>
+  <div class="hero-dot hd3"></div>
+  <div class="hero-dot hd4"></div>
+  <div class="hero-dot hd5"></div>
+  <div class="hero-dot hd6"></div>
   <div class="hero-inner">
 
     <!-- available badge -->
@@ -890,6 +956,12 @@
       and never settling for '<strong>just fine</strong>'.
     </p>
 
+  </div>
+  <!-- bottom wave transition -->
+  <div class="hero-wave">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,40 C240,80 480,0 720,40 C960,80 1200,0 1440,40 L1440,80 L0,80 Z"/>
+    </svg>
   </div>
 </section>
 
@@ -1173,9 +1245,7 @@
 </footer>
 
 <script>
-  /* ══════════════════════════════════════════════════════════
-     INTRO SEQUENCE
-  ══════════════════════════════════════════════════════════ */
+  /* ══ INTRO ═══════════════════════════════════════════════ */
   const iFirst = document.getElementById('iFirst');
   const iLast  = document.getElementById('iLast');
   const d1 = document.getElementById('d1');
@@ -1184,7 +1254,6 @@
   const iBar  = document.getElementById('iBar');
   const intro = document.getElementById('intro');
   const nav   = document.getElementById('nav');
-
   const hAvail = document.getElementById('hAvail');
   const hEye   = document.getElementById('hEye');
   const hL1    = document.getElementById('hL1');
@@ -1192,6 +1261,18 @@
   const hL3    = document.getElementById('hL3');
   const hStats = document.getElementById('hStats');
   const hSub   = document.getElementById('hSub');
+
+  function triggerHero() {
+    hAvail.classList.add('show');
+    setTimeout(() => { hEye  && hEye.classList.add('show');   },  80);
+    setTimeout(() => { hL1   && hL1.classList.add('show');    }, 200);
+    setTimeout(() => { hL2   && hL2.classList.add('show');    }, 340);
+    setTimeout(() => { hL3   && hL3.classList.add('show');    }, 480);
+    setTimeout(() => { hStats && hStats.classList.add('show'); }, 600);
+    setTimeout(() => { hSub  && hSub.classList.add('show');   }, 720);
+    // kick off scroll reveals after hero lands
+    setTimeout(initReveal, 800);
+  }
 
   function runIntro() {
     document.body.classList.add('intro-active');
@@ -1210,186 +1291,141 @@
       triggerHero();
     }, 2750);
   }
-
-  function triggerHero() {
-    hAvail.classList.add('show');
-    setTimeout(() => { hEye.classList.add('show');   },  80);
-    setTimeout(() => { hL1.classList.add('show');    }, 200);
-    setTimeout(() => { hL2.classList.add('show');    }, 340);
-    setTimeout(() => { hL3.classList.add('show');    }, 480);
-    setTimeout(() => { hStats.classList.add('show'); }, 600);
-    if (hSub) setTimeout(() => { hSub.classList.add('show'); }, 720);
-  }
-
   runIntro();
 
-  /* ══════════════════════════════════════════════════════════
-     SCROLL PROGRESS BAR
-  ══════════════════════════════════════════════════════════ */
+  /* ══ SCROLL PROGRESS ═════════════════════════════════════ */
   const progressBar = document.getElementById('scroll-progress');
-  function updateProgress() {
-    const scrolled = window.scrollY;
-    const total    = document.documentElement.scrollHeight - window.innerHeight;
-    progressBar.style.width = (scrolled / total * 100) + '%';
-  }
-
-  /* ══════════════════════════════════════════════════════════
-     NAV SCROLL EFFECT
-  ══════════════════════════════════════════════════════════ */
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 50);
-    updateProgress();
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    if (total > 0) progressBar.style.width = (window.scrollY / total * 100) + '%';
+
+    // cloud parallax
+    const sy = window.scrollY;
+    document.querySelectorAll('.cloud').forEach((c, i) => {
+      const speeds = [0.06, 0.04, 0.07, 0.03, 0.05];
+      c.style.transform = `translateY(${sy * speeds[i]}px)`;
+    });
   }, { passive: true });
 
-  /* ══════════════════════════════════════════════════════════
-     SCROLL REVEAL — up / left / right / scale
-  ══════════════════════════════════════════════════════════ */
-  const revealObs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
+  /* ══ SCROLL REVEAL ═══════════════════════════════════════ */
+  function initReveal() {
+    // Use rootMargin to trigger reveals ~100px before element enters viewport
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
         e.target.classList.add('v');
-        revealObs.unobserve(e.target);
+        obs.unobserve(e.target);
+      });
+    }, { threshold: 0, rootMargin: '0px 0px -80px 0px' });
+
+    document.querySelectorAll('.r, .r-left, .r-right, .r-scale').forEach(el => {
+      // Already visible (above fold) — reveal immediately
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight) {
+        el.classList.add('v');
+      } else {
+        obs.observe(el);
       }
     });
-  }, { threshold: 0.12 });
 
-  document.querySelectorAll('.r, .r-left, .r-right, .r-scale').forEach(el => revealObs.observe(el));
-
-  /* ══════════════════════════════════════════════════════════
-     WORD-BY-WORD SPLIT TEXT — #whatido
-  ══════════════════════════════════════════════════════════ */
-  (function splitWhatido() {
-    const el = document.querySelector('.whatido-text');
-    if (!el) return;
-    const html = el.innerHTML;
-    // wrap each word (outside tags) in a split-word span
-    const wrapped = html.replace(/(<[^>]+>)|([^\s<]+)/g, (match, tag, word) => {
-      if (tag) return tag;
-      return `<span class="split-word">${word}</span> `;
-    });
-    el.innerHTML = wrapped;
-    const words = el.querySelectorAll('.split-word');
-    const wordObs = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        words.forEach((w, i) => {
-          setTimeout(() => w.classList.add('v'), i * 55);
+    // Stagger children of key sections
+    const childObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        e.target.querySelectorAll('.titem, .role-stat, .wc-tag').forEach((child, i) => {
+          child.style.opacity = '0';
+          child.style.transform = 'translateY(14px)';
+          setTimeout(() => {
+            child.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            child.style.opacity = '1';
+            child.style.transform = 'none';
+          }, i * 65 + 80);
         });
-        wordObs.disconnect();
-      }
-    }, { threshold: 0.2 });
-    wordObs.observe(el);
-  })();
+        childObs.unobserve(e.target);
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
 
-  /* ══════════════════════════════════════════════════════════
-     HERO CURSOR GLOW
-  ══════════════════════════════════════════════════════════ */
-  const heroEl  = document.getElementById('hero');
-  const heroGlow = document.getElementById('hero-glow');
-  if (heroEl && heroGlow) {
-    heroEl.addEventListener('mousemove', (e) => {
-      const rect = heroEl.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      heroGlow.style.left = x + 'px';
-      heroGlow.style.top  = y + 'px';
+    document.querySelectorAll('#experience .timeline, .roles-card, .work-card').forEach(el => childObs.observe(el));
+
+    // Word split on #whatido
+    const wtEl = document.querySelector('.whatido-text');
+    if (wtEl && !wtEl.dataset.split) {
+      wtEl.dataset.split = '1';
+      const wrapped = wtEl.innerHTML.replace(/(<[^>]+>)|([^\s<]+)/g, (m, tag, word) =>
+        tag ? tag : `<span class="split-word">${word}</span> `
+      );
+      wtEl.innerHTML = wrapped;
+      const words = wtEl.querySelectorAll('.split-word');
+      const wtObs = new IntersectionObserver((entries) => {
+        if (!entries[0].isIntersecting) return;
+        words.forEach((w, i) => setTimeout(() => w.classList.add('v'), i * 50));
+        wtObs.disconnect();
+      }, { threshold: 0.15 });
+      wtObs.observe(wtEl);
+    }
+
+    // Counter
+    document.querySelectorAll('[data-count]').forEach(el => {
+      const target = parseInt(el.dataset.count, 10);
+      const suffix = el.dataset.suffix || '';
+      const co = new IntersectionObserver(([e]) => {
+        if (!e.isIntersecting) return;
+        co.disconnect();
+        let t0 = null;
+        const tick = (ts) => {
+          if (!t0) t0 = ts;
+          const p = Math.min((ts - t0) / 1200, 1);
+          el.textContent = Math.floor((1 - Math.pow(1 - p, 3)) * target) + suffix;
+          if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      }, { threshold: 0.5 });
+      co.observe(el);
     });
   }
 
-  /* ══════════════════════════════════════════════════════════
-     HERO CLOUD PARALLAX ON SCROLL
-  ══════════════════════════════════════════════════════════ */
-  const clouds = document.querySelectorAll('.cloud');
-  const parallaxSpeeds = [0.06, 0.04, 0.07, 0.03, 0.05];
-  window.addEventListener('scroll', () => {
-    const sy = window.scrollY;
-    clouds.forEach((c, i) => {
-      c.style.transform = `translateY(${sy * parallaxSpeeds[i]}px)`;
+  /* ══ HERO CURSOR GLOW ════════════════════════════════════ */
+  const heroEl   = document.getElementById('hero');
+  const heroGlow = document.getElementById('hero-glow');
+  if (heroEl && heroGlow) {
+    let glowX = window.innerWidth / 2, glowY = window.innerHeight / 2;
+    let rafId;
+    heroEl.addEventListener('mousemove', (e) => {
+      glowX = e.clientX; glowY = e.clientY + window.scrollY;
+      if (!rafId) rafId = requestAnimationFrame(() => {
+        heroGlow.style.left = glowX + 'px';
+        heroGlow.style.top  = glowY + 'px';
+        rafId = null;
+      });
     });
-  }, { passive: true });
+  }
 
-  /* ══════════════════════════════════════════════════════════
-     3D TILT ON WORK CARDS
-  ══════════════════════════════════════════════════════════ */
+  /* ══ 3D CARD TILT ════════════════════════════════════════ */
   document.querySelectorAll('[data-tilt]').forEach(card => {
     card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const cx = rect.left + rect.width / 2;
-      const cy = rect.top  + rect.height / 2;
-      const dx = (e.clientX - cx) / (rect.width  / 2);
-      const dy = (e.clientY - cy) / (rect.height / 2);
-      const rotY =  dx * 6;
-      const rotX = -dy * 4;
-      card.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-6px)`;
-      card.style.boxShadow = `${-rotY * 2}px ${rotX * 2 + 20}px 60px rgba(21,101,192,0.28)`;
+      const r = card.getBoundingClientRect();
+      const dx = (e.clientX - r.left - r.width  / 2) / (r.width  / 2);
+      const dy = (e.clientY - r.top  - r.height / 2) / (r.height / 2);
+      card.style.transform = `perspective(1000px) rotateX(${-dy*4}deg) rotateY(${dx*6}deg) translateY(-6px)`;
+      card.style.boxShadow = `${-dx*12}px ${dy*8+20}px 60px rgba(21,101,192,0.28)`;
     });
     card.addEventListener('mouseleave', () => {
-      card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+      card.style.transform = '';
       card.style.boxShadow = '';
     });
   });
 
-  /* ══════════════════════════════════════════════════════════
-     COUNTER ANIMATION — stat numbers
-  ══════════════════════════════════════════════════════════ */
-  document.querySelectorAll('[data-count]').forEach(el => {
-    const target  = parseInt(el.dataset.count, 10);
-    const suffix  = el.dataset.suffix || '';
-    const cntObs  = new IntersectionObserver((entries) => {
-      if (!entries[0].isIntersecting) return;
-      cntObs.disconnect();
-      let start = 0;
-      const duration = 1200;
-      const step = (timestamp) => {
-        if (!start) start = timestamp;
-        const progress = Math.min((timestamp - start) / duration, 1);
-        const ease = 1 - Math.pow(1 - progress, 3);
-        el.textContent = Math.floor(ease * target) + suffix;
-        if (progress < 1) requestAnimationFrame(step);
-      };
-      requestAnimationFrame(step);
-    }, { threshold: 0.5 });
-    cntObs.observe(el);
-  });
-
-  /* ══════════════════════════════════════════════════════════
-     ROLE TABS
-  ══════════════════════════════════════════════════════════ */
+  /* ══ ROLE TABS ════════════════════════════════════════════ */
   document.querySelectorAll('.role-tab').forEach(tab => {
     tab.addEventListener('click', () => {
       const key = tab.dataset.tab;
-      document.querySelectorAll('.role-tab').forEach(t => {
-        t.classList.remove('active');
-        t.setAttribute('aria-selected', 'false');
-      });
+      document.querySelectorAll('.role-tab').forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
       document.querySelectorAll('.role-panel').forEach(p => p.classList.remove('active'));
-      tab.classList.add('active');
-      tab.setAttribute('aria-selected', 'true');
+      tab.classList.add('active'); tab.setAttribute('aria-selected','true');
       document.getElementById('panel-' + key).classList.add('active');
     });
   });
-
-  /* ══════════════════════════════════════════════════════════
-     SECTION ENTRANCE — stagger children inside revealed blocks
-  ══════════════════════════════════════════════════════════ */
-  const sectionObs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (!e.isIntersecting) return;
-      const children = e.target.querySelectorAll('.titem, .role-stat, .wc-tag');
-      children.forEach((child, i) => {
-        child.style.transitionDelay = `${i * 0.07}s`;
-        child.style.opacity = '0';
-        child.style.transform = 'translateY(16px)';
-        setTimeout(() => {
-          child.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-          child.style.opacity = '1';
-          child.style.transform = 'none';
-        }, i * 70 + 100);
-      });
-      sectionObs.unobserve(e.target);
-    });
-  }, { threshold: 0.15 });
-
-  document.querySelectorAll('#experience .timeline, .roles-card, .work-card').forEach(el => sectionObs.observe(el));
 
 
 </script>
