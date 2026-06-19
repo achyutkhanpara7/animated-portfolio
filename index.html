@@ -175,7 +175,7 @@
     ════════════════════════════════════════ */
     #hero {
       min-height: 100vh;
-      background: #1E90D8;
+      background: linear-gradient(165deg, #9DD8F0 0%, #6EC4EE 25%, #4BAEE8 55%, #2B99E0 80%, #1A8BD8 100%);
       position: relative;
       overflow: hidden;
       display: flex;
@@ -184,96 +184,35 @@
       align-items: center;
     }
 
-    /* ── Mesh gradient orbs ── */
-    .orb {
-      position: absolute;
-      border-radius: 50%;
-      pointer-events: none;
-      will-change: transform;
-    }
-    .orb-1 {
-      width: 700px; height: 700px;
-      top: -20%; left: -10%;
-      background: radial-gradient(circle, rgba(100,210,255,0.75) 0%, transparent 70%);
-      filter: blur(60px);
-      animation: orbFloat1 12s ease-in-out infinite;
-    }
-    .orb-2 {
-      width: 600px; height: 600px;
-      top: 20%; right: -10%;
-      background: radial-gradient(circle, rgba(33,150,243,0.6) 0%, transparent 70%);
-      filter: blur(70px);
-      animation: orbFloat2 15s ease-in-out infinite;
-    }
-    .orb-3 {
-      width: 500px; height: 500px;
-      bottom: -10%; left: 20%;
-      background: radial-gradient(circle, rgba(21,101,192,0.7) 0%, transparent 70%);
-      filter: blur(80px);
-      animation: orbFloat3 10s ease-in-out infinite;
-    }
-    .orb-4 {
-      width: 350px; height: 350px;
-      top: 40%; left: 40%;
-      background: radial-gradient(circle, rgba(144,202,249,0.5) 0%, transparent 70%);
-      filter: blur(50px);
-      animation: orbFloat4 18s ease-in-out infinite;
-    }
-    .orb-5 {
-      width: 280px; height: 280px;
-      top: 5%; right: 25%;
-      background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
-      filter: blur(40px);
-      animation: orbFloat5 9s ease-in-out infinite;
-    }
+    /* ── Cloud layers with gentle drift ── */
+    .cloud { position: absolute; border-radius: 50%; pointer-events: none; will-change: transform; }
+    .cloud-1 { width: 600px; height: 200px; top: 8%; left: -5%; background: rgba(255,255,255,0.6); filter: blur(56px); animation: cloudDrift1 20s ease-in-out infinite; }
+    .cloud-2 { width: 400px; height: 160px; top: 22%; left: 12%; background: rgba(255,255,255,0.4); filter: blur(40px); animation: cloudDrift2 28s ease-in-out infinite; }
+    .cloud-3 { width: 500px; height: 180px; top: 5%; right: -5%; background: rgba(255,255,255,0.5); filter: blur(52px); animation: cloudDrift3 24s ease-in-out infinite; }
+    .cloud-4 { width: 300px; height: 120px; bottom: 25%; right: 10%; background: rgba(255,255,255,0.25); filter: blur(36px); animation: cloudDrift4 32s ease-in-out infinite; }
+    .cloud-5 { width: 350px; height: 140px; top: 45%; left: 5%; background: rgba(255,255,255,0.2); filter: blur(32px); animation: cloudDrift5 18s ease-in-out infinite; }
 
-    @keyframes orbFloat1 {
-      0%,100% { transform: translate(0,0) scale(1); }
-      33%      { transform: translate(80px, 60px) scale(1.1); }
-      66%      { transform: translate(-40px, 100px) scale(0.95); }
+    @keyframes cloudDrift1 {
+      0%,100% { transform: translateX(0) translateY(0) scaleX(1); }
+      40%      { transform: translateX(60px) translateY(-18px) scaleX(1.05); }
+      70%      { transform: translateX(30px) translateY(12px) scaleX(0.97); }
     }
-    @keyframes orbFloat2 {
-      0%,100% { transform: translate(0,0) scale(1); }
-      33%      { transform: translate(-100px, 80px) scale(1.08); }
-      66%      { transform: translate(60px, -60px) scale(1.15); }
+    @keyframes cloudDrift2 {
+      0%,100% { transform: translateX(0) translateY(0); }
+      50%      { transform: translateX(-50px) translateY(20px) scaleX(1.06); }
     }
-    @keyframes orbFloat3 {
-      0%,100% { transform: translate(0,0) scale(1); }
-      50%      { transform: translate(120px, -80px) scale(1.2); }
+    @keyframes cloudDrift3 {
+      0%,100% { transform: translateX(0) translateY(0) scaleX(1); }
+      35%      { transform: translateX(-70px) translateY(15px) scaleX(1.04); }
+      65%      { transform: translateX(-30px) translateY(-10px) scaleX(0.96); }
     }
-    @keyframes orbFloat4 {
-      0%,100% { transform: translate(0,0) scale(1); }
-      25%      { transform: translate(-80px,-60px) scale(1.1); }
-      75%      { transform: translate(80px,80px) scale(0.9); }
+    @keyframes cloudDrift4 {
+      0%,100% { transform: translateX(0) translateY(0); }
+      50%      { transform: translateX(40px) translateY(-25px) scaleX(1.08); }
     }
-    @keyframes orbFloat5 {
-      0%,100% { transform: translate(0,0) scale(1); }
-      50%      { transform: translate(60px,80px) scale(1.15); }
-    }
-
-    /* ── Floating particles ── */
-    .particles { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
-    .particle {
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.55);
-      animation: particleRise linear infinite;
-    }
-    @keyframes particleRise {
-      0%   { transform: translateY(0) translateX(0); opacity: 0; }
-      10%  { opacity: 1; }
-      90%  { opacity: 0.4; }
-      100% { transform: translateY(-100vh) translateX(30px); opacity: 0; }
-    }
-
-    /* ── Subtle noise overlay ── */
-    #hero::after {
-      content: '';
-      position: absolute; inset: 0; z-index: 1;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      background-size: 180px;
-      opacity: 0.5;
-      pointer-events: none;
+    @keyframes cloudDrift5 {
+      0%,100% { transform: translateX(0) translateY(0) scaleX(1); }
+      45%      { transform: translateX(50px) translateY(18px) scaleX(1.1); }
     }
 
     .hero-inner {
@@ -783,12 +722,11 @@
 
 <!-- ══ HERO ═══════════════════════════════════════════════ -->
 <section id="hero">
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-  <div class="orb orb-3"></div>
-  <div class="orb orb-4"></div>
-  <div class="orb orb-5"></div>
-  <div class="particles" id="particles"></div>
+  <div class="cloud cloud-1"></div>
+  <div class="cloud cloud-2"></div>
+  <div class="cloud cloud-3"></div>
+  <div class="cloud cloud-4"></div>
+  <div class="cloud cloud-5"></div>
   <div class="hero-inner">
 
     <!-- available badge -->
@@ -1188,26 +1126,6 @@
     });
   });
 
-  /* ── PARTICLES ──────────────────────────────────────────── */
-  (function spawnParticles() {
-    const container = document.getElementById('particles');
-    if (!container) return;
-    for (let i = 0; i < 18; i++) {
-      const p = document.createElement('div');
-      p.className = 'particle';
-      const size = Math.random() * 6 + 3;
-      p.style.cssText = [
-        `width:${size}px`,
-        `height:${size}px`,
-        `left:${Math.random() * 100}%`,
-        `bottom:${Math.random() * 20}%`,
-        `animation-duration:${Math.random() * 8 + 6}s`,
-        `animation-delay:${Math.random() * 8}s`,
-        `opacity:${Math.random() * 0.4 + 0.2}`,
-      ].join(';');
-      container.appendChild(p);
-    }
-  })();
 </script>
 </body>
 </html>
