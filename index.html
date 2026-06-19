@@ -171,11 +171,11 @@
     .nav-link.cta:hover { background: #222; }
 
     /* ════════════════════════════════════════
-       HERO
+       HERO  — animated mesh bg
     ════════════════════════════════════════ */
     #hero {
       min-height: 100vh;
-      background: linear-gradient(165deg, #9DD8F0 0%, #6EC4EE 25%, #4BAEE8 55%, #2B99E0 80%, #1A8BD8 100%);
+      background: #1E90D8;
       position: relative;
       overflow: hidden;
       display: flex;
@@ -184,13 +184,97 @@
       align-items: center;
     }
 
-    /* Cloud layers */
-    .cloud { position: absolute; border-radius: 50%; pointer-events: none; }
-    .cloud-1 { width: 600px; height: 200px; top: 8%; left: -5%; background: rgba(255,255,255,0.6); filter: blur(56px); }
-    .cloud-2 { width: 400px; height: 160px; top: 22%; left: 12%; background: rgba(255,255,255,0.4); filter: blur(40px); }
-    .cloud-3 { width: 500px; height: 180px; top: 5%; right: -5%; background: rgba(255,255,255,0.5); filter: blur(52px); }
-    .cloud-4 { width: 300px; height: 120px; bottom: 25%; right: 10%; background: rgba(255,255,255,0.25); filter: blur(36px); }
-    .cloud-5 { width: 350px; height: 140px; top: 45%; left: 5%; background: rgba(255,255,255,0.2); filter: blur(32px); }
+    /* ── Mesh gradient orbs ── */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      will-change: transform;
+    }
+    .orb-1 {
+      width: 700px; height: 700px;
+      top: -20%; left: -10%;
+      background: radial-gradient(circle, rgba(100,210,255,0.75) 0%, transparent 70%);
+      filter: blur(60px);
+      animation: orbFloat1 12s ease-in-out infinite;
+    }
+    .orb-2 {
+      width: 600px; height: 600px;
+      top: 20%; right: -10%;
+      background: radial-gradient(circle, rgba(33,150,243,0.6) 0%, transparent 70%);
+      filter: blur(70px);
+      animation: orbFloat2 15s ease-in-out infinite;
+    }
+    .orb-3 {
+      width: 500px; height: 500px;
+      bottom: -10%; left: 20%;
+      background: radial-gradient(circle, rgba(21,101,192,0.7) 0%, transparent 70%);
+      filter: blur(80px);
+      animation: orbFloat3 10s ease-in-out infinite;
+    }
+    .orb-4 {
+      width: 350px; height: 350px;
+      top: 40%; left: 40%;
+      background: radial-gradient(circle, rgba(144,202,249,0.5) 0%, transparent 70%);
+      filter: blur(50px);
+      animation: orbFloat4 18s ease-in-out infinite;
+    }
+    .orb-5 {
+      width: 280px; height: 280px;
+      top: 5%; right: 25%;
+      background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+      filter: blur(40px);
+      animation: orbFloat5 9s ease-in-out infinite;
+    }
+
+    @keyframes orbFloat1 {
+      0%,100% { transform: translate(0,0) scale(1); }
+      33%      { transform: translate(80px, 60px) scale(1.1); }
+      66%      { transform: translate(-40px, 100px) scale(0.95); }
+    }
+    @keyframes orbFloat2 {
+      0%,100% { transform: translate(0,0) scale(1); }
+      33%      { transform: translate(-100px, 80px) scale(1.08); }
+      66%      { transform: translate(60px, -60px) scale(1.15); }
+    }
+    @keyframes orbFloat3 {
+      0%,100% { transform: translate(0,0) scale(1); }
+      50%      { transform: translate(120px, -80px) scale(1.2); }
+    }
+    @keyframes orbFloat4 {
+      0%,100% { transform: translate(0,0) scale(1); }
+      25%      { transform: translate(-80px,-60px) scale(1.1); }
+      75%      { transform: translate(80px,80px) scale(0.9); }
+    }
+    @keyframes orbFloat5 {
+      0%,100% { transform: translate(0,0) scale(1); }
+      50%      { transform: translate(60px,80px) scale(1.15); }
+    }
+
+    /* ── Floating particles ── */
+    .particles { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.55);
+      animation: particleRise linear infinite;
+    }
+    @keyframes particleRise {
+      0%   { transform: translateY(0) translateX(0); opacity: 0; }
+      10%  { opacity: 1; }
+      90%  { opacity: 0.4; }
+      100% { transform: translateY(-100vh) translateX(30px); opacity: 0; }
+    }
+
+    /* ── Subtle noise overlay ── */
+    #hero::after {
+      content: '';
+      position: absolute; inset: 0; z-index: 1;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      background-size: 180px;
+      opacity: 0.5;
+      pointer-events: none;
+    }
 
     .hero-inner {
       position: relative; z-index: 2;
@@ -205,20 +289,24 @@
     /* available badge */
     .hero-available {
       display: inline-flex; align-items: center; gap: 8px;
-      font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.85);
+      font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.88);
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 999px; padding: 6px 16px;
       margin-bottom: 28px;
       opacity: 0; transform: translateY(14px);
       transition: opacity 0.5s 0.05s, transform 0.5s 0.05s;
+      backdrop-filter: blur(8px);
     }
     .hero-available.show { opacity: 1; transform: none; }
     .avail-dot {
       width: 8px; height: 8px; border-radius: 50%; background: #4ADE80;
-      box-shadow: 0 0 8px rgba(74,222,128,0.8);
+      box-shadow: 0 0 8px rgba(74,222,128,0.9);
       flex-shrink: 0; animation: pulse-dot 2s infinite;
     }
     @keyframes pulse-dot {
-      0%,100% { opacity:1; transform:scale(1); }
-      50%      { opacity:.6; transform:scale(.8); }
+      0%,100% { opacity:1; transform:scale(1); box-shadow: 0 0 8px rgba(74,222,128,0.9); }
+      50%      { opacity:.7; transform:scale(.8); box-shadow: 0 0 16px rgba(74,222,128,0.6); }
     }
 
     /* greeting */
@@ -695,11 +783,12 @@
 
 <!-- ══ HERO ═══════════════════════════════════════════════ -->
 <section id="hero">
-  <div class="cloud cloud-1"></div>
-  <div class="cloud cloud-2"></div>
-  <div class="cloud cloud-3"></div>
-  <div class="cloud cloud-4"></div>
-  <div class="cloud cloud-5"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="orb orb-4"></div>
+  <div class="orb orb-5"></div>
+  <div class="particles" id="particles"></div>
   <div class="hero-inner">
 
     <!-- available badge -->
@@ -720,7 +809,7 @@
 
     <!-- stats -->
     <div class="hero-stats" id="hStats">
-      <div class="hstat"><span class="hstat-num">3+</span><span class="hstat-lbl">Years of Experience</span></div>
+      <div class="hstat"><span class="hstat-num">4+</span><span class="hstat-lbl">Years of Experience</span></div>
       <div class="hstat-sep"></div>
       <div class="hstat"><span class="hstat-num">15+</span><span class="hstat-lbl">Projects Finished</span></div>
       <div class="hstat-sep"></div>
@@ -755,7 +844,7 @@
   <div class="wrap">
     <div class="stats-row">
       <div class="r">
-        <div class="stat-num">3+</div>
+        <div class="stat-num">4+</div>
         <div class="stat-title">Years designing</div>
         <div class="stat-desc">enterprise AI products, design systems &amp; research</div>
       </div>
@@ -795,7 +884,7 @@
         </p>
         <span class="role-panel-cta">Worth a conversation?</span>
         <div class="role-stats">
-          <div class="role-stat"><span class="role-stat-num">3+</span><span class="role-stat-lbl">Years of crafting</span></div>
+          <div class="role-stat"><span class="role-stat-num">4+</span><span class="role-stat-lbl">Years of crafting</span></div>
           <div class="role-stat"><span class="role-stat-num">F100</span><span class="role-stat-lbl">Clients served</span></div>
           <div class="role-stat"><span class="role-stat-num">10+</span><span class="role-stat-lbl">Certifications</span></div>
         </div>
@@ -823,7 +912,7 @@
         </p>
         <span class="role-panel-cta">Let's build something together.</span>
         <div class="role-stats">
-          <div class="role-stat"><span class="role-stat-num">3+</span><span class="role-stat-lbl">Years crafting</span></div>
+          <div class="role-stat"><span class="role-stat-num">4+</span><span class="role-stat-lbl">Years crafting</span></div>
           <div class="role-stat"><span class="role-stat-num">B.E.</span><span class="role-stat-lbl">Computer Engineering</span></div>
           <div class="role-stat"><span class="role-stat-num">40%</span><span class="role-stat-lbl">Faster reviews</span></div>
         </div>
@@ -1098,6 +1187,27 @@
       document.getElementById('panel-' + key).classList.add('active');
     });
   });
+
+  /* ── PARTICLES ──────────────────────────────────────────── */
+  (function spawnParticles() {
+    const container = document.getElementById('particles');
+    if (!container) return;
+    for (let i = 0; i < 18; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      const size = Math.random() * 6 + 3;
+      p.style.cssText = [
+        `width:${size}px`,
+        `height:${size}px`,
+        `left:${Math.random() * 100}%`,
+        `bottom:${Math.random() * 20}%`,
+        `animation-duration:${Math.random() * 8 + 6}s`,
+        `animation-delay:${Math.random() * 8}s`,
+        `opacity:${Math.random() * 0.4 + 0.2}`,
+      ].join(';');
+      container.appendChild(p);
+    }
+  })();
 </script>
 </body>
 </html>
