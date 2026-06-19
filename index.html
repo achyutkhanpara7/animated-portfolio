@@ -926,136 +926,86 @@
     /* ── Card ── */
     .t-card {
       flex-shrink: 0;
-      width: 340px;
-      background: rgba(255,255,255,0.55);
-      backdrop-filter: blur(24px) saturate(180%);
-      -webkit-backdrop-filter: blur(24px) saturate(180%);
-      border: 1px solid rgba(255,255,255,0.7);
-      border-radius: 28px;
-      padding: 28px 28px 32px;
-      display: flex; flex-direction: column; align-items: center;
-      position: relative; overflow: hidden;
-      box-shadow:
-        0 8px 32px rgba(33,150,243,0.14),
-        0 1px 0 rgba(255,255,255,0.9) inset,
-        0 -1px 0 rgba(33,150,243,0.06) inset;
-      transition: transform 0.35s cubic-bezier(.22,.68,0,1.2), box-shadow 0.35s ease;
-    }
-    /* shimmer sweep on hover */
-    .t-card::before {
-      content: '';
-      position: absolute; inset: 0; border-radius: 28px;
-      background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.55) 50%, transparent 70%);
-      background-size: 200% 100%;
-      background-position: -100% 0;
-      transition: background-position 0.6s ease;
-      pointer-events: none; z-index: 1;
-    }
-    .t-card:hover::before { background-position: 100% 0; }
-    /* giant watermark quote */
-    .t-card::after {
-      content: '\201C';
-      position: absolute; top: -20px; right: 12px;
-      font-size: 180px; line-height: 1;
-      font-family: Georgia, serif;
-      color: rgba(33,150,243,0.07);
-      pointer-events: none; z-index: 0;
-      user-select: none;
+      width: 580px;
+      background: #fff;
+      border: 1px solid rgba(33,150,243,0.1);
+      border-radius: 24px;
+      padding: 36px 36px 36px 32px;
+      display: flex; gap: 28px; align-items: flex-start;
+      box-shadow: 0 4px 24px rgba(33,150,243,0.08), 0 1px 4px rgba(0,0,0,0.04);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
     .t-card:hover {
-      transform: translateY(-8px) scale(1.02);
-      box-shadow:
-        0 24px 60px rgba(33,150,243,0.22),
-        0 1px 0 rgba(255,255,255,0.9) inset;
-    }
-    /* alternate cards tilt for visual rhythm */
-    .t-card:nth-child(even) { transform: rotate(-1.5deg); }
-    .t-card:nth-child(even):hover { transform: rotate(0deg) translateY(-8px) scale(1.02); }
-    .t-card:nth-child(odd) { transform: rotate(0.8deg); }
-    .t-card:nth-child(odd):hover { transform: rotate(0deg) translateY(-8px) scale(1.02); }
-
-    /* gradient top accent bar */
-    .t-card-accent {
-      position: absolute; top: 0; left: 0; right: 0; height: 4px;
-      background: linear-gradient(90deg, #1E90D8 0%, #64C8F5 50%, #1E90D8 100%);
-      background-size: 200% 100%;
-      animation: accentShift 4s linear infinite;
-      border-radius: 28px 28px 0 0;
-      z-index: 2;
-    }
-    @keyframes accentShift {
-      0% { background-position: 0% 0; }
-      100% { background-position: 200% 0; }
+      transform: translateY(-5px);
+      box-shadow: 0 16px 48px rgba(33,150,243,0.16), 0 4px 12px rgba(0,0,0,0.06);
     }
 
-    /* avatar ring */
-    .t-avatar-wrap {
-      position: relative; margin-bottom: 16px; z-index: 2;
+    /* polaroid photo */
+    .t-photo-col {
+      flex-shrink: 0; width: 120px;
+      display: flex; flex-direction: column; align-items: center; gap: 12px;
+      position: relative;
     }
-    .t-avatar-ring {
-      width: 80px; height: 80px; border-radius: 50%;
-      padding: 3px;
-      background: linear-gradient(135deg, #1E90D8, #64C8F5, #1E90D8);
-      background-size: 200% 200%;
-      animation: ringRotate 3s linear infinite;
+    /* paperclip */
+    .t-photo-col::before {
+      content: '';
+      position: absolute; top: -22px; left: 50%; transform: translateX(-50%);
+      width: 20px; height: 32px;
+      border: 3px solid #B0BEC5;
+      border-bottom: none;
+      border-radius: 10px 10px 0 0;
     }
-    @keyframes ringRotate {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    .t-polaroid {
+      width: 110px; background: #fff;
+      border: 1px solid #E0E0E0;
+      border-radius: 8px;
+      padding: 8px 8px 28px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
     }
     .t-avatar {
-      width: 74px; height: 74px;
-      border-radius: 50%; overflow: hidden;
+      width: 94px; height: 94px;
+      border-radius: 4px; overflow: hidden;
       background: linear-gradient(135deg, #90CAF9, #1E90D8);
       display: flex; align-items: center; justify-content: center;
-      font-size: 24px; font-weight: 800; color: #fff;
-      font-family: 'Manrope', sans-serif;
+      font-size: 28px; font-weight: 800; color: #fff;
     }
     .t-avatar img { width: 100%; height: 100%; object-fit: cover; }
 
     .t-name {
-      font-size: 15px; font-weight: 800; color: #0D1A2B;
-      text-align: center; line-height: 1.3; z-index: 2; position: relative;
+      font-size: 13px; font-weight: 700; color: #0D0D0D;
+      text-align: center; line-height: 1.3;
     }
     .t-role {
-      font-size: 11.5px; color: rgba(33,100,180,0.75); text-align: center;
-      line-height: 1.5; margin-top: 4px; font-weight: 600;
-      z-index: 2; position: relative;
+      font-size: 11px; color: #888; text-align: center;
+      line-height: 1.4; margin-top: 4px;
     }
 
-    /* divider */
-    .t-divider {
-      width: 40px; height: 2px; margin: 16px auto;
-      background: linear-gradient(90deg, transparent, #2196F3, transparent);
-      border-radius: 2px; z-index: 2; position: relative;
-    }
-
-    /* stars */
+    /* quote side */
+    .t-quote-col { flex: 1; min-width: 0; }
     .t-stars {
-      display: flex; gap: 4px; margin-bottom: 14px;
-      z-index: 2; position: relative;
+      display: flex; gap: 3px; margin-bottom: 14px;
     }
-    .t-star { width: 15px; height: 15px; fill: #2196F3; }
-
-    /* quote */
-    .t-quote-col { width: 100%; z-index: 2; position: relative; }
+    .t-star {
+      width: 16px; height: 16px; fill: #2196F3;
+    }
+    .t-quote-icon {
+      font-size: 48px; line-height: 1; color: #BBDEFB;
+      font-family: Georgia, serif; margin-bottom: 4px; display: block;
+    }
     .t-quote-text {
-      font-size: 14px; color: #2c3e50; line-height: 1.85;
-      font-weight: 400; text-align: center;
-      font-style: italic;
+      font-size: 15px; color: #333; line-height: 1.8;
+      font-weight: 400;
     }
-
-    /* hide old elements we no longer use */
-    .t-photo-col, .t-polaroid, .t-quote-icon { display: none; }
 
     @media (max-width: 768px) {
-      .t-card { width: 280px; }
+      .t-card { width: 420px; }
       .t-marquee-wrap::before,
       .t-marquee-wrap::after { width: 60px; }
     }
     @media (max-width: 480px) {
-      .t-card { width: 260px; }
+      .t-card { width: 320px; flex-direction: column; }
+      .t-photo-col { width: 100%; flex-direction: row; align-items: center; }
+      .t-photo-col::before { display: none; }
     }
 
     /* ════════════════════════════════════════
@@ -1483,92 +1433,96 @@
 
       <!-- Card 1 -->
       <div class="t-card">
-        <div class="t-card-accent"></div>
-        <div class="t-avatar-wrap">
-          <div class="t-avatar-ring">
+        <div class="t-photo-col">
+          <div class="t-polaroid">
             <div class="t-avatar">HD</div>
           </div>
-        </div>
-        <div class="t-name">Hemal Darji</div>
-        <div class="t-role">Sr. UX Designer · Thinkwik Technologies</div>
-        <div class="t-divider"></div>
-        <div class="t-stars">
-          <svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <div>
+            <div class="t-name">Hemal Darji</div>
+            <div class="t-role">Sr. UX Designer,<br>Thinkwik Technologies</div>
+          </div>
         </div>
         <div class="t-quote-col">
+          <div class="t-stars">
+            <svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <span class="t-quote-icon">"</span>
           <p class="t-quote-text">Achyut's dedication to user research and his insight-driven designs make him a standout UX professional. He transforms complex requirements into seamless, impactful user experiences.</p>
         </div>
       </div>
 
       <!-- Card 2 -->
       <div class="t-card">
-        <div class="t-card-accent"></div>
-        <div class="t-avatar-wrap">
-          <div class="t-avatar-ring">
+        <div class="t-photo-col">
+          <div class="t-polaroid">
             <div class="t-avatar">ER</div>
           </div>
-        </div>
-        <div class="t-name">Dr. Elaine Rettger</div>
-        <div class="t-role">Associate Director · Bus & Fin Comms, ASU</div>
-        <div class="t-divider"></div>
-        <div class="t-stars">
-          <svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <div>
+            <div class="t-name">Dr. Elaine Rettger</div>
+            <div class="t-role">Associate Director,<br>Bus & Fin Comms, ASU</div>
+          </div>
         </div>
         <div class="t-quote-col">
-          <p class="t-quote-text">Achyut consistently demonstrated exceptional UX design, research, and digital communication skills. His professionalism, creativity, and user-first mindset made him an invaluable asset to our team.</p>
+          <div class="t-stars">
+            <svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <span class="t-quote-icon">"</span>
+          <p class="t-quote-text">Achyut consistently demonstrated exceptional UX design, research, and digital communication skills, becoming a key contributor to our projects at ASU. His professionalism, creativity, and user-first mindset made him an invaluable asset to our team.</p>
         </div>
       </div>
 
       <!-- Card 3 -->
       <div class="t-card">
-        <div class="t-card-accent"></div>
-        <div class="t-avatar-wrap">
-          <div class="t-avatar-ring">
+        <div class="t-photo-col">
+          <div class="t-polaroid">
             <div class="t-avatar">SC</div>
           </div>
-        </div>
-        <div class="t-name">Stephen Carradini</div>
-        <div class="t-role">Assistant Professor · Arizona State University</div>
-        <div class="t-divider"></div>
-        <div class="t-stars">
-          <svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <div>
+            <div class="t-name">Stephen Carradini</div>
+            <div class="t-role">Assistant Professor,<br>Arizona State University</div>
+          </div>
         </div>
         <div class="t-quote-col">
-          <p class="t-quote-text">Achyut's designs are not just visually appealing but also highly functional, ensuring usability and clarity. His teamwork and coordination skills make him a valuable asset to any UX team.</p>
+          <div class="t-stars">
+            <svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <span class="t-quote-icon">"</span>
+          <p class="t-quote-text">Achyut's designs are not just visually appealing but also highly functional, ensuring usability and clarity for the end user. His teamwork experience and coordination skills make him a valuable asset to any user experience team.</p>
         </div>
       </div>
 
       <!-- Card 4 -->
       <div class="t-card">
-        <div class="t-card-accent"></div>
-        <div class="t-avatar-wrap">
-          <div class="t-avatar-ring">
+        <div class="t-photo-col">
+          <div class="t-polaroid">
             <div class="t-avatar">NP</div>
           </div>
-        </div>
-        <div class="t-name">Nikit Patel</div>
-        <div class="t-role">Team Lead Design · Thinkwik Technologies</div>
-        <div class="t-divider"></div>
-        <div class="t-stars">
-          <svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <div>
+            <div class="t-name">Nikit Patel</div>
+            <div class="t-role">Team Lead Design,<br>Thinkwik Technologies</div>
+          </div>
         </div>
         <div class="t-quote-col">
+          <div class="t-stars">
+            <svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <span class="t-quote-icon">"</span>
           <p class="t-quote-text">Achyut's creative vision and user-centric approach elevate every project he undertakes. His designs are not only visually engaging but also highly intuitive and user-friendly.</p>
         </div>
       </div>
