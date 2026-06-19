@@ -287,25 +287,37 @@
       transition: transform 0.45s cubic-bezier(.22,.68,0,1.3), box-shadow 0.3s ease, z-index 0s;
       will-change: transform;
     }
-    .phil-card:nth-child(1) { background: #fde8d8; left: calc(50% - 580px); top: 60px; transform: rotate(-12deg); box-shadow: 0 8px 32px rgba(253,152,80,0.18); }
-    .phil-card:nth-child(2) { background: #d8f0e8; left: calc(50% - 320px); top: 30px; transform: rotate(-6deg); box-shadow: 0 8px 32px rgba(72,187,120,0.18); }
-    .phil-card:nth-child(3) { background: #dbeafe; left: calc(50% - 60px); top: 10px; transform: rotate(0deg);  box-shadow: 0 8px 32px rgba(59,130,246,0.18); z-index: 3; }
-    .phil-card:nth-child(4) { background: #fde8f0; left: calc(50% + 200px); top: 30px; transform: rotate(6deg);  box-shadow: 0 8px 32px rgba(236,72,153,0.18); }
-    .phil-card:nth-child(5) { background: #fef3c7; left: calc(50% + 460px); top: 60px; transform: rotate(12deg); box-shadow: 0 8px 32px rgba(251,191,36,0.18); }
+    .phil-card { overflow: hidden; }
+    .phil-card:nth-child(1) { background: linear-gradient(145deg, #fde8d8 0%, #fbd0b4 100%); left: calc(50% - 580px); top: 60px; transform: rotate(-12deg); box-shadow: 0 8px 32px rgba(253,152,80,0.22); }
+    .phil-card:nth-child(2) { background: linear-gradient(145deg, #d8f0e8 0%, #b8e4d0 100%); left: calc(50% - 320px); top: 30px; transform: rotate(-6deg); box-shadow: 0 8px 32px rgba(72,187,120,0.22); }
+    .phil-card:nth-child(3) { background: linear-gradient(145deg, #dbeafe 0%, #bfdbfe 100%); left: calc(50% - 60px); top: 10px; transform: rotate(0deg);  box-shadow: 0 8px 32px rgba(59,130,246,0.22); z-index: 3; }
+    .phil-card:nth-child(4) { background: linear-gradient(145deg, #fde8f0 0%, #fbc4d8 100%); left: calc(50% + 200px); top: 30px; transform: rotate(6deg);  box-shadow: 0 8px 32px rgba(236,72,153,0.22); }
+    .phil-card:nth-child(5) { background: linear-gradient(145deg, #fef3c7 0%, #fde68a 100%); left: calc(50% + 460px); top: 60px; transform: rotate(12deg); box-shadow: 0 8px 32px rgba(251,191,36,0.22); }
 
     .phil-card:hover {
       transform: translateY(-30px) rotate(0deg) scale(1.04) !important;
       z-index: 10 !important;
-      box-shadow: 0 24px 60px rgba(0,0,0,0.16) !important;
+      box-shadow: 0 28px 64px rgba(0,0,0,0.18) !important;
     }
     .phil-card-title {
       font-family: 'Caveat', cursive;
       font-size: 24px; font-weight: 700; color: #1a2a3a;
       line-height: 1.2; margin-bottom: 14px;
+      position: relative; z-index: 1;
     }
     .phil-card-body {
       font-size: 13.5px; line-height: 1.75; color: #3a4a5a; font-weight: 500;
+      position: relative; z-index: 1;
     }
+    /* decorative large art blob bottom-right of each card */
+    .phil-card-art {
+      position: absolute; bottom: -18px; right: -14px;
+      opacity: 0.14; pointer-events: none;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      transform: scale(1);
+    }
+    .phil-card:hover .phil-card-art { opacity: 0.26; transform: scale(1.08) rotate(-4deg); }
+    .phil-card-art svg { width: 120px; height: 120px; display: block; }
 
     /* ════════════ EXPERIENCE ════════════ */
     #experience {
@@ -622,25 +634,69 @@
     </p>
 
     <div class="phil-cards">
+      <!-- card 1: chaos → clarity (orange) — spiral art -->
       <div class="phil-card">
-        <div class="phil-card-title">clarity through chaos</div>
-        <div class="phil-card-body">Ambiguity is part of the process, not a barrier. Sitting with the unknown, working through the overwhelm — clarity is what makes the process rewarding.</div>
+        <div class="phil-card-title">find order in the mess</div>
+        <div class="phil-card-body">Uncertainty isn't an obstacle — it's where the real work begins. I lean into ambiguity, trust the process, and let clarity emerge through iteration rather than wait for it to arrive.</div>
+        <div class="phil-card-art">
+          <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="60" cy="60" r="50" stroke="#c05a10" stroke-width="6" fill="none"/>
+            <circle cx="60" cy="60" r="35" stroke="#c05a10" stroke-width="4" fill="none"/>
+            <circle cx="60" cy="60" r="20" stroke="#c05a10" stroke-width="3" fill="none"/>
+            <circle cx="60" cy="60" r="7" fill="#c05a10"/>
+          </svg>
+        </div>
       </div>
+      <!-- card 2: craft everywhere (green) — eye/lens art -->
       <div class="phil-card">
-        <div class="phil-card-title">craft is everywhere</div>
-        <div class="phil-card-body">Whether it's fashion, photography, or brand — I'm drawn to work that carries intention. I constantly look beyond screens for inspiration.</div>
+        <div class="phil-card-title">inspiration has no off switch</div>
+        <div class="phil-card-body">Good ideas don't live only on screens. Fashion runways, street signs, film frames — everything is a source. I stay curious beyond the interface and let the world feed the work.</div>
+        <div class="phil-card-art">
+          <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="60" cy="60" rx="52" ry="30" stroke="#1a7a50" stroke-width="5" fill="none"/>
+            <circle cx="60" cy="60" r="16" stroke="#1a7a50" stroke-width="4" fill="none"/>
+            <circle cx="60" cy="60" r="6" fill="#1a7a50"/>
+            <line x1="8" y1="60" x2="20" y2="60" stroke="#1a7a50" stroke-width="3" stroke-linecap="round"/>
+            <line x1="100" y1="60" x2="112" y2="60" stroke="#1a7a50" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </div>
       </div>
+      <!-- card 3: depth (blue) — iceberg art -->
       <div class="phil-card">
-        <div class="phil-card-title">depth over surface</div>
-        <div class="phil-card-body">I don't stop at the obvious. I dig into the root of problems, especially complex systems, to deeply understand people and design solutions that genuinely improve everyday experiences.</div>
+        <div class="phil-card-title">go beneath the surface</div>
+        <div class="phil-card-body">The obvious answer is rarely the right one. I push past the first layer — asking why systems break, how people actually think — and design from that deeper understanding rather than from assumptions.</div>
+        <div class="phil-card-art">
+          <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="60,10 90,45 30,45" fill="#1a6abf" opacity="0.9"/>
+            <polygon points="50,50 100,50 110,110 10,110 20,50" fill="#1a6abf" opacity="0.45"/>
+            <line x1="10" y1="50" x2="110" y2="50" stroke="#1a6abf" stroke-width="3" stroke-dasharray="5,4"/>
+          </svg>
+        </div>
       </div>
+      <!-- card 4: no borders (pink) — bridge/arrow art -->
       <div class="phil-card">
-        <div class="phil-card-title">design without borders</div>
-        <div class="phil-card-body">From writing PRDs to troubleshooting with developers and stakeholders — I step in where needed. Ownership means doing what it takes.</div>
+        <div class="phil-card-title">own the whole problem</div>
+        <div class="phil-card-body">I don't hand off and walk away. Whether it's shaping a PRD, pairing with engineers, or pushing pixels at midnight — I treat the outcome as mine and do whatever the problem needs.</div>
+        <div class="phil-card-art">
+          <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="30" cy="60" r="16" stroke="#b02060" stroke-width="4" fill="none"/>
+            <circle cx="90" cy="60" r="16" stroke="#b02060" stroke-width="4" fill="none"/>
+            <line x1="46" y1="60" x2="74" y2="60" stroke="#b02060" stroke-width="4" stroke-linecap="round"/>
+            <polyline points="64,50 74,60 64,70" stroke="#b02060" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+        </div>
       </div>
+      <!-- card 5: less is more (yellow) — minimal lines art -->
       <div class="phil-card">
-        <div class="phil-card-title">less is more</div>
-        <div class="phil-card-body">Great design isn't about adding more, it's about removing what doesn't matter. I balance quality with constraints and focus on what truly helps the user move forward.</div>
+        <div class="phil-card-title">subtract until it sings</div>
+        <div class="phil-card-body">Every element should earn its place. I strip away decoration until what remains is purely purposeful — because the most powerful design is the one that gets out of the user's way.</div>
+        <div class="phil-card-art">
+          <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="20" y1="35" x2="100" y2="35" stroke="#a07800" stroke-width="7" stroke-linecap="round"/>
+            <line x1="20" y1="60" x2="75"  y2="60" stroke="#a07800" stroke-width="5" stroke-linecap="round"/>
+            <line x1="20" y1="85" x2="50"  y2="85" stroke="#a07800" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </div>
       </div>
     </div>
   </div>
