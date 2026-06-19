@@ -254,13 +254,13 @@
       align-items: center;
     }
 
-    /* ── Cloud layers with gentle drift ── */
+    /* ── Cloud layers with gentle drift — kept to edges so center stays readable ── */
     .cloud { position: absolute; border-radius: 50%; pointer-events: none; will-change: transform; }
-    .cloud-1 { width: 600px; height: 200px; top: 8%; left: -5%; background: rgba(255,255,255,0.6); filter: blur(56px); animation: cloudDrift1 20s ease-in-out infinite; }
-    .cloud-2 { width: 400px; height: 160px; top: 22%; left: 12%; background: rgba(255,255,255,0.4); filter: blur(40px); animation: cloudDrift2 28s ease-in-out infinite; }
-    .cloud-3 { width: 500px; height: 180px; top: 5%; right: -5%; background: rgba(255,255,255,0.5); filter: blur(52px); animation: cloudDrift3 24s ease-in-out infinite; }
-    .cloud-4 { width: 300px; height: 120px; bottom: 25%; right: 10%; background: rgba(255,255,255,0.25); filter: blur(36px); animation: cloudDrift4 32s ease-in-out infinite; }
-    .cloud-5 { width: 350px; height: 140px; top: 45%; left: 5%; background: rgba(255,255,255,0.2); filter: blur(32px); animation: cloudDrift5 18s ease-in-out infinite; }
+    .cloud-1 { width: 600px; height: 200px; top: 4%; left: -8%;  background: rgba(255,255,255,0.45); filter: blur(60px); animation: cloudDrift1 20s ease-in-out infinite; }
+    .cloud-2 { width: 400px; height: 160px; top: 18%; left: 5%;  background: rgba(255,255,255,0.28); filter: blur(48px); animation: cloudDrift2 28s ease-in-out infinite; }
+    .cloud-3 { width: 500px; height: 180px; top: 2%;  right: -8%; background: rgba(255,255,255,0.38); filter: blur(56px); animation: cloudDrift3 24s ease-in-out infinite; }
+    .cloud-4 { width: 300px; height: 120px; bottom: 28%; right: 6%; background: rgba(255,255,255,0.18); filter: blur(40px); animation: cloudDrift4 32s ease-in-out infinite; }
+    .cloud-5 { width: 350px; height: 140px; top: 50%; left: 2%;  background: rgba(255,255,255,0.15); filter: blur(36px); animation: cloudDrift5 18s ease-in-out infinite; }
 
     @keyframes cloudDrift1 {
       0%,100% { transform: translateX(0) translateY(0) scaleX(1); }
@@ -286,26 +286,35 @@
     }
 
     .hero-inner {
-      position: relative; z-index: 2;
+      position: relative; z-index: 4;
       max-width: 860px; margin: 0 auto;
-      width: 100%; padding: 0 40px;
+      width: 100%; padding: 110px 40px 100px;
       display: flex; flex-direction: column;
       align-items: center; text-align: center;
-      padding-top: 110px; padding-bottom: 80px;
       gap: 0;
+    }
+    /* soft dark vignette behind text for contrast */
+    .hero-inner::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 70% at 50% 50%,
+        rgba(10,60,100,0.18) 0%, transparent 70%);
+      pointer-events: none; z-index: -1;
+      border-radius: 50%;
     }
 
     /* available badge */
     .hero-available {
       display: inline-flex; align-items: center; gap: 8px;
-      font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.88);
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.25);
-      border-radius: 999px; padding: 6px 16px;
+      font-size: 13.5px; font-weight: 600; color: #fff;
+      background: rgba(0,40,80,0.28);
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 999px; padding: 7px 18px;
       margin-bottom: 28px;
       opacity: 0; transform: translateY(14px);
       transition: opacity 0.5s 0.05s, transform 0.5s 0.05s;
-      backdrop-filter: blur(8px);
+      backdrop-filter: blur(12px);
+      text-shadow: 0 1px 6px rgba(0,50,100,0.3);
     }
     .hero-available.show { opacity: 1; transform: none; }
     .avail-dot {
@@ -320,11 +329,12 @@
 
     /* greeting */
     .hero-eyebrow {
-      font-size: 17px; font-weight: 500; color: rgba(255,255,255,0.9);
+      font-size: 18px; font-weight: 600; color: #fff;
       margin-bottom: 20px;
       display: flex; align-items: center; gap: 8px; justify-content: center;
       opacity: 0; transform: translateY(14px);
       transition: opacity 0.55s 0.15s, transform 0.55s 0.15s;
+      text-shadow: 0 2px 10px rgba(0,60,120,0.3);
     }
     .hero-eyebrow.show { opacity: 1; transform: none; }
 
@@ -332,11 +342,10 @@
     .hero-h1 {
       font-family: 'Manrope', sans-serif;
       font-size: clamp(56px, 9vw, 118px);
-      font-weight: 900;
-      line-height: 1.0;
-      letter-spacing: -0.03em;
-      color: #fff;
+      font-weight: 900; line-height: 1.0;
+      letter-spacing: -0.03em; color: #fff;
       margin-bottom: 32px;
+      text-shadow: 0 2px 20px rgba(0,60,120,0.2);
     }
     .hero-line1 {
       display: block; color: #fff; font-weight: 900;
@@ -344,9 +353,7 @@
       transition: opacity 0.65s 0.25s, transform 0.65s 0.25s;
     }
     .hero-line2 {
-      display: block;
-      font-family: 'Caveat', cursive;
-      font-weight: 700;
+      display: block; font-family: 'Caveat', cursive; font-weight: 700;
       color: #fff; letter-spacing: -0.01em;
       font-size: clamp(60px, 9.5vw, 124px);
       opacity: 0; transform: translateY(22px);
@@ -358,9 +365,8 @@
       transition: opacity 0.65s 0.51s, transform 0.65s 0.51s;
     }
     .hero-line3 .serif-italic {
-      font-family: 'Caveat', cursive;
-      font-weight: 700; letter-spacing: -0.01em;
-      font-size: clamp(60px, 9.5vw, 124px);
+      font-family: 'Caveat', cursive; font-weight: 700;
+      letter-spacing: -0.01em; font-size: clamp(60px, 9.5vw, 124px);
     }
     .hero-line1.show, .hero-line2.show, .hero-line3.show { opacity: 1; transform: none; }
 
@@ -368,22 +374,29 @@
     .hero-stats {
       display: flex; align-items: center; gap: 28px;
       flex-wrap: wrap; justify-content: center;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
       opacity: 0; transform: translateY(14px);
       transition: opacity 0.55s 0.62s, transform 0.55s 0.62s;
     }
     .hero-stats.show { opacity: 1; transform: none; }
-    .hstat { display: flex; align-items: baseline; gap: 5px; }
-    .hstat-num { font-size: 18px; font-weight: 900; color: #fff; }
-    .hstat-lbl { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.7); }
-    .hstat-sep { width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,0.35); }
+    .hstat { display: flex; align-items: baseline; gap: 6px; }
+    .hstat-num {
+      font-size: 20px; font-weight: 900; color: #fff;
+      text-shadow: 0 2px 10px rgba(0,60,120,0.25);
+    }
+    .hstat-lbl {
+      font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.88);
+      text-shadow: 0 1px 8px rgba(0,60,120,0.2);
+    }
+    .hstat-sep { width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,0.5); }
 
     /* description */
     .hero-sub {
-      font-size: 17px; font-weight: 400; color: rgba(255,255,255,0.8);
-      line-height: 1.75; max-width: 600px;
+      font-size: 19px; font-weight: 400; color: rgba(255,255,255,0.95);
+      line-height: 1.8; max-width: 580px;
       opacity: 0; transform: translateY(14px);
       transition: opacity 0.55s 0.72s, transform 0.55s 0.72s;
+      text-shadow: 0 2px 12px rgba(0,60,120,0.25);
     }
     .hero-sub.show { opacity: 1; transform: none; }
     .hero-sub em { font-style: italic; color: #fff; font-weight: 500; }
@@ -391,11 +404,12 @@
 
     /* Bottom bar */
     .hero-bottom {
-      position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
+      position: absolute; bottom: 0; left: 0; right: 0; z-index: 4;
       padding: 0 48px 24px;
       display: flex; justify-content: space-between; align-items: center;
       font-size: 11px; font-weight: 700; letter-spacing: 0.16em;
-      text-transform: uppercase; color: rgba(255,255,255,0.7);
+      text-transform: uppercase; color: rgba(255,255,255,0.75);
+      text-shadow: 0 1px 6px rgba(0,60,120,0.3);
     }
 
     /* ════════════════════════════════════════
