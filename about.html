@@ -319,175 +319,216 @@
     .phil-card:hover .phil-card-art { opacity: 0.26; transform: scale(1.08) rotate(-4deg); }
     .phil-card-art svg { width: 120px; height: 120px; display: block; }
 
-    /* ════════════ EXPERIENCE — horizontal sticky scroll ════════════ */
+    /* ════════════ EXPERIENCE ════════════ */
     #experience {
-      padding: 80px 0 0;
-      background: linear-gradient(180deg, #f8fcff 0%, #fff 100%);
+      padding: 96px 0 0;
+      background: linear-gradient(180deg, #f8fcff 0%, #fff 60%);
     }
     .exp-head {
-      max-width: 1100px; margin: 0 auto; padding: 0 48px 52px;
+      max-width: 860px; margin: 0 auto; padding: 0 32px 60px; text-align: center;
+    }
+    .exp-head .section-lead {
+      max-width: 600px; margin: 0 auto; font-size: 16px; line-height: 1.7;
     }
 
-    /* outer tall section — gives scroll distance */
-    .exp-sticky-wrap {
+    /* ── Scroll viewport ── */
+    .exp-viewport {
       position: relative;
-      height: 500vh;
+      overflow: hidden; /* clip the fading edges */
     }
-    /* sticks to viewport while scrolling through */
-    .exp-sticky {
-      position: sticky; top: 0;
-      height: 100vh;
-      overflow: hidden;
-      display: flex; flex-direction: column; justify-content: center;
+    /* left/right fade masks */
+    .exp-viewport::before,
+    .exp-viewport::after {
+      content: ''; position: absolute; top: 0; bottom: 0; width: 120px;
+      z-index: 10; pointer-events: none;
     }
+    .exp-viewport::before { left: 0;  background: linear-gradient(to right, #f8fcff, transparent); }
+    .exp-viewport::after  { right: 0; background: linear-gradient(to left,  #f8fcff, transparent); }
 
-    /* horizontal scrolling rail */
-    .exp-rail {
-      position: relative;
-      will-change: transform;
+    /* ── Scroll track: native overflow-x + snap ── */
+    .exp-scroller {
+      display: flex;
+      align-items: flex-start;
+      overflow-x: scroll;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      cursor: grab;
+      padding: 28px 15vw 48px;
+      gap: 32px;
     }
+    .exp-scroller::-webkit-scrollbar { display: none; }
+    .exp-scroller.dragging { cursor: grabbing; scroll-snap-type: none; }
 
-    /* the single horizontal timeline line */
-    .exp-line {
+    /* ── Timeline spine: full-width line ── */
+    .exp-spine {
       position: absolute;
-      top: 46px; /* aligns with dot center */
-      left: 0; right: 0; height: 2px;
-      background: linear-gradient(to right, #2196F3 30%, rgba(33,150,243,0.12) 100%);
       pointer-events: none;
+      left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(to right,
+        transparent 0%, rgba(33,150,243,0.20) 8%,
+        rgba(33,150,243,0.40) 50%,
+        rgba(33,150,243,0.20) 92%, transparent 100%);
+      z-index: 0;
     }
 
-    /* flex row of all slides */
-    .exp-track {
-      display: flex; align-items: flex-start;
-      padding: 0 10vw 0 10vw;
-      position: relative;
-    }
-
-    /* one experience column */
-    .exp-col {
+    /* ── One experience item ── */
+    .exp-item {
       flex-shrink: 0;
-      width: 300px;
-      padding-right: 40px;
+      width: 320px;
+      scroll-snap-align: center;
+      position: relative;
+      /* alternating vertical offset */
+      transition: opacity 0.4s ease, transform 0.4s ease;
     }
+    .exp-item:nth-child(odd)  { padding-top: 0px;  }
+    .exp-item:nth-child(even) { padding-top: 48px; }
 
-    /* date badge sits at very top */
+    /* active state (JS adds .active) */
+    .exp-item        { opacity: 0.5; transform: scale(0.96); }
+    .exp-item.active { opacity: 1;   transform: scale(1);    }
+
+    /* ── Date badge ── */
     .exp-badge {
       display: inline-flex; align-items: center; gap: 7px;
-      font-size: 11.5px; font-weight: 700; letter-spacing: 0.01em;
-      background: #fff; border: 1.5px solid rgba(33,150,243,0.25);
-      border-radius: 100px; padding: 5px 14px;
-      color: #1a56b0; white-space: nowrap;
-      position: relative; z-index: 2;
+      font-size: 11.5px; font-weight: 700; letter-spacing: 0.02em;
+      background: #fff; border: 1.5px solid rgba(33,150,243,0.28);
+      border-radius: 100px; padding: 6px 16px; color: #1a56b0;
+      white-space: nowrap; position: relative; z-index: 3;
     }
-    .exp-col.current .exp-badge {
-      background: linear-gradient(90deg,#1356b4,#2196F3);
+    .exp-item.is-current .exp-badge {
+      background: linear-gradient(90deg, #1356b4, #2196F3);
       border-color: transparent; color: #fff;
     }
     .exp-present-dot {
-      width: 6px; height: 6px; border-radius: 50%;
+      width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
       background: #4ade80;
-      box-shadow: 0 0 0 3px rgba(74,222,128,0.32);
-      display: inline-block;
+      box-shadow: 0 0 0 3px rgba(74,222,128,0.35);
       animation: presentPulse 1.8s ease-in-out infinite;
     }
     @keyframes presentPulse {
-      0%,100% { box-shadow: 0 0 0 3px rgba(74,222,128,0.32); }
-      50%      { box-shadow: 0 0 0 6px rgba(74,222,128,0.16); }
+      0%,100% { box-shadow: 0 0 0 3px rgba(74,222,128,0.35); }
+      50%      { box-shadow: 0 0 0 7px rgba(74,222,128,0.15); }
     }
 
-    /* vertical stem: badge → dot on line */
-    .exp-stem {
-      width: 1.5px; height: 28px;
-      background: #2196F3; opacity: 0.35;
-      margin: 0 0 0 18px;
+    /* ── Connector: badge → dot → card ── */
+    .exp-connector {
+      display: flex; flex-direction: column; align-items: flex-start;
+      padding-left: 20px;
     }
-    .exp-col.current .exp-stem { opacity: 1; }
-
-    /* dot sitting ON the line */
+    .exp-vstem { width: 2px; height: 26px; background: rgba(33,150,243,0.28); }
     .exp-dot {
-      width: 12px; height: 12px; border-radius: 50%;
-      background: #fff; border: 2.5px solid rgba(33,150,243,0.35);
-      box-shadow: 0 0 0 4px rgba(33,150,243,0.08);
-      margin: 0 0 0 12px;
-      position: relative; z-index: 2;
+      width: 13px; height: 13px; border-radius: 50%;
+      background: #fff; border: 2px solid rgba(33,150,243,0.35);
+      box-shadow: 0 0 0 4px rgba(33,150,243,0.10);
+      position: relative; z-index: 3;
     }
-    .exp-col.current .exp-dot {
+    .exp-item.is-current .exp-vstem { background: #2196F3; }
+    .exp-item.is-current .exp-dot   {
       background: #2196F3; border-color: #2196F3;
-      box-shadow: 0 0 0 5px rgba(33,150,243,0.18);
+      box-shadow: 0 0 0 5px rgba(33,150,243,0.20), 0 0 12px rgba(33,150,243,0.35);
     }
+    .exp-vstem2 { width: 2px; height: 20px; background: rgba(33,150,243,0.18); }
 
-    /* stem below dot → card */
-    .exp-stem2 {
-      width: 1.5px; height: 22px;
-      background: rgba(33,150,243,0.22);
-      margin: 0 0 0 18px;
-    }
-
-    /* the card itself */
+    /* ── Card ── */
     .exp-card {
       background: #fff;
       border: 1.5px solid rgba(33,150,243,0.10);
-      border-radius: 18px;
-      padding: 18px 20px 20px;
-      box-shadow: 0 2px 14px rgba(33,150,243,0.06);
-      transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
-      width: 260px;
+      border-radius: 22px;
+      padding: 22px 24px 26px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05), 0 1px 4px rgba(33,150,243,0.06);
+      transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+      position: relative; z-index: 2;
+    }
+    .exp-item.active .exp-card {
+      box-shadow: 0 12px 40px rgba(33,150,243,0.12), 0 2px 8px rgba(0,0,0,0.06);
+      border-color: rgba(33,150,243,0.20);
+    }
+    .exp-item.is-current .exp-card {
+      background: linear-gradient(150deg, #f0f9ff 0%, #fff 100%);
     }
     .exp-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 56px rgba(33,150,243,0.15), 0 4px 10px rgba(0,0,0,0.06);
       border-color: rgba(33,150,243,0.28);
-      box-shadow: 0 10px 32px rgba(33,150,243,0.13);
-      transform: translateY(-4px);
     }
-    .exp-col.current .exp-card {
-      border-color: rgba(33,150,243,0.25);
-      background: linear-gradient(145deg,#f0f9ff,#fff);
-    }
-    .exp-card-head {
-      display: flex; align-items: center; gap: 11px; margin-bottom: 12px;
+
+    /* card internals */
+    .exp-card-top {
+      display: flex; align-items: center; gap: 13px;
+      margin-bottom: 16px;
     }
     .exp-logo {
-      width: 38px; height: 38px; border-radius: 9px; flex-shrink: 0;
-      background: linear-gradient(135deg,#dbeafe,#bfdbfe);
+      width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
       display: flex; align-items: center; justify-content: center;
-      font-size: 15px; font-weight: 900; color: #1565C0;
+      font-size: 18px; font-weight: 900;
+      background: linear-gradient(135deg, #dbeafe, #bfdbfe); color: #1565C0;
     }
-    .exp-role { font-size: 13.5px; font-weight: 800; color: #0D1A2B; line-height: 1.3; }
-    .exp-co   { font-size: 12px; font-weight: 600; color: #2196F3; margin-top: 2px; }
-    .exp-loc  { font-size: 11px; font-weight: 600; color: #94a3b8; margin-top: 1px; }
-    .exp-div  { height: 1px; background: rgba(33,150,243,0.10); margin: 11px 0; }
-    .exp-bullets { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 7px; }
+    .exp-meta { flex: 1; min-width: 0; }
+    .exp-role  { font-size: 14.5px; font-weight: 800; color: #0D1A2B; line-height: 1.25; }
+    .exp-co    { font-size: 13px; font-weight: 700; color: #2196F3; margin-top: 3px; }
+    .exp-loc   {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 11.5px; font-weight: 600; color: #94a3b8; margin-top: 4px;
+    }
+    .exp-loc svg { width: 11px; height: 11px; opacity: 0.7; }
+    .exp-divider { height: 1px; background: rgba(33,150,243,0.09); margin: 0 0 14px; }
+    .exp-bullets {
+      list-style: none; padding: 0; margin: 0;
+      display: flex; flex-direction: column; gap: 9px;
+    }
     .exp-bullets li {
-      font-size: 12px; line-height: 1.6; color: #4a5568; font-weight: 500;
-      padding-left: 13px; position: relative;
+      font-size: 12.5px; line-height: 1.65; color: #4a5568; font-weight: 500;
+      padding-left: 16px; position: relative;
     }
     .exp-bullets li::before {
-      content: ''; position: absolute; left: 0; top: 7px;
-      width: 5px; height: 5px; border-radius: 50%;
-      background: #2196F3; opacity: 0.55;
+      content: ''; position: absolute; left: 0; top: 8px;
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #2196F3; opacity: 0.5;
     }
     .exp-bullets b { color: #0D1A2B; font-weight: 700; }
 
-    /* progress bar at bottom of sticky */
-    .exp-progress-bar {
-      position: absolute; bottom: 36px; left: 10vw; right: 10vw;
-      height: 3px; background: rgba(33,150,243,0.10); border-radius: 10px;
+    /* ── Bottom controls ── */
+    .exp-controls {
+      display: flex; align-items: center; justify-content: center;
+      gap: 20px; padding: 36px 32px 72px;
     }
-    .exp-progress-fill {
-      height: 100%; background: #2196F3; border-radius: 10px;
-      width: 0%; transition: width 0.1s linear;
+    .exp-prev, .exp-next {
+      width: 44px; height: 44px; border-radius: 50%;
+      border: 1.5px solid rgba(33,150,243,0.22);
+      background: #fff; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: #1565C0; transition: background 0.2s, border-color 0.2s, transform 0.2s;
+      box-shadow: 0 2px 10px rgba(33,150,243,0.08);
+    }
+    .exp-prev:hover, .exp-next:hover {
+      background: #2196F3; color: #fff; border-color: #2196F3;
+      transform: scale(1.08);
+    }
+    .exp-dots {
+      display: flex; gap: 8px; align-items: center;
+    }
+    .exp-dot-btn {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: rgba(33,150,243,0.20); border: none; cursor: pointer;
+      transition: background 0.25s, transform 0.25s; padding: 0;
+    }
+    .exp-dot-btn.active { background: #2196F3; transform: scale(1.3); }
+
+    /* ── Mobile ── */
+    @media (max-width: 640px) {
+      .exp-scroller { padding: 20px 6vw 40px; gap: 20px; }
+      .exp-item { width: 280px; }
+      .exp-item:nth-child(even) { padding-top: 0; }
+      .exp-item { opacity: 1; transform: none; }
+      .exp-viewport::before, .exp-viewport::after { width: 40px; }
     }
 
-    /* scroll hint label */
-    .exp-hint {
-      position: absolute; bottom: 52px; left: 50%; transform: translateX(-50%);
-      font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
-      text-transform: uppercase; color: #94a3b8;
-      white-space: nowrap;
-    }
-
-    @keyframes dotGlow {
-      0%,100% { box-shadow: 0 0 0 4px rgba(33,150,243,0.20), 0 0 0 8px rgba(33,150,243,0.06); }
-      50%      { box-shadow: 0 0 0 6px rgba(33,150,243,0.28), 0 0 0 12px rgba(33,150,243,0.10); }
+    /* prefers-reduced-motion */
+    @media (prefers-reduced-motion: reduce) {
+      .exp-item, .exp-card { transition: none; }
+      .exp-present-dot { animation: none; }
     }
 
     /* ════════════ EDUCATION + TOOLS ════════════ */
@@ -805,141 +846,180 @@
 <!-- ══ EXPERIENCE ══ -->
 <section id="experience">
   <div class="exp-head">
-    <div class="section-eyebrow r">◆ &nbsp;Experience</div>
-    <h2 class="section-h2 r" style="font-family:'Manrope',sans-serif;font-size:clamp(28px,4vw,48px);font-weight:900;letter-spacing:-0.025em;margin-bottom:8px;">The Journey So Far</h2>
-    <p style="font-size:16px;color:#64748b;font-weight:500;">From fintech to enterprise AI — five roles, two countries, and counting.</p>
+    <div class="section-eyebrow r">✦ &nbsp;EXPERIENCE</div>
+    <h2 class="section-h2 r" style="font-family:'Manrope',sans-serif;font-size:clamp(32px,5vw,60px);font-weight:900;letter-spacing:-0.03em;line-height:1.05;margin-bottom:16px;">The journey so far</h2>
+    <p class="section-lead r">From enterprise AI platforms to design systems and research-led product work — a growing journey of turning complex problems into clear user experiences.</p>
   </div>
 
-  <div class="exp-sticky-wrap" id="expWrap">
-    <div class="exp-sticky" id="expSticky">
+  <div class="exp-viewport">
+    <!-- spine line: positioned by JS after measuring items -->
+    <div class="exp-spine" id="expSpine"></div>
 
-      <div class="exp-rail" id="expRail">
-        <div class="exp-line"></div>
-        <div class="exp-track" id="expTrack">
+    <div class="exp-scroller" id="expScroller" role="region" aria-label="Experience timeline">
 
-          <!-- 1 Worldlink -->
-          <div class="exp-col current">
-            <div class="exp-badge"><span class="exp-present-dot"></span>Oct '25 – Present</div>
-            <div class="exp-stem"></div>
-            <div class="exp-dot"></div>
-            <div class="exp-stem2"></div>
-            <div class="exp-card">
-              <div class="exp-card-head">
-                <div class="exp-logo">W</div>
-                <div>
-                  <div class="exp-role">UX Designer</div>
-                  <div class="exp-co">Worldlink</div>
-                  <div class="exp-loc">Frisco, TX</div>
-                </div>
+      <!-- 1 · WorldLink (current) -->
+      <div class="exp-item is-current active" data-index="0">
+        <div class="exp-badge"><span class="exp-present-dot"></span>Oct '25 – Present</div>
+        <div class="exp-connector">
+          <div class="exp-vstem"></div>
+          <div class="exp-dot"></div>
+          <div class="exp-vstem2"></div>
+        </div>
+        <div class="exp-card">
+          <div class="exp-card-top">
+            <div class="exp-logo">W</div>
+            <div class="exp-meta">
+              <div class="exp-role">UX / Product Designer</div>
+              <div class="exp-co">WorldLink</div>
+              <div class="exp-loc">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Frisco, TX
               </div>
-              <div class="exp-div"></div>
-              <ul class="exp-bullets">
-                <li>Built <b>WorldKit</b> — enterprise design system covering Figma variables, components &amp; WCAG 2.2, slashing rework by <b>45%</b></li>
-                <li>Led UX for an <b>AI-powered GRC platform</b> — compliance dashboards that cut query resolution time by <b>42%</b></li>
-                <li>Delivered design POCs for <b>Citi Bank, AbbVie &amp; Samsung</b> through Fortune 100 engagements</li>
-              </ul>
             </div>
           </div>
+          <div class="exp-divider"></div>
+          <ul class="exp-bullets">
+            <li>Designing <b>AI-powered enterprise products</b>, internal tools, and Fortune 100 proof-of-concept experiences</li>
+            <li>Led UX across <b>GRC, Velox, 7-Eleven AI Ops</b>, Coffee Digital Twin, and GTN simulation workflows</li>
+            <li>Contributed to <b>WorldKIT design system</b> — improving consistency, accessibility, and design-to-dev handoff</li>
+            <li>Partnered with product, engineering &amp; leadership to simplify complex workflows into scalable experiences</li>
+          </ul>
+        </div>
+      </div>
 
-          <!-- 2 Saayam -->
-          <div class="exp-col">
-            <div class="exp-badge">Jun '25 – Oct '25</div>
-            <div class="exp-stem"></div>
-            <div class="exp-dot"></div>
-            <div class="exp-stem2"></div>
-            <div class="exp-card">
-              <div class="exp-card-head">
-                <div class="exp-logo" style="background:linear-gradient(135deg,#d8f0e8,#b8e4d0);color:#1a7a50;">S</div>
-                <div>
-                  <div class="exp-role">UX Designer</div>
-                  <div class="exp-co">Saayam For All</div>
-                  <div class="exp-loc">Remote, USA</div>
-                </div>
+      <!-- 2 · Saayam For All -->
+      <div class="exp-item" data-index="1">
+        <div class="exp-badge">Jun '25 – Present</div>
+        <div class="exp-connector">
+          <div class="exp-vstem"></div>
+          <div class="exp-dot"></div>
+          <div class="exp-vstem2"></div>
+        </div>
+        <div class="exp-card">
+          <div class="exp-card-top">
+            <div class="exp-logo" style="background:linear-gradient(135deg,#d8f0e8,#b8e4d0);color:#1a7a50;">S</div>
+            <div class="exp-meta">
+              <div class="exp-role">UX Designer</div>
+              <div class="exp-co">Saayam For All</div>
+              <div class="exp-loc">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Remote
               </div>
-              <div class="exp-div"></div>
-              <ul class="exp-bullets">
-                <li>Designed <b>30+ screens</b> for a nonprofit platform and shipped a unified design system that cut handoff time by <b>12%</b></li>
-                <li>Reworked the donor checkout flow — <b>90% transaction success rate</b> and drop-offs down by <b>25%</b></li>
-              </ul>
             </div>
           </div>
+          <div class="exp-divider"></div>
+          <ul class="exp-bullets">
+            <li>Designed <b>donor, volunteer, and nonprofit support</b> workflows for a community-focused platform</li>
+            <li>Improved donation and payment experiences through <b>clearer flows</b>, simplified UI, and reusable design patterns</li>
+            <li>Supported usability testing, <b>design system updates</b>, and cross-functional handoff</li>
+            <li>Made social-impact technology <b>easier, faster, and more trustworthy</b> to use</li>
+          </ul>
+        </div>
+      </div>
 
-          <!-- 3 ASU -->
-          <div class="exp-col">
-            <div class="exp-badge">Jul '24 – May '25</div>
-            <div class="exp-stem"></div>
-            <div class="exp-dot"></div>
-            <div class="exp-stem2"></div>
-            <div class="exp-card">
-              <div class="exp-card-head">
-                <div class="exp-logo" style="background:linear-gradient(135deg,#8B0000,#c0392b);color:#fff;">A</div>
-                <div>
-                  <div class="exp-role">UX Designer</div>
-                  <div class="exp-co">Arizona State University</div>
-                  <div class="exp-loc">Tempe, AZ</div>
-                </div>
+      <!-- 3 · ASU -->
+      <div class="exp-item" data-index="2">
+        <div class="exp-badge">Jul '24 – May '25</div>
+        <div class="exp-connector">
+          <div class="exp-vstem"></div>
+          <div class="exp-dot"></div>
+          <div class="exp-vstem2"></div>
+        </div>
+        <div class="exp-card">
+          <div class="exp-card-top">
+            <div class="exp-logo" style="background:linear-gradient(135deg,#8B0000,#c0392b);color:#fff;">A</div>
+            <div class="exp-meta">
+              <div class="exp-role">Digital Assistant / UX Designer</div>
+              <div class="exp-co">ASU Business &amp; Finance</div>
+              <div class="exp-loc">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Tempe, AZ
               </div>
-              <div class="exp-div"></div>
-              <ul class="exp-bullets">
-                <li>Shipped <b>70+ accessible pages</b> for ASU's financial portal — task success up <b>18%</b> for 3,000+ monthly users</li>
-                <li>Mixed-methods research on the CFO platform uncovered pain points that improved completion rates by <b>30%</b></li>
-              </ul>
             </div>
           </div>
+          <div class="exp-divider"></div>
+          <ul class="exp-bullets">
+            <li>Redesigned and maintained <b>70+ Drupal pages</b> across ASU Business &amp; Finance digital experiences</li>
+            <li>Improved <b>navigation, accessibility</b>, content structure, and task completion for students, staff, and internal teams</li>
+            <li>Conducted <b>audits, usability reviews</b>, and content cleanup to create clearer service and policy journeys</li>
+            <li>Collaborated with communications and stakeholder teams to ship <b>consistent website updates</b></li>
+          </ul>
+        </div>
+      </div>
 
-          <!-- 4 Infotop -->
-          <div class="exp-col">
-            <div class="exp-badge">Sep '22 – Jun '23</div>
-            <div class="exp-stem"></div>
-            <div class="exp-dot"></div>
-            <div class="exp-stem2"></div>
-            <div class="exp-card">
-              <div class="exp-card-head">
-                <div class="exp-logo" style="background:linear-gradient(135deg,#fde8d8,#fbd0b4);color:#c05a10;">I</div>
-                <div>
-                  <div class="exp-role">UX Designer</div>
-                  <div class="exp-co">Infotop Solutions</div>
-                  <div class="exp-loc">Rajkot, India</div>
-                </div>
+      <!-- 4 · Infotop Solutions -->
+      <div class="exp-item" data-index="3">
+        <div class="exp-badge">Sep '22 – Jun '23</div>
+        <div class="exp-connector">
+          <div class="exp-vstem"></div>
+          <div class="exp-dot"></div>
+          <div class="exp-vstem2"></div>
+        </div>
+        <div class="exp-card">
+          <div class="exp-card-top">
+            <div class="exp-logo" style="background:linear-gradient(135deg,#fde8d8,#fbd0b4);color:#c05a10;">I</div>
+            <div class="exp-meta">
+              <div class="exp-role">UX Designer</div>
+              <div class="exp-co">Infotop Solutions</div>
+              <div class="exp-loc">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Rajkot, India
               </div>
-              <div class="exp-div"></div>
-              <ul class="exp-bullets">
-                <li>Simplified data visualizations for a <b>fintech platform</b>, making complex data scannable — discoverability up <b>40%</b></li>
-                <li>Redesigned <b>e-commerce checkout</b> end-to-end — conversion rates jumped <b>60%</b></li>
-              </ul>
             </div>
           </div>
+          <div class="exp-divider"></div>
+          <ul class="exp-bullets">
+            <li>Designed <b>fintech and enterprise web experiences</b> with responsive layouts and reusable UI patterns</li>
+            <li>Created <b>wireframes, prototypes, and user flows</b> for complex financial product journeys</li>
+            <li>Worked closely with developers to improve <b>usability and implementation clarity</b></li>
+            <li>Supported <b>Drupal-based</b> product and website design improvements</li>
+          </ul>
+        </div>
+      </div>
 
-          <!-- 5 Thinkwik -->
-          <div class="exp-col">
-            <div class="exp-badge">May '22 – Aug '22</div>
-            <div class="exp-stem"></div>
-            <div class="exp-dot"></div>
-            <div class="exp-stem2"></div>
-            <div class="exp-card">
-              <div class="exp-card-head">
-                <div class="exp-logo" style="background:linear-gradient(135deg,#fef3c7,#fde68a);color:#a07800;">T</div>
-                <div>
-                  <div class="exp-role">UX Designer</div>
-                  <div class="exp-co">Thinkwik Technologies</div>
-                  <div class="exp-loc">Ahmedabad, India</div>
-                </div>
+      <!-- 5 · Thinkwik Technologies -->
+      <div class="exp-item" data-index="4">
+        <div class="exp-badge">May '22 – Aug '22</div>
+        <div class="exp-connector">
+          <div class="exp-vstem"></div>
+          <div class="exp-dot"></div>
+          <div class="exp-vstem2"></div>
+        </div>
+        <div class="exp-card">
+          <div class="exp-card-top">
+            <div class="exp-logo" style="background:linear-gradient(135deg,#fef3c7,#fde68a);color:#a07800;">T</div>
+            <div class="exp-meta">
+              <div class="exp-role">UX Designer</div>
+              <div class="exp-co">Thinkwik Technologies</div>
+              <div class="exp-loc">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Ahmedabad, India
               </div>
-              <div class="exp-div"></div>
-              <ul class="exp-bullets">
-                <li>Prototyped <b>4+ enterprise web apps</b> in Figma — faster stakeholder sign-off and tighter feedback loops</li>
-                <li>Designed <b>B2B analytics dashboards</b> that raised client satisfaction scores by <b>18%</b></li>
-              </ul>
             </div>
           </div>
+          <div class="exp-divider"></div>
+          <ul class="exp-bullets">
+            <li>Designed <b>B2B dashboard concepts</b>, enterprise workflows, and high-fidelity product screens</li>
+            <li>Created early-stage <b>user flows, wireframes, and prototypes</b> for web and SaaS products</li>
+            <li>Collaborated with engineering teams to <b>translate requirements</b> into usable product interfaces</li>
+            <li>Strengthened foundations in <b>product thinking, visual design</b>, and design-to-dev collaboration</li>
+          </ul>
+        </div>
+      </div>
 
-        </div><!-- /exp-track -->
-      </div><!-- /exp-rail -->
+    </div><!-- /exp-scroller -->
+  </div><!-- /exp-viewport -->
 
-      <span class="exp-hint">↓ scroll to explore</span>
-      <div class="exp-progress-bar"><div class="exp-progress-fill" id="expFill"></div></div>
-    </div><!-- /exp-sticky -->
-  </div><!-- /exp-sticky-wrap -->
+  <!-- prev / dot-nav / next -->
+  <div class="exp-controls">
+    <button class="exp-prev" id="expPrev" aria-label="Previous">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="exp-dots" id="expDots"></div>
+    <button class="exp-next" id="expNext" aria-label="Next">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
 </section>
 
 <!-- ══ EDUCATION + TOOLS ══ -->
@@ -1041,30 +1121,111 @@
   reveal('.tool-card', { stagger: 60 });
   reveal('.skill-tag', { stagger: 30 });
 
-  /* ── Horizontal experience scroll ── */
+  /* ── Experience horizontal carousel ── */
   (function () {
-    const wrap = document.getElementById('expWrap');
-    const rail = document.getElementById('expRail');
-    const fill = document.getElementById('expFill');
-    if (!wrap || !rail) return;
+    const scroller = document.getElementById('expScroller');
+    const dotsWrap = document.getElementById('expDots');
+    const prevBtn  = document.getElementById('expPrev');
+    const nextBtn  = document.getElementById('expNext');
+    const spine    = document.getElementById('expSpine');
+    if (!scroller) return;
 
-    function update() {
-      const rect     = wrap.getBoundingClientRect();
-      const wrapH    = wrap.offsetHeight;
-      const scrollable = wrapH - window.innerHeight;
-      const progress = Math.max(0, Math.min(1, -rect.top / scrollable));
+    const items = Array.from(scroller.querySelectorAll('.exp-item'));
+    let activeIdx = 0;
 
-      /* how far to slide the rail horizontally */
-      const maxX = rail.scrollWidth - window.innerWidth;
-      rail.style.transform = `translateX(${-progress * maxX}px)`;
+    /* build dot nav */
+    items.forEach((_, i) => {
+      const d = document.createElement('button');
+      d.className = 'exp-dot-btn' + (i === 0 ? ' active' : '');
+      d.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+      d.addEventListener('click', () => scrollTo(i));
+      dotsWrap.appendChild(d);
+    });
 
-      /* progress bar */
-      if (fill) fill.style.width = (progress * 100) + '%';
+    /* position spine to align with connector dots */
+    function positionSpine() {
+      if (!spine || !items[0]) return;
+      const dot = items[0].querySelector('.exp-dot');
+      if (!dot) return;
+      const scrollerRect = scroller.getBoundingClientRect();
+      const dotRect = dot.getBoundingClientRect();
+      const offsetTop = dotRect.top - scrollerRect.top + scroller.scrollTop + dot.offsetHeight / 2;
+      /* account for item padding-top on even items */
+      /* use a middle value between odd and even */
+      spine.style.top = (offsetTop) + 'px';
     }
 
-    window.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
-    update();
+    function setActive(idx) {
+      activeIdx = idx;
+      items.forEach((el, i) => {
+        el.classList.toggle('active', i === idx);
+      });
+      dotsWrap.querySelectorAll('.exp-dot-btn').forEach((d, i) => {
+        d.classList.toggle('active', i === idx);
+      });
+    }
+
+    function scrollTo(idx) {
+      const el = items[idx];
+      if (!el) return;
+      const left = el.offsetLeft - scroller.offsetWidth / 2 + el.offsetWidth / 2;
+      scroller.scrollTo({ left, behavior: 'smooth' });
+      setActive(idx);
+    }
+
+    /* update active on scroll via IntersectionObserver */
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.intersectionRatio > 0.55) {
+          setActive(parseInt(e.target.dataset.index));
+        }
+      });
+    }, { root: scroller, threshold: 0.55 });
+    items.forEach(el => io.observe(el));
+
+    /* prev / next */
+    prevBtn?.addEventListener('click', () => scrollTo(Math.max(0, activeIdx - 1)));
+    nextBtn?.addEventListener('click', () => scrollTo(Math.min(items.length - 1, activeIdx + 1)));
+
+    /* wheel → horizontal scroll on desktop */
+    scroller.addEventListener('wheel', e => {
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return; /* already horizontal */
+      e.preventDefault();
+      scroller.scrollLeft += e.deltaY;
+    }, { passive: false });
+
+    /* drag to scroll */
+    let isDown = false, startX = 0, startScrollLeft = 0;
+    scroller.addEventListener('mousedown', e => {
+      isDown = true; startX = e.pageX; startScrollLeft = scroller.scrollLeft;
+      scroller.classList.add('dragging');
+    });
+    window.addEventListener('mouseup', () => { isDown = false; scroller.classList.remove('dragging'); });
+    scroller.addEventListener('mousemove', e => {
+      if (!isDown) return;
+      e.preventDefault();
+      scroller.scrollLeft = startScrollLeft - (e.pageX - startX);
+    });
+
+    /* entrance animation: fade+slide items on section enter viewport */
+    const sectionObs = new IntersectionObserver(entries => {
+      if (!entries[0].isIntersecting) return;
+      items.forEach((el, i) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(28px) scale(0.97)';
+        setTimeout(() => {
+          el.style.transition = 'opacity 0.55s ease, transform 0.55s ease';
+          el.style.opacity = '';
+          el.style.transform = '';
+          /* re-apply active class styles via CSS */
+        }, 80 + i * 80);
+      });
+      sectionObs.disconnect();
+    }, { threshold: 0.15 });
+    sectionObs.observe(document.getElementById('experience'));
+
+    positionSpine();
+    window.addEventListener('resize', positionSpine);
   })();
 </script>
 </body>
