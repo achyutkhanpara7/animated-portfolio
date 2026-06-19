@@ -6,7 +6,7 @@
   <title>Achyut Khanpara — UX / Product Designer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Caveat:wght@700&family=Manrope:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@1,400;1,700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Caveat:wght@700&family=Manrope:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; font-size: 16px; }
@@ -235,33 +235,35 @@
     .hero-h1 {
       font-family: 'Manrope', sans-serif;
       font-size: clamp(56px, 9vw, 118px);
-      font-weight: 800;
+      font-weight: 900;
       line-height: 1.0;
       letter-spacing: -0.03em;
       color: #fff;
       margin-bottom: 32px;
     }
     .hero-line1 {
-      display: block; color: rgba(255,255,255,0.55); font-weight: 700;
+      display: block; color: #fff; font-weight: 900;
       opacity: 0; transform: translateY(22px);
       transition: opacity 0.65s 0.25s, transform 0.65s 0.25s;
     }
     .hero-line2 {
       display: block;
-      font-family: 'Playfair Display', serif;
-      font-style: italic; font-weight: 400;
-      color: rgba(255,255,255,0.75); letter-spacing: -0.02em;
+      font-family: 'Caveat', cursive;
+      font-weight: 700;
+      color: #fff; letter-spacing: -0.01em;
+      font-size: clamp(60px, 9.5vw, 124px);
       opacity: 0; transform: translateY(22px);
       transition: opacity 0.65s 0.38s, transform 0.65s 0.38s;
     }
     .hero-line3 {
-      display: block; color: #fff; font-weight: 800;
+      display: block; color: #fff; font-weight: 900;
       opacity: 0; transform: translateY(22px);
       transition: opacity 0.65s 0.51s, transform 0.65s 0.51s;
     }
     .hero-line3 .serif-italic {
-      font-family: 'Playfair Display', serif;
-      font-style: italic; font-weight: 400; letter-spacing: -0.01em;
+      font-family: 'Caveat', cursive;
+      font-weight: 700; letter-spacing: -0.01em;
+      font-size: clamp(60px, 9.5vw, 124px);
     }
     .hero-line1.show, .hero-line2.show, .hero-line3.show { opacity: 1; transform: none; }
 
