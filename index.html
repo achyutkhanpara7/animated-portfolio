@@ -836,6 +836,114 @@
     .tdesc { font-size: 14px; color: #666; line-height: 1.65; }
 
     /* ════════════════════════════════════════
+       HERO CAPABILITY MARQUEE
+    ════════════════════════════════════════ */
+    #hero-marquee {
+      background: linear-gradient(180deg, #EBF6FD 0%, #F5FBFF 50%, #ffffff 100%);
+      padding: 20px 0 22px;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    /* fade masks */
+    #hero-marquee::before,
+    #hero-marquee::after {
+      content: '';
+      position: absolute; top: 0; bottom: 0; width: 120px;
+      pointer-events: none; z-index: 2;
+    }
+    #hero-marquee::before {
+      left: 0;
+      background: linear-gradient(to right, #EBF6FD 0%, transparent 100%);
+    }
+    #hero-marquee::after {
+      right: 0;
+      background: linear-gradient(to left, #ffffff 0%, transparent 100%);
+    }
+
+    .hm-track-wrap {
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .hm-track {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: max-content;
+      animation: hmScroll 38s linear infinite;
+    }
+    .hm-track-wrap:hover .hm-track {
+      animation-play-state: paused;
+    }
+    @keyframes hmScroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hm-track { animation: none; }
+      .hm-track-wrap { overflow-x: auto; scrollbar-width: none; }
+      .hm-track-wrap::-webkit-scrollbar { display: none; }
+    }
+
+    /* pill item */
+    .hm-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 18px 8px 14px;
+      background: rgba(255,255,255,0.85);
+      border: 1px solid rgba(33,150,243,0.15);
+      border-radius: 100px;
+      box-shadow: 0 2px 8px rgba(33,150,243,0.07), 0 1px 2px rgba(0,0,0,0.04);
+      white-space: nowrap;
+      cursor: default;
+      transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+      flex-shrink: 0;
+    }
+    .hm-pill:hover {
+      background: rgba(219,240,255,0.95);
+      border-color: rgba(33,150,243,0.35);
+      box-shadow: 0 4px 16px rgba(33,150,243,0.14), 0 1px 4px rgba(0,0,0,0.05);
+      transform: translateY(-2px);
+    }
+    .hm-pill-icon {
+      width: 18px; height: 18px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      color: #2196F3;
+    }
+    .hm-pill-icon svg {
+      width: 14px; height: 14px;
+      fill: none; stroke: #2196F3; stroke-width: 2;
+      stroke-linecap: round; stroke-linejoin: round;
+    }
+    /* tool pills get filled dot icon */
+    .hm-pill.tool .hm-pill-icon svg {
+      fill: #2196F3; stroke: none;
+    }
+    .hm-pill-label {
+      font-family: 'Inter', 'Manrope', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: #1a2d4a;
+      letter-spacing: 0.01em;
+    }
+    .hm-pill:hover .hm-pill-label {
+      color: #1565C0;
+    }
+
+    /* separator sparkle */
+    .hm-sep {
+      display: inline-flex; align-items: center;
+      color: rgba(33,150,243,0.35);
+      font-size: 14px;
+      flex-shrink: 0;
+      user-select: none;
+    }
+
+    /* ════════════════════════════════════════
        TESTIMONIALS
     ════════════════════════════════════════ */
     #testimonials {
@@ -1159,6 +1267,137 @@
 
   </div>
   <div class="hero-bottom-blur"></div>
+</section>
+
+<!-- ══ HERO CAPABILITY MARQUEE ═══════════════════════════ -->
+<section id="hero-marquee" aria-hidden="true">
+  <div class="hm-track-wrap">
+    <div class="hm-track" id="hm-track">
+
+      <!-- ── discipline pills ── -->
+      <span class="hm-pill">
+        <span class="hm-pill-icon"><svg viewBox="0 0 24 24"><path d="M12 2l2 7h7l-5.5 4 2 7L12 16l-5.5 4 2-7L3 9h7z"/></svg></span>
+        <span class="hm-pill-label">Product Design</span>
+      </span>
+      <span class="hm-sep">✦</span>
+
+      <span class="hm-pill">
+        <span class="hm-pill-icon"><svg viewBox="0 0 24 24"><path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/></svg></span>
+        <span class="hm-pill-label">UX Research</span>
+      </span>
+      <span class="hm-sep">✦</span>
+
+      <span class="hm-pill">
+        <span class="hm-pill-icon"><svg viewBox="0 0 24 24"><path d="M3 3h18v18H3zM3 9h18M3 15h18M9 3v18"/></svg></span>
+        <span class="hm-pill-label">Enterprise SaaS</span>
+      </span>
+      <span class="hm-sep">✦</span>
+
+      <span class="hm-pill">
+        <span class="hm-pill-icon"><svg viewBox="0 0 24 24"><path d="M12 2a9 9 0 1 0 0 18A9 9 0 0 0 12 2zm0 4v5l3 3"/></svg></span>
+        <span class="hm-pill-label">AI Products</span>
+      </span>
+      <span class="hm-sep">✦</span>
+
+      <span class="hm-pill">
+        <span class="hm-pill-icon"><svg viewBox="0 0 24 24"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z"/></svg></span>
+        <span class="hm-pill-label">Design Systems</span>
+      </span>
+      <span class="hm-sep">✦</span>
+
+      <span class="hm-pill">
+        <span class="hm-pill-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M2 12h4M18 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></span>
+        <span class="hm-pill-label">Accessibility</span>
+      </span>
+      <span class="hm-sep">✦</span>
+
+      <span class="hm-pill">
+        <span class="hm-pill-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span>
+        <span class="hm-pill-label">Prototyping</span>
+      </span>
+      <span class="hm-sep">✦</span>
+
+      <span class="hm-pill">
+        <span class="hm-pill-icon"><svg viewBox="0 0 24 24"><path d="M3 3h18v18H3zM3 9h18M9 21V9"/></svg></span>
+        <span class="hm-pill-label">Data Dashboards</span>
+      </span>
+      <span class="hm-sep">✦</span>
+
+      <span class="hm-pill">
+        <span class="hm-pill-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></span>
+        <span class="hm-pill-label">0→1 Concepts</span>
+      </span>
+      <span class="hm-sep">✦</span>
+
+      <span class="hm-pill">
+        <span class="hm-pill-icon"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        <span class="hm-pill-label">Design-to-Dev Handoff</span>
+      </span>
+      <span class="hm-sep">✦</span>
+
+      <span class="hm-pill">
+        <span class="hm-pill-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+        <span class="hm-pill-label">Stakeholder Workshops</span>
+      </span>
+      <span class="hm-sep">✦</span>
+
+      <!-- ── tool pills ── -->
+      <span class="hm-pill tool">
+        <span class="hm-pill-icon"><svg viewBox="0 0 24 24"><path d="M5 5.5A3.5 3.5 0 0 1 8.5 2H12v7H8.5A3.5 3.5 0 0 1 5 5.5zM12 2h3.5a3.5 3.5 0 1 1 0 7H12V2zM12 12.5a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0zM5 19.5A3.5 3.5 0 0 1 8.5 16H12v3.5a3.5 3.5 0 1 1-7 0z"/></svg></span>
+        <span class="hm-pill-label">Figma</span>
+      </span>
+      <span class="hm-sep">✦</span>
+
+      <span class="hm-pill tool">
+        <span class="hm-pill-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#2196F3" stroke-width="2" fill="none"/><path d="M8 12h8M12 8v8" stroke="#2196F3" stroke-width="2"/></svg></span>
+        <span class="hm-pill-label">Claude</span>
+      </span>
+      <span class="hm-sep">✦</span>
+
+      <span class="hm-pill tool">
+        <span class="hm-pill-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3" fill="#2196F3"/><path d="M8 12h8M12 8v8" stroke="#fff" stroke-width="2" fill="none"/></svg></span>
+        <span class="hm-pill-label">ChatGPT</span>
+      </span>
+      <span class="hm-sep">✦</span>
+
+      <span class="hm-pill tool">
+        <span class="hm-pill-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z" fill="#2196F3"/></svg></span>
+        <span class="hm-pill-label">Cursor</span>
+      </span>
+      <span class="hm-sep">✦</span>
+
+      <span class="hm-pill tool">
+        <span class="hm-pill-icon"><svg viewBox="0 0 24 24"><path d="M4 12V6l8-4 8 4v6c0 5-4 8-8 9-4-1-8-4-8-9z" stroke="#2196F3" stroke-width="2" fill="none"/></svg></span>
+        <span class="hm-pill-label">Framer</span>
+      </span>
+      <span class="hm-sep">✦</span>
+
+      <span class="hm-pill tool">
+        <span class="hm-pill-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#2196F3" stroke-width="2" fill="none"/></svg></span>
+        <span class="hm-pill-label">UserTesting</span>
+      </span>
+      <span class="hm-sep">✦</span>
+
+      <span class="hm-pill tool">
+        <span class="hm-pill-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke="#2196F3" stroke-width="2" fill="none"/><path d="M9 12l2 2 4-4" stroke="#2196F3" stroke-width="2" fill="none"/></svg></span>
+        <span class="hm-pill-label">Maze</span>
+      </span>
+      <span class="hm-sep">✦</span>
+
+      <span class="hm-pill tool">
+        <span class="hm-pill-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1" stroke="#2196F3" stroke-width="2" fill="none"/><rect x="14" y="3" width="7" height="7" rx="1" stroke="#2196F3" stroke-width="2" fill="none"/><rect x="3" y="14" width="7" height="7" rx="1" stroke="#2196F3" stroke-width="2" fill="none"/><path d="M17.5 14v7M14 17.5h7" stroke="#2196F3" stroke-width="2"/></svg></span>
+        <span class="hm-pill-label">Jira</span>
+      </span>
+      <span class="hm-sep">✦</span>
+
+      <span class="hm-pill tool">
+        <span class="hm-pill-icon"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h7" stroke="#2196F3" stroke-width="2" stroke-linecap="round" fill="none"/></svg></span>
+        <span class="hm-pill-label">Confluence</span>
+      </span>
+      <span class="hm-sep">✦</span>
+
+    </div><!-- /.hm-track -->
+  </div><!-- /.hm-track-wrap -->
 </section>
 
 <!-- ══ WHAT I DO ══════════════════════════════════════════ -->
@@ -1733,6 +1972,14 @@
       document.getElementById('panel-' + key).classList.add('active');
     });
   });
+
+  /* ══ HERO CAPABILITY MARQUEE — duplicate for seamless loop ══ */
+  (function initHeroMarquee() {
+    const track = document.getElementById('hm-track');
+    if (!track) return;
+    const clone = track.innerHTML;
+    track.innerHTML = clone + clone;
+  })();
 
   /* ══ TESTIMONIAL MARQUEE — duplicate for seamless loop ══ */
   (function initMarquee() {
