@@ -478,87 +478,135 @@
       padding: 120px 0 128px;
       background: #F5F5F5;
     }
-    .roles-header { text-align: center; margin-bottom: 48px; }
+    .roles-header { text-align: center; margin-bottom: 52px; }
     .roles-eyebrow {
       font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
-      text-transform: uppercase; color: #999; margin-bottom: 18px;
+      text-transform: uppercase; color: #2196F3; margin-bottom: 18px;
     }
     .roles-title {
-      font-size: clamp(32px, 4.5vw, 58px); font-weight: 800;
+      font-size: clamp(32px, 4.5vw, 54px); font-weight: 800;
       letter-spacing: -0.025em; line-height: 1.15; color: #0D0D0D;
     }
 
-    /* tab row */
+    /* ── Segmented pill nav ── */
     .roles-tabs {
       display: flex; justify-content: center;
-      gap: 0; position: relative; z-index: 2;
-      margin-bottom: -2px;
+      margin-bottom: 32px;
+    }
+    .roles-tab-track {
+      display: inline-flex;
+      background: #EBEBEB;
+      border-radius: 999px;
+      padding: 5px;
+      gap: 2px;
     }
     .role-tab {
-      font-size: 14px; font-weight: 600; color: #555;
-      padding: 12px 28px; border-radius: 14px 14px 0 0;
-      border: 1.5px solid #E0E0E0; border-bottom: none;
-      background: #F5F0EB; cursor: pointer;
-      transition: background 0.2s, color 0.2s;
-      user-select: none; white-space: nowrap;
-      position: relative; bottom: 0;
+      font-family: 'Manrope', sans-serif;
+      font-size: 13.5px; font-weight: 600; color: #666;
+      padding: 10px 22px; border-radius: 999px;
+      border: none; background: transparent;
+      cursor: pointer; white-space: nowrap;
+      transition: background 0.22s ease, color 0.22s ease, box-shadow 0.22s ease;
+      outline: none;
+      position: relative;
     }
-    .role-tab:hover { color: #0D0D0D; }
+    .role-tab:hover:not(.active) {
+      color: #1A1A1A;
+      background: rgba(255,255,255,0.55);
+    }
+    .role-tab:focus-visible {
+      box-shadow: 0 0 0 3px rgba(33,150,243,0.35);
+    }
     .role-tab.active {
-      background: #fff; color: #0D0D0D;
-      border-color: #D0D0D0;
-      z-index: 3;
+      background: #fff;
+      color: #1565C0;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.10);
     }
-    .role-tab[data-tab="recruiters"].active   { background: #E8F5F0; border-color: #B2DFDB; color: #00695C; }
-    .role-tab[data-tab="designers"].active    { background: #E3F2FD; border-color: #90CAF9; color: #1565C0; }
-    .role-tab[data-tab="engineers"].active    { background: #F3E5F5; border-color: #CE93D8; color: #6A1B9A; }
 
-    /* card */
+    /* ── Content card ── */
     .roles-card {
       background: #fff;
-      border: 1.5px solid #E0E0E0;
-      border-radius: 0 20px 20px 20px;
-      padding: 56px 60px 48px;
+      border: 1px solid #E8E8E8;
+      border-radius: 24px;
+      padding: 64px 72px 56px;
       text-align: center;
       position: relative; z-index: 1;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.02), 0 16px 48px rgba(0,0,0,0.06);
+      overflow: hidden;
     }
-    .role-panel { display: none; animation: none; }
-    .role-panel.active { display: block; animation: fadePanel 0.35s ease; }
-    @keyframes fadePanel {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: none; }
+    /* Subtle top accent bar */
+    .roles-card::before {
+      content: '';
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 80px; height: 3px; border-radius: 0 0 4px 4px;
+      background: linear-gradient(90deg, #2196F3, #64B5F6);
+    }
+
+    .role-panel { display: none; }
+    .role-panel.active {
+      display: block;
+      animation: fadeSlideIn 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
     .role-panel-title {
-      font-size: clamp(20px, 2.5vw, 28px); font-weight: 700;
-      color: #0D0D0D; margin-bottom: 20px; letter-spacing: -0.01em;
+      font-size: clamp(22px, 2.5vw, 30px); font-weight: 800;
+      color: #0D0D0D; margin-bottom: 22px;
+      letter-spacing: -0.02em; line-height: 1.2;
     }
     .role-panel-body {
-      font-size: 17px; color: #555; line-height: 1.8;
-      max-width: 740px; margin: 0 auto 10px;
+      font-size: 16.5px; color: #555; line-height: 1.85;
+      max-width: 700px; margin: 0 auto 20px;
     }
     .role-panel-cta {
-      font-size: 16px; font-weight: 600; color: #888;
-      font-style: italic; margin-bottom: 40px; display: block;
+      font-family: 'Caveat', cursive;
+      font-size: 19px; font-weight: 700;
+      color: #2196F3; display: block;
+      margin-bottom: 44px;
     }
 
-    /* stat pills */
+    /* ── Metric pills ── */
     .role-stats {
-      display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+      display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
     }
     .role-stat {
-      display: flex; align-items: center; gap: 10px;
-      border: 1.5px solid #E0E0E0; border-radius: 999px;
-      padding: 14px 24px; min-width: 180px;
+      display: flex; flex-direction: column; align-items: center;
+      gap: 4px;
+      background: #F7FAFF;
+      border: 1.5px solid #DDEEFF;
+      border-radius: 14px;
+      padding: 16px 24px;
+      min-width: 148px;
+      transition: box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .role-stat:hover {
+      border-color: #90CAF9;
+      box-shadow: 0 4px 20px rgba(33,150,243,0.1);
     }
     .role-stat-num {
-      font-size: 26px; font-weight: 900; letter-spacing: -0.02em;
-      background: linear-gradient(135deg, #90CAF9, #7986CB);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
+      font-size: 22px; font-weight: 900; letter-spacing: -0.02em;
+      color: #1565C0;
     }
-    .role-stat-lbl { font-size: 13px; color: #888; font-weight: 500; line-height: 1.3; text-align: left; }
+    .role-stat-lbl {
+      font-size: 12px; color: #888; font-weight: 500;
+      line-height: 1.3; text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .roles-card { padding: 44px 28px 40px; }
+      .roles-tab-track { flex-wrap: wrap; border-radius: 20px; }
+      .role-tab { font-size: 13px; padding: 9px 16px; }
+      .role-stat { min-width: 120px; }
+    }
+    @media (max-width: 480px) {
+      .roles-tab-track { width: 100%; justify-content: center; }
+      .role-tab { flex: 1; text-align: center; }
+      .role-stats { gap: 8px; }
+      .role-stat { min-width: calc(50% - 4px); flex: 1 1 calc(50% - 4px); }
+    }
 
     #about { padding: 128px 0; background: #fff; }
 
@@ -801,58 +849,60 @@
 
     <div class="roles-header r">
       <div class="roles-eyebrow">About Me</div>
-      <h2 class="roles-title">A different story for<br>every role.</h2>
+      <h2 class="roles-title">Three perspectives.<br>One designer.</h2>
     </div>
 
-    <!-- tabs -->
-    <div class="roles-tabs r">
-      <button class="role-tab active" data-tab="recruiters">Recruiters &amp; Hiring Managers</button>
-      <button class="role-tab" data-tab="designers">Designers</button>
-      <button class="role-tab" data-tab="engineers">Engineers &amp; PMs</button>
+    <!-- segmented pill nav -->
+    <div class="roles-tabs r" role="tablist" aria-label="Audience perspectives">
+      <div class="roles-tab-track">
+        <button class="role-tab active" data-tab="recruiters" role="tab" aria-selected="true" aria-controls="panel-recruiters" id="tab-recruiters">Recruiters &amp; Hiring Teams</button>
+        <button class="role-tab" data-tab="designers" role="tab" aria-selected="false" aria-controls="panel-designers" id="tab-designers">Designers</button>
+        <button class="role-tab" data-tab="engineers" role="tab" aria-selected="false" aria-controls="panel-engineers" id="tab-engineers">Engineers &amp; PMs</button>
+      </div>
     </div>
 
     <!-- card -->
     <div class="roles-card r">
 
       <!-- Panel: Recruiters -->
-      <div class="role-panel active" id="panel-recruiters">
-        <div class="role-panel-title">Dear recruiters &amp; hiring managers</div>
+      <div class="role-panel active" id="panel-recruiters" role="tabpanel" aria-labelledby="tab-recruiters">
+        <div class="role-panel-title">Dear Recruiters &amp; Hiring team,</div>
         <p class="role-panel-body">
-          CS engineer turned UX designer — I care about two things: understanding users deeply and shipping work that moves the needle. I hold an M.S. in UX Design from Arizona State University (4.0 GPA) and I'm currently leading design for enterprise AI products at WorldLink, working with Fortune 100 clients like Citi, AbbVie, and Samsung.
+          I design enterprise products that turn complexity into clarity. From AI-powered platforms to large-scale SaaS systems, I focus on creating experiences that users understand, adopt, and trust. My work connects business goals, user needs, and product strategy—helping teams move faster while delivering measurable impact.
         </p>
-        <span class="role-panel-cta">Worth a conversation?</span>
+        <span class="role-panel-cta">Looking for someone who can own problems, not just screens?</span>
         <div class="role-stats">
-          <div class="role-stat"><span class="role-stat-num">4+</span><span class="role-stat-lbl">Years of crafting</span></div>
-          <div class="role-stat"><span class="role-stat-num">F100</span><span class="role-stat-lbl">Clients served</span></div>
-          <div class="role-stat"><span class="role-stat-num">10+</span><span class="role-stat-lbl">Certifications</span></div>
+          <div class="role-stat"><span class="role-stat-num">5+</span><span class="role-stat-lbl">Products Launched</span></div>
+          <div class="role-stat"><span class="role-stat-num">F100</span><span class="role-stat-lbl">Client Work</span></div>
+          <div class="role-stat"><span class="role-stat-num">40%+</span><span class="role-stat-lbl">Workflow Efficiency Gains</span></div>
         </div>
       </div>
 
       <!-- Panel: Designers -->
-      <div class="role-panel" id="panel-designers">
-        <div class="role-panel-title">Dear fellow designer</div>
+      <div class="role-panel" id="panel-designers" role="tabpanel" aria-labelledby="tab-designers">
+        <div class="role-panel-title">Dear fellow designers,</div>
         <p class="role-panel-body">
-          I start in research, not Figma. I built WorldKit — a full design system with Figma tokens, component libraries, and Storybook — from scratch while shipping a live product. I prototype in code when it matters, and I'm always down to nerd out about systems thinking, WCAG, or how AI is reshaping the way we design.
+          I enjoy messy problems, whiteboard debates, and turning ambiguity into something tangible. Whether I'm building design systems, exploring AI-native experiences, or refining the smallest interaction detail, I care about craft, clarity, and systems that scale.
         </p>
-        <span class="role-panel-cta">Let's swap notes!</span>
+        <span class="role-panel-cta">Always happy to talk design, systems, and what's next.</span>
         <div class="role-stats">
-          <div class="role-stat"><span class="role-stat-num">0→1</span><span class="role-stat-lbl">Design system built</span></div>
-          <div class="role-stat"><span class="role-stat-num">5+</span><span class="role-stat-lbl">Products shipped</span></div>
-          <div class="role-stat"><span class="role-stat-num">AA</span><span class="role-stat-lbl">WCAG 2.2 compliant</span></div>
+          <div class="role-stat"><span class="role-stat-num">0→1</span><span class="role-stat-lbl">Design System Scaled</span></div>
+          <div class="role-stat"><span class="role-stat-num">AI</span><span class="role-stat-lbl">AI-First Workflows</span></div>
+          <div class="role-stat"><span class="role-stat-num">WCAG</span><span class="role-stat-lbl">Accessibility-Aware Craft</span></div>
         </div>
       </div>
 
       <!-- Panel: Engineers & PMs -->
-      <div class="role-panel" id="panel-engineers">
-        <div class="role-panel-title">Dear collaborators</div>
+      <div class="role-panel" id="panel-engineers" role="tabpanel" aria-labelledby="tab-engineers">
+        <div class="role-panel-title">Dear builders,</div>
         <p class="role-panel-body">
-          I work autonomously and bring product sense to every decision. My background in computer engineering means I speak your language — I understand APIs, constraints, and tradeoffs. I've introduced async review workflows and design-to-dev handoff systems that shift teams from pixel-pushing to shared ownership.
+          I care about more than pixels. I think in workflows, constraints, edge cases, and outcomes. My goal is to make collaboration easier by bringing clarity to requirements, aligning stakeholders, and designing solutions that are practical to build and easy to scale.
         </p>
-        <span class="role-panel-cta">Let's build something together.</span>
+        <span class="role-panel-cta">Let's build products users actually love.</span>
         <div class="role-stats">
-          <div class="role-stat"><span class="role-stat-num">4+</span><span class="role-stat-lbl">Years crafting</span></div>
-          <div class="role-stat"><span class="role-stat-num">B.E.</span><span class="role-stat-lbl">Computer Engineering</span></div>
-          <div class="role-stat"><span class="role-stat-num">40%</span><span class="role-stat-lbl">Faster reviews</span></div>
+          <div class="role-stat"><span class="role-stat-num">0→1</span><span class="role-stat-lbl">Product Thinking</span></div>
+          <div class="role-stat"><span class="role-stat-num">✕</span><span class="role-stat-lbl">Cross-Functional by Default</span></div>
+          <div class="role-stat"><span class="role-stat-num">↑</span><span class="role-stat-lbl">Faster Design-to-Dev Handoffs</span></div>
         </div>
       </div>
 
@@ -1119,9 +1169,13 @@
   document.querySelectorAll('.role-tab').forEach(tab => {
     tab.addEventListener('click', () => {
       const key = tab.dataset.tab;
-      document.querySelectorAll('.role-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.role-tab').forEach(t => {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
       document.querySelectorAll('.role-panel').forEach(p => p.classList.remove('active'));
       tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
       document.getElementById('panel-' + key).classList.add('active');
     });
   });
