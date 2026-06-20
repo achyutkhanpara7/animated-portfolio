@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GRC Platform Design — Case Study · Achyut Khanpara</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Manrope', sans-serif; color: #0b0b0b; background: #fff; overflow-x: hidden; line-height: 1.6; }
+
+    /* ── NAV ── */
+    #nav {
+      position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+      z-index: 100;
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-radius: 999px; padding: 8px 8px;
+      display: flex; align-items: center; gap: 4px;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.09), 0 0 0 1px rgba(0,0,0,0.06);
+    }
+    .nav-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      overflow: hidden; background: #e0e0e0; flex-shrink: 0;
+    }
+    .nav-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .nav-name { font-size: 14px; font-weight: 700; padding: 0 10px 0 6px; letter-spacing: -0.03em; }
+    .nav-link { font-size: 14px; font-weight: 600; color: #555; text-decoration: none; padding: 7px 14px; border-radius: 999px; transition: background 0.2s, color 0.2s; }
+    .nav-link:hover { background: #f2f2f2; color: #0b0b0b; }
+    .nav-cta { font-size: 14px; font-weight: 700; color: #fff; background: #0b0b0b; text-decoration: none; padding: 8px 18px; border-radius: 999px; transition: background 0.2s; }
+    .nav-cta:hover { background: #333; }
+
+    /* ── LAYOUT ── */
+    .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+    .container-wide { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 140px 24px 80px;
+      max-width: 860px; margin: 0 auto;
+    }
+    .hero-kicker {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 13px; font-weight: 700; color: #ff5029;
+      background: rgba(255,80,41,0.08); border: 1px solid rgba(255,80,41,0.2);
+      border-radius: 999px; padding: 5px 14px; margin-bottom: 28px;
+      letter-spacing: -0.01em;
+    }
+    .hero h1 {
+      font-size: clamp(36px, 6vw, 64px); font-weight: 800; line-height: 1.05;
+      letter-spacing: -0.04em; margin-bottom: 24px; color: #0b0b0b;
+    }
+    .hero-sub {
+      font-size: 20px; font-weight: 500; color: #505050; line-height: 1.55;
+      max-width: 680px; margin-bottom: 48px;
+    }
+    .hero-meta {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+      border: 1px solid #e8e8e8; border-radius: 16px; overflow: hidden;
+      margin-bottom: 56px;
+    }
+    .hero-meta-item {
+      padding: 20px 24px;
+      border-right: 1px solid #e8e8e8;
+    }
+    .hero-meta-item:last-child { border-right: none; }
+    .hero-meta-label { font-size: 11px; font-weight: 700; color: #999; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+    .hero-meta-value { font-size: 15px; font-weight: 700; color: #0b0b0b; }
+    .hero-img {
+      width: 100%; border-radius: 20px; overflow: hidden;
+      box-shadow: 0 8px 60px rgba(0,0,0,0.12);
+    }
+    .hero-img img { width: 100%; display: block; }
+
+    /* ── TLDR CARD ── */
+    .tldr-wrap { background: #ff5029; border-radius: 24px; padding: 40px 48px; margin: 64px 0; }
+    .tldr-label { font-size: 12px; font-weight: 800; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; }
+    .tldr-wrap h3 { font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 8px; letter-spacing: -0.03em; }
+    .tldr-sub { font-size: 15px; color: rgba(255,255,255,0.75); margin-bottom: 28px; }
+    .tldr-body { font-size: 17px; font-weight: 500; color: #fff; line-height: 1.65; margin-bottom: 28px; }
+    .tldr-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tldr-tag { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.9); background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); border-radius: 999px; padding: 5px 14px; }
+
+    /* ── SUMMARY CARDS ── */
+    .summary-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin: 48px 0; }
+    .summary-card { background: #f7f7f7; border-radius: 20px; padding: 28px 28px 32px; }
+    .summary-card-label { font-size: 11px; font-weight: 800; color: #ff5029; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px; }
+    .summary-card h4 { font-size: 17px; font-weight: 800; color: #0b0b0b; letter-spacing: -0.03em; margin-bottom: 12px; }
+    .summary-card p { font-size: 14px; color: #505050; line-height: 1.6; }
+    .summary-card ul { list-style: none; padding: 0; }
+    .summary-card ul li { font-size: 13px; color: #505050; padding: 4px 0; padding-left: 16px; position: relative; }
+    .summary-card ul li::before { content: '→'; position: absolute; left: 0; color: #ff5029; font-size: 11px; top: 5px; }
+    .summary-quote { font-size: 15px; font-style: italic; color: #0b0b0b; font-weight: 700; margin-top: 12px; border-left: 3px solid #ff5029; padding-left: 14px; }
+
+    /* ── SECTION HEADERS ── */
+    .section-eyebrow { font-size: 11px; font-weight: 800; color: #ff5029; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; }
+    .section-h2 { font-size: clamp(28px, 4vw, 48px); font-weight: 800; line-height: 1.1; letter-spacing: -0.04em; margin-bottom: 20px; }
+    .section-body { font-size: 17px; color: #505050; line-height: 1.65; max-width: 680px; }
+    section { padding: 80px 0; }
+    section + section { border-top: 1px solid #f0f0f0; }
+
+    /* ── IMPACT ── */
+    .impact-sub { font-size: 14px; font-weight: 600; color: #999; margin-bottom: 40px; }
+    .impact-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+    .impact-card {
+      background: #f7f7f7; border-radius: 20px; padding: 36px 32px;
+      text-align: center;
+    }
+    .impact-label { font-size: 12px; font-weight: 800; color: #ff5029; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px; }
+    .impact-value { font-size: 56px; font-weight: 900; color: #0b0b0b; letter-spacing: -0.05em; line-height: 1; margin-bottom: 10px; }
+    .impact-desc { font-size: 14px; color: #505050; font-weight: 500; }
+
+    /* ── PROBLEM ── */
+    .pain-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; margin-top: 40px; }
+    .pain-card { border: 1px solid #e8e8e8; border-radius: 20px; padding: 28px 28px 32px; }
+    .pain-num { font-size: 11px; font-weight: 800; color: #ff5029; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; }
+    .pain-card h4 { font-size: 17px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 10px; }
+    .pain-card p { font-size: 14px; color: #505050; line-height: 1.65; }
+
+    /* ── RESEARCH ── */
+    .research-intro { font-size: 17px; color: #505050; line-height: 1.65; max-width: 680px; margin-bottom: 40px; }
+    .method-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-bottom: 56px; }
+    .method-card { background: #0b0b0b; border-radius: 20px; padding: 28px 24px; }
+    .method-num { font-size: 40px; font-weight: 900; color: #fff; letter-spacing: -0.05em; margin-bottom: 8px; }
+    .method-label { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.6); margin-bottom: 12px; }
+    .method-desc { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.55; }
+
+    .findings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+    .findings-col h4 { font-size: 17px; font-weight: 800; color: #0b0b0b; margin-bottom: 4px; letter-spacing: -0.03em; }
+    .finding-item { border-left: 3px solid #f0f0f0; padding-left: 18px; margin-bottom: 28px; }
+    .finding-item h4 { font-size: 16px; font-weight: 800; margin-bottom: 6px; }
+    .finding-item p { font-size: 14px; color: #505050; line-height: 1.6; }
+    .quote-item { margin-bottom: 24px; padding: 20px 22px; background: #f7f7f7; border-radius: 14px; border-left: 4px solid #ff5029; }
+    .quote-item blockquote { font-size: 15px; color: #0b0b0b; font-style: italic; line-height: 1.6; margin-bottom: 10px; font-weight: 600; }
+    .quote-item cite { font-size: 12px; color: #999; font-style: normal; font-weight: 700; }
+
+    /* ── SOLUTION ── */
+    .solution-tags { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0 40px; }
+    .solution-tag { font-size: 13px; font-weight: 700; color: #505050; border: 1.5px solid #e0e0e0; border-radius: 999px; padding: 6px 16px; }
+    .solution-tag.active { color: #fff; background: #0b0b0b; border-color: #0b0b0b; }
+    .solution-hero {
+      background: #ff5029; border-radius: 24px; padding: 48px 56px; margin: 0 0 64px;
+    }
+    .solution-hero h3 { font-size: 32px; font-weight: 900; color: #fff; letter-spacing: -0.04em; margin-bottom: 16px; line-height: 1.15; }
+    .solution-hero p { font-size: 17px; color: rgba(255,255,255,0.8); line-height: 1.65; max-width: 640px; }
+
+    /* ── MODULES ── */
+    .module { margin-bottom: 80px; }
+    .module-eyebrow { font-size: 11px; font-weight: 800; color: #ff5029; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
+    .module h3 { font-size: 26px; font-weight: 800; letter-spacing: -0.04em; margin-bottom: 14px; }
+    .module-body { font-size: 16px; color: #505050; line-height: 1.65; max-width: 680px; margin-bottom: 28px; }
+    .module-demo {
+      border-radius: 20px; overflow: hidden;
+      box-shadow: 0 4px 40px rgba(0,0,0,0.1);
+      margin-bottom: 24px;
+      background: #f0f0f0;
+      position: relative;
+    }
+    .module-demo-bar {
+      background: #e8e8e8; padding: 10px 16px; display: flex; align-items: center; gap: 8px;
+    }
+    .demo-dot { width: 12px; height: 12px; border-radius: 50%; }
+    .demo-url { font-size: 12px; color: #888; margin-left: 8px; background: #fff; border-radius: 6px; padding: 3px 12px; }
+    .module-demo video { width: 100%; display: block; }
+    .module-features { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; margin-bottom: 20px; }
+    .module-feature { display: flex; align-items: flex-start; gap: 10px; padding: 14px 18px; background: #f7f7f7; border-radius: 12px; }
+    .feature-dot { width: 8px; height: 8px; background: #ff5029; border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
+    .module-feature span { font-size: 14px; font-weight: 600; color: #0b0b0b; line-height: 1.4; }
+    .design-callout { background: #fff8f0; border: 1.5px solid #ffd4c2; border-radius: 14px; padding: 18px 22px; }
+    .design-callout-label { font-size: 11px; font-weight: 800; color: #ff5029; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+    .design-callout p { font-size: 14px; color: #505050; line-height: 1.6; font-style: italic; }
+
+    /* ── LEARNINGS ── */
+    .learning-list { margin-top: 40px; }
+    .learning-item { display: grid; grid-template-columns: 80px 1fr; gap: 24px; padding: 36px 0; border-bottom: 1px solid #f0f0f0; }
+    .learning-num { font-size: 48px; font-weight: 900; color: #f0f0f0; letter-spacing: -0.05em; line-height: 1; }
+    .learning-content h4 { font-size: 20px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 12px; }
+    .learning-content p { font-size: 16px; color: #505050; line-height: 1.65; }
+
+    /* ── FOOTER ── */
+    .cs-footer { background: #0b0b0b; padding: 64px 24px; text-align: center; margin-top: 80px; }
+    .cs-footer h3 { font-size: 32px; font-weight: 900; color: #fff; letter-spacing: -0.04em; margin-bottom: 16px; }
+    .cs-footer p { font-size: 16px; color: rgba(255,255,255,0.5); margin-bottom: 32px; }
+    .cs-footer-links { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .cs-btn { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; text-decoration: none; border-radius: 999px; padding: 12px 24px; transition: all 0.2s; }
+    .cs-btn-primary { background: #ff5029; color: #fff; }
+    .cs-btn-primary:hover { background: #e83d18; }
+    .cs-btn-ghost { border: 1.5px solid rgba(255,255,255,0.2); color: #fff; }
+    .cs-btn-ghost:hover { border-color: rgba(255,255,255,0.5); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .hero-meta { grid-template-columns: repeat(2,1fr); }
+      .hero-meta-item:nth-child(2) { border-right: none; }
+      .summary-grid { grid-template-columns: 1fr; }
+      .impact-grid { grid-template-columns: 1fr; }
+      .pain-grid { grid-template-columns: 1fr; }
+      .method-grid { grid-template-columns: repeat(2,1fr); }
+      .findings-grid { grid-template-columns: 1fr; }
+      .module-features { grid-template-columns: 1fr; }
+      .solution-hero { padding: 32px 28px; }
+      .tldr-wrap { padding: 32px 28px; }
+      .learning-item { grid-template-columns: 1fr; gap: 8px; }
+      .learning-num { font-size: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="index.html" class="nav-brand" style="display:flex;align-items:center;gap:6px;text-decoration:none;color:inherit;">
+    <div class="nav-avatar"><img src="assets/images/profile.png" alt="Achyut" onerror="this.style.display='none';this.parentElement.innerHTML='AK';" /></div>
+    <span class="nav-name">ACHYUT</span>
+  </a>
+  <a href="index.html#work" class="nav-link">Work</a>
+  <a href="about.html" class="nav-link">About</a>
+  <a href="#" class="nav-cta">Resume</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-kicker">WorldLink Labs · GRC Platform · 2025–2026</div>
+  <h1>GRC Platform Design: Simplifying Complex Compliance Workflows</h1>
+  <p class="hero-sub">An AI-powered GRC platform that unifies compliance workflows, risk analysis, and system insights into a scalable, intuitive enterprise experience.</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item">
+      <div class="hero-meta-label">Role</div>
+      <div class="hero-meta-value">Lead UX / Product Designer</div>
+    </div>
+    <div class="hero-meta-item">
+      <div class="hero-meta-label">Company</div>
+      <div class="hero-meta-value">WorldLink</div>
+    </div>
+    <div class="hero-meta-item">
+      <div class="hero-meta-label">Duration</div>
+      <div class="hero-meta-value">6 Months</div>
+    </div>
+    <div class="hero-meta-item">
+      <div class="hero-meta-label">Platform</div>
+      <div class="hero-meta-value">Web · Enterprise SaaS</div>
+    </div>
+  </div>
+  <div class="hero-img">
+    <img src="https://framerusercontent.com/images/Y1mbyjRzmlin1tC4QSD8D4Ya7Y.png" alt="GRC Platform UI" />
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- TLDR -->
+  <div class="tldr-wrap">
+    <div class="tldr-label">TL;DR</div>
+    <h3>Want to skim through this case study? I got you covered.</h3>
+    <p class="tldr-sub">Here's a 1 min TL;DR Version.</p>
+    <p class="tldr-body">Designed the end-to-end UX for an AI-driven compliance platform, helping compliance officers, risk managers, and security teams navigate complex enterprise workflows with clarity and ease.</p>
+    <div class="tldr-tags">
+      <span class="tldr-tag">Compliance Officers</span>
+      <span class="tldr-tag">Risk Managers</span>
+      <span class="tldr-tag">Security Architects</span>
+      <span class="tldr-tag">Enterprise Orgs</span>
+      <span class="tldr-tag">WorldKit Design System</span>
+    </div>
+  </div>
+
+  <!-- SUMMARY CARDS -->
+  <div class="summary-grid">
+    <div class="summary-card">
+      <div class="summary-card-label">What did I do?</div>
+      <h4>End-to-end UX across 6 modules</h4>
+      <ul>
+        <li>Artifacts Generation Engine</li>
+        <li>Extraction Engine &amp; Extracted Data</li>
+        <li>Alignment Engine</li>
+        <li>Gap Analysis</li>
+        <li>Architecture Scanner</li>
+        <li>Code Scanner</li>
+        <li>Artifacts Discovery Engine</li>
+      </ul>
+    </div>
+    <div class="summary-card">
+      <div class="summary-card-label">Why was it done?</div>
+      <h4>Fragmented tools, manual chaos</h4>
+      <p>Compliance teams were drowning in fragmented tools and manual workflows. They needed one unified platform with AI automation to cut review cycles from days to hours.</p>
+    </div>
+    <div class="summary-card">
+      <div class="summary-card-label">What did I learn?</div>
+      <h4>Balance automation with human oversight</h4>
+      <p>Designing for AI-heavy enterprise tools requires balancing automation confidence with human oversight.</p>
+      <p class="summary-quote">"Remove what you don't need" is as important as "add what users want."</p>
+    </div>
+  </div>
+
+  <!-- IMPACT -->
+  <section>
+    <div class="section-eyebrow">The Impact</div>
+    <div class="section-h2">Measurable results.</div>
+    <p class="impact-sub">Measurable results within weeks of launch</p>
+    <div class="impact-grid">
+      <div class="impact-card">
+        <div class="impact-label">Manual Effort ↓</div>
+        <div class="impact-value">74%</div>
+        <div class="impact-desc">Reduction in manual compliance effort</div>
+      </div>
+      <div class="impact-card">
+        <div class="impact-label">Satisfaction Score</div>
+        <div class="impact-value">4.7★</div>
+        <div class="impact-desc">User satisfaction score post-launch</div>
+      </div>
+      <div class="impact-card">
+        <div class="impact-label">Feature Adoption</div>
+        <div class="impact-value">91%</div>
+        <div class="impact-desc">AI feature adoption in first 2 weeks</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section>
+    <div class="section-eyebrow">The Problem</div>
+    <h2 class="section-h2">What was broken?</h2>
+    <p class="section-body">Compliance teams were managing fragmented, time-intensive workflows across too many disconnected tools with zero AI assistance and no unified visibility.</p>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="pain-num">Pain 01</div>
+        <h4>Regulatory Fragmentation</h4>
+        <p>Compliance officers managed 5–10+ frameworks manually — each with its own spreadsheet, folder, and tracking method. Cross-framework visibility was essentially impossible.</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-num">Pain 02</div>
+        <h4>Manual Document Processing</h4>
+        <p>Extracting obligations from regulatory PDFs required analysts to manually tag hundreds of pages. A single document took 2–3 days. There was no automation, no speed.</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-num">Pain 03</div>
+        <h4>No Real-Time Gap Visibility</h4>
+        <p>Gaps were only discovered during audits — never proactively. No live scoring, no early warning, no executive summary non-technical stakeholders could act on in 30 seconds.</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-num">Pain 04</div>
+        <h4>Zero AI Assistance</h4>
+        <p>Despite large volumes of compliance data, tools lacked AI-driven insights, automation, and natural language querying — forcing teams to rely on institutional knowledge.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESEARCH -->
+  <section>
+    <div class="section-eyebrow">Research</div>
+    <h2 class="section-h2">4 Methods. Deep Clarity.</h2>
+    <p class="research-intro">Before designing a single screen, I invested in understanding the world compliance professionals live in through observation, conversation, and data.</p>
+    <div class="method-grid">
+      <div class="method-card">
+        <div class="method-num">4</div>
+        <div class="method-label">Contextual Inquiries</div>
+        <div class="method-desc">Sat in on live compliance reviews at 4 enterprise organizations. Mapped 40+ discrete actions per cycle.</div>
+      </div>
+      <div class="method-card">
+        <div class="method-num">14</div>
+        <div class="method-label">Stakeholder Interviews</div>
+        <div class="method-desc">45–60 min sessions with Compliance Officers, Risk Managers, Security Architects, and Legal teams.</div>
+      </div>
+      <div class="method-card">
+        <div class="method-num">67</div>
+        <div class="method-label">Survey Respondents</div>
+        <div class="method-desc">28-question structured survey measuring time on manual parsing, tool count, gap discovery timing, and AI interest.</div>
+      </div>
+      <div class="method-card">
+        <div class="method-num">9</div>
+        <div class="method-label">Competitors Analyzed</div>
+        <div class="method-desc">Evaluated ServiceNow, OneTrust, Vanta, Drata, and 5 others across 24 UX dimensions.</div>
+      </div>
+    </div>
+
+    <div class="findings-grid">
+      <div>
+        <div class="finding-item">
+          <h4>Tool Fragmentation Overhead</h4>
+          <p>Teams switched between 5–10+ tools per cycle. Context switching was the #1 time thief, averaging 40+ discrete actions per framework review.</p>
+        </div>
+        <div class="finding-item">
+          <h4>3.2 Days Per Framework</h4>
+          <p>Average time to process one regulatory document: 2–3 days. 9 discrete actions across 3 phases — all error-prone, all repetitive.</p>
+        </div>
+        <div class="finding-item">
+          <h4>Gaps Found Only at Audit Time</h4>
+          <p>100% of interviewees reported discovering critical compliance gaps during audits — never proactively. The reactive workflow was universally painful.</p>
+        </div>
+        <div class="finding-item">
+          <h4>Appetite for AI Was High</h4>
+          <p>When asked "if AI could do one thing," 89% said automated document extraction. The demand was clear — no product had delivered it.</p>
+        </div>
+      </div>
+      <div>
+        <div class="quote-item">
+          <blockquote>"I need to walk into the board meeting and tell them our compliance posture in one sentence — backed by real data, not gut feel."</blockquote>
+          <cite>— Jordan D., Chief Compliance Officer · Regional Bank</cite>
+        </div>
+        <div class="quote-item">
+          <blockquote>"I spend 60% of my day extracting data from PDFs. If AI can do that, I can actually focus on analysis and recommendations."</blockquote>
+          <cite>— Priya R., Regulatory Compliance Analyst · Financial Services</cite>
+        </div>
+        <div class="quote-item">
+          <blockquote>"Architecture scanning and code compliance should be automated. Manual checks mean we're always behind the threat landscape."</blockquote>
+          <cite>— Marcus K., IT Risk &amp; Security Manager · Insurance Corp</cite>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /container -->
+
+<!-- SOLUTION -->
+<section style="background:#f7f7f7; padding: 80px 0;">
+  <div class="container">
+    <div class="section-eyebrow">The Solution</div>
+    <h2 class="section-h2">How we designed our way out of the chaos.</h2>
+    <p class="section-body">Rather than patching existing workflows, we reimagined the entire compliance experience from the ground up — building a unified, AI-native platform where every module speaks the same design language and shares one source of truth.</p>
+    <div class="solution-tags">
+      <span class="solution-tag active">Unified Platform</span>
+      <span class="solution-tag">AI-Assisted Extraction</span>
+      <span class="solution-tag">Real-Time Visibility</span>
+      <span class="solution-tag">WorldKit Design System</span>
+    </div>
+    <div class="solution-hero">
+      <h3>One platform. Six engines.<br>Zero compliance blind spots.</h3>
+      <p>We structured the platform around six interconnected modules — each solving a distinct pain point, yet unified under a consistent interaction model and shared design system. The result: compliance teams could move from document upload to actionable insight in minutes, not days.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MODULES -->
+<div class="container" style="padding-top: 80px;">
+
+  <!-- Module 01 -->
+  <div class="module">
+    <div class="module-eyebrow">Module 01</div>
+    <h3>Regulatory Extraction Engine</h3>
+    <p class="module-body">The first bottleneck: analysts spending 2–3 days manually tagging obligations inside dense regulatory PDFs. We replaced this with an AI-assisted extraction pipeline surfaced through a clean review interface — turning document processing into a structured, auditable workflow.</p>
+    <div class="module-demo">
+      <div class="module-demo-bar">
+        <div class="demo-dot" style="background:#ff5f57;"></div>
+        <div class="demo-dot" style="background:#febc2e;"></div>
+        <div class="demo-dot" style="background:#28c840;"></div>
+        <span class="demo-url">GRC-Enterprise.com</span>
+      </div>
+      <video autoplay loop muted playsinline>
+        <source src="https://framerusercontent.com/assets/MLWPbW1dUQawJLhhun3dBwpgJak.mp4" type="video/mp4" />
+      </video>
+    </div>
+    <div class="module-features">
+      <div class="module-feature"><div class="feature-dot"></div><span>AI extraction from regulatory PDFs in under 60 seconds</span></div>
+      <div class="module-feature"><div class="feature-dot"></div><span>Human-in-the-loop review with inline accept / reject</span></div>
+      <div class="module-feature"><div class="feature-dot"></div><span>Severity auto-classification: Critical → Low</span></div>
+      <div class="module-feature"><div class="feature-dot"></div><span>Export as structured obligation register (CSV / JSON)</span></div>
+    </div>
+    <div class="design-callout">
+      <div class="design-callout-label">Design Decision</div>
+      <p>We deliberately kept the review table minimal — no modal overload. Analysts can triage 50+ obligations in a single scroll session with keyboard-accessible actions.</p>
+    </div>
+  </div>
+
+  <!-- Module 02 -->
+  <div class="module">
+    <div class="module-eyebrow">Module 02</div>
+    <h3>Alignment Engine</h3>
+    <p class="module-body">Enterprises rarely comply with just one framework. The Alignment Engine intelligently maps controls across SOC 2, ISO 27001, NIST CSF, GDPR and others — surfacing overlap and eliminating redundant compliance work.</p>
+    <div class="module-demo">
+      <div class="module-demo-bar">
+        <div class="demo-dot" style="background:#ff5f57;"></div>
+        <div class="demo-dot" style="background:#febc2e;"></div>
+        <div class="demo-dot" style="background:#28c840;"></div>
+        <span class="demo-url">GRC-Enterprise.com</span>
+      </div>
+      <video autoplay loop muted playsinline>
+        <source src="https://framerusercontent.com/assets/MLWPbW1dUQawJLhhun3dBwpgJak.mp4" type="video/mp4" />
+      </video>
+    </div>
+    <div class="module-features">
+      <div class="module-feature"><div class="feature-dot"></div><span>Automated cross-framework control mapping</span></div>
+      <div class="module-feature"><div class="feature-dot"></div><span>Overlap detection to reduce redundant work</span></div>
+      <div class="module-feature"><div class="feature-dot"></div><span>Visual coverage heatmap per framework</span></div>
+      <div class="module-feature"><div class="feature-dot"></div><span>Custom framework imports via CSV / JSON</span></div>
+    </div>
+  </div>
+
+  <!-- Module 03 -->
+  <div class="module">
+    <div class="module-eyebrow">Module 03</div>
+    <h3>Artifacts Discovery Engine</h3>
+    <p class="module-body">Compliance artifacts — policies, procedures, evidence packs — were previously assembled by hand over weeks. We designed an AI-generation flow that produces structured draft artifacts from extracted obligations, mapped to the appropriate framework controls.</p>
+    <div class="module-demo">
+      <div class="module-demo-bar">
+        <div class="demo-dot" style="background:#ff5f57;"></div>
+        <div class="demo-dot" style="background:#febc2e;"></div>
+        <div class="demo-dot" style="background:#28c840;"></div>
+        <span class="demo-url">GRC-Enterprise.com</span>
+      </div>
+      <video autoplay loop muted playsinline>
+        <source src="https://framerusercontent.com/assets/MLWPbW1dUQawJLhhun3dBwpgJak.mp4" type="video/mp4" />
+      </video>
+    </div>
+    <div class="module-features">
+      <div class="module-feature"><div class="feature-dot"></div><span>One-click generation of policy and procedure drafts</span></div>
+      <div class="module-feature"><div class="feature-dot"></div><span>Auto-linked to relevant framework controls</span></div>
+      <div class="module-feature"><div class="feature-dot"></div><span>Approval workflow with role-based permissions</span></div>
+      <div class="module-feature"><div class="feature-dot"></div><span>Version history with diff tracking</span></div>
+    </div>
+  </div>
+
+  <!-- Module 04 -->
+  <div class="module">
+    <div class="module-eyebrow">Module 04</div>
+    <h3>Gap Analysis</h3>
+    <p class="module-body">Gaps were only discovered during audits — far too late. We redesigned gap detection as a continuous, real-time layer surfaced through an executive-readable dashboard. No more surprises on audit day.</p>
+    <div class="module-demo">
+      <div class="module-demo-bar">
+        <div class="demo-dot" style="background:#ff5f57;"></div>
+        <div class="demo-dot" style="background:#febc2e;"></div>
+        <div class="demo-dot" style="background:#28c840;"></div>
+        <span class="demo-url">GRC-Enterprise.com</span>
+      </div>
+      <video autoplay loop muted playsinline>
+        <source src="https://framerusercontent.com/assets/MLWPbW1dUQawJLhhun3dBwpgJak.mp4" type="video/mp4" />
+      </video>
+    </div>
+    <div class="module-features">
+      <div class="module-feature"><div class="feature-dot"></div><span>Real-time gap scoring against active frameworks</span></div>
+      <div class="module-feature"><div class="feature-dot"></div><span>Remediation ownership assignment per gap</span></div>
+      <div class="module-feature"><div class="feature-dot"></div><span>Exec-facing summary dashboard (30-second read)</span></div>
+      <div class="module-feature"><div class="feature-dot"></div><span>Auto-escalation when SLA breaches approach</span></div>
+    </div>
+    <div class="design-callout">
+      <div class="design-callout-label">Design Decision</div>
+      <p>The hardest design challenge here was making severity feel urgent without triggering alert fatigue. We used color sparingly — red only for items within 7-day risk windows — and moved "days remaining" into the primary column.</p>
+    </div>
+  </div>
+
+  <!-- Module 05 -->
+  <div class="module">
+    <div class="module-eyebrow">Module 05</div>
+    <h3>Architecture Scanner</h3>
+    <p class="module-body">Security architects needed a way to validate infrastructure against compliance requirements without generating a 200-page report nobody reads. We designed a scannable, interactive architecture view that highlights risk directly on the system diagram.</p>
+    <div class="module-demo">
+      <div class="module-demo-bar">
+        <div class="demo-dot" style="background:#ff5f57;"></div>
+        <div class="demo-dot" style="background:#febc2e;"></div>
+        <div class="demo-dot" style="background:#28c840;"></div>
+        <span class="demo-url">GRC-Enterprise.com</span>
+      </div>
+      <video autoplay loop muted playsinline>
+        <source src="https://framerusercontent.com/assets/MLWPbW1dUQawJLhhun3dBwpgJak.mp4" type="video/mp4" />
+      </video>
+    </div>
+    <div class="module-features">
+      <div class="module-feature"><div class="feature-dot"></div><span>Import architecture via Terraform / draw.io / manual</span></div>
+      <div class="module-feature"><div class="feature-dot"></div><span>Risk overlay directly on architecture diagram nodes</span></div>
+      <div class="module-feature"><div class="feature-dot"></div><span>Auto-link findings to obligations and controls</span></div>
+      <div class="module-feature"><div class="feature-dot"></div><span>One-click remediation ticket generation</span></div>
+    </div>
+  </div>
+
+  <!-- Module 06 -->
+  <div class="module">
+    <div class="module-eyebrow">Module 06</div>
+    <h3>Code Scanner</h3>
+    <p class="module-body">The final frontier: compliance visibility at the code level. The Code Scanner lets security teams detect misconfigurations, hardcoded secrets, and non-compliant patterns inside the codebase itself — without requiring developers to leave their workflow.</p>
+    <div class="module-demo">
+      <div class="module-demo-bar">
+        <div class="demo-dot" style="background:#ff5f57;"></div>
+        <div class="demo-dot" style="background:#febc2e;"></div>
+        <div class="demo-dot" style="background:#28c840;"></div>
+        <span class="demo-url">GRC-Enterprise.com</span>
+      </div>
+      <video autoplay loop muted playsinline>
+        <source src="https://framerusercontent.com/assets/MLWPbW1dUQawJLhhun3dBwpgJak.mp4" type="video/mp4" />
+      </video>
+    </div>
+    <div class="module-features">
+      <div class="module-feature"><div class="feature-dot"></div><span>Deep scan across 10+ languages and frameworks</span></div>
+      <div class="module-feature"><div class="feature-dot"></div><span>Auto-mapped findings to compliance obligations</span></div>
+      <div class="module-feature"><div class="feature-dot"></div><span>CI/CD integration — scan on every PR</span></div>
+      <div class="module-feature"><div class="feature-dot"></div><span>Developer-friendly inline fix suggestions</span></div>
+    </div>
+  </div>
+
+  <!-- LEARNINGS -->
+  <section>
+    <div class="section-eyebrow">What I Learned</div>
+    <h2 class="section-h2">Designing for high-stakes enterprise AI.</h2>
+    <div class="learning-list">
+      <div class="learning-item">
+        <div class="learning-num">01</div>
+        <div class="learning-content">
+          <h4>Automation confidence ≠ automation trust</h4>
+          <p>Users were impressed by AI extraction accuracy — but still wanted to manually verify every item. The insight: trust is built through transparency, not just accuracy. We added confidence scores and source citations to every AI output, and watch-through rates increased significantly.</p>
+        </div>
+      </div>
+      <div class="learning-item">
+        <div class="learning-num">02</div>
+        <div class="learning-content">
+          <h4>"Remove what you don't need" is as important as "add what users want"</h4>
+          <p>Early prototypes had too many features on every screen. Compliance officers don't want more data — they want the right data, faster. Our biggest UX wins came from ruthlessly removing UI elements, not adding them. Every screen went through at least two "subtraction" rounds.</p>
+        </div>
+      </div>
+      <div class="learning-item">
+        <div class="learning-num">03</div>
+        <div class="learning-content">
+          <h4>Executive dashboards are a product unto themselves</h4>
+          <p>The most-used feature turned out to be the executive summary view — a single screen with 3 KPIs and a risk heat map designed for a 30-second read by a non-technical CISO. Designing for this audience required a completely different vocabulary, visual grammar, and information density than designing for analysts.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /container -->
+
+<!-- FOOTER -->
+<footer class="cs-footer">
+  <h3>Want to work together?</h3>
+  <p>I'm currently available for new opportunities.</p>
+  <div class="cs-footer-links">
+    <a href="mailto:achyutkhanpara7@gmail.com" class="cs-btn cs-btn-primary">Get in Touch</a>
+    <a href="index.html" class="cs-btn cs-btn-ghost">← Back to Work</a>
+  </div>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
+  });
+</script>
+
+</body>
+</html>
