@@ -1,10 +1,6 @@
 /* ════════════════════════════════════════
    MERGED GLOBAL STYLES
-   - Homepage + About: Manrope / Inter / Caveat
-   - Case studies: Plus Jakarta Sans / Instrument Serif / Inter
-   Fonts loaded via next/font in layout.tsx as CSS variables:
-     --font-manrope, --font-inter, --font-caveat,
-     --font-jakarta, --font-instrument
+   Fonts: Manrope / Inter / Caveat loaded via Google Fonts in layout.tsx
 ════════════════════════════════════════ */
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
