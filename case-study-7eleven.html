@@ -111,30 +111,91 @@
     .live-dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; display: inline-block; }
 
     /* ══════════════════════════════════════
-       SECTION 2 — HERO VISUAL BANNER
+       SECTION 2 — DASHBOARD SHOWCASE
     ══════════════════════════════════════ */
     #hero-banner {
       margin: 0 32px 80px;
       border-radius: 24px;
-      background: linear-gradient(135deg, #0B6B4F 0%, #006641 50%, #003d27 100%);
-      padding: 64px 48px;
+      background: linear-gradient(160deg, #0B6B4F 0%, #005538 60%, #002d1e 100%);
+      padding: 52px 52px 36px;
       overflow: hidden;
       position: relative;
     }
     #hero-banner::before {
       content: '';
       position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 70% 50%, rgba(255,255,255,0.06) 0%, transparent 70%);
+      background: radial-gradient(ellipse at 60% 0%, rgba(255,255,255,0.07) 0%, transparent 60%);
+      pointer-events: none;
     }
-    .hero-banner-inner {
-      position: relative; z-index: 1;
-      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; align-items: center;
+
+    /* showcase wrapper */
+    .showcase-wrap { position: relative; z-index: 1; }
+
+    /* slide track */
+    .showcase-viewport {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.08);
     }
-    .hero-screen { position: relative; }
-    .hero-screen:nth-child(1) { transform: rotate(-4deg) translateY(16px); }
-    .hero-screen:nth-child(2) { transform: rotate(0deg) translateY(-12px); z-index: 2; }
-    .hero-screen:nth-child(3) { transform: rotate(4deg) translateY(16px); }
-    .hero-screen .browser-wrap { box-shadow: 0 24px 64px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.1); }
+    .showcase-slides { display: flex; width: 100%; }
+    .showcase-slide {
+      min-width: 100%; position: relative;
+      opacity: 0; transition: opacity 0.55s ease;
+      pointer-events: none;
+      position: absolute; top: 0; left: 0; width: 100%;
+    }
+    .showcase-slide.active {
+      opacity: 1; pointer-events: auto;
+      position: relative;
+    }
+    .showcase-browser-bar {
+      background: #1e1e1e;
+      padding: 10px 16px;
+      display: flex; align-items: center; gap: 6px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .showcase-browser-bar .browser-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .showcase-browser-bar .browser-bar-url {
+      margin-left: 10px; flex: 1;
+      background: rgba(255,255,255,0.08); border-radius: 6px;
+      padding: 4px 12px; font-size: 11px; color: rgba(255,255,255,0.4); font-family: monospace;
+    }
+    .showcase-img { display: block; width: 100%; height: auto; }
+
+    /* controls row */
+    .showcase-controls {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 20px;
+    }
+    .showcase-label {
+      font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.7);
+      letter-spacing: 0.01em;
+    }
+    .showcase-dots { display: flex; gap: 8px; align-items: center; }
+    .showcase-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      cursor: pointer; transition: all 0.25s; border: none; padding: 0;
+    }
+    .showcase-dot.active { width: 24px; border-radius: 999px; background: #fff; }
+    .showcase-arrows { display: flex; gap: 8px; }
+    .showcase-arrow {
+      width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7);
+      cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s; line-height: 1;
+    }
+    .showcase-arrow:hover { background: rgba(255,255,255,0.18); color: #fff; }
+
+    /* progress bar */
+    .showcase-progress {
+      height: 2px; background: rgba(255,255,255,0.1); border-radius: 999px; margin-top: 14px; overflow: hidden;
+    }
+    .showcase-progress-bar {
+      height: 100%; background: rgba(255,255,255,0.5); border-radius: 999px;
+      width: 0%; transition: width linear;
+    }
 
     /* ══════════════════════════════════════
        SECTION 3 — CONTEXT
@@ -401,34 +462,68 @@
      SECTION 2 — HERO VISUAL BANNER
 ══════════════════════════════ -->
 <div id="hero-banner" class="reveal">
-  <div class="hero-banner-inner">
-    <div class="hero-screen">
-      <div class="browser-wrap">
-        <div class="browser-bar">
-          <div class="browser-dot r"></div><div class="browser-dot y"></div><div class="browser-dot g"></div>
-          <div class="browser-bar-url">7elevenstoremanager.figma.site</div>
+  <div class="showcase-wrap" id="dashShowcase" data-autoplay="true" data-interval="3500">
+
+    <!-- viewport -->
+    <div class="showcase-viewport">
+      <div class="showcase-slides">
+
+        <div class="showcase-slide active">
+          <div class="showcase-browser-bar">
+            <div class="browser-dot r"></div><div class="browser-dot y"></div><div class="browser-dot g"></div>
+            <div class="browser-bar-url">7elevenstoremanager.figma.site · Regional Dashboard</div>
+          </div>
+          <img class="showcase-img" src="assets/case-studies/7-eleven/01-overview.png" alt="Regional Dashboard" loading="eager" />
         </div>
-        <img class="browser-screen" src="assets/images/01-store-manager-dashboard.png" alt="Store Manager Dashboard" loading="lazy" />
+
+        <div class="showcase-slide">
+          <div class="showcase-browser-bar">
+            <div class="browser-dot r"></div><div class="browser-dot y"></div><div class="browser-dot g"></div>
+            <div class="browser-bar-url">7elevenstoremanager.figma.site · Inventory</div>
+          </div>
+          <img class="showcase-img" src="assets/case-studies/7-eleven/02-inventory.png" alt="Inventory & Restock" loading="lazy" />
+        </div>
+
+        <div class="showcase-slide">
+          <div class="showcase-browser-bar">
+            <div class="browser-dot r"></div><div class="browser-dot y"></div><div class="browser-dot g"></div>
+            <div class="browser-bar-url">7elevenstoremanager.figma.site · Orders</div>
+          </div>
+          <img class="showcase-img" src="assets/case-studies/7-eleven/03-order-success.png" alt="Order Placed Successfully" loading="lazy" />
+        </div>
+
+        <div class="showcase-slide">
+          <div class="showcase-browser-bar">
+            <div class="browser-dot r"></div><div class="browser-dot y"></div><div class="browser-dot g"></div>
+            <div class="browser-bar-url">7elevenstoremanager.figma.site · IoT Health</div>
+          </div>
+          <img class="showcase-img" src="assets/case-studies/7-eleven/04-iot-health.png" alt="IoT Health & Appliance Monitoring" loading="lazy" />
+        </div>
+
+        <div class="showcase-slide">
+          <div class="showcase-browser-bar">
+            <div class="browser-dot r"></div><div class="browser-dot y"></div><div class="browser-dot g"></div>
+            <div class="browser-bar-url">7elevenstoremanager.figma.site · Analytics</div>
+          </div>
+          <img class="showcase-img" src="assets/case-studies/7-eleven/05-analytics.png" alt="Analytics & Recommendations" loading="lazy" />
+        </div>
+
       </div>
     </div>
-    <div class="hero-screen">
-      <div class="browser-wrap">
-        <div class="browser-bar">
-          <div class="browser-dot r"></div><div class="browser-dot y"></div><div class="browser-dot g"></div>
-          <div class="browser-bar-url">7elevencorporate.figma.site</div>
-        </div>
-        <img class="browser-screen" src="assets/images/03-corporate-operations-dashboard.png" alt="Corporate Manager Dashboard" loading="lazy" />
+
+    <!-- controls -->
+    <div class="showcase-controls">
+      <span class="showcase-label" id="showcaseLabel">Regional Dashboard</span>
+      <div class="showcase-dots" id="showcaseDots"></div>
+      <div class="showcase-arrows">
+        <button class="showcase-arrow" id="showcasePrev" aria-label="Previous">&#8592;</button>
+        <button class="showcase-arrow" id="showcaseNext" aria-label="Next">&#8594;</button>
       </div>
     </div>
-    <div class="hero-screen">
-      <div class="browser-wrap">
-        <div class="browser-bar">
-          <div class="browser-dot r"></div><div class="browser-dot y"></div><div class="browser-dot g"></div>
-          <div class="browser-bar-url">7elevenareamanager.figma.site</div>
-        </div>
-        <img class="browser-screen" src="assets/images/02-area-manager-stores.png" alt="Area Manager Dashboard" loading="lazy" />
-      </div>
-    </div>
+
+    <!-- progress bar -->
+    <div class="showcase-progress"><div class="showcase-progress-bar" id="showcaseBar"></div></div>
+
   </div>
 </div>
 
@@ -870,14 +965,87 @@
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
   /* horizontal scroll drag */
-  const scroll = document.querySelector('.quotes-scroll-outer');
-  if (scroll) {
+  const scrollEl = document.querySelector('.quotes-scroll-outer');
+  if (scrollEl) {
     let isDown = false, startX, scrollLeft;
-    scroll.addEventListener('mousedown', e => { isDown = true; scroll.style.cursor = 'grabbing'; startX = e.pageX - scroll.offsetLeft; scrollLeft = scroll.scrollLeft; });
-    scroll.addEventListener('mouseleave', () => { isDown = false; scroll.style.cursor = 'grab'; });
-    scroll.addEventListener('mouseup', () => { isDown = false; scroll.style.cursor = 'grab'; });
-    scroll.addEventListener('mousemove', e => { if (!isDown) return; e.preventDefault(); const x = e.pageX - scroll.offsetLeft; scroll.scrollLeft = scrollLeft - (x - startX); });
+    scrollEl.addEventListener('mousedown', e => { isDown = true; scrollEl.style.cursor = 'grabbing'; startX = e.pageX - scrollEl.offsetLeft; scrollLeft = scrollEl.scrollLeft; });
+    scrollEl.addEventListener('mouseleave', () => { isDown = false; scrollEl.style.cursor = 'grab'; });
+    scrollEl.addEventListener('mouseup', () => { isDown = false; scrollEl.style.cursor = 'grab'; });
+    scrollEl.addEventListener('mousemove', e => { if (!isDown) return; e.preventDefault(); const x = e.pageX - scrollEl.offsetLeft; scrollEl.scrollLeft = scrollLeft - (x - startX); });
   }
+
+  /* ── DashboardShowcase ── */
+  (function() {
+    const SLIDES = [
+      { label: 'Regional Dashboard' },
+      { label: 'Inventory & Restock' },
+      { label: 'Order Confirmation' },
+      { label: 'IoT Health Monitoring' },
+      { label: 'Analytics & Recommendations' },
+    ];
+    const INTERVAL = 3500;
+
+    const wrap    = document.getElementById('dashShowcase');
+    const slides  = wrap.querySelectorAll('.showcase-slide');
+    const dotsEl  = document.getElementById('showcaseDots');
+    const labelEl = document.getElementById('showcaseLabel');
+    const bar     = document.getElementById('showcaseBar');
+    const prev    = document.getElementById('showcasePrev');
+    const next    = document.getElementById('showcaseNext');
+
+    let current = 0, timer = null, barTimer = null;
+
+    /* build dots */
+    SLIDES.forEach((_, i) => {
+      const d = document.createElement('button');
+      d.className = 'showcase-dot' + (i === 0 ? ' active' : '');
+      d.setAttribute('aria-label', SLIDES[i].label);
+      d.addEventListener('click', () => goTo(i, true));
+      dotsEl.appendChild(d);
+    });
+
+    function goTo(idx, resetTimer) {
+      slides[current].classList.remove('active');
+      dotsEl.children[current].classList.remove('active');
+      current = (idx + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      dotsEl.children[current].classList.add('active');
+      labelEl.textContent = SLIDES[current].label;
+      if (resetTimer) { clearInterval(timer); startTimer(); }
+      startBar();
+    }
+
+    function startBar() {
+      bar.style.transition = 'none';
+      bar.style.width = '0%';
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        bar.style.transition = `width ${INTERVAL}ms linear`;
+        bar.style.width = '100%';
+      }));
+    }
+
+    function startTimer() {
+      timer = setInterval(() => goTo(current + 1, false), INTERVAL);
+    }
+
+    /* pause on hover */
+    wrap.addEventListener('mouseenter', () => { clearInterval(timer); bar.style.transition = 'none'; });
+    wrap.addEventListener('mouseleave', () => { startTimer(); startBar(); });
+
+    /* touch swipe */
+    let touchX = 0;
+    wrap.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
+    wrap.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - touchX;
+      if (Math.abs(dx) > 40) goTo(dx < 0 ? current + 1 : current - 1, true);
+    });
+
+    prev.addEventListener('click', () => goTo(current - 1, true));
+    next.addEventListener('click', () => goTo(current + 1, true));
+
+    startTimer();
+    startBar();
+  })();
 </script>
 </body>
 </html>
