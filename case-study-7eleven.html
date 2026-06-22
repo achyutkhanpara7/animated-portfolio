@@ -549,64 +549,81 @@
 </section>
 
 <!-- ══ S3: CONTEXT + OVERVIEW ══ -->
-<section id="context">
-  <div class="context-inner">
-    <div class="context-left reveal">
+<section id="context" style="padding:0 0 100px;">
+
+  <!-- Top: two-col text -->
+  <div style="max-width:var(--max);margin:0 auto;padding:80px 48px 0;display:grid;grid-template-columns:1fr 1.4fr;gap:72px;align-items:start;">
+    <div class="reveal">
       <div class="eyebrow"><span class="eyebrow-diamond">◆</span> CONTEXT &amp; OVERVIEW</div>
-      <h2>why this product<br/>needed to exist</h2>
-    </div>
-    <div class="reveal reveal-delay-1">
-      <p class="context-body">7-Eleven operates <strong>9,000+ stores nationwide</strong>, where managers juggle inventory, IoT health, staffing, and compliance from 4 disconnected legacy systems — daily.</p>
-      <p class="context-body">The goal was to design a centralized <strong>AI-powered platform</strong> that could serve multiple operational roles while providing real-time visibility and actionable insights. Small improvements here compound across thousands of stores.</p>
-      <p class="context-body">The business wanted to <strong>reduce time-to-resolution</strong> on store issues. Managers reported alert fatigue, unclear prioritization, and no unified view.</p>
-      <div style="margin-top:24px;">
-        <div style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">My Responsibilities</div>
+      <h2 style="font-size:clamp(32px,3.8vw,52px);font-weight:800;line-height:1.1;letter-spacing:-0.03em;color:#0b0b0b;margin-top:16px;">why this<br/>product needed<br/>to exist</h2>
+      <div style="margin-top:32px;display:flex;flex-direction:column;gap:10px;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;">My Responsibilities</div>
         <div style="display:flex;flex-wrap:wrap;gap:8px;">
-          <span style="font-size:12px;font-weight:600;color:#008062;background:rgba(0,128,98,0.08);border:1px solid rgba(0,128,98,0.2);border-radius:999px;padding:5px 14px;">Product Strategy</span>
-          <span style="font-size:12px;font-weight:600;color:#008062;background:rgba(0,128,98,0.08);border:1px solid rgba(0,128,98,0.2);border-radius:999px;padding:5px 14px;">UX Design</span>
-          <span style="font-size:12px;font-weight:600;color:#008062;background:rgba(0,128,98,0.08);border:1px solid rgba(0,128,98,0.2);border-radius:999px;padding:5px 14px;">Information Architecture</span>
-          <span style="font-size:12px;font-weight:600;color:#008062;background:rgba(0,128,98,0.08);border:1px solid rgba(0,128,98,0.2);border-radius:999px;padding:5px 14px;">Dashboard Design</span>
-          <span style="font-size:12px;font-weight:600;color:#008062;background:rgba(0,128,98,0.08);border:1px solid rgba(0,128,98,0.2);border-radius:999px;padding:5px 14px;">AI Experience Design</span>
+          <span style="font-size:12px;font-weight:600;color:var(--green);background:rgba(0,128,98,0.07);border:1.5px solid rgba(0,128,98,0.18);border-radius:999px;padding:5px 14px;">Product Strategy</span>
+          <span style="font-size:12px;font-weight:600;color:var(--green);background:rgba(0,128,98,0.07);border:1.5px solid rgba(0,128,98,0.18);border-radius:999px;padding:5px 14px;">UX Design</span>
+          <span style="font-size:12px;font-weight:600;color:var(--green);background:rgba(0,128,98,0.07);border:1.5px solid rgba(0,128,98,0.18);border-radius:999px;padding:5px 14px;">Information Architecture</span>
+          <span style="font-size:12px;font-weight:600;color:var(--green);background:rgba(0,128,98,0.07);border:1.5px solid rgba(0,128,98,0.18);border-radius:999px;padding:5px 14px;">Dashboard Design</span>
+          <span style="font-size:12px;font-weight:600;color:var(--green);background:rgba(0,128,98,0.07);border:1.5px solid rgba(0,128,98,0.18);border-radius:999px;padding:5px 14px;">AI Experience Design</span>
         </div>
       </div>
+    </div>
+    <div class="reveal reveal-delay-1" style="padding-top:8px;">
+      <p class="context-body">7-Eleven operates <strong>13,000+ stores across the US</strong>, where store managers, area managers, and corporate teams juggle inventory, IoT device health, staffing, and compliance — across 4 disconnected legacy systems, every single day.</p>
+      <p class="context-body">Critical operational data lived in silos. Teams couldn't quickly identify issues, monitor performance, or act on insights without switching between tools. The result: <strong>alert fatigue, delayed decisions, and missed compliance windows.</strong></p>
+      <p class="context-body">The goal was a centralized <strong>AI-powered operations platform</strong> — one unified surface serving 4 distinct roles with real-time visibility, intelligent prioritization, and actionable workflows.</p>
     </div>
   </div>
 
   <!-- Feature cards row -->
-  <div class="wrap reveal" style="margin-top:48px;">
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:40px;">
-      <div style="background:#fff;border:1.5px solid var(--border);border-radius:16px;padding:20px 22px;">
-        <div style="font-size:24px;margin-bottom:10px;">🏪</div>
-        <div style="font-size:14px;font-weight:700;color:#0b0b0b;margin-bottom:4px;">Multi-Persona Platform</div>
-        <div style="font-size:12px;color:#008062;font-weight:600;">4 distinct user roles served</div>
+  <div style="max-width:var(--max);margin:48px auto 0;padding:0 48px;" class="reveal">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;">
+      <div style="background:var(--bg);border:1.5px solid var(--border);border-radius:16px;padding:24px;transition:box-shadow 0.2s,transform 0.2s;" onmouseover="this.style.boxShadow='0 8px 32px rgba(0,128,98,0.12)';this.style.transform='translateY(-3px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">
+        <div style="width:40px;height:40px;background:rgba(0,128,98,0.1);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px;">🏪</div>
+        <div style="font-size:14px;font-weight:700;color:#0b0b0b;margin-bottom:5px;">Multi-Persona Platform</div>
+        <div style="font-size:12px;color:var(--green);font-weight:600;">4 distinct user roles</div>
       </div>
-      <div style="background:#fff;border:1.5px solid var(--border);border-radius:16px;padding:20px 22px;">
-        <div style="font-size:24px;margin-bottom:10px;">🏬</div>
-        <div style="font-size:14px;font-weight:700;color:#0b0b0b;margin-bottom:4px;">Store Operations</div>
-        <div style="font-size:12px;color:#008062;font-weight:600;">9,000+ store locations</div>
+      <div style="background:var(--bg);border:1.5px solid var(--border);border-radius:16px;padding:24px;transition:box-shadow 0.2s,transform 0.2s;" onmouseover="this.style.boxShadow='0 8px 32px rgba(0,128,98,0.12)';this.style.transform='translateY(-3px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">
+        <div style="width:40px;height:40px;background:rgba(0,128,98,0.1);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px;">🏬</div>
+        <div style="font-size:14px;font-weight:700;color:#0b0b0b;margin-bottom:5px;">Store Operations</div>
+        <div style="font-size:12px;color:var(--green);font-weight:600;">13,000+ US locations</div>
       </div>
-      <div style="background:#fff;border:1.5px solid var(--border);border-radius:16px;padding:20px 22px;">
-        <div style="font-size:24px;margin-bottom:10px;">📡</div>
-        <div style="font-size:14px;font-weight:700;color:#0b0b0b;margin-bottom:4px;">IoT Monitoring</div>
-        <div style="font-size:12px;color:#008062;font-weight:600;">Real-time device health</div>
+      <div style="background:var(--bg);border:1.5px solid var(--border);border-radius:16px;padding:24px;transition:box-shadow 0.2s,transform 0.2s;" onmouseover="this.style.boxShadow='0 8px 32px rgba(0,128,98,0.12)';this.style.transform='translateY(-3px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">
+        <div style="width:40px;height:40px;background:rgba(0,128,98,0.1);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px;">📡</div>
+        <div style="font-size:14px;font-weight:700;color:#0b0b0b;margin-bottom:5px;">IoT Monitoring</div>
+        <div style="font-size:12px;color:var(--green);font-weight:600;">Real-time device health</div>
       </div>
-      <div style="background:#fff;border:1.5px solid var(--border);border-radius:16px;padding:20px 22px;">
-        <div style="font-size:24px;margin-bottom:10px;">🤖</div>
-        <div style="font-size:14px;font-weight:700;color:#0b0b0b;margin-bottom:4px;">AI-Powered Insights</div>
-        <div style="font-size:12px;color:#008062;font-weight:600;">Intelligent recommendations</div>
+      <div style="background:var(--bg);border:1.5px solid var(--border);border-radius:16px;padding:24px;transition:box-shadow 0.2s,transform 0.2s;" onmouseover="this.style.boxShadow='0 8px 32px rgba(0,128,98,0.12)';this.style.transform='translateY(-3px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">
+        <div style="width:40px;height:40px;background:rgba(0,128,98,0.1);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px;">🤖</div>
+        <div style="font-size:14px;font-weight:700;color:#0b0b0b;margin-bottom:5px;">AI-Powered Insights</div>
+        <div style="font-size:12px;color:var(--green);font-weight:600;">Intelligent recommendations</div>
       </div>
     </div>
   </div>
 
-  <!-- Stats strip -->
-  <div class="wrap">
-    <div class="stat-strip reveal">
-      <div class="stat-cell"><div class="stat-num">9,000+</div><div class="stat-desc">Store locations on the platform</div></div>
-      <div class="stat-cell"><div class="stat-num">50K+</div><div class="stat-desc">Daily operational alerts processed</div></div>
-      <div class="stat-cell"><div class="stat-num">65%</div><div class="stat-desc">of managers reported alert fatigue</div></div>
-      <div class="stat-cell"><div class="stat-num">4</div><div class="stat-desc">Legacy systems the dashboard had to unify</div></div>
+  <!-- Dark green KPI strip -->
+  <div style="max-width:var(--max);margin:48px auto 0;padding:0 48px;" class="reveal">
+    <div style="background:linear-gradient(135deg,#0E3A2C 0%,#008062 60%,#00A67E 100%);border-radius:20px;padding:48px 56px;display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;overflow:hidden;">
+      <!-- subtle texture -->
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 80% 50%,rgba(255,255,255,0.06) 0%,transparent 60%);pointer-events:none;"></div>
+      <div style="border-right:1px solid rgba(255,255,255,0.15);padding:0 32px 0 0;">
+        <div style="font-size:clamp(36px,4vw,52px);font-weight:900;color:#fff;letter-spacing:-0.03em;line-height:1;">13K+</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.7);margin-top:8px;line-height:1.4;">US store locations<br/>on the platform</div>
+      </div>
+      <div style="border-right:1px solid rgba(255,255,255,0.15);padding:0 32px;">
+        <div style="font-size:clamp(36px,4vw,52px);font-weight:900;color:#fff;letter-spacing:-0.03em;line-height:1;">85K+</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.7);margin-top:8px;line-height:1.4;">Daily operational<br/>alerts processed</div>
+      </div>
+      <div style="border-right:1px solid rgba(255,255,255,0.15);padding:0 32px;">
+        <div style="font-size:clamp(36px,4vw,52px);font-weight:900;color:#fff;letter-spacing:-0.03em;line-height:1;">67%</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.7);margin-top:8px;line-height:1.4;">Managers reported<br/>critical alert fatigue</div>
+      </div>
+      <div style="padding:0 0 0 32px;">
+        <div style="font-size:clamp(36px,4vw,52px);font-weight:900;color:#fff;letter-spacing:-0.03em;line-height:1;">4</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.7);margin-top:8px;line-height:1.4;">Legacy systems<br/>the platform unified</div>
+      </div>
     </div>
   </div>
+
 </section>
 
 <!-- ══ S4: PROBLEM GRID ══ -->
