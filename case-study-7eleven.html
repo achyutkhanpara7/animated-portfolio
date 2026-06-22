@@ -74,7 +74,10 @@
     .tag-pill { font-size: 13px; font-weight: 600; color: #555; background: var(--bg); border: 1.5px solid var(--border); border-radius: 999px; padding: 5px 14px; }
     .page-h1 { font-size: clamp(36px, 5.5vw, 68px); font-weight: 800; line-height: 1.05; letter-spacing: -0.04em; margin-bottom: 20px; max-width: 900px; }
     .page-sub { font-size: 18px; font-weight: 400; color: var(--muted); line-height: 1.65; max-width: 680px; margin-bottom: 36px; }
-    .meta-row { display: grid; grid-template-columns: repeat(4,1fr); border: 1.5px solid var(--border); border-radius: 14px; overflow: hidden; max-width: 640px; }
+    .meta-row { display: grid; grid-template-columns: repeat(4,1fr); border: 1.5px solid var(--border); border-radius: 14px; overflow: hidden; max-width: 960px; }
+    .meta-row .meta-cell:nth-child(4) { border-right: none; }
+    .meta-row .meta-cell:nth-child(n+5) { border-top: 1.5px solid var(--border); }
+    .meta-row .meta-cell:nth-child(8) { border-right: none; }
     .meta-cell { padding: 14px 20px; border-right: 1.5px solid var(--border); }
     .meta-cell:last-child { border-right: none; }
     .meta-label { font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
@@ -390,21 +393,38 @@
 <!-- ══ S1: HEADER ══ -->
 <div id="header">
   <div class="tag-pills reveal">
-    <span class="tag-pill">Retail AI</span>
-    <span class="tag-pill">Operations</span>
-    <span class="tag-pill">Dashboard</span>
-    <span class="tag-pill">iOS &amp; Android</span>
+    <span class="tag-pill">AI Operations</span>
+    <span class="tag-pill">Enterprise SaaS</span>
+    <span class="tag-pill">Multi-Persona</span>
+    <span class="tag-pill">IoT Monitoring</span>
+    <span class="tag-pill">Design Systems</span>
   </div>
-  <h1 class="page-h1 reveal">Store operations that finally feel proactive</h1>
-  <p class="page-sub reveal">Redesigning the store operations experience for 7-Eleven managers — real-time inventory alerts, anomaly detection, and a unified dashboard. Built for 9,000+ store locations.</p>
+  <h1 class="page-h1 reveal">Designing an AI-Powered Operations Intelligence Platform for 7-Eleven</h1>
+  <p class="page-sub reveal">Transforming fragmented store operations, inventory management, IoT monitoring, and supply chain workflows into a unified intelligence platform for frontline teams and enterprise leaders. Built for 9,000+ store locations.</p>
   <div class="meta-row reveal">
     <div class="meta-cell">
       <div class="meta-label">Role</div>
       <div class="meta-value">Product Designer</div>
     </div>
     <div class="meta-cell">
+      <div class="meta-label">Timeline</div>
+      <div class="meta-value">3 Months</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-label">Team</div>
+      <div class="meta-value">Product · Engineering · Stakeholders</div>
+    </div>
+    <div class="meta-cell">
       <div class="meta-label">Platform</div>
-      <div class="meta-value">iOS &amp; Android</div>
+      <div class="meta-value">Enterprise SaaS</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-label">Focus</div>
+      <div class="meta-value">AI · IoT · Supply Chain</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-label">Tools</div>
+      <div class="meta-value">Figma · FigJam</div>
     </div>
     <div class="meta-cell">
       <div class="meta-label">Status</div>
