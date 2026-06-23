@@ -571,120 +571,67 @@
       <p class="context-body">7-Eleven operates <strong>13,000+ stores across the US</strong>, where store managers, area managers, and corporate teams juggle inventory, IoT device health, staffing, and compliance — across 4 disconnected legacy systems, every single day.</p>
       <p class="context-body">Critical operational data lived in silos. Teams couldn't quickly identify issues, monitor performance, or act on insights without switching between tools. The result: <strong>alert fatigue, delayed decisions, and missed compliance windows.</strong></p>
       <p class="context-body">The goal was a centralized <strong>AI-powered operations platform</strong> — one unified surface serving 4 distinct roles with real-time visibility, intelligent prioritization, and actionable workflows.</p>
-      <!-- inline 2x2 feature grid -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:24px;">
-        <div style="display:flex;align-items:center;gap:10px;background:rgba(0,128,98,0.06);border:1.5px solid rgba(0,128,98,0.14);border-radius:12px;padding:12px 14px;">
-          <span style="font-size:18px;flex-shrink:0;">🏪</span>
-          <div><div style="font-size:12px;font-weight:700;color:#0b0b0b;line-height:1.2;">Multi-Persona Platform</div><div style="font-size:11px;color:var(--green);font-weight:600;margin-top:2px;">4 distinct user roles</div></div>
-        </div>
-        <div style="display:flex;align-items:center;gap:10px;background:rgba(0,128,98,0.06);border:1.5px solid rgba(0,128,98,0.14);border-radius:12px;padding:12px 14px;">
-          <span style="font-size:18px;flex-shrink:0;">🏬</span>
-          <div><div style="font-size:12px;font-weight:700;color:#0b0b0b;line-height:1.2;">Store Operations</div><div style="font-size:11px;color:var(--green);font-weight:600;margin-top:2px;">13,000+ US locations</div></div>
-        </div>
-        <div style="display:flex;align-items:center;gap:10px;background:rgba(0,128,98,0.06);border:1.5px solid rgba(0,128,98,0.14);border-radius:12px;padding:12px 14px;">
-          <span style="font-size:18px;flex-shrink:0;">📡</span>
-          <div><div style="font-size:12px;font-weight:700;color:#0b0b0b;line-height:1.2;">IoT Monitoring</div><div style="font-size:11px;color:var(--green);font-weight:600;margin-top:2px;">Real-time device health</div></div>
-        </div>
-        <div style="display:flex;align-items:center;gap:10px;background:rgba(0,128,98,0.06);border:1.5px solid rgba(0,128,98,0.14);border-radius:12px;padding:12px 14px;">
-          <span style="font-size:18px;flex-shrink:0;">🤖</span>
-          <div><div style="font-size:12px;font-weight:700;color:#0b0b0b;line-height:1.2;">AI-Powered Insights</div><div style="font-size:11px;color:var(--green);font-weight:600;margin-top:2px;">Intelligent recommendations</div></div>
-        </div>
-      </div>
     </div>
   </div>
 
-  <!-- Glassmorphism KPI cards -->
+  <!-- KPI floating cards -->
   <style>
-    .kpi-grid { max-width:var(--max); margin:48px auto 0; padding:0 48px; }
-    .kpi-wrap {
-      background: linear-gradient(135deg,#0B3325 0%,#00694F 55%,#00A67E 100%);
-      border-radius: 20px;
-      padding: 28px 28px;
-      display: grid;
-      grid-template-columns: repeat(4,1fr);
-      gap: 14px;
-      position: relative;
-      overflow: hidden;
-    }
-    .kpi-wrap::before {
-      content:'';
-      position:absolute;inset:0;
-      background: radial-gradient(ellipse at 70% 30%, rgba(255,255,255,0.08) 0%, transparent 55%);
-      pointer-events:none;
-    }
-    .kpi-card {
-      background: rgba(255,255,255,0.10);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255,255,255,0.20);
+    .kpi-grid { max-width:var(--max); margin:40px auto 0; padding:0 48px; }
+    .kpi-row { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+    .kpi-fc {
+      background: #fff;
+      border: 1.5px solid rgba(0,128,98,0.18);
+      border-top: 3px solid var(--green);
       border-radius: 14px;
-      padding: 20px 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      transition: transform .25s ease, background .25s ease;
-      position: relative;
-      overflow: hidden;
+      padding: 22px 20px 20px;
+      display: flex; flex-direction: column; gap: 5px;
+      box-shadow: 0 4px 20px rgba(0,128,98,0.08);
+      transition: transform .22s ease, box-shadow .22s ease;
     }
-    .kpi-card::after {
-      content:'';
-      position:absolute;
-      top:-40px; left:-40px;
-      width:120px; height:120px;
-      background: radial-gradient(circle, rgba(255,255,255,0.10) 0%, transparent 70%);
-      pointer-events:none;
-    }
-    .kpi-card:hover {
-      transform: translateY(-4px);
-      background: rgba(255,255,255,0.16);
-    }
-    .kpi-num {
-      font-size: clamp(28px,3vw,40px);
+    .kpi-fc:hover { transform: translateY(-4px); box-shadow: 0 10px 32px rgba(0,128,98,0.14); }
+    .kpi-fc-num {
+      font-size: clamp(30px,3.2vw,44px);
       font-weight: 900;
-      color: #fff;
+      color: var(--green);
       letter-spacing: -0.04em;
       line-height: 1;
     }
-    .kpi-label {
-      font-size: 11px;
-      font-weight: 700;
-      color: rgba(255,255,255,0.85);
-      line-height: 1.4;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
+    .kpi-fc-label {
+      font-size: 11px; font-weight: 700;
+      color: #0b0b0b;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      line-height: 1.35; margin-top: 4px;
     }
-    .kpi-sub {
-      font-size: 11px;
-      color: rgba(255,255,255,0.50);
-      line-height: 1.4;
-      margin-top: 1px;
+    .kpi-fc-sub {
+      font-size: 11px; color: var(--muted);
+      line-height: 1.45; margin-top: 2px;
     }
     @media(max-width:700px){
-      .kpi-wrap { grid-template-columns: repeat(2,1fr); padding:32px 20px; gap:14px; }
+      .kpi-row { grid-template-columns:repeat(2,1fr); }
       .kpi-grid { padding:0 20px; }
     }
   </style>
   <div class="kpi-grid reveal">
-    <div class="kpi-wrap">
-      <div class="kpi-card">
-        <div class="kpi-num">13K+</div>
-        <div class="kpi-label">Store Network Scale</div>
-        <div class="kpi-sub">US 7-Eleven locations on the platform</div>
+    <div class="kpi-row">
+      <div class="kpi-fc">
+        <div class="kpi-fc-num">13K+</div>
+        <div class="kpi-fc-label">Store Network Scale</div>
+        <div class="kpi-fc-sub">US 7-Eleven locations on the platform</div>
       </div>
-      <div class="kpi-card">
-        <div class="kpi-num">4</div>
-        <div class="kpi-label">Operational Roles Unified</div>
-        <div class="kpi-sub">Store manager, area manager, IT admin, corporate</div>
+      <div class="kpi-fc">
+        <div class="kpi-fc-num">4</div>
+        <div class="kpi-fc-label">Operational Roles Unified</div>
+        <div class="kpi-fc-sub">Store manager, area manager, IT admin, corporate</div>
       </div>
-      <div class="kpi-card">
-        <div class="kpi-num">6</div>
-        <div class="kpi-label">Business Scenarios Designed</div>
-        <div class="kpi-sub">End-to-end workflows mapped and validated</div>
+      <div class="kpi-fc">
+        <div class="kpi-fc-num">6</div>
+        <div class="kpi-fc-label">Business Scenarios Designed</div>
+        <div class="kpi-fc-sub">End-to-end workflows mapped and validated</div>
       </div>
-      <div class="kpi-card">
-        <div class="kpi-num">1</div>
-        <div class="kpi-label">Shared Enterprise Vision</div>
-        <div class="kpi-sub">One platform replacing 4 disconnected legacy systems</div>
+      <div class="kpi-fc">
+        <div class="kpi-fc-num">1</div>
+        <div class="kpi-fc-label">Shared Enterprise Vision</div>
+        <div class="kpi-fc-sub">One platform replacing 4 disconnected legacy systems</div>
       </div>
     </div>
   </div>
