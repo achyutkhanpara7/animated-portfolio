@@ -577,62 +577,42 @@
   <!-- KPI stat cards -->
   <style>
     .kpi-grid { max-width:var(--max); margin:44px auto 0; padding:0 48px; }
-    .kpi-row { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; align-items:stretch; }
+    .kpi-row { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; align-items:stretch; }
     .kpi-fc {
-      border-radius: 18px;
-      padding: 28px 24px 24px;
-      display: flex; flex-direction: column; gap: 0;
-      position: relative; overflow: hidden;
-      transition: transform .22s ease, box-shadow .22s ease;
+      background: #fff;
+      border: 1.5px solid #e4ede9;
+      border-radius: 16px;
+      padding: 28px 24px;
+      display: flex; flex-direction: column;
+      border-left: 4px solid var(--green);
+      transition: box-shadow .2s ease, transform .2s ease;
     }
-    .kpi-fc:hover { transform: translateY(-5px); }
-    /* light variant */
-    .kpi-fc.light {
-      background: #f5faf8;
-      border: 1.5px solid rgba(0,128,98,0.14);
-      box-shadow: 0 2px 16px rgba(0,128,98,0.07);
-    }
-    .kpi-fc.light:hover { box-shadow: 0 8px 28px rgba(0,128,98,0.13); }
-    /* dark variant */
-    .kpi-fc.dark {
-      background: linear-gradient(145deg, #0a3325 0%, #00694f 100%);
-      border: none;
-      box-shadow: 0 4px 24px rgba(0,105,79,0.30);
-    }
-    .kpi-fc.dark:hover { box-shadow: 0 10px 36px rgba(0,105,79,0.40); }
-    /* decorative circle */
-    .kpi-fc::before {
-      content:'';
-      position:absolute; top:-28px; right:-28px;
-      width:90px; height:90px;
-      border-radius:50%;
-      opacity:0.08;
-    }
-    .kpi-fc.light::before { background: var(--green); }
-    .kpi-fc.dark::before  { background: #fff; opacity:0.10; }
-    .kpi-fc-icon {
-      font-size: 20px; margin-bottom: 16px; display:block;
+    .kpi-fc:hover {
+      box-shadow: 0 6px 24px rgba(0,128,98,0.10);
+      transform: translateY(-3px);
     }
     .kpi-fc-num {
-      font-size: clamp(36px,3.8vw,52px);
+      font-size: clamp(38px,4vw,54px);
       font-weight: 900;
+      color: #00694f;
       letter-spacing: -0.04em;
       line-height: 1;
     }
-    .kpi-fc.light .kpi-fc-num { color: #00694f; }
-    .kpi-fc.dark  .kpi-fc-num { color: #fff; }
     .kpi-fc-label {
-      font-size: 12px; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 0.07em;
-      line-height: 1.3; margin-top: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #0b0b0b;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      line-height: 1.4;
+      margin-top: 12px;
     }
-    .kpi-fc.light .kpi-fc-label { color: #0b0b0b; }
-    .kpi-fc.dark  .kpi-fc-label { color: rgba(255,255,255,0.90); }
     .kpi-fc-sub {
-      font-size: 12px; line-height: 1.55; margin-top: 6px;
+      font-size: 14px;
+      color: #6b7280;
+      line-height: 1.6;
+      margin-top: 6px;
     }
-    .kpi-fc.light .kpi-fc-sub { color: #6b7280; }
-    .kpi-fc.dark  .kpi-fc-sub { color: rgba(255,255,255,0.55); }
     @media(max-width:700px){
       .kpi-row { grid-template-columns:repeat(2,1fr); }
       .kpi-grid { padding:0 20px; }
@@ -640,26 +620,22 @@
   </style>
   <div class="kpi-grid reveal">
     <div class="kpi-row">
-      <div class="kpi-fc dark">
-        <span class="kpi-fc-icon">🏪</span>
+      <div class="kpi-fc">
         <div class="kpi-fc-num">13K+</div>
         <div class="kpi-fc-label">Store Network Scale</div>
-        <div class="kpi-fc-sub">US 7-Eleven locations served by the platform</div>
+        <div class="kpi-fc-sub">US 7-Eleven locations on the platform</div>
       </div>
-      <div class="kpi-fc light">
-        <span class="kpi-fc-icon">👥</span>
+      <div class="kpi-fc">
         <div class="kpi-fc-num">4</div>
         <div class="kpi-fc-label">Operational Roles Unified</div>
         <div class="kpi-fc-sub">Store manager, area manager, IT admin, corporate</div>
       </div>
-      <div class="kpi-fc light">
-        <span class="kpi-fc-icon">📋</span>
+      <div class="kpi-fc">
         <div class="kpi-fc-num">6</div>
         <div class="kpi-fc-label">Business Scenarios Designed</div>
         <div class="kpi-fc-sub">End-to-end workflows mapped and validated</div>
       </div>
-      <div class="kpi-fc dark">
-        <span class="kpi-fc-icon">🎯</span>
+      <div class="kpi-fc">
         <div class="kpi-fc-num">1</div>
         <div class="kpi-fc-label">Shared Enterprise Vision</div>
         <div class="kpi-fc-sub">One platform replacing 4 disconnected legacy systems</div>
