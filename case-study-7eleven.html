@@ -574,74 +574,273 @@
     </div>
   </div>
 
-  <!-- KPI stat cards -->
+  <!-- ── Enterprise KPI Panel ── -->
   <style>
-    .kpi-grid { max-width:var(--max); margin:44px auto 0; padding:0 48px; }
-    .kpi-row { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; align-items:stretch; }
-    .kpi-fc {
-      background: #fff;
-      border: 1.5px solid #e4ede9;
-      border-radius: 16px;
-      padding: 28px 24px;
+    .ekpi-outer { max-width:var(--max); margin:52px auto 0; padding:0 48px; }
+
+    /* Main panel */
+    .ekpi-panel {
+      position: relative;
+      background: linear-gradient(135deg, #071e15 0%, #0d3526 40%, #0a4233 70%, #063020 100%);
+      border-radius: 28px;
+      padding: 52px 48px;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px rgba(0,200,130,0.12),
+        0 24px 64px rgba(0,0,0,0.35),
+        0 8px 24px rgba(0,150,100,0.15);
+    }
+
+    /* ambient glow orbs */
+    .ekpi-orb {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(60px);
+    }
+    .ekpi-orb-1 { width:320px; height:320px; background:radial-gradient(circle, rgba(0,180,120,0.18) 0%, transparent 70%); top:-80px; left:-60px; }
+    .ekpi-orb-2 { width:280px; height:280px; background:radial-gradient(circle, rgba(0,220,150,0.12) 0%, transparent 70%); bottom:-60px; right:-40px; }
+    .ekpi-orb-3 { width:200px; height:200px; background:radial-gradient(circle, rgba(0,160,100,0.10) 0%, transparent 70%); top:50%; left:50%; transform:translate(-50%,-50%); }
+
+    /* canvas for network lines */
+    .ekpi-canvas { position:absolute; inset:0; opacity:0.35; pointer-events:none; }
+
+    /* header row */
+    .ekpi-header {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 36px;
+    }
+    .ekpi-eyebrow {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.12em;
+      color: rgba(0,220,150,0.75);
+    }
+    .ekpi-eyebrow-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #00dc96;
+      box-shadow: 0 0 8px rgba(0,220,150,0.8);
+      animation: ekpi-pulse 2s ease-in-out infinite;
+    }
+    @keyframes ekpi-pulse {
+      0%,100% { opacity:1; transform:scale(1); }
+      50%      { opacity:0.5; transform:scale(0.7); }
+    }
+    .ekpi-badge {
+      font-size: 11px; font-weight: 600;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.04em;
+    }
+
+    /* divider */
+    .ekpi-divider {
+      position: relative;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0,200,130,0.3) 30%, rgba(0,200,130,0.3) 70%, transparent);
+      margin-bottom: 36px;
+    }
+
+    /* cards grid */
+    .ekpi-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 16px;
+    }
+
+    /* individual glass card */
+    .ekpi-card {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 18px;
+      padding: 28px 24px 26px;
       display: flex; flex-direction: column;
-      border-left: 4px solid var(--green);
-      transition: box-shadow .2s ease, transform .2s ease;
+      position: relative; overflow: hidden;
+      cursor: default;
+      transition: transform 0.3s cubic-bezier(.22,.68,0,1.2),
+                  background 0.3s ease,
+                  box-shadow 0.3s ease,
+                  border-color 0.3s ease;
     }
-    .kpi-fc:hover {
-      box-shadow: 0 6px 24px rgba(0,128,98,0.10);
-      transform: translateY(-3px);
+    /* top shine line */
+    .ekpi-card::before {
+      content:'';
+      position:absolute; top:0; left:10%; right:10%; height:1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
     }
-    .kpi-fc-num {
-      font-size: clamp(38px,4vw,54px);
+    /* hover glow */
+    .ekpi-card:hover {
+      transform: translateY(-6px) scale(1.02);
+      background: rgba(255,255,255,0.09);
+      border-color: rgba(0,220,150,0.35);
+      box-shadow:
+        0 0 0 1px rgba(0,220,150,0.2),
+        0 16px 40px rgba(0,0,0,0.4),
+        0 0 32px rgba(0,180,120,0.15);
+    }
+
+    /* icon */
+    .ekpi-icon {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      background: rgba(0,220,150,0.12);
+      border: 1px solid rgba(0,220,150,0.20);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; margin-bottom: 20px;
+      flex-shrink: 0;
+    }
+
+    /* number */
+    .ekpi-num {
+      font-size: clamp(40px,4.2vw,58px);
       font-weight: 900;
-      color: #00694f;
-      letter-spacing: -0.04em;
+      letter-spacing: -0.05em;
       line-height: 1;
+      background: linear-gradient(135deg, #ffffff 0%, #7fffc8 50%, #00dc96 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
-    .kpi-fc-label {
+
+    /* label */
+    .ekpi-label {
+      font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.70);
+      margin-top: 10px; line-height: 1.4;
+    }
+
+    /* description */
+    .ekpi-desc {
       font-size: 13px;
-      font-weight: 700;
-      color: #0b0b0b;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      line-height: 1.4;
-      margin-top: 12px;
-    }
-    .kpi-fc-sub {
-      font-size: 14px;
-      color: #6b7280;
+      color: rgba(255,255,255,0.42);
       line-height: 1.6;
-      margin-top: 6px;
+      margin-top: 8px;
     }
-    @media(max-width:700px){
-      .kpi-row { grid-template-columns:repeat(2,1fr); }
-      .kpi-grid { padding:0 20px; }
+
+    /* vertical separator between cards */
+    .ekpi-card + .ekpi-card::after {
+      content:'';
+      position:absolute; top:15%; left:-8px; bottom:15%;
+      width:1px;
+      background: linear-gradient(180deg, transparent, rgba(255,255,255,0.07) 50%, transparent);
+    }
+
+    @media(max-width:760px){
+      .ekpi-grid { grid-template-columns:repeat(2,1fr); }
+      .ekpi-outer { padding:0 20px; }
+      .ekpi-panel { padding:36px 24px; }
     }
   </style>
-  <div class="kpi-grid reveal">
-    <div class="kpi-row">
-      <div class="kpi-fc">
-        <div class="kpi-fc-num">13K+</div>
-        <div class="kpi-fc-label">Store Network Scale</div>
-        <div class="kpi-fc-sub">US 7-Eleven locations on the platform</div>
+
+  <div class="ekpi-outer reveal">
+    <div class="ekpi-panel">
+      <!-- ambient orbs -->
+      <div class="ekpi-orb ekpi-orb-1"></div>
+      <div class="ekpi-orb ekpi-orb-2"></div>
+      <div class="ekpi-orb ekpi-orb-3"></div>
+      <!-- network canvas -->
+      <canvas class="ekpi-canvas" id="ekpiCanvas"></canvas>
+
+      <!-- header -->
+      <div class="ekpi-header">
+        <div class="ekpi-eyebrow">
+          <div class="ekpi-eyebrow-dot"></div>
+          Enterprise Impact at Scale
+        </div>
+        <div class="ekpi-badge">7-Eleven Operations Intelligence Platform · 2026</div>
       </div>
-      <div class="kpi-fc">
-        <div class="kpi-fc-num">4</div>
-        <div class="kpi-fc-label">Operational Roles Unified</div>
-        <div class="kpi-fc-sub">Store manager, area manager, IT admin, corporate</div>
-      </div>
-      <div class="kpi-fc">
-        <div class="kpi-fc-num">6</div>
-        <div class="kpi-fc-label">Business Scenarios Designed</div>
-        <div class="kpi-fc-sub">End-to-end workflows mapped and validated</div>
-      </div>
-      <div class="kpi-fc">
-        <div class="kpi-fc-num">1</div>
-        <div class="kpi-fc-label">Shared Enterprise Vision</div>
-        <div class="kpi-fc-sub">One platform replacing 4 disconnected legacy systems</div>
+      <div class="ekpi-divider"></div>
+
+      <!-- cards -->
+      <div class="ekpi-grid">
+        <div class="ekpi-card">
+          <div class="ekpi-icon">🏪</div>
+          <div class="ekpi-num">13K+</div>
+          <div class="ekpi-label">Store Network Scale</div>
+          <div class="ekpi-desc">Supporting operations across 13,000+ store locations nationwide.</div>
+        </div>
+        <div class="ekpi-card">
+          <div class="ekpi-icon">👥</div>
+          <div class="ekpi-num">4</div>
+          <div class="ekpi-label">Operational Roles Unified</div>
+          <div class="ekpi-desc">Store Managers, Area Managers, Corporate Teams, and IT Operations.</div>
+        </div>
+        <div class="ekpi-card">
+          <div class="ekpi-icon">⚡</div>
+          <div class="ekpi-num">6</div>
+          <div class="ekpi-label">Business Scenarios Designed</div>
+          <div class="ekpi-desc">Interactive workflows mapped, validated, and presentation-ready.</div>
+        </div>
+        <div class="ekpi-card">
+          <div class="ekpi-icon">🎯</div>
+          <div class="ekpi-num">1</div>
+          <div class="ekpi-label">Shared Enterprise Vision</div>
+          <div class="ekpi-desc">One connected experience replacing fragmented operational workflows.</div>
+        </div>
       </div>
     </div>
   </div>
+
+  <script>
+  (function(){
+    const canvas = document.getElementById('ekpiCanvas');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const panel = canvas.parentElement;
+    let W, H, nodes, animId;
+
+    function resize(){
+      W = canvas.width  = panel.offsetWidth;
+      H = canvas.height = panel.offsetHeight;
+    }
+
+    function makeNodes(n){
+      return Array.from({length:n}, ()=>({
+        x: Math.random()*W, y: Math.random()*H,
+        vx:(Math.random()-.5)*0.3, vy:(Math.random()-.5)*0.3,
+        r: Math.random()*1.5+0.8
+      }));
+    }
+
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      for(let i=0;i<nodes.length;i++){
+        const a = nodes[i];
+        a.x+=a.vx; a.y+=a.vy;
+        if(a.x<0||a.x>W) a.vx*=-1;
+        if(a.y<0||a.y>H) a.vy*=-1;
+        for(let j=i+1;j<nodes.length;j++){
+          const b=nodes[j];
+          const dx=a.x-b.x, dy=a.y-b.y;
+          const dist=Math.sqrt(dx*dx+dy*dy);
+          if(dist<140){
+            ctx.beginPath();
+            ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y);
+            ctx.strokeStyle=`rgba(0,220,150,${0.18*(1-dist/140)})`;
+            ctx.lineWidth=0.8;
+            ctx.stroke();
+          }
+        }
+        ctx.beginPath();
+        ctx.arc(a.x,a.y,a.r,0,Math.PI*2);
+        ctx.fillStyle='rgba(0,220,150,0.5)';
+        ctx.fill();
+      }
+      animId=requestAnimationFrame(draw);
+    }
+
+    resize();
+    nodes=makeNodes(32);
+    draw();
+    window.addEventListener('resize',()=>{ cancelAnimationFrame(animId); resize(); draw(); });
+  })();
+  </script>
 
 </section>
 
