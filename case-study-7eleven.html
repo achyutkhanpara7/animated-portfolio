@@ -571,31 +571,24 @@
       <p class="context-body">7-Eleven operates <strong>13,000+ stores across the US</strong>, where store managers, area managers, and corporate teams juggle inventory, IoT device health, staffing, and compliance — across 4 disconnected legacy systems, every single day.</p>
       <p class="context-body">Critical operational data lived in silos. Teams couldn't quickly identify issues, monitor performance, or act on insights without switching between tools. The result: <strong>alert fatigue, delayed decisions, and missed compliance windows.</strong></p>
       <p class="context-body">The goal was a centralized <strong>AI-powered operations platform</strong> — one unified surface serving 4 distinct roles with real-time visibility, intelligent prioritization, and actionable workflows.</p>
-    </div>
-  </div>
-
-  <!-- Feature cards row -->
-  <div style="max-width:var(--max);margin:48px auto 0;padding:0 48px;" class="reveal">
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;">
-      <div style="background:var(--bg);border:1.5px solid var(--border);border-radius:16px;padding:24px;transition:box-shadow 0.2s,transform 0.2s;" onmouseover="this.style.boxShadow='0 8px 32px rgba(0,128,98,0.12)';this.style.transform='translateY(-3px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">
-        <div style="width:40px;height:40px;background:rgba(0,128,98,0.1);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px;">🏪</div>
-        <div style="font-size:14px;font-weight:700;color:#0b0b0b;margin-bottom:5px;">Multi-Persona Platform</div>
-        <div style="font-size:12px;color:var(--green);font-weight:600;">4 distinct user roles</div>
-      </div>
-      <div style="background:var(--bg);border:1.5px solid var(--border);border-radius:16px;padding:24px;transition:box-shadow 0.2s,transform 0.2s;" onmouseover="this.style.boxShadow='0 8px 32px rgba(0,128,98,0.12)';this.style.transform='translateY(-3px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">
-        <div style="width:40px;height:40px;background:rgba(0,128,98,0.1);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px;">🏬</div>
-        <div style="font-size:14px;font-weight:700;color:#0b0b0b;margin-bottom:5px;">Store Operations</div>
-        <div style="font-size:12px;color:var(--green);font-weight:600;">13,000+ US locations</div>
-      </div>
-      <div style="background:var(--bg);border:1.5px solid var(--border);border-radius:16px;padding:24px;transition:box-shadow 0.2s,transform 0.2s;" onmouseover="this.style.boxShadow='0 8px 32px rgba(0,128,98,0.12)';this.style.transform='translateY(-3px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">
-        <div style="width:40px;height:40px;background:rgba(0,128,98,0.1);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px;">📡</div>
-        <div style="font-size:14px;font-weight:700;color:#0b0b0b;margin-bottom:5px;">IoT Monitoring</div>
-        <div style="font-size:12px;color:var(--green);font-weight:600;">Real-time device health</div>
-      </div>
-      <div style="background:var(--bg);border:1.5px solid var(--border);border-radius:16px;padding:24px;transition:box-shadow 0.2s,transform 0.2s;" onmouseover="this.style.boxShadow='0 8px 32px rgba(0,128,98,0.12)';this.style.transform='translateY(-3px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">
-        <div style="width:40px;height:40px;background:rgba(0,128,98,0.1);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px;">🤖</div>
-        <div style="font-size:14px;font-weight:700;color:#0b0b0b;margin-bottom:5px;">AI-Powered Insights</div>
-        <div style="font-size:12px;color:var(--green);font-weight:600;">Intelligent recommendations</div>
+      <!-- inline 2x2 feature grid -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:24px;">
+        <div style="display:flex;align-items:center;gap:10px;background:rgba(0,128,98,0.06);border:1.5px solid rgba(0,128,98,0.14);border-radius:12px;padding:12px 14px;">
+          <span style="font-size:18px;flex-shrink:0;">🏪</span>
+          <div><div style="font-size:12px;font-weight:700;color:#0b0b0b;line-height:1.2;">Multi-Persona Platform</div><div style="font-size:11px;color:var(--green);font-weight:600;margin-top:2px;">4 distinct user roles</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;background:rgba(0,128,98,0.06);border:1.5px solid rgba(0,128,98,0.14);border-radius:12px;padding:12px 14px;">
+          <span style="font-size:18px;flex-shrink:0;">🏬</span>
+          <div><div style="font-size:12px;font-weight:700;color:#0b0b0b;line-height:1.2;">Store Operations</div><div style="font-size:11px;color:var(--green);font-weight:600;margin-top:2px;">13,000+ US locations</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;background:rgba(0,128,98,0.06);border:1.5px solid rgba(0,128,98,0.14);border-radius:12px;padding:12px 14px;">
+          <span style="font-size:18px;flex-shrink:0;">📡</span>
+          <div><div style="font-size:12px;font-weight:700;color:#0b0b0b;line-height:1.2;">IoT Monitoring</div><div style="font-size:11px;color:var(--green);font-weight:600;margin-top:2px;">Real-time device health</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;background:rgba(0,128,98,0.06);border:1.5px solid rgba(0,128,98,0.14);border-radius:12px;padding:12px 14px;">
+          <span style="font-size:18px;flex-shrink:0;">🤖</span>
+          <div><div style="font-size:12px;font-weight:700;color:#0b0b0b;line-height:1.2;">AI-Powered Insights</div><div style="font-size:11px;color:var(--green);font-weight:600;margin-top:2px;">Intelligent recommendations</div></div>
+        </div>
       </div>
     </div>
   </div>
