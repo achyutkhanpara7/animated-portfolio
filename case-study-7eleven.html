@@ -600,26 +600,98 @@
     </div>
   </div>
 
-  <!-- Dark green KPI strip -->
-  <div style="max-width:var(--max);margin:48px auto 0;padding:0 48px;" class="reveal">
-    <div style="background:linear-gradient(135deg,#0E3A2C 0%,#008062 60%,#00A67E 100%);border-radius:20px;padding:48px 56px;display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;overflow:hidden;">
-      <!-- subtle texture -->
-      <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 80% 50%,rgba(255,255,255,0.06) 0%,transparent 60%);pointer-events:none;"></div>
-      <div style="border-right:1px solid rgba(255,255,255,0.15);padding:0 32px 0 0;">
-        <div style="font-size:clamp(36px,4vw,52px);font-weight:900;color:#fff;letter-spacing:-0.03em;line-height:1;">13K+</div>
-        <div style="font-size:13px;color:rgba(255,255,255,0.7);margin-top:8px;line-height:1.4;">US store locations<br/>on the platform</div>
+  <!-- Glassmorphism KPI cards -->
+  <style>
+    .kpi-grid { max-width:var(--max); margin:48px auto 0; padding:0 48px; }
+    .kpi-wrap {
+      background: linear-gradient(135deg,#0B3325 0%,#00694F 55%,#00A67E 100%);
+      border-radius: 24px;
+      padding: 48px 40px;
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .kpi-wrap::before {
+      content:'';
+      position:absolute;inset:0;
+      background: radial-gradient(ellipse at 70% 30%, rgba(255,255,255,0.08) 0%, transparent 55%);
+      pointer-events:none;
+    }
+    .kpi-card {
+      background: rgba(255,255,255,0.10);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.20);
+      border-radius: 16px;
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: transform .25s ease, background .25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .kpi-card::after {
+      content:'';
+      position:absolute;
+      top:-40px; left:-40px;
+      width:120px; height:120px;
+      background: radial-gradient(circle, rgba(255,255,255,0.10) 0%, transparent 70%);
+      pointer-events:none;
+    }
+    .kpi-card:hover {
+      transform: translateY(-4px);
+      background: rgba(255,255,255,0.16);
+    }
+    .kpi-num {
+      font-size: clamp(38px,4vw,56px);
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+    .kpi-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.4;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .kpi-sub {
+      font-size: 12px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.4;
+      margin-top: 2px;
+    }
+    @media(max-width:700px){
+      .kpi-wrap { grid-template-columns: repeat(2,1fr); padding:32px 20px; gap:14px; }
+      .kpi-grid { padding:0 20px; }
+    }
+  </style>
+  <div class="kpi-grid reveal">
+    <div class="kpi-wrap">
+      <div class="kpi-card">
+        <div class="kpi-num">13K+</div>
+        <div class="kpi-label">Store Network Scale</div>
+        <div class="kpi-sub">US 7-Eleven locations on the platform</div>
       </div>
-      <div style="border-right:1px solid rgba(255,255,255,0.15);padding:0 32px;">
-        <div style="font-size:clamp(36px,4vw,52px);font-weight:900;color:#fff;letter-spacing:-0.03em;line-height:1;">85K+</div>
-        <div style="font-size:13px;color:rgba(255,255,255,0.7);margin-top:8px;line-height:1.4;">Daily operational<br/>alerts processed</div>
+      <div class="kpi-card">
+        <div class="kpi-num">4</div>
+        <div class="kpi-label">Operational Roles Unified</div>
+        <div class="kpi-sub">Store manager, area manager, IT admin, corporate</div>
       </div>
-      <div style="border-right:1px solid rgba(255,255,255,0.15);padding:0 32px;">
-        <div style="font-size:clamp(36px,4vw,52px);font-weight:900;color:#fff;letter-spacing:-0.03em;line-height:1;">67%</div>
-        <div style="font-size:13px;color:rgba(255,255,255,0.7);margin-top:8px;line-height:1.4;">Managers reported<br/>critical alert fatigue</div>
+      <div class="kpi-card">
+        <div class="kpi-num">6</div>
+        <div class="kpi-label">Business Scenarios Designed</div>
+        <div class="kpi-sub">End-to-end workflows mapped and validated</div>
       </div>
-      <div style="padding:0 0 0 32px;">
-        <div style="font-size:clamp(36px,4vw,52px);font-weight:900;color:#fff;letter-spacing:-0.03em;line-height:1;">4</div>
-        <div style="font-size:13px;color:rgba(255,255,255,0.7);margin-top:8px;line-height:1.4;">Legacy systems<br/>the platform unified</div>
+      <div class="kpi-card">
+        <div class="kpi-num">1</div>
+        <div class="kpi-label">Shared Enterprise Vision</div>
+        <div class="kpi-sub">One platform replacing 4 disconnected legacy systems</div>
       </div>
     </div>
   </div>
