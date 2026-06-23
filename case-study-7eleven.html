@@ -605,11 +605,11 @@
     .kpi-grid { max-width:var(--max); margin:48px auto 0; padding:0 48px; }
     .kpi-wrap {
       background: linear-gradient(135deg,#0B3325 0%,#00694F 55%,#00A67E 100%);
-      border-radius: 24px;
-      padding: 48px 40px;
+      border-radius: 20px;
+      padding: 28px 28px;
       display: grid;
       grid-template-columns: repeat(4,1fr);
-      gap: 20px;
+      gap: 14px;
       position: relative;
       overflow: hidden;
     }
@@ -624,11 +624,11 @@
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid rgba(255,255,255,0.20);
-      border-radius: 16px;
-      padding: 32px 28px;
+      border-radius: 14px;
+      padding: 20px 20px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 6px;
       transition: transform .25s ease, background .25s ease;
       position: relative;
       overflow: hidden;
@@ -646,25 +646,25 @@
       background: rgba(255,255,255,0.16);
     }
     .kpi-num {
-      font-size: clamp(38px,4vw,56px);
+      font-size: clamp(28px,3vw,40px);
       font-weight: 900;
       color: #fff;
       letter-spacing: -0.04em;
       line-height: 1;
     }
     .kpi-label {
-      font-size: 13px;
-      font-weight: 600;
+      font-size: 11px;
+      font-weight: 700;
       color: rgba(255,255,255,0.85);
       line-height: 1.4;
       text-transform: uppercase;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.06em;
     }
     .kpi-sub {
-      font-size: 12px;
-      color: rgba(255,255,255,0.55);
+      font-size: 11px;
+      color: rgba(255,255,255,0.50);
       line-height: 1.4;
-      margin-top: 2px;
+      margin-top: 1px;
     }
     @media(max-width:700px){
       .kpi-wrap { grid-template-columns: repeat(2,1fr); padding:32px 20px; gap:14px; }
