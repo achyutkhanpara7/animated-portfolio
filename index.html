@@ -778,48 +778,65 @@
       gap: 80px; align-items: center;
     }
 
-    /* ── Photo blob ── */
-    .about-photo-wrap { position: relative; display: flex; justify-content: center; }
-    .about-blob-bg {
-      position: absolute; inset: -10px;
-      background: #FFF3E0;
-      border-radius: 60% 40% 55% 45% / 50% 55% 45% 50%;
-      z-index: 0;
-      animation: blobMorph 8s ease-in-out infinite;
+    /* ── Photo — professional card ── */
+    .about-photo-wrap {
+      position: relative; display: flex; justify-content: center; align-items: flex-start;
     }
-    @keyframes blobMorph {
-      0%,100% { border-radius: 60% 40% 55% 45% / 50% 55% 45% 50%; }
-      33%      { border-radius: 45% 55% 40% 60% / 55% 45% 60% 40%; }
-      66%      { border-radius: 55% 45% 60% 40% / 40% 60% 45% 55%; }
+    .about-photo-card {
+      position: relative; z-index: 1;
+      width: 360px;
+    }
+    /* Offset shadow layer */
+    .about-photo-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: 28px;
+      background: #E3F0FF;
+      transform: translate(12px, 14px);
+      z-index: -1;
     }
     .about-photo {
       position: relative; z-index: 1;
-      width: 340px; height: 420px;
-      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      width: 100%; aspect-ratio: 4/5;
+      border-radius: 28px;
       overflow: hidden;
-      box-shadow: 0 24px 60px rgba(0,0,0,0.14);
+      box-shadow: 0 20px 56px rgba(0,0,0,0.15);
     }
     .about-photo img {
       width: 100%; height: 100%;
       object-fit: cover; object-position: center top;
       display: block;
     }
-    .about-avail-badge {
-      position: absolute; bottom: 16px; left: -10px; z-index: 2;
+    /* Floating stat cards */
+    .about-float-card {
+      position: absolute; z-index: 3;
       background: #fff;
-      border-radius: 99px; padding: 8px 16px 8px 10px;
-      display: flex; align-items: center; gap: 8px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.12);
-      font-size: 13px; font-weight: 700; color: #0D0D0D;
+      border-radius: 16px;
+      padding: 12px 18px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .about-float-card.card-avail {
+      bottom: 28px; left: -28px;
+    }
+    .about-float-card.card-exp {
+      top: 40px; right: -28px;
     }
     .avail-dot {
-      width: 10px; height: 10px; border-radius: 50%; background: #22c55e;
+      width: 10px; height: 10px; border-radius: 50%; background: #22c55e; flex-shrink: 0;
       box-shadow: 0 0 0 3px rgba(34,197,94,0.2);
       animation: availPulse 2s ease-in-out infinite;
     }
     @keyframes availPulse {
       0%,100% { box-shadow: 0 0 0 3px rgba(34,197,94,0.2); }
-      50%      { box-shadow: 0 0 0 6px rgba(34,197,94,0.1); }
+      50%      { box-shadow: 0 0 0 7px rgba(34,197,94,0.08); }
+    }
+    .float-label { font-size: 11px; font-weight: 600; color: #888; }
+    .float-value { font-size: 14px; font-weight: 800; color: #0D0D0D; }
+    .float-icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: #EBF4FF; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
     }
 
     /* ── Right column ── */
@@ -1583,15 +1600,30 @@
   <div class="wrap">
     <div class="about-grid">
 
-      <!-- Left: Photo blob -->
+      <!-- Left: Photo card -->
       <div class="about-photo-wrap r-left">
-        <div class="about-blob-bg"></div>
-        <div class="about-photo">
-          <img src="assets/images/profile.png" alt="Achyut Khanpara" />
-        </div>
-        <div class="about-avail-badge">
-          <div class="avail-dot"></div>
-          Available for new work
+        <div class="about-photo-card">
+          <div class="about-photo">
+            <img src="assets/images/profile.png" alt="Achyut Khanpara" />
+          </div>
+          <!-- Floating: Available badge -->
+          <div class="about-float-card card-avail">
+            <div class="avail-dot"></div>
+            <div>
+              <div class="float-label">Status</div>
+              <div class="float-value">Available for new work</div>
+            </div>
+          </div>
+          <!-- Floating: Experience -->
+          <div class="about-float-card card-exp">
+            <div class="float-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2196F3" stroke-width="2.2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+            </div>
+            <div>
+              <div class="float-label">Experience</div>
+              <div class="float-value">4+ Years</div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1674,6 +1706,31 @@
   </div>
 </section>
 
+<!-- ══ ABOUT V2 — OLD VERSION FOR COMPARISON ══════════════ -->
+<section id="about-v2" style="padding:100px 0; background:#F5F5F5; border-top: 1px solid #E8E8E8;">
+  <div class="wrap">
+    <div style="display:inline-flex; align-items:center; gap:8px; background:#fff; border:1.5px solid #E8E8E8; border-radius:99px; padding:6px 16px; font-size:12px; font-weight:700; color:#888; margin-bottom:48px;">
+      ↑ Version A &nbsp;·&nbsp; ↓ Version B (original) — <span style="color:#2196F3;">pick your favourite</span>
+    </div>
+    <div class="about-grid">
+      <div class="r-left">
+        <div style="aspect-ratio:4/5; border-radius:22px; border:3px solid #fff; box-shadow:10px 14px 48px rgba(0,0,0,0.15); transform:rotate(-2.5deg); overflow:hidden;">
+          <img src="assets/images/profile.png" alt="Achyut Khanpara" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;" />
+        </div>
+      </div>
+      <div>
+        <div class="eyebrow r" style="margin-bottom:16px;">◆ &nbsp;About Me</div>
+        <h2 class="about-h r">a little about <span class="acc">myself</span></h2>
+        <p class="about-p r">
+          My journey into design spans both engineering and UX — I hold a B.E. in Computer Engineering and an M.S. in UX Design from Arizona State University (4.0 GPA). Today I design enterprise AI products at WorldLink, working with Fortune 100 clients to turn complex compliance workflows into experiences people actually want to use.
+        </p>
+        <p class="about-p r d1">
+          I'm drawn to problems at the intersection of user needs, business goals, and technical constraints — the kind of work where good design genuinely changes outcomes.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ══ EXPERIENCE ═════════════════════════════════════════ -->
 <section id="experience">
