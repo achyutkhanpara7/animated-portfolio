@@ -344,11 +344,12 @@
       transition: opacity 0.65s 0.25s, transform 0.65s 0.25s;
     }
     .hero-line2 {
-      display: block; font-family: 'Caveat', cursive; font-weight: 700;
-      color: rgba(255,255,255,0.9); letter-spacing: -0.01em;
-      font-size: clamp(52px, 7vw, 96px);
+      display: block;
       opacity: 0; transform: translateY(22px);
       transition: opacity 0.65s 0.38s, transform 0.65s 0.38s;
+      /* fixed height so swap never causes reflow */
+      height: clamp(64px, 8.5vw, 112px);
+      display: flex; align-items: center; justify-content: center;
     }
     .hero-line3 {
       display: block; color: #fff; font-weight: 900;
@@ -357,29 +358,29 @@
     }
     .hero-line3 .serif-italic {
       font-family: 'Caveat', cursive; font-weight: 700;
-      letter-spacing: -0.01em; font-size: clamp(52px, 7vw, 96px);
+      letter-spacing: -0.01em; font-size: clamp(56px, 8vw, 108px);
     }
     .hero-line1.show, .hero-line2.show, .hero-line3.show { opacity: 1; transform: none; }
 
     /* ── Typewriter swap word ── */
-    .hero-swap-wrap {
-      display: inline-block; position: relative;
-      min-width: 260px;
-    }
     .hero-swap {
       display: inline-block;
-      position: relative;
-      background: rgba(255,255,255,0.18);
-      backdrop-filter: blur(6px);
-      border: 1.5px solid rgba(255,255,255,0.35);
-      border-radius: 12px;
-      padding: 2px 20px 4px;
-      transition: opacity 0.25s ease, transform 0.25s ease;
+      font-family: 'Caveat', cursive; font-weight: 700;
+      font-size: clamp(56px, 8vw, 108px);
+      letter-spacing: -0.01em;
+      color: #fff;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px);
+      border: 1.5px solid rgba(255,255,255,0.3);
+      border-radius: 16px;
+      padding: 0 24px 6px;
+      line-height: 1;
+      transition: opacity 0.22s ease, transform 0.22s ease;
       white-space: nowrap;
     }
-    .hero-swap.swap-out { opacity: 0; transform: translateY(-12px); }
-    .hero-swap.swap-in  { opacity: 0; transform: translateY(14px); }
-    .hero-swap.swap-in.swap-settle { opacity: 1; transform: none; transition: opacity 0.3s ease, transform 0.3s ease; }
+    .hero-swap.swap-out { opacity: 0; transform: translateY(-10px) scale(0.97); }
+    .hero-swap.swap-in  { opacity: 0; transform: translateY(10px) scale(0.97); }
+    .hero-swap.swap-in.swap-settle { opacity: 1; transform: none; transition: opacity 0.28s ease, transform 0.28s ease; }
 
     /* description */
     .hero-sub {
@@ -1434,18 +1435,18 @@
       <!-- greeting -->
       <p class="hero-eyebrow" id="hEye">Hello, I'm Achyut 👋</p>
 
-      <!-- headline: "Designing [typewriter] people say 'finally' to." -->
+      <!-- headline -->
       <h1 class="hero-h1">
-        <span class="hero-line1" id="hL1">Designing</span>
-        <span class="hero-line2" id="hL2"><span class="hero-swap-wrap"><span class="hero-swap" id="heroSwap">interfaces</span></span></span>
-        <span class="hero-line3" id="hL3">people say <span class="serif-italic">"finally"</span> to.</span>
+        <span class="hero-line1" id="hL1">I build AI products that</span>
+        <span class="hero-line2" id="hL2"><span class="hero-swap" id="heroSwap">drive revenue</span></span>
+        <span class="hero-line3" id="hL3">and <span class="serif-italic">delight users.</span></span>
       </h1>
 
       <!-- description -->
       <p class="hero-sub" id="hSub">
-        I make enterprise software feel like it was built
-        <em>for humans</em> — not just to check a box.
-        Complex systems. <strong>Simple experiences.</strong>
+        Sitting at the intersection of <em>AI, enterprise UX, and business impact</em> —
+        I design products that reduce cost, increase adoption,
+        and make complex workflows feel <strong>effortless</strong>.
       </p>
 
       <!-- CTAs -->
@@ -2044,7 +2045,7 @@
   }
 
   function startWordSwap() {
-    const words = ['interfaces', 'AI tools', 'dashboards', 'workflows', 'products', 'systems'];
+    const words = ['drive revenue', 'reduce friction', 'boost adoption', 'cut complexity', 'earn trust', 'create value'];
     let idx = 0;
     const el = document.getElementById('heroSwap');
     if (!el) return;
