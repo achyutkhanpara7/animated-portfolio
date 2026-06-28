@@ -287,26 +287,20 @@
 
     .hero-inner {
       position: relative; z-index: 4;
-      max-width: 860px; margin: 0 auto;
-      width: 100%; padding: 110px 40px 160px;
-      display: flex; flex-direction: column;
-      align-items: center; text-align: center;
-      gap: 0;
+      max-width: 1160px; margin: 0 auto;
+      width: 100%; padding: 0 48px;
+      display: grid; grid-template-columns: 1fr 420px;
+      align-items: center; gap: 60px;
+      min-height: 100vh;
     }
-    /* soft dark vignette behind text for contrast */
-    .hero-inner::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse 80% 70% at 50% 50%,
-        rgba(10,60,100,0.18) 0%, transparent 70%);
-      pointer-events: none; z-index: -1;
-      border-radius: 50%;
-    }
+
+    /* ── Left content ── */
+    .hero-left { display: flex; flex-direction: column; align-items: flex-start; text-align: left; }
 
     /* available badge */
     .hero-available {
       display: inline-flex; align-items: center; gap: 8px;
-      font-size: 13.5px; font-weight: 600; color: #fff;
+      font-size: 13px; font-weight: 600; color: #fff;
       background: rgba(0,40,80,0.28);
       border: 1px solid rgba(255,255,255,0.4);
       border-radius: 999px; padding: 7px 18px;
@@ -314,7 +308,6 @@
       opacity: 0; transform: translateY(14px);
       transition: opacity 0.5s 0.05s, transform 0.5s 0.05s;
       backdrop-filter: blur(12px);
-      text-shadow: 0 1px 6px rgba(0,50,100,0.3);
     }
     .hero-available.show { opacity: 1; transform: none; }
     .avail-dot {
@@ -329,23 +322,22 @@
 
     /* greeting */
     .hero-eyebrow {
-      font-size: 18px; font-weight: 600; color: #fff;
-      margin-bottom: 20px;
-      display: flex; align-items: center; gap: 8px; justify-content: center;
+      font-size: 16px; font-weight: 600; color: rgba(255,255,255,0.85);
+      margin-bottom: 14px;
+      display: flex; align-items: center; gap: 8px;
       opacity: 0; transform: translateY(14px);
       transition: opacity 0.55s 0.15s, transform 0.55s 0.15s;
-      text-shadow: 0 2px 10px rgba(0,60,120,0.3);
+      letter-spacing: 0.01em;
     }
     .hero-eyebrow.show { opacity: 1; transform: none; }
 
     /* headline */
     .hero-h1 {
       font-family: 'Manrope', sans-serif;
-      font-size: clamp(56px, 9vw, 118px);
+      font-size: clamp(48px, 6.5vw, 88px);
       font-weight: 900; line-height: 1.0;
       letter-spacing: -0.03em; color: #fff;
-      margin-bottom: 32px;
-      text-shadow: 0 2px 20px rgba(0,60,120,0.2);
+      margin-bottom: 0;
     }
     .hero-line1 {
       display: block; color: #fff; font-weight: 900;
@@ -354,8 +346,8 @@
     }
     .hero-line2 {
       display: block; font-family: 'Caveat', cursive; font-weight: 700;
-      color: #fff; letter-spacing: -0.01em;
-      font-size: clamp(60px, 9.5vw, 124px);
+      color: rgba(255,255,255,0.9); letter-spacing: -0.01em;
+      font-size: clamp(52px, 7vw, 96px);
       opacity: 0; transform: translateY(22px);
       transition: opacity 0.65s 0.38s, transform 0.65s 0.38s;
     }
@@ -366,41 +358,115 @@
     }
     .hero-line3 .serif-italic {
       font-family: 'Caveat', cursive; font-weight: 700;
-      letter-spacing: -0.01em; font-size: clamp(60px, 9.5vw, 124px);
+      letter-spacing: -0.01em; font-size: clamp(52px, 7vw, 96px);
     }
     .hero-line1.show, .hero-line2.show, .hero-line3.show { opacity: 1; transform: none; }
 
-    /* stats row */
-    .hero-stats {
-      display: flex; align-items: center; gap: 28px;
-      flex-wrap: wrap; justify-content: center;
-      margin-bottom: 24px;
-      opacity: 0; transform: translateY(14px);
-      transition: opacity 0.55s 0.62s, transform 0.55s 0.62s;
-    }
-    .hero-stats.show { opacity: 1; transform: none; }
-    .hstat { display: flex; align-items: baseline; gap: 6px; }
-    .hstat-num {
-      font-size: 20px; font-weight: 900; color: #fff;
-      text-shadow: 0 2px 10px rgba(0,60,120,0.25);
-    }
-    .hstat-lbl {
-      font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.88);
-      text-shadow: 0 1px 8px rgba(0,60,120,0.2);
-    }
-    .hstat-sep { width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,0.5); }
-
     /* description */
     .hero-sub {
-      font-size: 19px; font-weight: 400; color: rgba(255,255,255,0.95);
-      line-height: 1.8; max-width: 580px;
+      font-size: 16px; font-weight: 400; color: rgba(255,255,255,0.82);
+      line-height: 1.75; max-width: 480px;
+      margin-top: 24px; margin-bottom: 36px;
       opacity: 0; transform: translateY(14px);
-      transition: opacity 0.55s 0.72s, transform 0.55s 0.72s;
-      text-shadow: 0 2px 12px rgba(0,60,120,0.25);
+      transition: opacity 0.55s 0.55s, transform 0.55s 0.55s;
     }
     .hero-sub.show { opacity: 1; transform: none; }
     .hero-sub em { font-style: italic; color: #fff; font-weight: 500; }
     .hero-sub strong { font-weight: 700; color: #fff; }
+
+    /* CTA buttons */
+    .hero-ctas {
+      display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+      opacity: 0; transform: translateY(14px);
+      transition: opacity 0.55s 0.65s, transform 0.55s 0.65s;
+    }
+    .hero-ctas.show { opacity: 1; transform: none; }
+    .hcta {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 15px; font-weight: 700; text-decoration: none;
+      border-radius: 999px; padding: 14px 28px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .hcta:hover { transform: translateY(-2px); }
+    .hcta-primary {
+      background: #fff; color: #0D0D0D;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+    .hcta-primary:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.22); }
+    .hcta-ghost {
+      background: rgba(255,255,255,0.15); color: #fff;
+      border: 1.5px solid rgba(255,255,255,0.45);
+      backdrop-filter: blur(8px);
+    }
+    .hcta-ghost:hover { background: rgba(255,255,255,0.25); }
+
+    /* stats row */
+    .hero-stats {
+      display: flex; align-items: center; gap: 0;
+      margin-top: 40px; flex-wrap: wrap;
+      opacity: 0; transform: translateY(14px);
+      transition: opacity 0.55s 0.75s, transform 0.55s 0.75s;
+    }
+    .hero-stats.show { opacity: 1; transform: none; }
+    .hstat {
+      display: flex; flex-direction: column; gap: 2px;
+      padding: 0 24px 0 0; margin-right: 24px;
+      border-right: 1px solid rgba(255,255,255,0.25);
+    }
+    .hstat:last-child { border-right: none; }
+    .hstat-num {
+      font-size: 28px; font-weight: 900; color: #fff;
+      letter-spacing: -0.03em; line-height: 1;
+    }
+    .hstat-lbl {
+      font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.7);
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .hstat-sep { display: none; }
+
+    /* ── Right: photo card ── */
+    .hero-photo-col {
+      position: relative; display: flex; justify-content: center; align-items: center;
+      opacity: 0; transform: translateX(30px) scale(0.97);
+      transition: opacity 0.8s 0.4s, transform 0.8s 0.4s;
+    }
+    .hero-photo-col.show { opacity: 1; transform: none; }
+    .hero-photo-frame {
+      width: 360px; height: 440px;
+      border-radius: 32px;
+      overflow: hidden;
+      box-shadow: 0 32px 80px rgba(0,40,100,0.35), 0 0 0 1px rgba(255,255,255,0.15);
+      position: relative;
+    }
+    .hero-photo-frame img {
+      width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block;
+    }
+    /* Frosted name label on photo */
+    .hero-photo-label {
+      position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+      background: rgba(255,255,255,0.18);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 99px; padding: 10px 22px;
+      white-space: nowrap;
+      display: flex; flex-direction: column; align-items: center; gap: 1px;
+    }
+    .hpl-name { font-size: 15px; font-weight: 800; color: #fff; letter-spacing: -0.01em; }
+    .hpl-role { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.8); }
+    /* Floating badge on photo */
+    .hero-photo-badge {
+      position: absolute; top: 24px; right: -20px; z-index: 2;
+      background: #fff; border-radius: 16px; padding: 12px 16px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.14);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .hpb-icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: #EBF4FF; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .hpb-label { font-size: 10px; font-weight: 600; color: #888; }
+    .hpb-value { font-size: 14px; font-weight: 800; color: #0D0D0D; line-height: 1.2; }
 
     /* Bottom bar */
     .hero-bottom {
@@ -409,7 +475,15 @@
       display: flex; justify-content: space-between; align-items: center;
       font-size: 11px; font-weight: 700; letter-spacing: 0.16em;
       text-transform: uppercase; color: rgba(255,255,255,0.75);
-      text-shadow: 0 1px 6px rgba(0,60,120,0.3);
+    }
+
+    @media (max-width: 960px) {
+      .hero-inner { grid-template-columns: 1fr; padding-top: 130px; padding-bottom: 180px; gap: 48px; }
+      .hero-photo-col { display: none; }
+      .hero-left { align-items: center; text-align: center; }
+      .hero-available { align-self: center; }
+      .hero-sub { max-width: 100%; }
+      .hero-stats { justify-content: center; }
     }
 
     /* ════════════════════════════════════════
@@ -1336,37 +1410,76 @@
   <div class="hero-dot hd6"></div>
   <div class="hero-inner">
 
-    <!-- available badge -->
-    <div class="hero-available" id="hAvail">
-      <span class="avail-dot"></span>
-      Available for Work &nbsp;·&nbsp; Open to Relocate anywhere in the USA
+    <!-- LEFT COLUMN -->
+    <div class="hero-left">
+      <!-- available badge -->
+      <div class="hero-available" id="hAvail">
+        <span class="avail-dot"></span>
+        Available for Work &nbsp;·&nbsp; Open to Relocate in the USA
+      </div>
+
+      <!-- greeting -->
+      <p class="hero-eyebrow" id="hEye">Staff Product Designer · Enterprise AI</p>
+
+      <!-- headline -->
+      <h1 class="hero-h1">
+        <span class="hero-line1" id="hL1">I turn complex</span>
+        <span class="hero-line2" id="hL2">problems into</span>
+        <span class="hero-line3" id="hL3">clear <span class="serif-italic">products.</span></span>
+      </h1>
+
+      <!-- description -->
+      <p class="hero-sub" id="hSub">
+        4 years designing AI-powered enterprise tools used by Fortune 100 companies.
+        I specialize in the space where <em>system complexity</em> meets
+        <em>human clarity</em> — and make it feel <strong>effortless</strong>.
+      </p>
+
+      <!-- CTAs -->
+      <div class="hero-ctas" id="hCtas">
+        <a href="#work" class="hcta hcta-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          View my work
+        </a>
+        <a href="mailto:achyutkhanpara7@gmail.com" class="hcta hcta-ghost">Let's talk</a>
+      </div>
+
+      <!-- stats -->
+      <div class="hero-stats" id="hStats">
+        <div class="hstat">
+          <span class="hstat-num">4+</span>
+          <span class="hstat-lbl">Years exp.</span>
+        </div>
+        <div class="hstat">
+          <span class="hstat-num">15+</span>
+          <span class="hstat-lbl">Products shipped</span>
+        </div>
+        <div class="hstat">
+          <span class="hstat-num">F100</span>
+          <span class="hstat-lbl">Clients served</span>
+        </div>
+      </div>
     </div>
 
-    <!-- greeting -->
-    <p class="hero-eyebrow" id="hEye">Hello, I'm Achyut 👋</p>
-
-    <!-- headline -->
-    <h1 class="hero-h1">
-      <span class="hero-line1" id="hL1">Crafting</span>
-      <span class="hero-line2" id="hL2">Thoughtful,</span>
-      <span class="hero-line3" id="hL3">User <span class="serif-italic">Solutions.</span></span>
-    </h1>
-
-    <!-- stats -->
-    <div class="hero-stats" id="hStats">
-      <div class="hstat"><span class="hstat-num">4+</span><span class="hstat-lbl">Years of Experience</span></div>
-      <div class="hstat-sep"></div>
-      <div class="hstat"><span class="hstat-num">15+</span><span class="hstat-lbl">Projects Finished</span></div>
-      <div class="hstat-sep"></div>
-      <div class="hstat"><span class="hstat-num">10+</span><span class="hstat-lbl">Certifications</span></div>
+    <!-- RIGHT COLUMN: Photo -->
+    <div class="hero-photo-col" id="hPhoto">
+      <div class="hero-photo-frame">
+        <img src="assets/images/profile.png" alt="Achyut Khanpara" />
+        <div class="hero-photo-label">
+          <span class="hpl-name">Achyut Khanpara</span>
+          <span class="hpl-role">UX &amp; Product Designer</span>
+        </div>
+      </div>
+      <div class="hero-photo-badge">
+        <div class="hpb-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2196F3" stroke-width="2.2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <div>
+          <div class="hpb-label">ASU · M.S. UX Design</div>
+          <div class="hpb-value">4.0 GPA</div>
+        </div>
+      </div>
     </div>
-
-    <!-- description -->
-    <p class="hero-sub" id="hSub">
-      Designing with curiosity, strategy, and a focus on real impact.
-      Obsessed with the <em>why</em>, excited by the <em>how</em>,
-      and never settling for '<strong>just fine</strong>'.
-    </p>
 
   </div>
 
@@ -1926,8 +2039,10 @@
     setTimeout(() => { hL1   && hL1.classList.add('show');    }, 200);
     setTimeout(() => { hL2   && hL2.classList.add('show');    }, 340);
     setTimeout(() => { hL3   && hL3.classList.add('show');    }, 480);
-    setTimeout(() => { hStats && hStats.classList.add('show'); }, 600);
-    setTimeout(() => { hSub  && hSub.classList.add('show');   }, 720);
+    setTimeout(() => { hSub   && hSub.classList.add('show');   }, 580);
+    setTimeout(() => { document.getElementById('hCtas')  && document.getElementById('hCtas').classList.add('show');  }, 680);
+    setTimeout(() => { hStats && hStats.classList.add('show'); }, 760);
+    setTimeout(() => { document.getElementById('hPhoto') && document.getElementById('hPhoto').classList.add('show'); }, 300);
     // kick off scroll reveals after hero lands
     setTimeout(initReveal, 800);
   }
