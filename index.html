@@ -362,6 +362,26 @@
     }
     .hero-line1.show, .hero-line2.show, .hero-line3.show { opacity: 1; transform: none; }
 
+    /* ── Typewriter swap word ── */
+    .hero-swap-wrap {
+      display: inline-block; position: relative;
+      min-width: 260px;
+    }
+    .hero-swap {
+      display: inline-block;
+      position: relative;
+      background: rgba(255,255,255,0.18);
+      backdrop-filter: blur(6px);
+      border: 1.5px solid rgba(255,255,255,0.35);
+      border-radius: 12px;
+      padding: 2px 20px 4px;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      white-space: nowrap;
+    }
+    .hero-swap.swap-out { opacity: 0; transform: translateY(-12px); }
+    .hero-swap.swap-in  { opacity: 0; transform: translateY(14px); }
+    .hero-swap.swap-in.swap-settle { opacity: 1; transform: none; transition: opacity 0.3s ease, transform 0.3s ease; }
+
     /* description */
     .hero-sub {
       font-size: 16px; font-weight: 400; color: rgba(255,255,255,0.82);
@@ -1419,27 +1439,27 @@
       </div>
 
       <!-- greeting -->
-      <p class="hero-eyebrow" id="hEye">Staff Product Designer · Enterprise AI</p>
+      <p class="hero-eyebrow" id="hEye">Hello, I'm Achyut 👋</p>
 
-      <!-- headline -->
+      <!-- headline: "Designing [typewriter] people say 'finally' to." -->
       <h1 class="hero-h1">
-        <span class="hero-line1" id="hL1">I turn complex</span>
-        <span class="hero-line2" id="hL2">problems into</span>
-        <span class="hero-line3" id="hL3">clear <span class="serif-italic">products.</span></span>
+        <span class="hero-line1" id="hL1">Designing</span>
+        <span class="hero-line2" id="hL2"><span class="hero-swap-wrap"><span class="hero-swap" id="heroSwap">interfaces</span></span></span>
+        <span class="hero-line3" id="hL3">people say <span class="serif-italic">"finally"</span> to.</span>
       </h1>
 
       <!-- description -->
       <p class="hero-sub" id="hSub">
-        4 years designing AI-powered enterprise tools used by Fortune 100 companies.
-        I specialize in the space where <em>system complexity</em> meets
-        <em>human clarity</em> — and make it feel <strong>effortless</strong>.
+        I make enterprise software feel like it was built
+        <em>for humans</em> — not just to check a box.
+        Complex systems. <strong>Simple experiences.</strong>
       </p>
 
       <!-- CTAs -->
       <div class="hero-ctas" id="hCtas">
         <a href="#work" class="hcta hcta-primary">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          View my work
+          See my work
         </a>
         <a href="mailto:achyutkhanpara7@gmail.com" class="hcta hcta-ghost">Let's talk</a>
       </div>
@@ -2045,6 +2065,29 @@
     setTimeout(() => { document.getElementById('hPhoto') && document.getElementById('hPhoto').classList.add('show'); }, 300);
     // kick off scroll reveals after hero lands
     setTimeout(initReveal, 800);
+
+    // typewriter word swap
+    setTimeout(startWordSwap, 1400);
+  }
+
+  function startWordSwap() {
+    const words = ['interfaces', 'AI tools', 'dashboards', 'workflows', 'products', 'systems'];
+    let idx = 0;
+    const el = document.getElementById('heroSwap');
+    if (!el) return;
+    setInterval(() => {
+      idx = (idx + 1) % words.length;
+      el.classList.add('swap-out');
+      setTimeout(() => {
+        el.textContent = words[idx];
+        el.classList.remove('swap-out');
+        el.classList.add('swap-in');
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          el.classList.add('swap-settle');
+          setTimeout(() => el.classList.remove('swap-in', 'swap-settle'), 400);
+        }));
+      }, 260);
+    }, 2200);
   }
 
   function runIntro() {
