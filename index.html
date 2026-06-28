@@ -333,8 +333,8 @@
     /* headline */
     .hero-h1 {
       font-family: 'Manrope', sans-serif;
-      font-size: clamp(48px, 6.5vw, 88px);
-      font-weight: 900; line-height: 1.0;
+      font-size: clamp(42px, 6vw, 82px);
+      font-weight: 900; line-height: 1.15;
       letter-spacing: -0.03em; color: #fff;
       margin-bottom: 0;
     }
@@ -344,12 +344,10 @@
       transition: opacity 0.65s 0.25s, transform 0.65s 0.25s;
     }
     .hero-line2 {
-      display: block;
+      display: flex; align-items: center; justify-content: center;
       opacity: 0; transform: translateY(22px);
       transition: opacity 0.65s 0.38s, transform 0.65s 0.38s;
-      /* fixed height so swap never causes reflow */
-      height: clamp(64px, 8.5vw, 112px);
-      display: flex; align-items: center; justify-content: center;
+      margin: 12px 0;
     }
     .hero-line3 {
       display: block; color: #fff; font-weight: 900;
@@ -366,15 +364,15 @@
     .hero-swap {
       display: inline-block;
       font-family: 'Caveat', cursive; font-weight: 700;
-      font-size: clamp(56px, 8vw, 108px);
+      font-size: clamp(42px, 6vw, 82px);
       letter-spacing: -0.01em;
       color: #fff;
       background: rgba(255,255,255,0.15);
       backdrop-filter: blur(8px);
       border: 1.5px solid rgba(255,255,255,0.3);
-      border-radius: 16px;
-      padding: 0 24px 6px;
-      line-height: 1;
+      border-radius: 14px;
+      padding: 4px 28px 8px;
+      line-height: 1.2;
       transition: opacity 0.22s ease, transform 0.22s ease;
       white-space: nowrap;
     }
