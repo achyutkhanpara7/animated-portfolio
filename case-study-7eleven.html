@@ -58,13 +58,62 @@
     }
     .eyebrow-diamond { color: var(--blue); font-size: 10px; }
 
-    /* ── SCROLL REVEAL ── */
-    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    /* ══ PREMIUM ANIMATION SYSTEM ══ */
+
+    /* Base fade-up */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.72s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.72s cubic-bezier(0.16, 1, 0.3, 1);
+    }
     .reveal.visible { opacity: 1; transform: none; }
-    .reveal-delay-1 { transition-delay: 0.1s; }
-    .reveal-delay-2 { transition-delay: 0.2s; }
-    .reveal-delay-3 { transition-delay: 0.3s; }
-    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* Card variant — fade-up + subtle scale */
+    .anim-card {
+      opacity: 0;
+      transform: translateY(22px) scale(0.97);
+      transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .anim-card.visible { opacity: 1; transform: translateY(0) scale(1); }
+
+    /* Image/mockup variant — gentle scale + fade */
+    .anim-img {
+      opacity: 0;
+      transform: translateY(14px) scale(0.97);
+      transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .anim-img.visible { opacity: 1; transform: translateY(0) scale(1); }
+
+    /* Stagger delays */
+    .reveal-delay-1, .anim-card.delay-1, .anim-img.delay-1 { transition-delay: 0.12s; }
+    .reveal-delay-2, .anim-card.delay-2, .anim-img.delay-2 { transition-delay: 0.22s; }
+    .reveal-delay-3, .anim-card.delay-3, .anim-img.delay-3 { transition-delay: 0.32s; }
+    .reveal-delay-4, .anim-card.delay-4, .anim-img.delay-4 { transition-delay: 0.42s; }
+
+    /* Card hover lift — applied globally */
+    .decision-card, .outcome-card, .goal-item, .ba-card, .kpi-stat, .sticky {
+      transition-property: transform, box-shadow, background !important;
+      transition-duration: 0.28s !important;
+      transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+    .decision-card:hover, .outcome-card:hover, .ba-card:hover {
+      transform: translateY(-4px) !important;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.1) !important;
+    }
+    .goal-item:hover { transform: translateY(-3px) !important; }
+    .sticky:hover { transform: scale(1.03) rotate(0deg) !important; }
+
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .reveal, .anim-card, .anim-img, .pain-card, .quote-card {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+    }
 
     /* ══════════════════════════════════════
        SECTION 1 — HEADER
@@ -851,29 +900,29 @@
     <div class="eyebrow reveal"><span class="eyebrow-diamond">◆</span> GOALS</div>
     <h2 class="reveal">what we set out to do</h2>
     <p class="goals-sub reveal">Three goals shaped the redesign. Not all were equally visible to managers — all mattered to the business.</p>
-    <div class="sticky-notes">
-      <div class="sticky sticky-1 reveal">
+    <div class="sticky-notes" data-stagger="120">
+      <div class="sticky sticky-1">
         <p>"Why do I find out about problems last?"</p>
       </div>
-      <div class="sticky sticky-2 reveal reveal-delay-1">
+      <div class="sticky sticky-2">
         <p>"How do we cut resolution time across 13,000+ stores?"</p>
       </div>
-      <div class="sticky sticky-3 reveal reveal-delay-2">
+      <div class="sticky sticky-3">
         <p>"Can one dashboard replace four different logins?"</p>
       </div>
     </div>
-    <div class="goals-grid">
-      <div class="goal-item reveal">
+    <div class="goals-grid" data-stagger="130">
+      <div class="goal-item">
         <div class="goal-icon">🎯</div>
         <div class="goal-title">Reduce alert fatigue through smart prioritization</div>
         <p class="goal-body">Give critical alerts visual dominance so managers immediately know what needs attention, and what can wait.</p>
       </div>
-      <div class="goal-item reveal reveal-delay-1">
+      <div class="goal-item">
         <div class="goal-icon">🎯</div>
         <div class="goal-title">Cut average time-to-resolution by surfacing context immediately</div>
         <p class="goal-body">Managers shouldn't need to switch apps to understand an alert. Everything needed to resolve an issue should appear in-context.</p>
       </div>
-      <div class="goal-item reveal reveal-delay-2">
+      <div class="goal-item">
         <div class="goal-icon">🎯</div>
         <div class="goal-title">Unify inventory, staffing, and compliance into one dashboard</div>
         <p class="goal-body">Four logins, four mental models, four places to miss something — collapse this into one coherent daily view.</p>
@@ -888,26 +937,26 @@
     <div class="eyebrow reveal"><span class="eyebrow-diamond">◆</span> APPROACH</div>
     <h2 class="reveal">key product decisions</h2>
     <p class="decisions-sub reveal">Before designing screens, we worked through the core tradeoffs that would shape every interaction in the platform.</p>
-    <div class="decisions-grid">
-      <div class="decision-card decision-card-1 reveal">
+    <div class="decisions-grid" data-stagger="130">
+      <div class="decision-card decision-card-1">
         <span class="pin">📌</span>
         <div class="decision-num">01</div>
         <div class="decision-title">Severity should drive visual hierarchy, not chronology</div>
         <p class="decision-body">The old list showed newest alerts first — making a 3-minute-old freezer failure invisible under a fresh parking lot report. We inverted this: severity is the primary sort, recency is secondary. The tradeoff: managers who expect "latest first" needed re-education, but resolution speed improved immediately.</p>
       </div>
-      <div class="decision-card decision-card-2 reveal reveal-delay-1">
+      <div class="decision-card decision-card-2">
         <span class="pin">📌</span>
         <div class="decision-num">02</div>
         <div class="decision-title">The dashboard should reflect what managers do, not what the system tracks</div>
         <p class="decision-body">The system tracked 40+ data points per store. Managers made decisions on 6. We ruthlessly filtered the dashboard to the manager's mental model — not the engineering model. The tradeoff: some data became harder to access, but the primary workflow became dramatically faster.</p>
       </div>
-      <div class="decision-card decision-card-3 reveal">
+      <div class="decision-card decision-card-3">
         <span class="pin">📌</span>
         <div class="decision-num">03</div>
         <div class="decision-title">Alerts should resolve in-context, not require app-switching</div>
         <p class="decision-body">The old workflow: see alert → open separate app → find the item → take action → log the action. We collapsed this to: see alert → tap → see context → resolve → auto-logged. The tradeoff: more complexity in the alert detail view, but the multi-app switching was eliminated entirely.</p>
       </div>
-      <div class="decision-card decision-card-4 reveal reveal-delay-1">
+      <div class="decision-card decision-card-4">
         <span class="pin">📌</span>
         <div class="decision-num">04</div>
         <div class="decision-title">Accountability should be automatic, not manually logged</div>
@@ -923,8 +972,8 @@
     <div class="eyebrow reveal"><span class="eyebrow-diamond">◆</span> THE FLOW</div>
     <h2 class="reveal">from alert to resolution in 6 steps</h2>
     <p class="flow-sub reveal">A complete walkthrough of the redesigned manager experience.</p>
-    <div class="flow-grid">
-      <div class="flow-item reveal">
+    <div class="flow-grid" data-stagger="150">
+      <div class="flow-item">
         <div class="flow-phone">
           <div class="flow-phone-notch"></div>
           <div class="flow-phone-screen">
@@ -936,7 +985,7 @@
         </div>
         <p class="flow-caption">Dashboard overview — alerts sorted by severity</p>
       </div>
-      <div class="flow-item reveal reveal-delay-1">
+      <div class="flow-item">
         <div class="flow-phone">
           <div class="flow-phone-notch"></div>
           <div class="flow-phone-screen">
@@ -950,7 +999,7 @@
         </div>
         <p class="flow-caption">Alert detail with context — no app switching needed</p>
       </div>
-      <div class="flow-item reveal reveal-delay-2">
+      <div class="flow-item">
         <div class="flow-phone">
           <div class="flow-phone-notch"></div>
           <div class="flow-phone-screen">
@@ -963,7 +1012,7 @@
         </div>
         <p class="flow-caption">All alerts ranked — critical first, routine last</p>
       </div>
-      <div class="flow-item reveal">
+      <div class="flow-item">
         <div class="flow-phone">
           <div class="flow-phone-notch"></div>
           <div class="flow-phone-screen">
@@ -977,7 +1026,7 @@
         </div>
         <p class="flow-caption">Resolution action taken — in-context, no switching</p>
       </div>
-      <div class="flow-item reveal reveal-delay-1">
+      <div class="flow-item">
         <div class="flow-phone">
           <div class="flow-phone-notch"></div>
           <div class="flow-phone-screen">
@@ -991,7 +1040,7 @@
         </div>
         <p class="flow-caption">Confirmation + automatic audit log entry</p>
       </div>
-      <div class="flow-item reveal reveal-delay-2">
+      <div class="flow-item">
         <div class="flow-phone">
           <div class="flow-phone-notch"></div>
           <div class="flow-phone-screen">
@@ -1095,8 +1144,8 @@
     <div class="eyebrow reveal"><span class="eyebrow-diamond">◆</span> THE TRANSFORMATION</div>
     <h2 class="reveal">from four logins to one dashboard</h2>
     <p class="ba-sub reveal">The consolidation wasn't just cosmetic — it changed the workflow from fragmented and reactive to unified and proactive.</p>
-    <div class="ba-grid">
-      <div class="ba-card reveal">
+    <div class="ba-grid" data-stagger="140">
+      <div class="ba-card">
         <div class="ba-label before">Before</div>
         <div class="ba-content">
           <div class="ba-phones">
@@ -1125,7 +1174,7 @@
           <p class="ba-caption">Managers checked 4 separate apps to get a full picture of store status. Average morning check: 18 minutes.</p>
         </div>
       </div>
-      <div class="ba-card reveal reveal-delay-1">
+      <div class="ba-card">
         <div class="ba-label after">After</div>
         <div class="ba-content">
           <div class="ba-phones">
@@ -1150,20 +1199,20 @@
   <div class="outcomes-inner">
     <div class="eyebrow reveal"><span class="eyebrow-diamond">◆</span> OUTCOMES</div>
     <h2 class="reveal">the numbers that followed</h2>
-    <div class="outcomes-grid">
-      <div class="outcome-card reveal">
+    <div class="outcomes-grid" data-stagger="140">
+      <div class="outcome-card">
         <div class="outcome-arrow">↓</div>
         <div class="outcome-value down">32%</div>
         <div class="outcome-label">Average Time to Resolution</div>
         <p class="outcome-body">Faster issue resolution through smart prioritization and in-context actions — no more app-switching to gather context.</p>
       </div>
-      <div class="outcome-card reveal reveal-delay-1">
+      <div class="outcome-card">
         <div class="outcome-arrow">↑</div>
         <div class="outcome-value up">28%</div>
         <div class="outcome-label">Manager Daily Engagement</div>
         <p class="outcome-body">More managers checking the dashboard proactively instead of reactively — the unified view became a morning habit.</p>
       </div>
-      <div class="outcome-card reveal reveal-delay-2">
+      <div class="outcome-card">
         <div class="outcome-arrow">↑</div>
         <div class="outcome-value up">19%</div>
         <div class="outcome-label">Issue Resolution Accuracy</div>
@@ -1206,24 +1255,143 @@
 </footer>
 
 <script>
-  /* Scroll reveal */
-  const reveals = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
-  }, { threshold: 0.1 });
-  reveals.forEach(el => io.observe(el));
+  /* ══════════════════════════════════════════════
+     PREMIUM ANIMATION ENGINE
+     Linear / Stripe / Apple-style scroll motion
+  ══════════════════════════════════════════════ */
 
-  /* Quote cards stagger */
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ── Helper: single observer factory ── */
+  function observe(selector, addedClass, options = {}) {
+    const els = document.querySelectorAll(selector);
+    if (!els.length) return;
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add(addedClass);
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: options.threshold ?? 0.1, rootMargin: options.rootMargin ?? '0px 0px -40px 0px' });
+    els.forEach(el => obs.observe(el));
+  }
+
+  /* ── 1. Standard fade-up reveals ── */
+  observe('.reveal', 'visible', { threshold: 0.08 });
+
+  /* ── 2. Stagger grid containers ──
+     When a [data-stagger] container enters view, its children
+     animate in one-by-one with cascading delays.            */
+  document.querySelectorAll('[data-stagger]').forEach(parent => {
+    const delay = parseInt(parent.dataset.stagger) || 130;
+    const children = [...parent.children];
+
+    // Tag children with animation class + staggered delay
+    children.forEach((child, i) => {
+      child.classList.add('anim-card');
+      child.style.transitionDelay = `${i * delay}ms`;
+    });
+
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          children.forEach(child => child.classList.add('visible'));
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+    obs.observe(parent);
+  });
+
+  /* ── 3. Quote cards stagger ── */
   const qio = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); qio.unobserve(e.target); } });
-  }, { threshold: 0.15 });
+  }, { threshold: 0.12 });
   document.querySelectorAll('.quote-card').forEach(el => qio.observe(el));
 
-  /* Pain cards stagger */
+  /* ── 4. Pain cards stagger ── */
   const pio = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); pio.unobserve(e.target); } });
-  }, { threshold: 0.12 });
+  }, { threshold: 0.1 });
   document.querySelectorAll('.pain-card').forEach(el => pio.observe(el));
+
+  /* ── 5. Phone / mockup image reveals ── */
+  (function () {
+    const phones = document.querySelectorAll('.flow-phone, .sp-phone, .hero-banner-inner');
+    phones.forEach(el => el.classList.add('anim-img'));
+    observe('.anim-img', 'visible', { threshold: 0.1 });
+  })();
+
+  /* ── 6. KPI counter animation ── */
+  function animateCount(el) {
+    if (prefersReduced) return;
+    const raw = el.textContent.trim();
+    const match = raw.match(/^(\d+)/);
+    if (!match) return;
+    const target = parseInt(match[1]);
+    const suffix = raw.slice(match[1].length);
+    const duration = 1400;
+    const startTime = performance.now();
+    function step(now) {
+      const t = Math.min((now - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - t, 3); // ease-out cubic
+      el.textContent = Math.round(eased * target) + suffix;
+      if (t < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  const kpiObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.kpi-stat-num').forEach(animateCount);
+        kpiObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  const kpiStrip = document.querySelector('.kpi-strip-inner');
+  if (kpiStrip) kpiObs.observe(kpiStrip);
+
+  /* ── 7. Outcome value counter animation ── */
+  const outcomeObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.outcome-value').forEach(animateCount);
+        outcomeObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  const outcomesGrid = document.querySelector('.outcomes-grid');
+  if (outcomesGrid) outcomeObs.observe(outcomesGrid);
+
+  /* ── 8. Section eyebrow + heading stagger ──
+     When a section header enters view, eyebrow → h2/h3 → p
+     each fade in with 120ms apart.                         */
+  document.querySelectorAll('#problem .problem-header, #quotes .quotes-header, .spotlight-text, #reflections .reflections-inner > div').forEach(header => {
+    const items = [
+      header.querySelector('.eyebrow'),
+      header.querySelector('h2, h3'),
+      header.querySelector('p, .decision-note'),
+    ].filter(Boolean);
+
+    items.forEach((el, i) => {
+      if (!el.classList.contains('reveal')) {
+        el.classList.add('reveal');
+        el.style.transitionDelay = `${i * 120}ms`;
+      }
+    });
+
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          items.forEach(el => el.classList.add('visible'));
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    obs.observe(header);
+  });
 
   /* Nav scroll */
   window.addEventListener('scroll', () => {
