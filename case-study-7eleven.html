@@ -161,77 +161,111 @@
     /* ══════════════════════════════════════
        SECTION 4 — PROBLEM GRID
     ══════════════════════════════════════ */
-    #problem { padding: 100px 32px; background: var(--bg); }
-    .problem-inner { max-width: var(--max); margin: 0 auto; }
+    #problem {
+      padding: 100px 32px;
+      background: linear-gradient(160deg, #0d1f18 0%, #0a1a14 50%, #061210 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    #problem::before {
+      content: '';
+      position: absolute;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(0,128,98,0.18) 0%, transparent 70%);
+      top: -200px; right: -200px;
+      pointer-events: none;
+    }
+    #problem::after {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(0,196,154,0.1) 0%, transparent 70%);
+      bottom: -150px; left: -100px;
+      pointer-events: none;
+    }
+    .problem-inner { max-width: var(--max); margin: 0 auto; position: relative; z-index: 1; }
     .problem-header { max-width: 700px; margin-bottom: 56px; }
-    .problem-header .eyebrow { color: var(--green); }
+    .problem-header .eyebrow { color: #00c49a; }
+    .problem-header .eyebrow .eyebrow-diamond { color: #00c49a; }
     .problem-header h2 {
       font-family: 'Caveat', cursive;
       font-weight: 700;
-      font-size: clamp(48px, 6vw, 80px);
+      font-size: clamp(52px, 7vw, 88px);
       letter-spacing: -0.01em;
-      line-height: 1.05;
-      color: var(--green);
-      margin: 10px 0 18px;
+      line-height: 1.0;
+      color: #00c49a;
+      margin: 10px 0 20px;
     }
-    .problem-header p { font-size: 16px; color: var(--muted); line-height: 1.7; max-width: 560px; }
+    .problem-header p { font-size: 16px; color: rgba(255,255,255,0.5); line-height: 1.75; max-width: 560px; }
     .pain-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
     .pain-card {
-      background: var(--white);
-      border: 1.5px solid var(--border);
-      border-radius: 20px;
-      padding: 36px 32px;
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 24px;
+      padding: 38px 36px 44px;
       position: relative;
       overflow: hidden;
       opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.55s ease, transform 0.55s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      transform: translateY(32px);
+      transition: opacity 0.6s ease, transform 0.6s ease, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     }
     .pain-card.in-view { opacity: 1; transform: translateY(0); }
-    .pain-card:nth-child(2) { transition-delay: 0.1s; }
-    .pain-card:nth-child(3) { transition-delay: 0.2s; }
-    .pain-card:nth-child(4) { transition-delay: 0.3s; }
-    .pain-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.08); border-color: rgba(0,128,98,0.3); }
+    .pain-card:nth-child(2) { transition-delay: 0.12s; }
+    .pain-card:nth-child(3) { transition-delay: 0.22s; }
+    .pain-card:nth-child(4) { transition-delay: 0.32s; }
+    .pain-card:hover {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(0,196,154,0.35);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.35), 0 0 0 1px rgba(0,196,154,0.15) inset;
+    }
+    /* gradient top border on hover */
     .pain-card::before {
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--green), #00c49a);
+      height: 2px;
+      background: linear-gradient(90deg, #008062, #00c49a, transparent);
       opacity: 0;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.35s ease;
     }
     .pain-card:hover::before { opacity: 1; }
+    /* large faded number bg */
+    .pain-card-bg-num {
+      position: absolute;
+      bottom: -16px; right: 16px;
+      font-family: 'Caveat', cursive;
+      font-weight: 700;
+      font-size: 120px;
+      line-height: 1;
+      color: rgba(0,196,154,0.07);
+      pointer-events: none;
+      user-select: none;
+    }
     .pain-num {
       display: inline-flex;
       align-items: center;
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--green);
-      background: #e6f5f1;
-      border: 1px solid rgba(0,128,98,0.2);
+      color: #00c49a;
+      background: rgba(0,196,154,0.1);
+      border: 1px solid rgba(0,196,154,0.25);
       border-radius: 99px;
-      padding: 4px 12px;
-      margin-bottom: 20px;
+      padding: 5px 13px;
+      margin-bottom: 22px;
     }
     .pain-title {
-      font-size: 20px;
+      font-size: 21px;
       font-weight: 800;
-      color: var(--text);
+      color: #fff;
       letter-spacing: -0.025em;
-      line-height: 1.3;
-      margin-bottom: 12px;
+      line-height: 1.25;
+      margin-bottom: 14px;
     }
-    .pain-body { font-size: 14px; color: var(--muted); line-height: 1.75; margin: 0; }
-    .pain-icon {
-      position: absolute;
-      bottom: 22px; right: 26px;
-      font-size: 44px;
-      opacity: 0.06;
-      line-height: 1;
-    }
+    .pain-body { font-size: 14px; color: rgba(255,255,255,0.48); line-height: 1.8; margin: 0; }
     @media (max-width: 640px) { .pain-grid { grid-template-columns: 1fr; } }
 
     /* ══════════════════════════════════════
@@ -757,25 +791,25 @@
         <div class="pain-num">Pain 01</div>
         <div class="pain-title">Every alert looked the same</div>
         <p class="pain-body">No severity hierarchy. A spill notice and a freezer failure had identical visual weight — managers couldn't triage at a glance and critical issues got buried.</p>
-        <div class="pain-icon">🔔</div>
+        <div class="pain-card-bg-num">01</div>
       </div>
       <div class="pain-card">
         <div class="pain-num">Pain 02</div>
         <div class="pain-title">4 tools, 4 logins, zero context</div>
         <p class="pain-body">Inventory, staffing, compliance, and incident reporting lived in completely separate systems. Switching between them mid-shift meant losing time and mental context.</p>
-        <div class="pain-icon">🔧</div>
+        <div class="pain-card-bg-num">02</div>
       </div>
       <div class="pain-card">
         <div class="pain-num">Pain 03</div>
         <div class="pain-title">Reactive, never proactive</div>
         <p class="pain-body">Managers discovered problems from customers or after damage was done — not from the system. There was no mechanism to surface emerging issues before they escalated.</p>
-        <div class="pain-icon">⏱</div>
+        <div class="pain-card-bg-num">03</div>
       </div>
       <div class="pain-card">
         <div class="pain-num">Pain 04</div>
         <div class="pain-title">No accountability trail</div>
         <p class="pain-body">When something went wrong, there was no record of who saw the alert or what action was taken. Compliance audits were painful manual reconstructions.</p>
-        <div class="pain-icon">📋</div>
+        <div class="pain-card-bg-num">04</div>
       </div>
     </div>
   </div>
