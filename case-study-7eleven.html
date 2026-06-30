@@ -365,18 +365,29 @@
     ══════════════════════════════════════ */
     #decisions { padding: 80px 32px; background: linear-gradient(135deg, #eaf7f2 0%, #f6fbf9 100%); }
     .decisions-inner { max-width: var(--max); margin: 0 auto; }
-    .decisions-inner h2 { font-size: clamp(28px, 4vw, 48px); font-weight: 800; letter-spacing: -0.04em; margin-bottom: 8px; }
-    .decisions-sub { font-size: 16px; color: var(--muted); max-width: 560px; margin-bottom: 48px; line-height: 1.6; }
-    .decisions-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 20px; }
-    .decision-card { border-radius: var(--radius); padding: 32px 28px; position: relative; }
-    .decision-card-1 { background: #F0FFF4; }
-    .decision-card-2 { background: #EFF6FF; }
-    .decision-card-3 { background: #FFF7ED; }
-    .decision-card-4 { background: #FDF4FF; }
-    .pin { font-size: 20px; margin-bottom: 14px; display: block; }
-    .decision-num { font-size: 11px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
-    .decision-title { font-size: 17px; font-weight: 800; color: var(--text); margin-bottom: 10px; line-height: 1.3; }
-    .decision-body { font-size: 14px; color: var(--muted); line-height: 1.65; }
+    .decisions-inner h2 { font-size: clamp(32px, 4vw, 52px); font-weight: 800; letter-spacing: -0.04em; margin-bottom: 8px; }
+    .decisions-sub { font-size: 16px; color: var(--muted); max-width: 520px; margin-bottom: 48px; line-height: 1.65; }
+    .decisions-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 24px; }
+    .decision-card {
+      border-radius: 16px; padding: 36px 32px 32px; position: relative;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .decision-card-1 { background: #fffbf0; }
+    .decision-card-2 { background: #f0f6ff; }
+    .decision-card-3 { background: #fff0f0; }
+    .decision-card-4 { background: #f4f0ff; }
+    .pin {
+      display: block; margin-bottom: 20px;
+      width: 28px; height: 34px;
+    }
+    .pin svg { width: 28px; height: 34px; filter: drop-shadow(0 3px 6px rgba(0,0,0,0.22)); }
+    .decision-num { font-size: 11px; font-weight: 700; color: var(--muted); letter-spacing: 0.12em; margin-bottom: 10px; }
+    .decision-title {
+      font-family: 'Instrument Serif', serif; font-style: italic;
+      font-size: clamp(18px, 2vw, 22px); font-weight: 400;
+      color: var(--text); margin-bottom: 14px; line-height: 1.3;
+    }
+    .decision-body { font-size: 14px; color: var(--muted); line-height: 1.7; }
 
     /* ══════════════════════════════════════
        SECTION 8 — FLOW WALKTHROUGH
@@ -936,31 +947,31 @@
   <div class="decisions-inner">
     <div class="eyebrow reveal"><span class="eyebrow-diamond">◆</span> APPROACH</div>
     <h2 class="reveal">key product decisions</h2>
-    <p class="decisions-sub reveal">Before designing screens, we worked through the core tradeoffs that would shape every interaction in the platform.</p>
+    <p class="decisions-sub reveal">Before designing screens, I worked through the decisions that would shape the whole experience. A few mattered more than the rest, and each one came with a tradeoff.</p>
     <div class="decisions-grid" data-stagger="130">
       <div class="decision-card decision-card-1">
-        <span class="pin">📌</span>
+        <span class="pin"><svg viewBox="0 0 28 34" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="14" cy="14" rx="11" ry="11" fill="#c0392b"/><ellipse cx="10.5" cy="10" rx="3.5" ry="2.5" fill="rgba(255,255,255,0.28)"/><rect x="12.5" y="23" width="3" height="9" rx="1.5" fill="#8B2417"/><circle cx="14" cy="14" r="4" fill="#e74c3c"/></svg></span>
         <div class="decision-num">01</div>
         <div class="decision-title">Severity should drive visual hierarchy, not chronology</div>
-        <p class="decision-body">The old list showed newest alerts first — making a 3-minute-old freezer failure invisible under a fresh parking lot report. We inverted this: severity is the primary sort, recency is secondary. The tradeoff: managers who expect "latest first" needed re-education, but resolution speed improved immediately.</p>
+        <p class="decision-body">Newest-first buried a freezer failure under a fresh parking lot report. We inverted the sort: severity is primary, recency secondary. Resolution speed improved immediately.</p>
       </div>
       <div class="decision-card decision-card-2">
-        <span class="pin">📌</span>
+        <span class="pin"><svg viewBox="0 0 28 34" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="14" cy="14" rx="11" ry="11" fill="#c0392b"/><ellipse cx="10.5" cy="10" rx="3.5" ry="2.5" fill="rgba(255,255,255,0.28)"/><rect x="12.5" y="23" width="3" height="9" rx="1.5" fill="#8B2417"/><circle cx="14" cy="14" r="4" fill="#e74c3c"/></svg></span>
         <div class="decision-num">02</div>
         <div class="decision-title">The dashboard should reflect what managers do, not what the system tracks</div>
-        <p class="decision-body">The system tracked 40+ data points per store. Managers made decisions on 6. We ruthlessly filtered the dashboard to the manager's mental model — not the engineering model. The tradeoff: some data became harder to access, but the primary workflow became dramatically faster.</p>
+        <p class="decision-body">The system tracked 40+ data points. Managers acted on 6. We ruthlessly filtered to the manager's mental model — less data, dramatically faster decisions.</p>
       </div>
       <div class="decision-card decision-card-3">
-        <span class="pin">📌</span>
+        <span class="pin"><svg viewBox="0 0 28 34" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="14" cy="14" rx="11" ry="11" fill="#c0392b"/><ellipse cx="10.5" cy="10" rx="3.5" ry="2.5" fill="rgba(255,255,255,0.28)"/><rect x="12.5" y="23" width="3" height="9" rx="1.5" fill="#8B2417"/><circle cx="14" cy="14" r="4" fill="#e74c3c"/></svg></span>
         <div class="decision-num">03</div>
         <div class="decision-title">Alerts should resolve in-context, not require app-switching</div>
-        <p class="decision-body">The old workflow: see alert → open separate app → find the item → take action → log the action. We collapsed this to: see alert → tap → see context → resolve → auto-logged. The tradeoff: more complexity in the alert detail view, but the multi-app switching was eliminated entirely.</p>
+        <p class="decision-body">We collapsed a 5-step cross-app workflow into: see alert → tap → resolve → auto-logged. More complexity in one view, zero app-switching in the real workflow.</p>
       </div>
       <div class="decision-card decision-card-4">
-        <span class="pin">📌</span>
+        <span class="pin"><svg viewBox="0 0 28 34" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="14" cy="14" rx="11" ry="11" fill="#c0392b"/><ellipse cx="10.5" cy="10" rx="3.5" ry="2.5" fill="rgba(255,255,255,0.28)"/><rect x="12.5" y="23" width="3" height="9" rx="1.5" fill="#8B2417"/><circle cx="14" cy="14" r="4" fill="#e74c3c"/></svg></span>
         <div class="decision-num">04</div>
         <div class="decision-title">Accountability should be automatic, not manually logged</div>
-        <p class="decision-body">Every resolved action creates an automatic audit log entry — who resolved it, when, and what action was taken. Managers hated logging; they'd skip it under pressure. Making it automatic meant audit trails went from 40% completion to 100% without adding any friction to the resolution flow.</p>
+        <p class="decision-body">Managers skipped manual logging under pressure. Auto-logging every resolution action pushed audit trail completion from 40% to 100% — with zero added friction.</p>
       </div>
     </div>
   </div>
