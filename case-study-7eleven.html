@@ -275,11 +275,10 @@
     }
     .pain-body { font-size: 14px; color: var(--muted); line-height: 1.75; margin: 0; }
     .pain-icon {
-      position: absolute;
-      bottom: 22px; right: 26px;
-      font-size: 48px;
-      opacity: 1;
+      font-size: 36px;
       line-height: 1;
+      margin-bottom: 16px;
+      display: block;
     }
     @media (max-width: 640px) { .pain-grid { grid-template-columns: 1fr; } }
 
@@ -803,28 +802,28 @@
     </div>
     <div class="pain-grid">
       <div class="pain-card">
+        <div class="pain-icon">🔔</div>
         <div class="pain-num">Pain 01</div>
         <div class="pain-title">Every alert looked the same</div>
         <p class="pain-body">No severity hierarchy. A spill notice and a freezer failure had identical visual weight — managers couldn't triage at a glance and critical issues got buried.</p>
-        <div class="pain-icon">🔔</div>
       </div>
       <div class="pain-card">
+        <div class="pain-icon">🔧</div>
         <div class="pain-num">Pain 02</div>
         <div class="pain-title">4 tools, 4 logins, zero context</div>
         <p class="pain-body">Inventory, staffing, compliance, and incident reporting lived in completely separate systems. Switching between them mid-shift meant losing time and mental context.</p>
-        <div class="pain-icon">🔧</div>
       </div>
       <div class="pain-card">
+        <div class="pain-icon">⏱</div>
         <div class="pain-num">Pain 03</div>
         <div class="pain-title">Reactive, never proactive</div>
         <p class="pain-body">Managers discovered problems from customers or after damage was done — not from the system. There was no mechanism to surface emerging issues before they escalated.</p>
-        <div class="pain-icon">⏱</div>
       </div>
       <div class="pain-card">
+        <div class="pain-icon">📋</div>
         <div class="pain-num">Pain 04</div>
         <div class="pain-title">No accountability trail</div>
         <p class="pain-body">When something went wrong, there was no record of who saw the alert or what action was taken. Compliance audits were painful manual reconstructions.</p>
-        <div class="pain-icon">📋</div>
       </div>
     </div>
   </div>
