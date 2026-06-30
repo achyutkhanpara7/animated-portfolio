@@ -339,12 +339,15 @@
       margin-bottom: 0;
     }
     .hero-line1 {
-      display: flex; align-items: center; justify-content: center;
-      flex-wrap: wrap; gap: 0 12px;
-      color: #fff; font-weight: 900;
+      display: block; color: #fff; font-weight: 900;
       opacity: 0; transform: translateY(22px);
       transition: opacity 0.65s 0.25s, transform 0.65s 0.25s;
-      margin-bottom: 8px;
+    }
+    .hero-line2 {
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transform: translateY(22px);
+      transition: opacity 0.65s 0.38s, transform 0.65s 0.38s;
+      margin: 12px 0;
     }
     .hero-line3 {
       display: block; color: #fff; font-weight: 900;
@@ -1432,7 +1435,8 @@
 
       <!-- headline -->
       <h1 class="hero-h1">
-        <span class="hero-line1" id="hL1">I build AI products that <span class="hero-swap" id="heroSwap">drive revenue</span></span>
+        <span class="hero-line1" id="hL1">I build AI products that</span>
+        <span class="hero-line2" id="hL2"><span class="hero-swap" id="heroSwap">drive revenue</span></span>
         <span class="hero-line3" id="hL3">and <span class="serif-italic">delight users.</span></span>
       </h1>
 
@@ -2016,7 +2020,7 @@
   const hAvail = document.getElementById('hAvail');
   const hEye   = document.getElementById('hEye');
   const hL1    = document.getElementById('hL1');
-  const hL2    = null; // merged into hL1
+  const hL2    = document.getElementById('hL2');
   const hL3    = document.getElementById('hL3');
   const hStats = document.getElementById('hStats');
   const hSub   = document.getElementById('hSub');
