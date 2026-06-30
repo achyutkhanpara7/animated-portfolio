@@ -392,16 +392,37 @@
     /* ══════════════════════════════════════
        SECTION 8 — FLOW WALKTHROUGH
     ══════════════════════════════════════ */
-    #flow { padding: 80px 32px; }
+    #flow { padding: 80px 32px; background: #fff; }
     .flow-inner { max-width: var(--max); margin: 0 auto; }
     .flow-inner h2 { font-size: clamp(28px, 4vw, 48px); font-weight: 800; letter-spacing: -0.04em; margin-bottom: 8px; }
-    .flow-sub { font-size: 16px; color: #374151; margin-bottom: 48px; }
-    .flow-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
-    .flow-item { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+    .flow-sub { font-size: 16px; color: #374151; margin-bottom: 56px; }
     .flow-phone { width: 150px; background: #1a1a2e; border-radius: 24px; overflow: hidden; box-shadow: 0 16px 50px rgba(0,0,0,0.18); position: relative; }
     .flow-phone-notch { width: 60px; height: 20px; background: #1a1a2e; border-radius: 0 0 12px 12px; position: absolute; top: 0; left: 50%; transform: translateX(-50%); z-index: 2; }
     .flow-phone-screen { background: #fff; margin: 8px 5px 5px; border-radius: 17px; overflow: hidden; min-height: 220px; padding: 10px; }
     .flow-caption { font-size: 13px; font-weight: 600; color: #374151; text-align: center; line-height: 1.4; }
+
+    /* UX Decision role blocks */
+    .ux-role-block { display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 56px; align-items: center; }
+    .ux-role-block:not(:last-child) { margin-bottom: 88px; }
+    .ux-role-pill { display: inline-flex; align-items: center; gap: 8px; background: rgba(0,128,98,0.08); color: var(--green); font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; padding: 7px 14px; border-radius: 999px; margin-bottom: 18px; }
+    .ux-role-heading { font-size: clamp(22px,2.6vw,30px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.25; margin-bottom: 28px; }
+    .ux-role-heading span { color: var(--green); }
+    .ux-card-stack { display: flex; flex-direction: column; gap: 14px; }
+    .ux-card { border-radius: 16px; padding: 18px 20px; border: 1.5px solid; }
+    .ux-card-problem { background: #fff5f5; border-color: rgba(229,62,62,0.13); }
+    .ux-card-decision { background: #f5faf8; border-color: rgba(0,128,98,0.13); }
+    .ux-card-outcome { background: #eff8ff; border-color: rgba(0,119,200,0.13); }
+    .ux-card-label { font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
+    .ux-card-problem .ux-card-label { color: #e53e3e; }
+    .ux-card-decision .ux-card-label { color: var(--green); }
+    .ux-card-outcome .ux-card-label { color: #0077c8; }
+    .ux-card-body { font-size: 14.5px; color: #374151; line-height: 1.6; }
+    .ux-role-visual { display: flex; justify-content: center; }
+    @media (max-width: 860px) {
+      .ux-role-block { grid-template-columns: 1fr; gap: 32px; }
+      .ux-role-block:not(:last-child) { margin-bottom: 56px; }
+      .ux-role-visual { order: -1; }
+    }
     /* Flow screen content */
     .fs-label { font-size: 8px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
     .fs-row { display: flex; align-items: center; gap: 5px; background: var(--bg); border-radius: 5px; padding: 5px 6px; margin-bottom: 4px; }
@@ -520,7 +541,7 @@
       .sticky-notes { grid-template-columns: 1fr; }
       .goals-grid { grid-template-columns: 1fr; }
       .decisions-grid { grid-template-columns: 1fr; }
-      .flow-grid { grid-template-columns: repeat(2,1fr); }
+      .ux-role-block { grid-template-columns: 1fr; }
       .spotlight-section { grid-template-columns: 1fr; gap: 36px; }
       .spotlight-section.reverse { direction: ltr; }
       .ba-grid { grid-template-columns: 1fr; }
@@ -980,11 +1001,30 @@
 <!-- ══ S8: FLOW WALKTHROUGH ══ -->
 <section id="flow">
   <div class="flow-inner">
-    <div class="eyebrow reveal"><span class="eyebrow-diamond">◆</span> THE FLOW</div>
-    <h2 class="reveal">from alert to resolution in 6 steps</h2>
-    <p class="flow-sub reveal">A complete walkthrough of the redesigned manager experience.</p>
-    <div class="flow-grid" data-stagger="150">
-      <div class="flow-item">
+    <div class="eyebrow reveal"><span class="eyebrow-diamond">◆</span> UX DECISION</div>
+    <h2 class="reveal">how the redesign solved it, role by role</h2>
+    <p class="flow-sub reveal">Four roles, four different problems — each one traced from the breakdown to the decision to the outcome.</p>
+
+    <div class="ux-role-block reveal">
+      <div class="ux-role-copy">
+        <div class="ux-role-pill">Store Manager</div>
+        <h3 class="ux-role-heading">Alerts buried the<br><span>one that mattered.</span></h3>
+        <div class="ux-card-stack">
+          <div class="ux-card ux-card-problem">
+            <div class="ux-card-label">Problem</div>
+            <div class="ux-card-body">Alerts were sorted newest-first, so a freezer failure could sit beneath three routine parking-lot reports — no way to tell urgent from trivial at a glance.</div>
+          </div>
+          <div class="ux-card ux-card-decision">
+            <div class="ux-card-label">UX Decision</div>
+            <div class="ux-card-body">Re-sorted by severity first, recency second, with color-coded priority tags (P1/P2/P3) so the most critical issue is always at the top.</div>
+          </div>
+          <div class="ux-card ux-card-outcome">
+            <div class="ux-card-label">Outcome</div>
+            <div class="ux-card-body">Critical alerts get acknowledged within minutes instead of hours, with zero app-switching to investigate or resolve.</div>
+          </div>
+        </div>
+      </div>
+      <div class="ux-role-visual">
         <div class="flow-phone">
           <div class="flow-phone-notch"></div>
           <div class="flow-phone-screen">
@@ -994,9 +1034,11 @@
             <div class="fs-row"><div class="fs-dot" style="background:var(--green)"></div><div class="fs-text">Compliance check</div><span class="fs-tag ok">P3</span></div>
           </div>
         </div>
-        <p class="flow-caption">Dashboard overview — alerts sorted by severity</p>
       </div>
-      <div class="flow-item">
+    </div>
+
+    <div class="ux-role-block reveal">
+      <div class="ux-role-visual">
         <div class="flow-phone">
           <div class="flow-phone-notch"></div>
           <div class="flow-phone-screen">
@@ -1008,9 +1050,47 @@
             <div style="background:var(--bg);border-radius:5px;padding:5px;font-size:7px;color:#555;">Suggested action: Check door seal, call maintenance</div>
           </div>
         </div>
-        <p class="flow-caption">Alert detail with context — no app switching needed</p>
       </div>
-      <div class="flow-item">
+      <div class="ux-role-copy">
+        <div class="ux-role-pill">Area Manager</div>
+        <h3 class="ux-role-heading">Context lived in<br><span>five different apps.</span></h3>
+        <div class="ux-card-stack">
+          <div class="ux-card ux-card-problem">
+            <div class="ux-card-label">Problem</div>
+            <div class="ux-card-body">Diagnosing an alert meant tabbing between the IoT dashboard, POS system, maintenance log, and email — five minutes lost before any action was taken.</div>
+          </div>
+          <div class="ux-card ux-card-decision">
+            <div class="ux-card-label">UX Decision</div>
+            <div class="ux-card-body">Pulled sensor history, suggested next steps, and a one-tap resolution action directly into the alert detail view — no tab-switching required.</div>
+          </div>
+          <div class="ux-card ux-card-outcome">
+            <div class="ux-card-label">Outcome</div>
+            <div class="ux-card-body">Average time-to-action dropped from minutes to seconds, and managers stopped needing a second screen to do their job.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ux-role-block reveal">
+      <div class="ux-role-copy">
+        <div class="ux-role-pill">Distributor Manager</div>
+        <h3 class="ux-role-heading">Routine work crowded<br><span>out the urgent.</span></h3>
+        <div class="ux-card-stack">
+          <div class="ux-card ux-card-problem">
+            <div class="ux-card-label">Problem</div>
+            <div class="ux-card-body">A flat list mixed cash-drawer variances with weekly compliance forms, so genuinely urgent items had no visual priority over routine to-dos.</div>
+          </div>
+          <div class="ux-card ux-card-decision">
+            <div class="ux-card-label">UX Decision</div>
+            <div class="ux-card-body">Grouped items into NOW / TODAY / THIS WEEK bands, so urgency is communicated by timeframe, not buried in a single undifferentiated feed.</div>
+          </div>
+          <div class="ux-card ux-card-outcome">
+            <div class="ux-card-label">Outcome</div>
+            <div class="ux-card-body">Managers triage their queue in seconds and routine items no longer compete with what actually needs attention now.</div>
+          </div>
+        </div>
+      </div>
+      <div class="ux-role-visual">
         <div class="flow-phone">
           <div class="flow-phone-notch"></div>
           <div class="flow-phone-screen">
@@ -1021,9 +1101,11 @@
             <div class="fs-row"><div class="fs-dot" style="background:var(--green)"></div><div class="fs-text">Compliance form</div><span class="fs-tag ok">THIS WK</span></div>
           </div>
         </div>
-        <p class="flow-caption">All alerts ranked — critical first, routine last</p>
       </div>
-      <div class="flow-item">
+    </div>
+
+    <div class="ux-role-block reveal">
+      <div class="ux-role-visual">
         <div class="flow-phone">
           <div class="flow-phone-notch"></div>
           <div class="flow-phone-screen">
@@ -1035,43 +1117,27 @@
             <div style="background:var(--green);color:#fff;border-radius:5px;padding:6px;font-size:8px;font-weight:700;text-align:center;">Mark as Resolved →</div>
           </div>
         </div>
-        <p class="flow-caption">Resolution action taken — in-context, no switching</p>
       </div>
-      <div class="flow-item">
-        <div class="flow-phone">
-          <div class="flow-phone-notch"></div>
-          <div class="flow-phone-screen">
-            <div class="ps-success">
-              <div class="ps-success-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
-              <div class="ps-success-title">Resolved</div>
-              <div class="ps-success-sub">Auto-logged to audit trail</div>
-              <div style="margin-top:6px;background:rgba(0,128,98,0.1);border-radius:5px;padding:4px 8px;font-size:7px;color:var(--green);font-weight:700;">✓ Audit entry created</div>
-            </div>
+      <div class="ux-role-copy">
+        <div class="ux-role-pill">IT Admin</div>
+        <h3 class="ux-role-heading">Resolutions weren't<br><span>logged anywhere.</span></h3>
+        <div class="ux-card-stack">
+          <div class="ux-card ux-card-problem">
+            <div class="ux-card-label">Problem</div>
+            <div class="ux-card-body">When a manager resolved an issue, nothing recorded what happened or when — audits relied on memory and scattered emails after the fact.</div>
+          </div>
+          <div class="ux-card ux-card-decision">
+            <div class="ux-card-label">UX Decision</div>
+            <div class="ux-card-body">Every "Mark as Resolved" action auto-generates a timestamped audit log entry, with a confirmation screen so the manager sees it happen.</div>
+          </div>
+          <div class="ux-card ux-card-outcome">
+            <div class="ux-card-label">Outcome</div>
+            <div class="ux-card-body">100% of resolutions are now captured automatically, giving IT and compliance a complete, exportable audit trail with zero manual entry.</div>
           </div>
         </div>
-        <p class="flow-caption">Confirmation + automatic audit log entry</p>
-      </div>
-      <div class="flow-item">
-        <div class="flow-phone">
-          <div class="flow-phone-notch"></div>
-          <div class="flow-phone-screen">
-            <div class="fs-label">Daily Summary</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:6px;">
-              <div style="background:rgba(0,128,98,0.08);border-radius:5px;padding:5px;text-align:center;">
-                <div style="font-size:14px;font-weight:900;color:var(--green);">12</div>
-                <div style="font-size:7px;color:#555;">Resolved</div>
-              </div>
-              <div style="background:rgba(237,37,37,0.08);border-radius:5px;padding:5px;text-align:center;">
-                <div style="font-size:14px;font-weight:900;color:var(--red);">0</div>
-                <div style="font-size:7px;color:#555;">Pending</div>
-              </div>
-            </div>
-            <div style="background:var(--bg);border-radius:5px;padding:5px;font-size:7px;color:#555;">Score: 97% · All critical items closed</div>
-          </div>
-        </div>
-        <p class="flow-caption">Daily summary report — exportable for district review</p>
       </div>
     </div>
+
   </div>
 </section>
 
