@@ -333,15 +333,16 @@
     /* headline */
     .hero-h1 {
       font-family: 'Manrope', sans-serif;
-      font-size: clamp(42px, 6vw, 82px);
-      font-weight: 900; line-height: 1.15;
+      font-size: clamp(28px, 3.8vw, 56px);
+      font-weight: 900; line-height: 1.2;
       letter-spacing: -0.03em; color: #fff;
       margin-bottom: 0;
     }
     .hero-line1 {
       display: flex; align-items: center; justify-content: center;
-      flex-wrap: wrap; gap: 0 12px;
+      flex-wrap: nowrap; gap: 0 10px;
       color: #fff; font-weight: 900;
+      white-space: nowrap;
       opacity: 0; transform: translateY(22px);
       transition: opacity 0.65s 0.25s, transform 0.65s 0.25s;
       margin-bottom: 8px;
@@ -353,7 +354,7 @@
     }
     .hero-line3 .serif-italic {
       font-family: 'Caveat', cursive; font-weight: 700;
-      letter-spacing: -0.01em; font-size: clamp(56px, 8vw, 108px);
+      letter-spacing: -0.01em; font-size: clamp(36px, 5vw, 72px);
     }
     .hero-line1.show, .hero-line2.show, .hero-line3.show { opacity: 1; transform: none; }
 
@@ -361,7 +362,7 @@
     .hero-swap {
       display: inline-block;
       font-family: 'Caveat', cursive; font-weight: 700;
-      font-size: clamp(42px, 6vw, 82px);
+      font-size: clamp(30px, 4.2vw, 62px);
       letter-spacing: -0.01em;
       color: #fff;
       background: rgba(255,255,255,0.15);
