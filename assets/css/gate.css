@@ -1,0 +1,218 @@
+/* ════════════════════════════════════════════════════════════
+   PASSWORD GATE — soft access barrier for confidential work
+   Theme-aware: reads the same tokens as assets/css/theme.css
+   ════════════════════════════════════════════════════════════ */
+
+/* Hide the page behind the gate until unlocked. The `gated` class is
+   set by the inline bootstrap in <head>, so nothing flashes on load. */
+html.gated,
+html.gated body { overflow: hidden; height: 100%; }
+html.gated body > *:not(#gate) { display: none !important; }
+
+#gate {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: var(--t-bg, #fff);
+  font-family: 'Plus Jakarta Sans', 'Manrope', system-ui, sans-serif;
+}
+html:not(.gated) #gate { display: none; }
+
+/* soft brand glow behind the card */
+#gate::before,
+#gate::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(80px);
+  opacity: 0.5;
+}
+#gate::before {
+  width: 460px; height: 320px;
+  top: -60px; left: -80px;
+  background: var(--gate-glow-a, rgba(238, 44, 61, 0.16));
+}
+#gate::after {
+  width: 380px; height: 300px;
+  bottom: -70px; right: -60px;
+  background: var(--gate-glow-b, rgba(33, 150, 243, 0.14));
+}
+
+.gate-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 440px;
+  background: var(--t-cs-surface, #fff);
+  border: 1px solid var(--t-cs-divider, #e5e5e5);
+  border-radius: 22px;
+  padding: 44px 40px 36px;
+  box-shadow: var(--t-shadow-lg, 0 16px 48px rgba(0, 0, 0, 0.1));
+  text-align: center;
+  animation: gateIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes gateIn {
+  from { opacity: 0; transform: translateY(16px) scale(0.98); }
+  to   { opacity: 1; transform: none; }
+}
+
+.gate-lock {
+  width: 56px; height: 56px;
+  margin: 0 auto 22px;
+  border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--t-cs-red-05, rgba(238, 44, 61, 0.06));
+  border: 1px solid var(--t-cs-red-15, rgba(238, 44, 61, 0.15));
+  color: var(--t-cs-red, #ee2c3d);
+}
+.gate-lock svg { width: 25px; height: 25px; }
+
+.gate-eyebrow {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--t-cs-red, #ee2c3d);
+  margin-bottom: 12px;
+}
+.gate-title {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  font-size: 30px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--t-cs-text, #0b0b0b);
+  margin-bottom: 12px;
+}
+.gate-body {
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--t-cs-muted, rgba(11, 11, 11, 0.6));
+  margin-bottom: 26px;
+}
+
+.gate-form { display: flex; flex-direction: column; gap: 10px; }
+.gate-field { position: relative; }
+.gate-input {
+  width: 100%;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--t-cs-text, #0b0b0b);
+  background: var(--cs-s2, #f9f9fb);
+  border: 1.5px solid var(--t-cs-divider, #e0e0e0);
+  border-radius: 11px;
+  padding: 14px 46px 14px 16px;
+  outline: none;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.gate-input::placeholder { color: var(--cs-t3, #999); font-weight: 400; }
+.gate-input:focus {
+  border-color: var(--t-cs-red, #ee2c3d);
+  box-shadow: 0 0 0 3px var(--t-cs-red-15, rgba(238, 44, 61, 0.15));
+}
+
+/* show / hide password */
+.gate-peek {
+  position: absolute;
+  right: 6px; top: 50%;
+  transform: translateY(-50%);
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  border: none; background: none; padding: 0;
+  color: var(--cs-t3, #888);
+  cursor: pointer;
+  border-radius: 9px;
+  transition: color 0.18s ease, background 0.18s ease;
+}
+.gate-peek:hover { color: var(--t-cs-text, #0b0b0b); background: var(--cs-s3, #f0f0f0); }
+.gate-peek svg { width: 17px; height: 17px; }
+.gate-peek .gate-eye-off { display: none; }
+.gate-peek.is-shown .gate-eye-off { display: block; }
+.gate-peek.is-shown .gate-eye-on { display: none; }
+
+.gate-submit {
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--red-fg, #fff);
+  background: var(--red-fill, #ee2c3d);
+  border: none;
+  border-radius: 11px;
+  padding: 14px 20px;
+  cursor: pointer;
+  transition: transform 0.18s ease, filter 0.18s ease, box-shadow 0.18s ease;
+}
+.gate-submit:hover { transform: translateY(-1px); filter: brightness(1.06); box-shadow: 0 6px 20px var(--t-cs-red-15, rgba(238, 44, 61, 0.2)); }
+.gate-submit:active { transform: none; }
+
+/* error state */
+.gate-error {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--t-cs-red, #ee2c3d);
+  min-height: 18px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.gate-error.is-visible { opacity: 1; }
+.gate-card.is-wrong { animation: gateShake 0.42s cubic-bezier(0.36, 0.07, 0.19, 0.97); }
+@keyframes gateShake {
+  10%, 90% { transform: translateX(-2px); }
+  20%, 80% { transform: translateX(4px); }
+  30%, 50%, 70% { transform: translateX(-7px); }
+  40%, 60% { transform: translateX(7px); }
+}
+
+.gate-foot {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--t-cs-divider, #ebebeb);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--t-cs-muted, rgba(11, 11, 11, 0.6));
+}
+.gate-foot a {
+  color: var(--t-cs-red, #ee2c3d);
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.18s ease;
+}
+.gate-foot a:hover { border-bottom-color: currentColor; }
+.gate-back {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 18px;
+  font-size: 13px; font-weight: 600;
+  color: var(--cs-t2, #555);
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+.gate-back:hover { color: var(--t-cs-text, #0b0b0b); }
+
+/* the theme switch, pinned so the gate can be read in either theme */
+#gate .theme-toggle {
+  position: absolute;
+  top: 22px; right: 22px;
+  z-index: 2;
+}
+
+html[data-theme="dark"] {
+  --gate-glow-a: rgba(255, 123, 135, 0.13);
+  --gate-glow-b: rgba(92, 180, 255, 0.10);
+}
+
+@media (max-width: 480px) {
+  .gate-card { padding: 36px 24px 28px; border-radius: 18px; }
+  .gate-title { font-size: 25px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gate-card, .gate-card.is-wrong { animation: none; }
+}
