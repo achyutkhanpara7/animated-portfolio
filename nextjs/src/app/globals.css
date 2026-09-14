@@ -3,6 +3,16 @@
    Fonts: Manrope / Inter / Caveat loaded via Google Fonts in layout.tsx
 ════════════════════════════════════════ */
 
+/* Font-family variables the rules below reference. Without these the
+   var() is invalid at computed-value time and every font-family
+   declaration falls back to the browser default (Times). */
+:root {
+  --font-manrope: 'Manrope';
+  --font-inter: 'Inter';
+  --font-caveat: 'Caveat';
+  --font-poppins: 'Poppins';
+}
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; font-size: 16px; }
 body {
