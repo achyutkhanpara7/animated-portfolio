@@ -21,7 +21,7 @@ export default function AboutPage() {
 
   return (
     <>
-      <nav id="nav" className="visible">
+      <nav id="nav">
         <Link href="/" className="nav-brand">
           <div className="nav-avatar"><img src="/assets/images/profile.png" alt="Achyut" /></div>
           <span className="nav-name">ACHYUT</span>

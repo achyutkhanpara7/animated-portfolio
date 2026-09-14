@@ -29,8 +29,8 @@ export default function GRCPage() {
   ]
 
   return (
-    <div className="cs-page grc">
-      <nav id="nav" className="visible nav-cs" style={{ fontFamily:"'Plus Jakarta Sans', sans-serif" }}>
+    <>
+      <nav id="nav" style={{ fontFamily:"'Plus Jakarta Sans', sans-serif" }}>
         <Link href="/" style={{ display:'flex', alignItems:'center', gap:'6px', textDecoration:'none', color:'inherit' }}>
           <div className="nav-avatar"><img src="/assets/images/profile.png" alt="Achyut" /></div>
           <span className="nav-name">ACHYUT</span>
@@ -153,6 +153,6 @@ export default function GRCPage() {
           <Link href="/" className="fbtn fbtn-ghost">← Back to Work</Link>
         </div>
       </footer>
-    </div>
+    </>
   )
 }
