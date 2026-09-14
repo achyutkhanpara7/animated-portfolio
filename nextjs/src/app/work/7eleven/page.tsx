@@ -203,8 +203,8 @@ export default function SevenElevenPage() {
   }, [])
 
   return (
-    <>
-      <nav id="nav">
+    <div className="cs-page seven">
+      <nav id="nav" className="visible nav-cs">
         <Link href="/" className="nav-back">← Back</Link>
         <div className="nav-avatar"><img src="/assets/images/profile.png" alt="Achyut" /></div>
         <span className="nav-name">ACHYUT</span>
@@ -633,6 +633,6 @@ export default function SevenElevenPage() {
           </div>
         </FadeUp>
       </footer>
-    </>
+    </div>
   )
 }
