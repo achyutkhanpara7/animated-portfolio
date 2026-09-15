@@ -1102,12 +1102,12 @@
 
     /* ── panel stage: chips flanking a cut-out figure, cards in front ── */
     .ax-stage {
-      position: relative; flex: 1; min-height: 372px;
+      position: relative; flex: 1; min-height: 396px;
       display: block; overflow: visible;
     }
-    .ax-chipcol { position: absolute; top: 0; z-index: 5; display: grid; gap: 16px; width: 45%; }
+    .ax-chipcol { position: absolute; top: 30%; z-index: 5; display: grid; gap: 14px; width: 43%; }
     .ax-chipcol.left  { left: 0; }
-    .ax-chipcol.right { right: 0; padding-top: 26px; }
+    .ax-chipcol.right { right: 0; padding-top: 34px; }
     .ax-chipcol .ax-chip {
       position: static; padding: 9px 12px;
       animation: axFloat 7s ease-in-out infinite;
@@ -1121,7 +1121,7 @@
       display: flex; align-items: flex-end; justify-content: center;
     }
     .ax-figure img {
-      height: 108%; width: auto; max-width: 88%; object-fit: contain;
+      height: 112%; width: auto; max-width: 90%; object-fit: contain;
       object-position: bottom center; display: block;
       filter: drop-shadow(0 22px 40px rgba(14,24,44,.16));
     }
@@ -1143,11 +1143,33 @@
     }
     .ax-hpapers .ax-paper { width: 116px; height: 96px; }
 
+    /* on a phone the columns cannot flank the figure — stack them instead:
+       chips in a 2-up row, then the figure, then the cards over its base */
     @media (max-width: 760px) {
-      .ax-stage { min-height: 320px; }
-      .ax-chipcol { width: 50%; gap: 10px; }
-      .ax-chipcol .ax-chip-v { font-size: 11.5px; }
-      .ax-hpapers .ax-paper { width: 96px; height: 88px; }
+      .ax-stage {
+        min-height: auto; display: grid; grid-template-columns: 1fr 1fr;
+        gap: 10px; align-items: start;
+      }
+      .ax-chipcol { position: static; width: auto; top: auto; gap: 10px; }
+      .ax-chipcol.right { padding-top: 0; }
+      .ax-chipcol .ax-chip-v { font-size: 11.5px; white-space: normal; }
+      .ax-figure {
+        grid-column: 1 / -1; position: relative; inset: auto;
+        height: 248px; margin-top: 4px;
+      }
+      .ax-figure img { height: 100%; max-width: 100%; }
+      .ax-figure-glow { width: 62%; height: 70%; }
+      .ax-hpapers {
+        grid-column: 1 / -1; position: relative; left: auto; bottom: auto;
+        transform: none; margin-top: -46px;
+      }
+      .ax-hpapers .ax-paper { width: 88px; height: 84px; }
+      .ax-hpapers .ax-paper:nth-child(1) { margin-right: -6px; }
+      .ax-hpapers .ax-paper:nth-child(3) { margin-left: -6px; }
+      /* keep the ask bar on one row */
+      .ax-hpanel .ax-ask-row { flex-wrap: nowrap; gap: 6px; }
+      .ax-hpanel .ax-ask-chip { padding: 6px 11px; font-size: 11.5px; }
+      .ax-hpanel .ax-ask-row .ax-icon-btn { width: 30px; height: 30px; }
     }
 
   </style>
@@ -1292,8 +1314,8 @@
 
           <div class="ax-figure">
             <span class="ax-figure-glow"></span>
-            <!-- swap in a transparent-background cut-out; falls back to the orb -->
-            <img id="axCutout" src="assets/images/profile-cutout.png" alt="Achyut Khanpara" />
+            <!-- transparent-background cut-out; falls back to the orb if missing -->
+            <img id="axCutout" src="assets/images/Achyut_Hero.png" alt="Achyut Khanpara" />
             <span class="ax-orb-fallback"><span class="ax-blobart"></span></span>
           </div>
 
