@@ -1100,6 +1100,56 @@
       .ax-stage { min-height: 168px; }
     }
 
+    /* ── panel stage: chips flanking a cut-out figure, cards in front ── */
+    .ax-stage {
+      position: relative; flex: 1; min-height: 372px;
+      display: block; overflow: visible;
+    }
+    .ax-chipcol { position: absolute; top: 0; z-index: 5; display: grid; gap: 16px; width: 45%; }
+    .ax-chipcol.left  { left: 0; }
+    .ax-chipcol.right { right: 0; padding-top: 26px; }
+    .ax-chipcol .ax-chip {
+      position: static; padding: 9px 12px;
+      animation: axFloat 7s ease-in-out infinite;
+    }
+    .ax-chipcol.right .ax-chip { animation-delay: 1.3s; }
+    .ax-chipcol .ax-chip:nth-child(2) { animation-delay: 2.4s; }
+    .ax-chipcol .ax-chip-v { font-size: 12.5px; white-space: nowrap; }
+
+    .ax-figure {
+      position: absolute; inset: 0; z-index: 2;
+      display: flex; align-items: flex-end; justify-content: center;
+    }
+    .ax-figure img {
+      height: 108%; width: auto; max-width: 88%; object-fit: contain;
+      object-position: bottom center; display: block;
+      filter: drop-shadow(0 22px 40px rgba(14,24,44,.16));
+    }
+    .ax-figure-glow {
+      position: absolute; left: 50%; bottom: 4%; transform: translateX(-50%);
+      width: 78%; height: 78%; border-radius: 50%; z-index: -1;
+      background: radial-gradient(circle at 50% 45%, rgba(255,255,255,.95), rgba(214,232,255,.55) 52%, transparent 74%);
+      filter: blur(14px);
+    }
+    /* shown only when no cut-out file is present */
+    .ax-orb-fallback { display: none; position: absolute; bottom: 24%; left: 50%; transform: translateX(-50%); }
+    .ax-hpanel.no-photo .ax-orb-fallback { display: grid; place-items: center; }
+    .ax-hpanel.no-photo .ax-figure img { display: none; }
+    .ax-orb-fallback .ax-blobart { width: 132px; height: 104px; filter: blur(9px) saturate(1.3); }
+
+    .ax-hpapers {
+      position: absolute; left: 50%; bottom: 0; transform: translateX(-50%);
+      z-index: 4; display: flex; justify-content: center; padding-bottom: 0;
+    }
+    .ax-hpapers .ax-paper { width: 116px; height: 96px; }
+
+    @media (max-width: 760px) {
+      .ax-stage { min-height: 320px; }
+      .ax-chipcol { width: 50%; gap: 10px; }
+      .ax-chipcol .ax-chip-v { font-size: 11.5px; }
+      .ax-hpapers .ax-paper { width: 96px; height: 88px; }
+    }
+
   </style>
 </head>
 <body>
@@ -1217,31 +1267,40 @@
           <div class="ax-hpanel-sub">Here&rsquo;s what I&rsquo;ve been building</div>
         </div>
 
-        <div class="ax-hchips">
-          <div class="ax-chip">
-            <span class="ax-chip-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg></span>
-            <span><span class="ax-chip-k">Role</span><span class="ax-chip-v">UX &amp; Product Designer</span></span>
-          </div>
-          <div class="ax-chip">
-            <span class="ax-chip-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 2.5 15 0 18M12 3c-2.5 2.6-2.5 15 0 18"/></svg></span>
-            <span><span class="ax-chip-k">Based in</span><span class="ax-chip-v">Dallas, TX</span></span>
-          </div>
-          <div class="ax-chip">
-            <span class="ax-chip-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/></svg></span>
-            <span><span class="ax-chip-k">Focus</span><span class="ax-chip-v">Enterprise AI UX</span></span>
-          </div>
-          <div class="ax-chip">
-            <span class="ax-chip-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2"/><path d="M9 2h6"/></svg></span>
-            <span><span class="ax-chip-k">Replies in</span><span class="ax-chip-v">Under 24 hrs</span></span>
-          </div>
-        </div>
-
         <div class="ax-stage">
-          <div class="ax-orb"><span class="ax-blobart"></span></div>
+          <div class="ax-chipcol left">
+            <div class="ax-chip">
+              <span class="ax-chip-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg></span>
+              <span><span class="ax-chip-k">Role</span><span class="ax-chip-v">Product Designer</span></span>
+            </div>
+            <div class="ax-chip">
+              <span class="ax-chip-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/></svg></span>
+              <span><span class="ax-chip-k">Focus</span><span class="ax-chip-v">Enterprise AI UX</span></span>
+            </div>
+          </div>
+
+          <div class="ax-chipcol right">
+            <div class="ax-chip">
+              <span class="ax-chip-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 2.5 15 0 18M12 3c-2.5 2.6-2.5 15 0 18"/></svg></span>
+              <span><span class="ax-chip-k">Based in</span><span class="ax-chip-v">Dallas, TX</span></span>
+            </div>
+            <div class="ax-chip">
+              <span class="ax-chip-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2"/><path d="M9 2h6"/></svg></span>
+              <span><span class="ax-chip-k">Replies in</span><span class="ax-chip-v">Under 24 hrs</span></span>
+            </div>
+          </div>
+
+          <div class="ax-figure">
+            <span class="ax-figure-glow"></span>
+            <!-- swap in a transparent-background cut-out; falls back to the orb -->
+            <img id="axCutout" src="assets/images/profile-cutout.png" alt="Achyut Khanpara" />
+            <span class="ax-orb-fallback"><span class="ax-blobart"></span></span>
+          </div>
+
           <div class="ax-hpapers">
-            <a class="ax-paper" href="case-study.html"><b>GRC Platform</b><i style="width:90%"></i><i style="width:70%"></i><i style="width:80%"></i><i style="width:52%"></i><u>Case study →</u></a>
-            <span class="ax-paper"><b>WorldKit DS</b><i style="width:78%"></i><i style="width:92%"></i><i style="width:60%"></i><i style="width:84%"></i><u>Coming soon</u></span>
-            <a class="ax-paper" href="case-study-7eleven.html"><b>7-Eleven Ops</b><i style="width:86%"></i><i style="width:64%"></i><i style="width:88%"></i><i style="width:58%"></i><u>Case study →</u></a>
+            <a class="ax-paper" href="case-study.html"><b>GRC Platform</b><i style="width:90%"></i><i style="width:70%"></i><i style="width:80%"></i><u>Case study →</u></a>
+            <span class="ax-paper"><b>WorldKit DS</b><i style="width:78%"></i><i style="width:92%"></i><i style="width:60%"></i><u>Coming soon</u></span>
+            <a class="ax-paper" href="case-study-7eleven.html"><b>7-Eleven Ops</b><i style="width:86%"></i><i style="width:64%"></i><i style="width:88%"></i><u>Case study →</u></a>
           </div>
         </div>
 
@@ -1775,6 +1834,14 @@
         spot.style.top  = (e.clientY - r.top)  + 'px';
       });
     });
+  }
+
+  /* ── no cut-out on disk yet? fall back to the orb ────────────── */
+  var cutout = $('#axCutout'), panel = $('#axPanel');
+  if (cutout && panel) {
+    var noPhoto = function () { panel.classList.add('no-photo'); };
+    cutout.addEventListener('error', noPhoto);
+    if (cutout.complete && cutout.naturalWidth === 0) noPhoto();
   }
 
   /* ── hero visual drifts with the pointer ─────────────────────── */
