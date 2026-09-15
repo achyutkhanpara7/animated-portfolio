@@ -1021,6 +1021,85 @@
       .ax-hero-h1 .script > i { font-size: 1.12em; }
     }
 
+    /* ════════════════════════════════════════════════════════════
+       HERO: two columns again — copy left, "design OS" panel right
+    ════════════════════════════════════════════════════════════ */
+    .ax-hero-inner {
+      grid-template-columns: minmax(0, 1.02fr) minmax(0, .98fr);
+      max-width: 1240px; text-align: left; gap: 48px;
+    }
+    .ax-hero-copy { align-items: flex-start; }
+    .ax-hero-h1 { max-width: 13ch; font-size: clamp(34px, 4.1vw, 58px); }
+    .ax-hero-sub { margin-left: 0; margin-right: 0; max-width: 46ch; font-size: 16px; }
+    .ax-cta-row, .ax-hero-stats, .ax-trust { justify-content: flex-start; }
+    .ax-hero-stats { gap: 0 24px; }
+    .ax-hstat b { font-size: 26px; }
+
+    .ax-hpanel {
+      position: relative; border-radius: 30px; padding: 18px 20px 0;
+      display: flex; flex-direction: column; gap: 16px; overflow: hidden;
+      background: linear-gradient(178deg, rgba(255,255,255,.62), rgba(232,241,249,.72));
+      border: 1px solid rgba(255,255,255,.92);
+      backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px);
+      box-shadow: 0 48px 110px -44px rgba(14,24,44,.52), inset 0 1px 0 rgba(255,255,255,.95);
+      opacity: 0; transform: translateY(26px) scale(.975);
+      transition: opacity 1.05s var(--ease) .5s, transform 1.05s var(--ease) .5s;
+    }
+    .ax-hero.lit .ax-hpanel { opacity: 1; transform: none; }
+    .ax-hpanel::before {
+      content: ''; position: absolute; left: 50%; top: -22%; width: 130%; height: 62%;
+      transform: translateX(-50%); pointer-events: none;
+      background: radial-gradient(closest-side, rgba(31,109,255,.13), transparent 72%);
+    }
+    .ax-hpanel-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; position: relative; }
+    .ax-hpanel-title { font-size: 21px; font-weight: 600; letter-spacing: -.025em; }
+    .ax-hpanel-sub { margin-top: 3px; font-size: 13px; color: var(--ink-3); }
+
+    .ax-hchips { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; position: relative; }
+    .ax-hchips .ax-chip { position: static; animation: none; padding: 10px 13px; }
+    .ax-hchips .ax-chip-v { font-size: 12.5px; white-space: normal; }
+
+    /* centre stage: a slow-morphing orb with the case-study cards in front */
+    .ax-stage { position: relative; flex: 1; min-height: 212px; display: flex; align-items: flex-end; justify-content: center; }
+    .ax-orb {
+      position: absolute; left: 50%; top: -4%; transform: translateX(-50%);
+      display: grid; place-items: center;
+    }
+    .ax-orb::after {
+      content: ''; position: absolute; width: 190px; height: 190px; border-radius: 50%;
+      border: 1px solid rgba(31,109,255,.14); animation: axRing 7s ease-in-out infinite;
+    }
+    @keyframes axRing { 0%,100% { transform: scale(1); opacity: .9 } 50% { transform: scale(1.1); opacity: .4 } }
+    .ax-stage .ax-blobart { width: 118px; height: 92px; filter: blur(9px) saturate(1.3); }
+
+    .ax-hpapers { position: relative; z-index: 3; display: flex; justify-content: center; padding-bottom: 6px; }
+    .ax-hpapers .ax-paper {
+      width: 112px; height: 100px; text-decoration: none; display: block;
+      background: rgba(255,255,255,.9);
+    }
+    .ax-hpapers .ax-paper u {
+      display: block; margin-top: 6px; font-size: 8.5px; font-weight: 600;
+      color: var(--blue); text-decoration: none;
+    }
+    .ax-hpapers .ax-paper:nth-child(1) { transform: rotate(-7deg) translateY(12px); margin-right: -10px; }
+    .ax-hpapers .ax-paper:nth-child(2) { transform: translateY(-8px); z-index: 2; }
+    .ax-hpapers .ax-paper:nth-child(3) { transform: rotate(7deg) translateY(12px); margin-left: -10px; }
+    .ax-hpapers .ax-paper:hover { transform: translateY(-16px) rotate(0deg) scale(1.07); z-index: 5; }
+
+    .ax-hpanel .ax-askbar { margin: 0 -20px; }
+
+    @media (max-width: 1080px) {
+      .ax-hero-inner { grid-template-columns: 1fr; }
+      .ax-hpanel { max-width: 560px; }
+      .ax-hero-h1 { max-width: 18ch; }
+    }
+    @media (max-width: 760px) {
+      .ax-hpanel { padding: 16px 16px 0; border-radius: 24px; }
+      .ax-hchips { grid-template-columns: 1fr; }
+      .ax-hpanel .ax-askbar { margin: 0 -16px; }
+      .ax-stage { min-height: 168px; }
+    }
+
   </style>
 </head>
 <body>
@@ -1117,6 +1196,66 @@
           <b>Citi</b> <b>AbbVie</b> <b>Samsung</b> <b>7-Eleven</b>
         </div>
       </div>
+
+      <!-- right column: a small "design OS" panel, portfolio content -->
+      <aside class="ax-hpanel" id="axPanel">
+        <div class="ax-hpanel-top">
+          <div class="ax-icon-group">
+            <button class="ax-icon-btn" aria-label="Recommendations" data-scroll="ax-voices"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-5A8 8 0 1 1 21 12z"/></svg></button>
+            <button class="ax-icon-btn" aria-label="Toolkit" data-scroll="ax-toolkit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 14.6a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-2.7 1.1V21a2 2 0 1 1-4 0v-.2a1.6 1.6 0 0 0-2.7-1.1l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A1.6 1.6 0 0 0 3 14.6a2 2 0 1 1 0-4 1.6 1.6 0 0 0 1.7-2.7l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 2.7-1.1V3a2 2 0 1 1 4 0v.2a1.6 1.6 0 0 0 2.7 1.1l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0 1.1 2.7 2 2 0 1 1 0 4h-.2z"/></svg></button>
+            <button class="ax-icon-btn" aria-label="Snapshot" data-scroll="ax-snapshot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></svg></button>
+          </div>
+          <a href="mailto:achyutkhanpara7@gmail.com" class="ax-share">
+            <span class="ax-stack"><span>HD</span><span>ER</span><span>SC</span></span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 16V4"/><path d="M8 8l4-4 4 4"/><path d="M4 15v3a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-3"/></svg>
+            Hire me
+          </a>
+        </div>
+
+        <div class="ax-hpanel-head">
+          <div class="ax-hpanel-title">Good to see you 👋</div>
+          <div class="ax-hpanel-sub">Here&rsquo;s what I&rsquo;ve been building</div>
+        </div>
+
+        <div class="ax-hchips">
+          <div class="ax-chip">
+            <span class="ax-chip-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg></span>
+            <span><span class="ax-chip-k">Role</span><span class="ax-chip-v">UX &amp; Product Designer</span></span>
+          </div>
+          <div class="ax-chip">
+            <span class="ax-chip-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 2.5 15 0 18M12 3c-2.5 2.6-2.5 15 0 18"/></svg></span>
+            <span><span class="ax-chip-k">Based in</span><span class="ax-chip-v">Dallas, TX</span></span>
+          </div>
+          <div class="ax-chip">
+            <span class="ax-chip-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/></svg></span>
+            <span><span class="ax-chip-k">Focus</span><span class="ax-chip-v">Enterprise AI UX</span></span>
+          </div>
+          <div class="ax-chip">
+            <span class="ax-chip-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2"/><path d="M9 2h6"/></svg></span>
+            <span><span class="ax-chip-k">Replies in</span><span class="ax-chip-v">Under 24 hrs</span></span>
+          </div>
+        </div>
+
+        <div class="ax-stage">
+          <div class="ax-orb"><span class="ax-blobart"></span></div>
+          <div class="ax-hpapers">
+            <a class="ax-paper" href="case-study.html"><b>GRC Platform</b><i style="width:90%"></i><i style="width:70%"></i><i style="width:80%"></i><i style="width:52%"></i><u>Case study →</u></a>
+            <span class="ax-paper"><b>WorldKit DS</b><i style="width:78%"></i><i style="width:92%"></i><i style="width:60%"></i><i style="width:84%"></i><u>Coming soon</u></span>
+            <a class="ax-paper" href="case-study-7eleven.html"><b>7-Eleven Ops</b><i style="width:86%"></i><i style="width:64%"></i><i style="width:88%"></i><i style="width:58%"></i><u>Case study →</u></a>
+          </div>
+        </div>
+
+        <div class="ax-askbar">
+          <div class="ax-ask-input"><b>Ask about my process, case studies or availability…</b><span class="ax-caret"></span></div>
+          <div class="ax-ask-row">
+            <button class="ax-ask-chip" data-scroll="ax-work"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/></svg> See the work</button>
+            <button class="ax-ask-chip" data-scroll="ax-about">How I think</button>
+            <span class="ax-ask-spacer"></span>
+            <button class="ax-icon-btn" aria-label="Recommendations" data-scroll="ax-voices"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 12a7 7 0 0 0 14 0M12 19v2"/></svg></button>
+            <button class="ax-icon-btn" aria-label="Contact" data-scroll="ax-connect"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 10v4M8 6v12M12 3v18M16 6v12M20 10v4"/></svg></button>
+          </div>
+        </div>
+      </aside>
     </div>
 
     <button class="ax-cue" data-scroll="ax-snapshot">Scroll<i></i></button>
