@@ -6,7 +6,7 @@
   <title>Achyut Khanpara — UX / Product Designer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@700&display=swap" rel="stylesheet" />
   <style>
 
     /* ════════════════════════════════════════════════════════════════
@@ -777,7 +777,7 @@
       font-size: clamp(40px, 6.2vw, 82px); font-weight: 600;
       letter-spacing: -.045em; line-height: 1.02; color: var(--ink);
     }
-    .ax-hero-h1 .w { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: .06em; }
+    .ax-hero-h1 .w { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: .04em; }
     .ax-hero-h1 .w > i {
       display: inline-block; font-style: normal;
       transform: translateY(104%);
@@ -989,6 +989,38 @@
       text-shadow: 0 2px 10px rgba(0,0,0,.14);
     }
 
+    /* ── hero is a single centred column now that the portrait is gone ── */
+    .ax-hero-inner { grid-template-columns: 1fr; max-width: 1000px; text-align: center; }
+    .ax-hero-copy { display: flex; flex-direction: column; align-items: center; }
+    .ax-hero-h1 { max-width: 15ch; line-height: 1.0; font-size: clamp(38px, 5.6vw, 74px); }
+    .ax-hero-sub { margin-left: auto; margin-right: auto; max-width: 60ch; }
+    .ax-hero-sub em { font-style: italic; color: var(--ink); font-weight: 500; }
+    .ax-cta-row, .ax-hero-stats, .ax-trust { justify-content: center; }
+
+    /* handwritten words, lifted from the classic hero */
+    .ax-hero-h1 .script > i {
+      font-family: 'Caveat', cursive; font-weight: 700;
+      font-size: 1.18em; letter-spacing: 0;
+    }
+    .ax-hero-h1 .script { padding-bottom: .2em; }   /* room for Caveat's descenders */
+
+    /* the highlight box sweeps out from the left, then the words drop in */
+    .ax-hero-h1 .hl { position: relative; padding-left: .34em; padding-right: .34em; }
+    .ax-hero-h1 .hl::before {
+      content: ''; position: absolute; inset: .16em 0 .2em; z-index: -1;
+      border-radius: 14px;
+      background: linear-gradient(100deg, rgba(31,109,255,.16), rgba(123,92,240,.18));
+      box-shadow: inset 0 0 0 1px rgba(31,109,255,.1);
+      transform: scaleX(0); transform-origin: left center;
+      transition: transform .75s var(--ease) calc(var(--d, 0) * 1ms + 120ms);
+    }
+    .ax-hero.lit .ax-hero-h1 .hl::before { transform: scaleX(1); }
+
+    @media (max-width: 760px) {
+      .ax-hero-h1 { max-width: 100%; }
+      .ax-hero-h1 .script > i { font-size: 1.12em; }
+    }
+
   </style>
 </head>
 <body>
@@ -1038,21 +1070,25 @@
 
     <div class="ax-hero-inner">
       <div class="ax-hero-copy">
-        <div class="ax-avail"><span class="ax-avail-dot"></span>Available for work &nbsp;·&nbsp; Open to relocate anywhere in the USA</div>
+        <div class="ax-avail"><span class="ax-avail-dot"></span>Available for Work &nbsp;·&nbsp; Open to Relocate in the USA</div>
 
-        <p class="ax-hi">Hello, I&rsquo;m <b>Achyut Khanpara</b> 👋</p>
+        <p class="ax-hi">Hello, I&rsquo;m <b>Achyut</b> 👋</p>
 
         <h1 class="ax-hero-h1" id="axHeadline">
-          <span class="w" style="--d:0"><i>Complex</i></span>
-          <span class="w" style="--d:70"><i>products,</i></span>
-          <span class="w" style="--d:140"><i>made</i></span>
-          <span class="w" style="--d:210"><i class="grad">obvious.</i></span>
+          <span class="w" style="--d:0"><i>I</i></span>
+          <span class="w" style="--d:60"><i>build</i></span>
+          <span class="w" style="--d:120"><i>AI</i></span>
+          <span class="w" style="--d:180"><i>products</i></span>
+          <span class="w" style="--d:240"><i>that</i></span>
+          <span class="w script hl" style="--d:330"><i>reduce friction</i></span>
+          <span class="w" style="--d:440"><i>and</i></span>
+          <span class="w script grad" style="--d:500"><i>delight users.</i></span>
         </h1>
 
         <p class="ax-hero-sub">
-          UX &amp; Product Designer at <b>WorldLink Labs</b>, shaping AI-powered platforms,
-          design systems and multi-persona dashboards for <b>Fortune 100</b> teams —
-          turning enterprise complexity into something people actually understand.
+          Sitting at the intersection of <em>AI, enterprise UX, and business impact</em>
+          — I design products that reduce cost, increase adoption, and make complex
+          workflows feel <b>effortless</b>.
         </p>
 
         <div class="ax-cta-row">
@@ -1079,27 +1115,6 @@
         <div class="ax-trust">
           Trusted with work for
           <b>Citi</b> <b>AbbVie</b> <b>Samsung</b> <b>7-Eleven</b>
-        </div>
-      </div>
-
-      <div class="ax-hero-visual" id="axVisual">
-        <div class="ax-aurora"></div>
-        <div class="ax-pcard">
-          <span class="ax-ptag">Placeholder photo</span>
-          <img src="assets/images/profile.png" alt="Achyut Khanpara" />
-        </div>
-
-        <div class="ax-orbit o1" data-depth="18">
-          <span class="ax-orbit-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 2.5 15 0 18M12 3c-2.5 2.6-2.5 15 0 18"/></svg></span>
-          <span><span class="ax-orbit-k">Based in</span><span class="ax-orbit-v">Dallas, TX</span></span>
-        </div>
-        <div class="ax-orbit o2" data-depth="26">
-          <span class="ax-orbit-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/></svg></span>
-          <span><span class="ax-orbit-k">Focus</span><span class="ax-orbit-v">Enterprise AI UX</span></span>
-        </div>
-        <div class="ax-orbit o3" data-depth="14">
-          <span class="ax-orbit-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2"/><path d="M9 2h6"/></svg></span>
-          <span><span class="ax-orbit-k">Replies in</span><span class="ax-orbit-v">Under 24 hrs</span></span>
         </div>
       </div>
     </div>
