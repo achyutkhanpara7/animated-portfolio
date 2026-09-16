@@ -6,7 +6,7 @@
   <title>Achyut Khanpara — UX / Product Designer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@700&display=swap" rel="stylesheet" />
   <style>
 
     /* ════════════════════════════════════════════════════════════════
@@ -640,8 +640,6 @@
     /* the shared muted token lands at 4.05:1 on this canvas — under AA for
        text this small, so the hero and the nav run a darker slate. */
     .ax-hero, .ax-topnav { --ink-3: #505b70; }
-    /* the headline's setup lines are large text, so 3:1 is the bar */
-    .ax-hero { --ink-quiet: #6d7789; }
 
     /* the rest of this stylesheet predates a box-sizing reset; the hero and
        the nav opt in so that a declared width means the width you see. */
@@ -745,31 +743,7 @@
       gap: clamp(28px, 4vw, 68px); align-items: center;
       position: relative; z-index: 3; text-align: left;
     }
-    .ax-hero-copy { position: relative; display: flex; flex-direction: column; align-items: flex-start; }
-
-    /* prismatic light behind the copy: thin glass streaks raking across,
-       faded out at every edge so they never read as stripes. Decorative,
-       and the only thing in this column that isn't type. */
-    .ax-prism {
-      position: absolute; z-index: -1; pointer-events: none;
-      left: -14%; right: -22%; top: -18%; bottom: -12%;
-      background: repeating-linear-gradient(74deg,
-        transparent 0 38px,
-        rgba(255,255,255,.85) 38px 41px,
-        transparent 41px 52px,
-        rgba(214,228,255,.6) 52px 54px,
-        transparent 54px 118px);
-      -webkit-mask-image: radial-gradient(72% 62% at 38% 44%, #000 0%, rgba(0,0,0,.45) 52%, transparent 78%);
-      mask-image: radial-gradient(72% 62% at 38% 44%, #000 0%, rgba(0,0,0,.45) 52%, transparent 78%);
-      opacity: 0; filter: blur(.4px);
-      transition: opacity 1.4s var(--ease) 500ms;
-      animation: axRake 26s ease-in-out infinite;
-      will-change: transform;
-    }
-    .ax-hero.lit .ax-prism { opacity: .6; }
-    @keyframes axRake {
-      0%, 100% { transform: translate3d(0, 0, 0); }
-      50%      { transform: translate3d(26px, -14px, 0); }
+    .ax-hero-copy { display: flex; flex-direction: column; align-items: flex-start; }
     }
 
     /* cursor-following glow — desktop pointers only */
@@ -819,42 +793,57 @@
     }
     .ax-hero.lit .ax-h1-in { transform: none; }
     /* the setup lines sit back so the claim carries the weight */
-    .ax-h1-in.quiet { font-weight: 500; color: var(--ink-quiet); }
+    .ax-h1-in.quiet { font-weight: 500; color: var(--ink-3); }
 
-    /* the editorial accent: serif italic, in the page's own gradient */
-    .ax-serif {
-      font-family: 'Instrument Serif', 'Playfair Display', Georgia, serif;
-      font-style: italic; font-weight: 400;
-      font-size: 1.1em; letter-spacing: -.01em;
+    /* a highlighter stroke across the x-height, cut a little unevenly at
+       each end, so the caps break out of the top the way they do under a
+       real marker. */
+    .ax-mark { position: relative; display: inline-block; padding: 0 .1em; white-space: nowrap; }
+    .ax-mark > i { position: relative; z-index: 1; font-style: normal; }
+    .ax-mark::before {
+      content: ''; position: absolute; z-index: 0;
+      left: -.05em; right: -.06em; bottom: .03em; height: .6em;
+      border-radius: .1em .16em .12em .14em;
+      background: linear-gradient(100deg,
+        rgba(31,109,255,.26) 0%, rgba(96,124,255,.28) 42%,
+        rgba(139,108,240,.26) 72%, rgba(226,120,168,.2) 100%);
+      filter: blur(.6px);
+      transform: scaleX(0) rotate(-.45deg); transform-origin: left center;
+      transition: transform .9s var(--spring) 700ms;
     }
+    .ax-hero.lit .ax-mark::before { transform: scaleX(1) rotate(-.45deg); }
+    /* a breath of colour bleeding under the stroke, like ink on paper */
+    .ax-mark::after {
+      content: ''; position: absolute; z-index: 0;
+      left: 0; right: 0; bottom: .06em; height: .44em;
+      background: linear-gradient(100deg, rgba(31,109,255,.22), rgba(139,108,240,.2));
+      filter: blur(7px); opacity: 0;
+      transition: opacity .8s var(--ease) 900ms;
+    }
+    .ax-hero.lit .ax-mark::after { opacity: .55; }
+
 
     /* "AI products" — the highlight sweeps open left → right on load */
 
     /* the expressive keyword — handwritten, gradient, quietly rotating */
     .ax-morph {
       position: relative; display: inline-block; vertical-align: baseline;
-      width: var(--w, 5.6ch); height: 1.14em; margin-bottom: -.26em; margin-left: .2em; overflow: hidden;
+      width: var(--w, 5.6ch); height: .9em; margin-bottom: -.1em; margin-left: .18em; overflow: hidden;
       transition: width .75s var(--spring);
     }
     .ax-morph > i {
-      position: absolute; left: 0; bottom: 0; white-space: nowrap; font-style: italic;
-      font-family: 'Instrument Serif', 'Playfair Display', Georgia, serif;
-      font-weight: 400; font-size: 1.1em;
-      line-height: 1; letter-spacing: -.01em;
-      background: linear-gradient(100deg,
-        #1f6dff 0%, #5a6bf5 26%, #8f5cef 52%, #d158b4 76%, #f0577f 100%);
-      background-size: 220% 100%;
-      animation: axShimmer 11s ease-in-out infinite;
+      position: absolute; left: 0; bottom: 0; white-space: nowrap; font-style: normal;
+      font-family: 'Caveat', cursive; font-weight: 700; font-size: 1.2em;
+      line-height: .78; letter-spacing: 0;
+      background: linear-gradient(100deg, #1f6dff 0%, #7b5cf0 46%, #f0577f 92%);
+      background-size: 190% 100%;
       -webkit-background-clip: text; background-clip: text;
       color: transparent; -webkit-text-fill-color: transparent;
-      transform: translateY(125%); opacity: 0;
+      transform: translateY(105%); opacity: 0;
       transition: transform .65s var(--spring), opacity .4s var(--ease);
     }
-    /* a slow colour drift along the accent, so the gradient reads as light
-       moving through glass rather than a flat fill */
-    @keyframes axShimmer { 0%, 100% { background-position: 0% 50% } 50% { background-position: 100% 50% } }
     .ax-morph > i.on  { transform: none; opacity: 1; }
-    .ax-morph > i.out { transform: translateY(-125%); opacity: 0; }
+    .ax-morph > i.out { transform: translateY(-105%); opacity: 0; }
     /* first paint: the word writes itself in left → right */
     .ax-hero.lit .ax-morph[data-first] > i.on { animation: axWrite .95s var(--spring) 360ms both; }
     @keyframes axWrite {
@@ -1146,7 +1135,6 @@
       /* the separator becomes the line break, so both lines start together */
       .ax-avail i { display: block; width: 0; height: 0; overflow: hidden; }
       .ax-hero-h1 { margin-top: 20px; font-size: clamp(25px, 7.4vw, 38px); }
-      .ax-prism { left: -10%; right: -10%; }
       .ax-hero-sub { margin-top: 18px; font-size: 15.5px; }
       .ax-avail { font-size: 11.5px; padding: 6px 13px 6px 11px; gap: 8px; }
       .ax-cta-row { margin-top: 26px; gap: 10px; width: 100%; }
@@ -1204,7 +1192,9 @@
       .ax-avail-dot, .ax-chip, .ax-caret, .ax-cue i::after { animation: none !important; }
       .ax-hero.lit .ax-morph[data-first] > i.on { animation: none !important; clip-path: none !important; }
       .ax-stag, .ax-hpanel, .ax-h1-in { opacity: 1 !important; transform: none !important; translate: none !important; }
-      .ax-morph > i, .ax-prism { animation: none !important; }
+      .ax-morph > i { animation: none !important; }
+      .ax-mark::before { transform: scaleX(1) rotate(-.45deg) !important; }
+      .ax-hero .ax-mark::after { opacity: .55 !important; }
       .ax-figure img, .ax-figure-glow { translate: none !important; }
       .ax-hpapers .ax-paper:nth-child(1) { transform: rotate(-7deg) translateY(12px) !important; }
       .ax-hpapers .ax-paper:nth-child(3) { transform: rotate(7deg) translateY(12px) !important; }
@@ -1279,18 +1269,17 @@
 
       <!-- ── left: the claim ── -->
       <div class="ax-hero-copy">
-        <span class="ax-prism" aria-hidden="true"></span>
         <div class="ax-avail ax-stag" style="--s:100ms">
           <span class="ax-avail-dot" aria-hidden="true"></span>
           <span class="ax-avail-txt">Available for Product Design roles<i aria-hidden="true">&nbsp;·&nbsp;</i>Open to relocate</span>
         </div>
 
         <h1 class="ax-hero-h1">
-          <span class="ax-h1-line" style="--s:170ms"><span class="ax-h1-in quiet">I design enterprise AI</span></span>
+          <span class="ax-h1-line" style="--s:170ms"><span class="ax-h1-in quiet">I design <span class="ax-mark"><i>enterprise AI</i></span></span></span>
           <span class="ax-h1-line" style="--s:250ms"><span class="ax-h1-in quiet">products that</span></span>
           <span class="ax-h1-line" style="--s:340ms"><span class="ax-h1-in">drive<span class="ax-sr"> revenue</span><span
             class="ax-morph" id="axMorph" data-first aria-hidden="true"><i class="on">revenue</i><i>adoption</i><i>retention</i><i>growth</i></span>,</span></span>
-          <span class="ax-h1-line" style="--s:440ms"><span class="ax-h1-in">and delight <em class="ax-serif">users.</em></span></span>
+          <span class="ax-h1-line" style="--s:440ms"><span class="ax-h1-in">and delight users.</span></span>
         </h1>
 
         <p class="ax-hero-sub ax-stag" style="--s:450ms">
