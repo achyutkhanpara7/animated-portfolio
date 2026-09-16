@@ -784,7 +784,8 @@
     /* each line is its own mask; the words rise into it in turn */
     .ax-h1-line {
       display: block; overflow: hidden;
-      padding-bottom: .1em; margin-bottom: -.06em;
+      padding-top: .5em; margin-top: -.5em;
+      padding-bottom: .26em; margin-bottom: -.22em;
     }
     .ax-h1-in {
       display: block;
@@ -799,14 +800,16 @@
        each end, so the caps break out of the top the way they do under a
        real marker. */
     .ax-mark { position: relative; display: inline-block; padding: 0 .1em; white-space: nowrap; }
-    .ax-mark > i { position: relative; z-index: 1; font-style: normal; }
+    /* full-strength ink on the marked words — they were inheriting the
+       setup line's grey, which is what made the whole thing read dull */
+    .ax-mark > i { position: relative; z-index: 1; font-style: normal; color: var(--ink); }
     .ax-mark::before {
       content: ''; position: absolute; z-index: 0;
       left: -.05em; right: -.06em; bottom: .03em; height: .6em;
       border-radius: .1em .16em .12em .14em;
       background: linear-gradient(100deg,
-        rgba(31,109,255,.26) 0%, rgba(96,124,255,.28) 42%,
-        rgba(139,108,240,.26) 72%, rgba(226,120,168,.2) 100%);
+        rgba(64,196,255,.46) 0%, rgba(74,126,255,.46) 34%,
+        rgba(146,96,255,.44) 68%, rgba(236,108,176,.36) 100%);
       filter: blur(.6px);
       transform: scaleX(0) rotate(-.45deg); transform-origin: left center;
       transition: transform .9s var(--spring) 700ms;
@@ -816,11 +819,11 @@
     .ax-mark::after {
       content: ''; position: absolute; z-index: 0;
       left: 0; right: 0; bottom: .06em; height: .44em;
-      background: linear-gradient(100deg, rgba(31,109,255,.22), rgba(139,108,240,.2));
-      filter: blur(7px); opacity: 0;
+      background: linear-gradient(100deg, rgba(64,180,255,.4), rgba(146,96,255,.34) 60%, rgba(236,108,176,.26));
+      filter: blur(9px); opacity: 0;
       transition: opacity .8s var(--ease) 900ms;
     }
-    .ax-hero.lit .ax-mark::after { opacity: .55; }
+    .ax-hero.lit .ax-mark::after { opacity: .7; }
 
 
     /* "AI products" — the highlight sweeps open left → right on load */
@@ -828,22 +831,23 @@
     /* the expressive keyword — handwritten, gradient, quietly rotating */
     .ax-morph {
       position: relative; display: inline-block; vertical-align: baseline;
-      width: var(--w, 5.6ch); height: .9em; margin-bottom: -.1em; margin-left: .18em; overflow: hidden;
+      width: var(--w, 5.6ch); margin-left: .18em; overflow: hidden;
+      height: 1.8em; margin-top: -.59em; margin-bottom: -.46em;
       transition: width .75s var(--spring);
     }
     .ax-morph > i {
-      position: absolute; left: 0; bottom: 0; white-space: nowrap; font-style: normal;
+      position: absolute; left: 0; bottom: .36em; white-space: nowrap; font-style: normal;
       font-family: 'Caveat', cursive; font-weight: 700; font-size: 1.2em;
       line-height: .78; letter-spacing: 0;
       background: linear-gradient(100deg, #1f6dff 0%, #7b5cf0 46%, #f0577f 92%);
       background-size: 190% 100%;
       -webkit-background-clip: text; background-clip: text;
       color: transparent; -webkit-text-fill-color: transparent;
-      transform: translateY(105%); opacity: 0;
+      transform: translateY(200%); opacity: 0;
       transition: transform .65s var(--spring), opacity .4s var(--ease);
     }
     .ax-morph > i.on  { transform: none; opacity: 1; }
-    .ax-morph > i.out { transform: translateY(-105%); opacity: 0; }
+    .ax-morph > i.out { transform: translateY(-200%); opacity: 0; }
     /* first paint: the word writes itself in left → right */
     .ax-hero.lit .ax-morph[data-first] > i.on { animation: axWrite .95s var(--spring) 360ms both; }
     @keyframes axWrite {
