@@ -830,29 +830,6 @@
     .ax-btn.ghost:hover { background: #fff; transform: translateY(-2px); }
 
     /* stat strip */
-    .ax-hero-stats {
-      display: flex; flex-wrap: wrap; align-items: center; gap: 0 30px; margin-top: 36px;
-      opacity: 0; transform: translateY(16px);
-      transition: opacity .8s var(--ease) 1.05s, transform .8s var(--ease) 1.05s;
-    }
-    .ax-hero.lit .ax-hero-stats { opacity: 1; transform: none; }
-    /* solid colour, not background-clip: the count-up number lives in a nested
-       span, which would inherit `transparent` and paint nothing */
-    .ax-hstat b {
-      display: block; font-size: 30px; font-weight: 600; letter-spacing: -.035em;
-      line-height: 1; color: var(--ink);
-    }
-    /* direct child only — otherwise this also hits the count-up span inside b */
-    .ax-hstat > span { display: block; margin-top: 7px; font-size: 12px; color: var(--ink-3); letter-spacing: .02em; }
-    .ax-hstat-sep { width: 1px; height: 34px; background: rgba(14,24,44,.12); }
-
-    .ax-trust {
-      margin-top: 26px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
-      font-size: 12px; color: var(--ink-3);
-      opacity: 0; transition: opacity .9s var(--ease) 1.25s;
-    }
-    .ax-hero.lit .ax-trust { opacity: 1; }
-    .ax-trust b { font-size: 14px; font-weight: 600; color: rgba(11,18,32,.5); letter-spacing: -.01em; }
 
     /* ── hero visual: portrait + orbiting chips ── */
     .ax-hero-visual {
@@ -973,8 +950,6 @@
       .ax-orbit.o2 { right: -2%; }
       .ax-orbit-v { font-size: 12.5px; }
       .ax-cue { display: none; }
-      .ax-hero-stats { gap: 0 20px; }
-      .ax-hstat b { font-size: 24px; }
       #ax-snapshot .ax-board { margin-top: 26px; }
     }
 
@@ -995,7 +970,7 @@
     .ax-hero-h1 { max-width: 15ch; line-height: 1.0; font-size: clamp(38px, 5.6vw, 74px); }
     .ax-hero-sub { margin-left: auto; margin-right: auto; max-width: 60ch; }
     .ax-hero-sub em { font-style: italic; color: var(--ink); font-weight: 500; }
-    .ax-cta-row, .ax-hero-stats, .ax-trust { justify-content: center; }
+    .ax-cta-row { justify-content: center; }
 
     /* handwritten words, lifted from the classic hero */
     .ax-hero-h1 .script > i {
@@ -1031,9 +1006,7 @@
     .ax-hero-copy { align-items: flex-start; }
     .ax-hero-h1 { max-width: 13ch; font-size: clamp(34px, 4.1vw, 58px); }
     .ax-hero-sub { margin-left: 0; margin-right: 0; max-width: 46ch; font-size: 16px; }
-    .ax-cta-row, .ax-hero-stats, .ax-trust { justify-content: flex-start; }
-    .ax-hero-stats { gap: 0 24px; }
-    .ax-hstat b { font-size: 26px; }
+    .ax-cta-row { justify-content: flex-start; }
 
     .ax-hpanel {
       position: relative; border-radius: 30px; padding: 18px 20px 0;
@@ -1253,20 +1226,6 @@
           </a>
         </div>
 
-        <div class="ax-hero-stats">
-          <div class="ax-hstat"><b><span data-count="4" data-suffix="+">4+</span></b><span>YEARS DESIGNING</span></div>
-          <div class="ax-hstat-sep"></div>
-          <div class="ax-hstat"><b><span data-count="15" data-suffix="+">15+</span></b><span>PROJECTS SHIPPED</span></div>
-          <div class="ax-hstat-sep"></div>
-          <div class="ax-hstat"><b><span data-count="10" data-suffix="+">10+</span></b><span>CERTIFICATIONS</span></div>
-          <div class="ax-hstat-sep"></div>
-          <div class="ax-hstat"><b>4.0</b><span>M.S. UX GPA</span></div>
-        </div>
-
-        <div class="ax-trust">
-          Trusted with work for
-          <b>Citi</b> <b>AbbVie</b> <b>Samsung</b> <b>7-Eleven</b>
-        </div>
       </div>
 
       <!-- right column: a small "design OS" panel, portfolio content -->
