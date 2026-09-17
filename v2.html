@@ -478,52 +478,6 @@
     .ax-panel-stat span { display: block; margin-top: 5px; font-size: 12.5px; color: var(--ink-3); line-height: 1.35; }
 
 
-
-    /* -- logo rails: workplaces and the clients behind the work --------
-       The assets are wildly uneven: transparent wordmarks at 10:1 next to
-       square brand tiles on white, brown and red. Each one therefore sits
-       in its own white chip of fixed height with the mark centred, so the
-       row reads evenly however the source file was cut. The white-backed
-       JPEGs blend into the chip instead of showing their box.            */
-    .ax-logos { margin-top: 44px; display: grid; gap: 30px; }
-    .ax-logos-cap {
-      font-size: 11.5px; font-weight: 600; letter-spacing: .14em;
-      text-transform: uppercase; color: var(--ink-3); margin-bottom: 14px;
-    }
-    .ax-logos-row { display: flex; flex-wrap: wrap; gap: 12px; }
-    .ax-logo {
-      flex: 1 1 158px; max-width: 210px; height: 78px;
-      display: grid; place-items: center; padding: 14px 22px;
-      background: rgba(255,255,255,.74); border: 1px solid rgba(255,255,255,.95);
-      border-radius: var(--radius-sm); box-shadow: var(--shadow-sm);
-      transition: transform .32s var(--ease), box-shadow .32s var(--ease);
-    }
-    .ax-logo:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
-    .ax-logo img { max-width: 100%; max-height: 34px; width: auto; object-fit: contain; display: block; }
-    /* white-background JPEGs: multiply drops the box, keeps the mark */
-    .ax-logo.blend img { mix-blend-mode: multiply; }
-    /* square brand tiles are marks, not wordmarks — round them and let
-       them run a little larger so they carry the same optical weight */
-    .ax-logo.mark img { max-height: 46px; border-radius: 10px; }
-    /* per-mark optical sizing: a 10:1 wordmark and a vertical lockup do not
-       read at the same weight at one shared height */
-    .ax-logo.tall img { max-height: 48px; }
-    .ax-logo.med  img { max-height: 40px; }
-    .ax-logo.wide img { max-height: 30px; }
-    .ax-logo.thin img { max-height: 22px; }
-    @media (max-width: 760px) {
-      /* a flex row leaves the fifth chip stretched alone; a grid keeps
-         every chip one column wide, orphan included */
-      .ax-logos-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .ax-logo { max-width: none; height: 70px; padding: 12px 16px; }
-      .ax-logo img      { max-height: 28px; }
-      .ax-logo.mark img { max-height: 36px; }
-      .ax-logo.tall img { max-height: 38px; }
-      .ax-logo.med  img { max-height: 32px; }
-      .ax-logo.wide img { max-height: 26px; }
-      .ax-logo.thin img { max-height: 18px; }
-    }
-
     /* -- hero capability band: one row, pinned to the hero's bottom edge -- */
     .ax-hmarquee {
       position: absolute; left: 0; right: 0; bottom: 0; z-index: 4;
@@ -1548,37 +1502,6 @@
     </div>
   </section>
 
-
-  <!-- ══════════ LOGOS ══════════ -->
-  <section class="ax-section" id="ax-logos">
-    <div class="ax-wrap">
-      <div class="ax-rise"><div class="ax-eyebrow"><b></b>Where the work happens</div></div>
-      <div class="ax-rise" style="transition-delay:.06s"><h2 class="ax-h2">Teams and clients I&rsquo;ve <em>designed for</em>.</h2></div>
-
-      <div class="ax-logos">
-        <div class="ax-rise" style="transition-delay:.12s">
-          <div class="ax-logos-cap">Where I&rsquo;ve worked</div>
-          <div class="ax-logos-row">
-            <div class="ax-logo"><img src="assets/images/worldlink-logo.png" alt="WorldLink" /></div>
-            <div class="ax-logo mark"><img src="assets/images/saayam-logo.png" alt="Saayam For All" /></div>
-            <div class="ax-logo tall"><img src="assets/images/arizona-state-university-logo-vertical.png" alt="Arizona State University" /></div>
-            <div class="ax-logo med"><img src="assets/images/Infotop-Logo.png" alt="Infotop Solutions" /></div>
-            <div class="ax-logo blend mark"><img src="assets/images/thinkwik_logo.jpg" alt="Thinkwik Technologies" /></div>
-          </div>
-        </div>
-
-        <div class="ax-rise" style="transition-delay:.18s">
-          <div class="ax-logos-cap">Clients I design for at WorldLink</div>
-          <div class="ax-logos-row">
-            <div class="ax-logo wide"><img src="assets/images/7%20eleven-logo.png" alt="7-Eleven" /></div>
-            <div class="ax-logo thin"><img src="assets/images/abbvie-logo.png" alt="AbbVie" /></div>
-            <div class="ax-logo blend med"><img src="assets/images/citi_logo.jpg" alt="Citi" /></div>
-            <div class="ax-logo mark"><img src="assets/images/jpmorganchase_logo.jpg" alt="JPMorgan Chase" /></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- ══════════ STATEMENT ══════════ -->
   <section class="ax-section" id="ax-intro">
