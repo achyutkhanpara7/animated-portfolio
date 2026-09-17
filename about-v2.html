@@ -469,8 +469,12 @@
     .ab-exp-top { display: flex; align-items: center; gap: 16px; }
     .ab-exp-logo {
       width: 52px; height: 52px; flex: none; border-radius: 16px; display: grid; place-items: center;
-      font-size: 20px; font-weight: 700; color: #1352e0; background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+      font-size: 20px; font-weight: 700; color: #1352e0; background: #ffffff;
+      border: 1px solid rgba(14,24,44,.08); box-shadow: var(--shadow-sm); overflow: hidden;
     }
+    .ab-exp-logo img { max-width: 38px; max-height: 32px; width: auto; object-fit: contain; display: block; }
+    /* the white-backed JPEG merges into the tile instead of showing its box */
+    .ab-exp-logo img.blend { mix-blend-mode: multiply; }
     .ab-exp-role { font-size: 18px; font-weight: 600; letter-spacing: -.02em; }
     .ab-exp-co { font-size: 14px; font-weight: 600; color: var(--blue); margin-top: 2px; }
     .ab-exp-loc { font-size: 12.5px; color: var(--ink-3); margin-top: 2px; }
@@ -718,7 +722,7 @@
           <div class="ab-exp-conn" aria-hidden="true"><span></span><b></b><span></span></div>
           <div class="ab-exp-card">
             <div class="ab-exp-top">
-              <div class="ab-exp-logo">W</div>
+              <div class="ab-exp-logo"><img src="assets/images/worldlink_us_logo.jpg" alt="WorldLink" style="max-width:40px;max-height:40px;border-radius:9px" /></div>
               <div>
                 <div class="ab-exp-role">UX / Product Designer</div>
                 <div class="ab-exp-co">WorldLink</div>
@@ -740,7 +744,7 @@
           <div class="ab-exp-conn" aria-hidden="true"><span></span><b></b><span></span></div>
           <div class="ab-exp-card">
             <div class="ab-exp-top">
-              <div class="ab-exp-logo" style="background:linear-gradient(135deg,#d8f0e8,#b8e4d0);color:#146346;">S</div>
+              <div class="ab-exp-logo"><img src="assets/images/saayam-logo.png" alt="Saayam For All" /></div>
               <div>
                 <div class="ab-exp-role">UX Designer</div>
                 <div class="ab-exp-co">Saayam For All</div>
@@ -762,7 +766,7 @@
           <div class="ab-exp-conn" aria-hidden="true"><span></span><b></b><span></span></div>
           <div class="ab-exp-card">
             <div class="ab-exp-top">
-              <div class="ab-exp-logo" style="background:linear-gradient(135deg,#8B0000,#c0392b);color:#fff;">A</div>
+              <div class="ab-exp-logo"><img src="assets/images/arizona-state-university-logo-vertical.png" alt="Arizona State University" /></div>
               <div>
                 <div class="ab-exp-role">Digital Assistant / UX Designer</div>
                 <div class="ab-exp-co">ASU Business &amp; Finance</div>
@@ -784,7 +788,7 @@
           <div class="ab-exp-conn" aria-hidden="true"><span></span><b></b><span></span></div>
           <div class="ab-exp-card">
             <div class="ab-exp-top">
-              <div class="ab-exp-logo" style="background:linear-gradient(135deg,#fde8d8,#fbd0b4);color:#93450c;">I</div>
+              <div class="ab-exp-logo"><img src="assets/images/Infotop-Logo.png" alt="Infotop Solutions" /></div>
               <div>
                 <div class="ab-exp-role">UX Designer</div>
                 <div class="ab-exp-co">Infotop Solutions</div>
@@ -806,7 +810,7 @@
           <div class="ab-exp-conn" aria-hidden="true"><span></span><b></b><span></span></div>
           <div class="ab-exp-card">
             <div class="ab-exp-top">
-              <div class="ab-exp-logo" style="background:linear-gradient(135deg,#fef3c7,#fde68a);color:#7a5a00;">T</div>
+              <div class="ab-exp-logo"><img class="blend" src="assets/images/thinkwik_logo.jpg" alt="Thinkwik Technologies" /></div>
               <div>
                 <div class="ab-exp-role">UX Designer</div>
                 <div class="ab-exp-co">Thinkwik Technologies</div>
