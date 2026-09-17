@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Achyut Khanpara</title>
+  <meta name="description" content="Product Designer and UX Researcher based in the US — philosophy, experience, education and toolkit." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@700&display=swap" rel="stylesheet" />
+  <style>
+
+    /* ════════════════════════════════════════
+       ABOUT — "LIGHT SHOT" EDITION
+       Same content and layout as about.html, wearing v2.html's canvas.
+       The shared chrome below (tokens, background, boot, nav, section
+       shell, contact band) is carried over from v2.html unchanged so the
+       two pages stay one design.
+    ════════════════════════════════════════ */
+
+    * { margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: #eef1f5; }
+
+    .ax {
+      --ink:        #0b1220;
+      --ink-2:      #3d4657;
+      --ink-3:      #6b7688;
+      --line:       rgba(14,24,44,.08);
+      --glass:      rgba(255,255,255,.62);
+      --glass-2:    rgba(255,255,255,.80);
+      --blue:       #1f6dff;
+      --blue-dark:  #0f4fd8;
+      --radius:     28px;
+      --radius-sm:  20px;
+      --shadow-sm:  0 1px 2px rgba(14,24,44,.05), 0 8px 24px -12px rgba(14,24,44,.18);
+      --shadow-md:  0 2px 6px rgba(14,24,44,.06), 0 24px 60px -24px rgba(14,24,44,.28);
+      --shadow-lg:  0 40px 120px -40px rgba(14,24,44,.42), 0 2px 8px rgba(14,24,44,.06);
+      --ease:       cubic-bezier(.22,1,.36,1);
+
+      font-family: 'Poppins', 'Manrope', 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      color: var(--ink);
+      position: relative;
+      z-index: 1;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* page canvas — painted behind everything, never on <body> so the
+       classic design's globals stay untouched */
+    html, body { overflow-x: hidden; margin: 0; }
+    .ax-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background:
+        radial-gradient(120% 90% at 50% -10%, #ffffff 0%, #eef1f5 45%, #e4e9ee 100%);
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .ax-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(96px);
+      opacity: .42;
+      will-change: transform;
+    }
+    /* b1 warms the headline, b2 sits behind the portrait, b3 is a thin
+       breath of pink low and right. Anything more and the white space
+       — the most expensive thing on the page — starts to disappear. */
+    .ax-blob.b1 { width: 44vw; height: 44vw; left: -12vw;  top: 2vh;    background: radial-gradient(circle at 38% 38%, #bcdaff, #dceaff 58%, transparent 72%); animation: axDrift1 26s ease-in-out infinite; }
+    .ax-blob.b2 { width: 38vw; height: 38vw; right: -9vw;  top: 12vh;   background: radial-gradient(circle at 58% 42%, #e3d5ff, #f1ebff 58%, transparent 72%); animation: axDrift2 32s ease-in-out infinite; }
+    .ax-blob.b3 { width: 26vw; height: 26vw; right: 16vw;  bottom: -6vh; background: radial-gradient(circle at 50% 50%, #ffdae5, #fff0f4 58%, transparent 72%); animation: axDrift3 29s ease-in-out infinite; }
+    .ax-blob.b4 { width: 28vw; height: 28vw; left: 6vw;    bottom: 6vh;  background: radial-gradient(circle at 50% 50%, #d4f0ff, #ecf9ff 58%, transparent 74%); animation: axDrift1 35s ease-in-out infinite reverse; opacity: .3; }
+    @keyframes axDrift1 { 0%,100%{transform:translate3d(0,0,0) scale(1)} 50%{transform:translate3d(6vw,5vh,0) scale(1.12)} }
+    @keyframes axDrift2 { 0%,100%{transform:translate3d(0,0,0) scale(1.05)} 50%{transform:translate3d(-7vw,-4vh,0) scale(.92)} }
+    @keyframes axDrift3 { 0%,100%{transform:translate3d(0,0,0) scale(.95)} 50%{transform:translate3d(5vw,-6vh,0) scale(1.1)} }
+
+    .ax-grain {
+      position: absolute; inset: 0; opacity: .35; mix-blend-mode: soft-light;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+    }
+
+    /* ── scroll progress ───────────────────────────────────────────── */
+    .ax-progress {
+      position: fixed; top: 0; left: 0; height: 2px; width: 0;
+      background: linear-gradient(90deg, #2f9fd4, var(--blue));
+      z-index: 9000; box-shadow: 0 0 14px rgba(31,109,255,.6);
+    }
+
+    /* ── boot / intro ──────────────────────────────────────────────── */
+    .ax-boot {
+      position: fixed; inset: 0; z-index: 9500;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 26px;
+      background: radial-gradient(120% 90% at 50% 40%, #fff, #eceff3);
+      transition: opacity .7s var(--ease), transform .7s var(--ease);
+    }
+    .ax-boot.done { opacity: 0; transform: scale(1.04); pointer-events: none; }
+    .ax-boot-name {
+      display: flex; align-items: center; gap: 18px;
+      font-weight: 600; letter-spacing: .16em;
+      font-size: clamp(20px, 4vw, 40px);
+    }
+    .ax-boot-name span { opacity: 0; transform: translateY(18px); transition: all .7s var(--ease); }
+    .ax-boot.go .ax-boot-name span { opacity: 1; transform: none; }
+    .ax-boot.go .ax-boot-name span:nth-child(3) { transition-delay: .18s; }
+    .ax-boot-dots { display: flex; gap: 6px; }
+    .ax-boot-dots i {
+      width: 8px; height: 8px; border-radius: 50%; display: block;
+      background: var(--blue); opacity: 0; transform: scale(.2);
+      transition: all .45s var(--ease);
+    }
+    .ax-boot.go .ax-boot-dots i:nth-child(1) { opacity:1; transform:none; transition-delay:.08s }
+    .ax-boot.go .ax-boot-dots i:nth-child(2) { opacity:1; transform:none; transition-delay:.16s; background:#8b6cf0 }
+    .ax-boot.go .ax-boot-dots i:nth-child(3) { opacity:1; transform:none; transition-delay:.24s; background:#f0577f }
+    .ax-boot-bar { width: min(260px, 60vw); height: 3px; border-radius: 3px; background: rgba(14,24,44,.08); overflow: hidden; }
+    .ax-boot-bar i { display: block; height: 100%; width: 0; border-radius: 3px; background: linear-gradient(90deg,#2f9fd4,var(--blue)); transition: width 1.7s var(--ease); }
+    .ax-boot.go .ax-boot-bar i { width: 100%; }
+    .ax-boot-label { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-3); font-weight: 500; }
+
+    /* ── floating top nav (appears after boot) ─────────────────────── */
+    .ax-topnav {
+      position: fixed; top: 18px; left: 50%; transform: translate(-50%, -16px);
+      z-index: 900; display: flex; align-items: center; gap: 6px;
+      padding: 7px 8px 7px 7px; border-radius: 999px;
+      background: rgba(255,255,255,.72);
+      backdrop-filter: blur(20px) saturate(1.6);
+      -webkit-backdrop-filter: blur(20px) saturate(1.6);
+      border: 1px solid rgba(255,255,255,.9);
+      box-shadow: 0 10px 40px -14px rgba(14,24,44,.34), inset 0 1px 0 rgba(255,255,255,.9);
+      opacity: 0; transition: opacity .6s var(--ease), transform .6s var(--ease), box-shadow .3s;
+    }
+    .ax-topnav.show { opacity: 1; transform: translate(-50%, 0); }
+    .ax-topnav.stuck { box-shadow: 0 16px 50px -16px rgba(14,24,44,.42); }
+    .ax-topnav-brand { display: flex; align-items: center; gap: 9px; padding: 3px 12px 3px 4px; text-decoration: none; }
+    .ax-avatar-chip {
+      width: 30px; height: 30px; border-radius: 50%; overflow: hidden; flex: none;
+      background: linear-gradient(140deg,#1f6dff,#2f9fd4);
+      display: grid; place-items: center; color: #fff; font-size: 11px; font-weight: 700;
+      box-shadow: 0 0 0 2px rgba(255,255,255,.9), 0 4px 12px rgba(31,109,255,.35);
+    }
+    .ax-avatar-chip img { width: 100%; height: 100%; object-fit: cover; }
+    .ax-topnav-name { font-size: 13px; font-weight: 600; letter-spacing: .08em; color: var(--ink); }
+    .ax-topnav-links { display: flex; gap: 2px; }
+    .ax-topnav-links a {
+      font-size: 13.5px; font-weight: 500; color: var(--ink-2); text-decoration: none;
+      padding: 8px 15px; border-radius: 999px; transition: all .2s var(--ease); white-space: nowrap;
+    }
+    .ax-topnav-links a:hover { background: rgba(14,24,44,.05); color: var(--ink); }
+    .ax-topnav-links a.solid {
+      background: linear-gradient(140deg,#3d86ff,#1352e0); color: #fff; font-weight: 600;
+      box-shadow: 0 6px 18px -4px rgba(31,109,255,.6);
+    }
+    .ax-topnav-links a.solid:hover { transform: translateY(-1px); box-shadow: 0 10px 26px -6px rgba(31,109,255,.7); }
+
+    .ax-tabs {
+      display: flex; gap: 6px; margin: 0 auto; position: relative;
+      padding: 4px; border-radius: 999px; background: rgba(255,255,255,.55);
+      border: 1px solid rgba(255,255,255,.8); box-shadow: var(--shadow-sm);
+      max-width: 100%; overflow-x: auto; scrollbar-width: none;
+    }
+    .ax-tabs::-webkit-scrollbar { display: none; }
+    .ax-tab {
+      position: relative; z-index: 2; border: 0; background: transparent; cursor: pointer;
+      font-family: inherit; font-size: 13.5px; font-weight: 500; color: var(--ink-2);
+      padding: 9px 18px; border-radius: 999px; white-space: nowrap;
+      transition: color .25s var(--ease);
+    }
+    .ax-tab:hover { color: var(--ink); }
+    .ax-tab.on { color: #fff; font-weight: 600; }
+    .ax-tab-pill {
+      position: absolute; z-index: 1; top: 4px; height: calc(100% - 8px);
+      border-radius: 999px; background: linear-gradient(140deg,#4f93ff,#1352e0);
+      box-shadow: 0 8px 22px -6px rgba(31,109,255,.7), inset 0 1px 0 rgba(255,255,255,.4);
+      transition: left .45s var(--ease), width .45s var(--ease);
+    }
+
+    .ax-wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+    .ax-section { padding: 92px 0; position: relative; }
+    .ax-eyebrow {
+      display: inline-flex; align-items: center; gap: 9px; padding: 7px 15px; border-radius: 999px;
+      background: rgba(255,255,255,.7); border: 1px solid rgba(255,255,255,.9);
+      box-shadow: var(--shadow-sm); font-size: 11.5px; font-weight: 600;
+      letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2);
+    }
+    .ax-eyebrow b { width: 7px; height: 7px; border-radius: 50%; background: linear-gradient(140deg,#1f6dff,#7b5cf0); }
+    .ax-h2 {
+      font-size: clamp(30px, 4.4vw, 56px); font-weight: 600; letter-spacing: -.035em;
+      line-height: 1.06; margin-top: 20px;
+    }
+    .ax-h2 em { font-style: normal; background: linear-gradient(100deg,#1f6dff,#7b5cf0 60%,#f0577f); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .ax-lead { margin-top: 16px; font-size: 16.5px; line-height: 1.65; color: var(--ink-2); max-width: 62ch; }
+
+    /* ── contact ───────────────────────────────────────────────────── */
+    .ax-contact {
+      position: relative; border-radius: 36px; padding: 70px 40px; text-align: center; overflow: hidden;
+      background: linear-gradient(170deg, rgba(255,255,255,.78), rgba(232,240,250,.7));
+      border: 1px solid rgba(255,255,255,.95);
+      backdrop-filter: blur(26px); -webkit-backdrop-filter: blur(26px); box-shadow: var(--shadow-md);
+    }
+    .ax-contact::before {
+      content: ''; position: absolute; width: 460px; height: 460px; border-radius: 50%;
+      left: 50%; top: -180px; transform: translateX(-50%);
+      background: radial-gradient(circle, rgba(31,109,255,.18), transparent 65%);
+    }
+    .ax-contact-h { font-size: clamp(32px, 5vw, 60px); font-weight: 600; letter-spacing: -.04em; line-height: 1.05; position: relative; }
+    .ax-mail {
+      display: inline-flex; align-items: center; gap: 11px; margin-top: 30px; position: relative;
+      padding: 15px 30px; border-radius: 999px; font-size: clamp(15px, 1.8vw, 19px); font-weight: 600;
+      background: linear-gradient(140deg,#4f93ff,#1352e0); color: #fff; text-decoration: none;
+      box-shadow: 0 18px 48px -14px rgba(31,109,255,.8), inset 0 1px 0 rgba(255,255,255,.35);
+      transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+    }
+    .ax-mail:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 26px 60px -16px rgba(31,109,255,.9); }
+    .ax-mail svg { width: 17px; height: 17px; }
+    .ax-socials { display: flex; justify-content: center; gap: 10px; margin-top: 26px; position: relative; }
+    .ax-social {
+      width: 46px; height: 46px; border-radius: 16px; display: grid; place-items: center;
+      background: rgba(255,255,255,.85); border: 1px solid rgba(255,255,255,.95);
+      box-shadow: var(--shadow-sm); color: var(--ink-2); text-decoration: none;
+      font-size: 14px; font-weight: 600; transition: all .28s var(--ease);
+    }
+    .ax-social:hover { transform: translateY(-4px); color: var(--blue); box-shadow: var(--shadow-md); }
+    .ax-footer { padding: 40px 0 46px; text-align: center; }
+    .ax-footer-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 12.5px; color: var(--ink-3); }
+    .ax-footer-row a { color: var(--ink-2); text-decoration: none; font-weight: 500; }
+    .ax-footer-row a:hover { color: var(--blue); }
+
+    /* reveal helper */
+    .ax-rise { opacity: 0; transform: translateY(26px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+    .ax-rise.in { opacity: 1; transform: none; }
+
+    /* ── top navigation ──────────────────────────────────────────── */
+    .ax-topnav { padding: 7px 8px 7px 8px; gap: 4px; }
+    .ax-topnav-brand {
+      display: flex; align-items: center; gap: 10px;
+      padding: 3px 10px 3px 3px; border-radius: 999px; text-decoration: none;
+      transition: background .25s var(--ease);
+    }
+    .ax-topnav-brand:hover { background: rgba(14,24,44,.04); }
+    .ax-brand-text { display: flex; flex-direction: column; gap: 1px; }
+    .ax-topnav-name { font-size: 13px; font-weight: 600; letter-spacing: .1em; color: var(--ink); line-height: 1.1; }
+    .ax-topnav-role { font-size: 10.5px; letter-spacing: .04em; color: var(--ink-3); line-height: 1.1; white-space: nowrap; }
+
+    .ax-nav-sep { width: 1px; height: 24px; background: rgba(14,24,44,.09); margin: 0 4px; flex: none; }
+
+    .ax-topnav .ax-tabs { margin: 0; background: transparent; border: 0; box-shadow: none; padding: 0; }
+    .ax-topnav .ax-tab {
+      padding: 9px 14px; font-size: 13.5px; font-weight: 500; color: var(--ink-2);
+      transition: color .25s var(--ease), transform .3s var(--spring);
+    }
+    .ax-topnav .ax-tab:hover { color: var(--ink); }
+    .ax-topnav .ax-tab.on { color: var(--ink); font-weight: 600; }
+    /* the pill only appears once a section actually owns the viewport */
+    .ax-tab-pill { opacity: 0; transition: opacity .3s var(--ease), left .45s var(--spring), width .45s var(--spring); }
+    .ax-tabs.armed .ax-tab-pill { opacity: 1; }
+
+    .ax-nav-cta {
+      display: inline-flex; align-items: center; gap: 7px; flex: none;
+      padding: 10px 18px; border-radius: 999px; text-decoration: none; white-space: nowrap;
+      font-size: 13.5px; font-weight: 600; color: #fff;
+      background: linear-gradient(140deg, #2f6fe8, #0e47c4);
+      box-shadow: 0 8px 20px -6px rgba(31,109,255,.55);
+      transition: transform .3s var(--spring), box-shadow .3s var(--ease);
+    }
+    .ax-nav-cta svg { width: 13px; height: 13px; transition: transform .3s var(--spring); }
+    .ax-nav-cta:hover { transform: translateY(-2px); box-shadow: 0 14px 30px -8px rgba(31,109,255,.7); }
+    .ax-nav-cta:hover svg { transform: translate(2px, -2px); }
+
+    /* compact menu (tablet + phone) */
+    .ax-navtoggle {
+      display: none; width: 38px; height: 38px; flex: none; cursor: pointer;
+      border-radius: 999px; border: 0; background: rgba(14,24,44,.04);
+      place-items: center; color: var(--ink); font-family: inherit;
+      transition: background .25s var(--ease);
+    }
+    .ax-navtoggle:hover { background: rgba(14,24,44,.08); }
+    .ax-navtoggle svg { width: 17px; height: 17px; }
+    .ax-navtoggle .x { display: none; }
+    .ax-navtoggle[aria-expanded="true"] .x { display: block; }
+    .ax-navtoggle[aria-expanded="true"] .bars { display: none; }
+    .ax-navmenu {
+      position: absolute; top: calc(100% + 12px); right: 0; min-width: 210px;
+      display: none; flex-direction: column; padding: 8px; gap: 2px;
+      border-radius: 22px; background: rgba(255,255,255,.97);
+      backdrop-filter: blur(24px) saturate(1.6); -webkit-backdrop-filter: blur(24px) saturate(1.6);
+      border: 1px solid rgba(255,255,255,.95);
+      box-shadow: 0 24px 60px -20px rgba(14,24,44,.4);
+      opacity: 0; transform: translateY(-8px) scale(.98); pointer-events: none; visibility: hidden;
+      transition: opacity .3s var(--ease), transform .35s var(--spring), visibility 0s linear .3s;
+    }
+    .ax-navmenu.open { opacity: 1; transform: none; pointer-events: auto; visibility: visible; transition-delay: 0s; }
+    .ax-navmenu button {
+      text-align: left; padding: 11px 15px; border: 0; border-radius: 14px; cursor: pointer;
+      background: transparent; font-family: inherit; font-size: 14.5px; font-weight: 500; color: var(--ink-2);
+      transition: background .2s var(--ease), color .2s var(--ease);
+    }
+    .ax-navmenu button:hover { background: rgba(31,109,255,.08); color: var(--ink); }
+
+    /* the about page's nav tabs are links to other pages, not in-page buttons */
+    .ax-topnav .ax-tab { text-decoration: none; display: inline-flex; align-items: center; }
+    .ax-topnav .ax-tab.on { color: var(--ink); font-weight: 600; background: rgba(14,24,44,.06); border-radius: 999px; }
+    .ax-navmenu a {
+      text-align: left; padding: 11px 15px; border-radius: 14px; text-decoration: none;
+      font-size: 14.5px; font-weight: 500; color: var(--ink-2);
+      transition: background .2s var(--ease), color .2s var(--ease);
+    }
+    .ax-navmenu a:hover { background: rgba(31,109,255,.08); color: var(--ink); }
+    .ax-navmenu a[aria-current="page"] { color: var(--ink); font-weight: 600; }
+
+    /* ════════════════════════════════════════════════════════════════
+       ABOUT PAGE — same content and layout as about.html, rebuilt on
+       the Light Shot canvas. Everything stays namespaced: `ax-` for the
+       shared chrome, `ab-` for anything only this page uses.
+    ════════════════════════════════════════════════════════════════ */
+
+    .ax { --spring: cubic-bezier(.16, 1, .3, 1); }
+
+    /* the shared muted token lands at 4.05:1 on this canvas — under AA at
+       these sizes, so the whole page runs the darker slate v2's hero uses. */
+    .ax, .ax-topnav { --ink-3: #505b70; }
+    .ax, .ax * { box-sizing: border-box; }
+    .ax :focus-visible { outline: 2px solid #1352e0; outline-offset: 3px; border-radius: 12px; }
+
+    .ax-sr {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+    }
+
+    /* ── hero ──────────────────────────────────────────────────────── */
+    .ab-hero { padding: 152px 0 88px; position: relative; }
+    .ab-hero-inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 24px;
+      display: grid; grid-template-columns: 1fr 360px; gap: 80px; align-items: center;
+    }
+    .ab-greet {
+      display: inline-flex; align-items: center; gap: 9px; padding: 8px 17px; border-radius: 999px;
+      background: rgba(255,255,255,.72); border: 1px solid rgba(255,255,255,.95);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      box-shadow: var(--shadow-sm); font-size: 13px; font-weight: 500; color: var(--ink-2);
+    }
+    .ab-h1 {
+      margin: 24px 0 0; font-size: clamp(38px, 5.2vw, 64px); font-weight: 600;
+      letter-spacing: -.042em; line-height: 1.06; color: var(--ink);
+    }
+    .ab-h1 .accent {
+      background: linear-gradient(100deg, #1f6dff 0%, #7b5cf0 52%, #f0577f 92%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .ab-bio { margin: 24px 0 0; font-size: 16.5px; line-height: 1.72; color: var(--ink-2); max-width: 56ch; }
+    .ab-btns { display: flex; align-items: center; gap: 12px; margin-top: 34px; flex-wrap: wrap; }
+    .ab-btn {
+      display: inline-flex; align-items: center; gap: 9px; text-decoration: none;
+      padding: 15px 26px; border-radius: 999px; font-size: 14px; font-weight: 600;
+      transition: transform .3s var(--spring), box-shadow .3s var(--ease);
+    }
+    .ab-btn svg { width: 15px; height: 15px; }
+    .ab-btn.primary {
+      color: #fff; background: linear-gradient(140deg, #2f6fe8, #0e47c4);
+      box-shadow: 0 14px 34px -12px rgba(31,109,255,.8);
+    }
+    .ab-btn.ghost {
+      color: var(--ink); background: rgba(255,255,255,.78);
+      border: 1px solid rgba(255,255,255,.95); box-shadow: var(--shadow-sm);
+    }
+    .ab-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+    .ab-btn.primary:hover { box-shadow: 0 20px 44px -14px rgba(31,109,255,.9); }
+
+    /* photo card */
+    .ab-card {
+      padding: 20px; border-radius: 32px;
+      background: rgba(255,255,255,.72); border: 1px solid rgba(255,255,255,.95);
+      backdrop-filter: blur(26px); -webkit-backdrop-filter: blur(26px);
+      box-shadow: var(--shadow-lg);
+    }
+    .ab-photo { border-radius: 24px; overflow: hidden; background: #e7eefc; }
+    .ab-photo img { display: block; width: 100%; height: 340px; object-fit: cover; object-position: center top; }
+    .ab-card-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 16px; }
+    .ab-avail { display: inline-flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 500; color: var(--ink-2); }
+    .ab-avail i { width: 8px; height: 8px; border-radius: 50%; background: #17b877; box-shadow: 0 0 0 3px rgba(23,184,119,.18); }
+    .ab-socs { display: flex; gap: 7px; }
+    .ab-soc {
+      width: 34px; height: 34px; border-radius: 12px; display: grid; place-items: center;
+      font-size: 12px; font-weight: 700; text-decoration: none; color: var(--ink-2);
+      background: rgba(255,255,255,.9); border: 1px solid rgba(255,255,255,.95);
+      box-shadow: var(--shadow-sm); transition: all .28s var(--ease);
+    }
+    .ab-soc:hover { transform: translateY(-3px); color: var(--blue); box-shadow: var(--shadow-md); }
+
+    /* ── stats bar ─────────────────────────────────────────────────── */
+    .ab-stats {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border-radius: var(--radius); overflow: hidden;
+      background: rgba(255,255,255,.62); border: 1px solid rgba(255,255,255,.9);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: var(--shadow-sm);
+    }
+    .ab-stat { padding: 34px 30px; display: flex; flex-direction: column; gap: 5px; border-right: 1px solid rgba(14,24,44,.07); }
+    .ab-stat:last-child { border-right: 0; }
+    .ab-stat b {
+      font-size: 38px; font-weight: 600; letter-spacing: -.035em; line-height: 1;
+      background: linear-gradient(140deg, #1f6dff, #7b5cf0);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .ab-stat span { font-size: 13px; color: var(--ink-3); }
+
+    /* ── philosophy: the fanned deck ───────────────────────────────── */
+    .ab-fan { position: relative; height: 470px; margin-top: 52px; }
+    .ab-fancard {
+      position: absolute; width: 220px; border-radius: 24px; padding: 24px 22px;
+      border: 1px solid rgba(255,255,255,.95); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      transition: transform .45s cubic-bezier(.22,.68,0,1.3), box-shadow .3s var(--ease);
+      will-change: transform;
+    }
+    .ab-fancard h3 { margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -.02em; color: var(--ink); }
+    .ab-fancard p { margin: 11px 0 0; font-size: 13px; line-height: 1.58; color: var(--ink-2); }
+    .ab-fancard:nth-child(1) { background: linear-gradient(145deg, rgba(255,243,233,.92), rgba(253,222,198,.88)); left: calc(50% - 556px); top: 62px; transform: rotate(-12deg); box-shadow: 0 10px 34px -8px rgba(216,124,44,.32); }
+    .ab-fancard:nth-child(2) { background: linear-gradient(145deg, rgba(232,248,242,.92), rgba(198,234,218,.88)); left: calc(50% - 337px); top: 30px; transform: rotate(-6deg);  box-shadow: 0 10px 34px -8px rgba(38,150,102,.30); }
+    .ab-fancard:nth-child(3) { background: linear-gradient(145deg, rgba(232,241,255,.94), rgba(200,221,253,.90)); left: calc(50% - 110px); top: 8px;  transform: rotate(0deg);   box-shadow: 0 14px 40px -10px rgba(31,109,255,.34); z-index: 3; }
+    .ab-fancard:nth-child(4) { background: linear-gradient(145deg, rgba(255,238,246,.92), rgba(252,206,224,.88)); left: calc(50% + 117px); top: 30px; transform: rotate(6deg);   box-shadow: 0 10px 34px -8px rgba(214,51,116,.28); }
+    .ab-fancard:nth-child(5) { background: linear-gradient(145deg, rgba(255,249,228,.92), rgba(253,232,169,.88)); left: calc(50% + 336px); top: 62px; transform: rotate(12deg);  box-shadow: 0 10px 34px -8px rgba(196,145,16,.30); }
+    .ab-fancard:hover, .ab-fancard:focus-within {
+      transform: translateY(-28px) rotate(0deg) scale(1.04); z-index: 10;
+      box-shadow: 0 30px 66px -18px rgba(14,24,44,.34);
+    }
+
+    /* ── experience rail ───────────────────────────────────────────── */
+    .ab-exp-frame { position: relative; margin-top: 48px; }
+    .ab-exp-spine {
+      position: absolute; left: 0; right: 0; top: 118px; height: 2px; z-index: 1; pointer-events: none;
+      background: linear-gradient(to right, transparent 0%, rgba(31,109,255,.16) 6%, rgba(31,109,255,.34) 50%, rgba(31,109,255,.16) 94%, transparent 100%);
+    }
+    .ab-exp-frame::before, .ab-exp-frame::after {
+      content: ''; position: absolute; top: 0; bottom: 56px; width: clamp(60px, 10vw, 160px);
+      z-index: 20; pointer-events: none;
+    }
+    .ab-exp-frame::before { left: 0;  background: linear-gradient(to right, #eef1f5 0%, transparent 100%); }
+    .ab-exp-frame::after  { right: 0; background: linear-gradient(to left,  #eef1f5 0%, transparent 100%); }
+    .ab-exp-rail {
+      display: flex; align-items: flex-start; gap: 28px;
+      overflow-x: scroll; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+      scrollbar-width: none; cursor: grab;
+      --cw: 580px;
+      padding: 0 max(24px, calc((100% - var(--cw)) / 2)) 56px;
+    }
+    .ab-exp-rail::-webkit-scrollbar { display: none; }
+    .ab-exp-item {
+      flex: none; width: var(--cw); scroll-snap-align: center; position: relative;
+      opacity: .38; transform: scale(.91);
+      transition: opacity .45s var(--ease), transform .45s var(--ease);
+    }
+    .ab-exp-item.on { opacity: 1; transform: scale(1); }
+    .ab-exp-badge {
+      display: inline-flex; align-items: center; gap: 8px; padding: 7px 18px; border-radius: 999px;
+      font-size: 12.5px; font-weight: 600; color: var(--ink-2);
+      background: rgba(255,255,255,.82); border: 1px solid rgba(255,255,255,.95); box-shadow: var(--shadow-sm);
+    }
+    .ab-exp-item.now .ab-exp-badge { color: #fff; background: linear-gradient(140deg, #2f6fe8, #0e47c4); border-color: transparent; }
+    .ab-exp-badge i { width: 7px; height: 7px; border-radius: 50%; flex: none; background: #7ef0c0; }
+    .ab-exp-conn { display: flex; flex-direction: column; align-items: center; }
+    .ab-exp-conn span { width: 2px; height: 24px; background: rgba(31,109,255,.22); }
+    .ab-exp-conn b { width: 14px; height: 14px; border-radius: 50%; background: #fff; border: 3px solid var(--blue); box-shadow: 0 0 0 5px rgba(31,109,255,.12); }
+    .ab-exp-card {
+      padding: 30px 34px 34px; border-radius: var(--radius);
+      background: rgba(255,255,255,.72); border: 1px solid rgba(255,255,255,.95);
+      backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px); box-shadow: var(--shadow-sm);
+      transition: box-shadow .45s var(--ease);
+    }
+    .ab-exp-item.on .ab-exp-card { box-shadow: var(--shadow-lg); }
+    .ab-exp-top { display: flex; align-items: center; gap: 16px; }
+    .ab-exp-logo {
+      width: 52px; height: 52px; flex: none; border-radius: 16px; display: grid; place-items: center;
+      font-size: 20px; font-weight: 700; color: #1352e0; background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+    }
+    .ab-exp-role { font-size: 18px; font-weight: 600; letter-spacing: -.02em; }
+    .ab-exp-co { font-size: 14px; font-weight: 600; color: var(--blue); margin-top: 2px; }
+    .ab-exp-loc { font-size: 12.5px; color: var(--ink-3); margin-top: 2px; }
+    .ab-exp-div { height: 1px; background: rgba(14,24,44,.08); margin: 20px 0; }
+    .ab-exp-bul { margin: 0; padding: 0; list-style: none; display: grid; gap: 11px; }
+    .ab-exp-bul li { position: relative; padding-left: 20px; font-size: 14px; line-height: 1.6; color: var(--ink-2); }
+    .ab-exp-bul li::before {
+      content: ''; position: absolute; left: 0; top: 8px; width: 7px; height: 7px;
+      border-radius: 50%; background: linear-gradient(140deg, #1f6dff, #7b5cf0);
+    }
+    .ab-exp-bul b { font-weight: 600; color: var(--ink); }
+    .ab-exp-ctrl { display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 8px; }
+    .ab-exp-arrow {
+      width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; cursor: pointer;
+      border: 1px solid rgba(255,255,255,.95); background: rgba(255,255,255,.85);
+      box-shadow: var(--shadow-sm); color: var(--ink); font-family: inherit;
+      transition: transform .3s var(--spring), box-shadow .3s var(--ease);
+    }
+    .ab-exp-arrow svg { width: 17px; height: 17px; }
+    .ab-exp-arrow:hover:not(:disabled) { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+    .ab-exp-arrow:disabled { opacity: .38; cursor: default; }
+    .ab-exp-pips { display: flex; gap: 8px; }
+    .ab-exp-pips button {
+      width: 9px; height: 9px; padding: 0; border: 0; border-radius: 50%; cursor: pointer;
+      background: rgba(14,24,44,.16); transition: all .3s var(--ease);
+    }
+    .ab-exp-pips button.on { width: 26px; border-radius: 999px; background: linear-gradient(90deg, #1f6dff, #7b5cf0); }
+
+    /* ── education + tools ─────────────────────────────────────────── */
+    .ab-et { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
+    .ab-sub-h { font-size: clamp(24px, 3vw, 36px); font-weight: 600; letter-spacing: -.03em; margin: 18px 0 26px; }
+    .ab-edu {
+      display: flex; align-items: center; justify-content: space-between; gap: 18px;
+      padding: 22px 26px; border-radius: var(--radius-sm); margin-bottom: 12px;
+      background: rgba(255,255,255,.62); border: 1px solid rgba(255,255,255,.9);
+      box-shadow: var(--shadow-sm); transition: all .35s var(--ease);
+    }
+    .ab-edu:hover { transform: translateX(6px); background: rgba(255,255,255,.84); box-shadow: var(--shadow-md); }
+    .ab-edu-deg { font-size: 16px; font-weight: 600; letter-spacing: -.02em; }
+    .ab-edu-school { font-size: 13px; color: var(--blue); font-weight: 500; margin-top: 3px; }
+    .ab-edu-yr { font-size: 12.5px; font-weight: 600; color: var(--ink-3); white-space: nowrap; }
+    .ab-tools { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .ab-tool {
+      display: flex; align-items: center; gap: 14px; padding: 16px 18px; border-radius: var(--radius-sm);
+      background: rgba(255,255,255,.62); border: 1px solid rgba(255,255,255,.9);
+      box-shadow: var(--shadow-sm); transition: all .3s var(--ease);
+    }
+    .ab-tool:hover { transform: translateY(-3px); background: rgba(255,255,255,.86); box-shadow: var(--shadow-md); }
+    .ab-tool i {
+      width: 42px; height: 42px; flex: none; border-radius: 14px; display: grid; place-items: center;
+      font-size: 19px; font-style: normal; background: linear-gradient(140deg, #e8f0ff, #dbe6fb);
+    }
+    .ab-tool-name { font-size: 14.5px; font-weight: 600; letter-spacing: -.01em; }
+    .ab-tool-cat { font-size: 12px; color: var(--ink-3); margin-top: 1px; }
+
+    /* ── skills cloud ──────────────────────────────────────────────── */
+    .ab-cloud { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 38px; }
+    .ab-tag {
+      padding: 12px 22px; border-radius: 999px; font-size: 14px; font-weight: 500; color: var(--ink-2);
+      background: rgba(255,255,255,.7); border: 1px solid rgba(255,255,255,.95);
+      box-shadow: var(--shadow-sm); transition: all .3s var(--ease);
+    }
+    .ab-tag:hover { transform: translateY(-3px); color: var(--blue); box-shadow: var(--shadow-md); }
+
+    /* ── responsive ────────────────────────────────────────────────── */
+    @media (max-width: 1219px) {
+      /* below this the wrap narrows and the deck no longer fits — stack it */
+      .ab-fan { height: auto; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+      .ab-fancard { position: static; width: auto; transform: none; }
+      .ab-fancard:nth-child(n) { left: auto; top: auto; transform: none; }
+      .ab-fancard:hover, .ab-fancard:focus-within { transform: translateY(-6px) scale(1.01); }
+    }
+    @media (max-width: 1020px) {
+      .ab-hero { padding: 132px 0 72px; }
+      .ab-hero-inner { grid-template-columns: 1fr; gap: 44px; }
+      .ab-card { max-width: 400px; }
+      .ab-et { grid-template-columns: 1fr; gap: 44px; }
+      .ab-exp-rail { --cw: min(80vw, 520px); }
+    }
+    @media (max-width: 760px) {
+      .ab-stats { grid-template-columns: repeat(2, 1fr); }
+      .ab-stat { border-bottom: 1px solid rgba(14,24,44,.07); }
+      .ab-stat:nth-child(2n) { border-right: 0; }
+      .ab-stat:nth-last-child(-n+2) { border-bottom: 0; }
+      .ab-fan { grid-template-columns: 1fr; }
+      .ab-tools { grid-template-columns: 1fr; }
+      .ab-exp-rail { --cw: 84vw; }
+      .ab-exp-card { padding: 24px 22px 26px; }
+      .ab-exp-spine { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .ax-blob { animation: none; }
+      .ax-rise { opacity: 1; transform: none; transition: none; }
+      .ab-exp-item { transition: none; }
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="ax">
+
+  <!-- living background -->
+  <div class="ax-canvas" aria-hidden="true">
+    <div class="ax-blob b1"></div><div class="ax-blob b2"></div>
+    <div class="ax-blob b3"></div><div class="ax-blob b4"></div>
+    <div class="ax-grain"></div>
+  </div>
+
+  <div class="ax-progress" id="axProgress"></div>
+
+  <!-- boot -->
+  <div class="ax-boot" id="axBoot">
+    <div class="ax-boot-name">
+      <span>ACHYUT</span>
+      <div class="ax-boot-dots"><i></i><i></i><i></i></div>
+      <span>KHANPARA</span>
+    </div>
+    <div class="ax-boot-bar"><i></i></div>
+    <div class="ax-boot-label">Loading about</div>
+  </div>
+
+  <!-- floating nav -->
+  <nav class="ax-topnav" id="axTopnav" aria-label="Primary">
+    <a href="v2.html" class="ax-topnav-brand">
+      <span class="ax-avatar-chip"><img src="assets/images/profile.png" alt="" /></span>
+      <span class="ax-brand-text">
+        <span class="ax-topnav-name">ACHYUT</span>
+        <span class="ax-topnav-role">Product Designer</span>
+      </span>
+    </a>
+    <div class="ax-nav-sep" aria-hidden="true"></div>
+    <div class="ax-tabs">
+      <a class="ax-tab" href="v2.html#ax-work">Work</a>
+      <a class="ax-tab on" href="about-v2.html" aria-current="page">About</a>
+      <a class="ax-tab" href="v2.html#ax-voices">Recommendations</a>
+      <a class="ax-tab" href="v2.html#ax-connect">Contact</a>
+    </div>
+    <button class="ax-navtoggle" id="axNavToggle" aria-expanded="false" aria-controls="axNavMenu" aria-label="Open navigation menu">
+      <svg class="bars" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <svg class="x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <div class="ax-navmenu" id="axNavMenu">
+      <a href="v2.html#ax-work">Work</a>
+      <a href="about-v2.html" aria-current="page">About</a>
+      <a href="v2.html#ax-voices">Recommendations</a>
+      <a href="v2.html#ax-connect">Contact</a>
+    </div>
+    <a href="mailto:achyutkhanpara7@gmail.com" class="ax-nav-cta">
+      Let&rsquo;s Talk
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13"/><path d="M13 6l6 6-6 6"/></svg>
+    </a>
+  </nav>
+
+  <!-- ══════════ HERO ══════════ -->
+  <header class="ab-hero">
+    <div class="ab-hero-inner">
+      <div>
+        <div class="ax-rise"><div class="ab-greet">👋 &nbsp;Hey there, I&rsquo;m Achyut</div></div>
+        <div class="ax-rise" style="transition-delay:.06s">
+          <h1 class="ab-h1">Product Designer<br>&amp; <span class="accent">UX Researcher</span><br>Based in the US.</h1>
+        </div>
+        <div class="ax-rise" style="transition-delay:.12s">
+          <p class="ab-bio">I specialize in creating clean, user-friendly digital experiences by blending creativity with functionality. With a strong background in interactive design, I focus on crafting designs that not only look great but also provide smooth and engaging user interactions, helping ideas come to life seamlessly.</p>
+        </div>
+        <div class="ax-rise" style="transition-delay:.18s">
+          <div class="ab-btns">
+            <a href="mailto:achyutkhanpara7@gmail.com" class="ab-btn primary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              Contact Me
+            </a>
+            <a href="#" class="ab-btn ghost">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download CV
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="ax-rise" style="transition-delay:.14s">
+        <div class="ab-card">
+          <div class="ab-photo"><img src="assets/images/profile.png" alt="Achyut Khanpara" /></div>
+          <div class="ab-card-foot">
+            <span class="ab-avail"><i aria-hidden="true"></i> Available for work</span>
+            <div class="ab-socs">
+              <a class="ab-soc" href="https://linkedin.com/in/achyut-khanpara/" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
+              <a class="ab-soc" href="mailto:achyutkhanpara7@gmail.com" aria-label="Email">@</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══════════ STATS ══════════ -->
+  <section class="ax-section" style="padding-top:0">
+    <div class="ax-wrap">
+      <div class="ax-rise">
+        <div class="ab-stats">
+          <div class="ab-stat"><b>15+</b><span>Completed Projects</span></div>
+          <div class="ab-stat"><b>4+</b><span>Years of Experience</span></div>
+          <div class="ab-stat"><b>15+</b><span>Happy Clients</span></div>
+          <div class="ab-stat"><b>10+</b><span>Certifications</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ PHILOSOPHY ══════════ -->
+  <section class="ax-section" id="philosophy">
+    <div class="ax-wrap">
+      <div class="ax-rise"><div class="ax-eyebrow"><b></b>My Design Philosophy</div></div>
+      <div class="ax-rise" style="transition-delay:.06s"><h2 class="ax-h2">How I think about <em>design</em>.</h2></div>
+      <div class="ax-rise" style="transition-delay:.12s">
+        <p class="ax-lead">I see design as a powerful strategic tool to solve complex business challenges and create lasting value. I believe designers carry a responsibility not just towards their work, but also towards the people they design for.</p>
+      </div>
+      <div class="ax-rise" style="transition-delay:.18s">
+        <div class="ab-fan">
+          <article class="ab-fancard"><h3>find order in the mess</h3><p>Uncertainty isn&rsquo;t an obstacle — it&rsquo;s where the real work begins. I lean into ambiguity, trust the process, and let clarity emerge through iteration rather than wait for it to arrive.</p></article>
+          <article class="ab-fancard"><h3>inspiration has no off switch</h3><p>Good ideas don&rsquo;t live only on screens. Fashion runways, street signs, film frames — everything is a source. I stay curious beyond the interface and let the world feed the work.</p></article>
+          <article class="ab-fancard"><h3>go beneath the surface</h3><p>The obvious answer is rarely the right one. I push past the first layer — asking why systems break, how people actually think — and design from that deeper understanding rather than from assumptions.</p></article>
+          <article class="ab-fancard"><h3>own the whole problem</h3><p>I don&rsquo;t hand off and walk away. Whether it&rsquo;s shaping a PRD, pairing with engineers, or pushing pixels at midnight — I treat the outcome as mine and do whatever the problem needs.</p></article>
+          <article class="ab-fancard"><h3>subtract until it sings</h3><p>Every element should earn its place. I strip away decoration until what remains is purely purposeful — because the most powerful design is the one that gets out of the user&rsquo;s way.</p></article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ EXPERIENCE ══════════ -->
+  <section class="ax-section" id="experience">
+    <div class="ax-wrap">
+      <div class="ax-rise"><div class="ax-eyebrow"><b></b>Experience</div></div>
+      <div class="ax-rise" style="transition-delay:.06s"><h2 class="ax-h2">The journey <em>so far</em>.</h2></div>
+      <div class="ax-rise" style="transition-delay:.12s">
+        <p class="ax-lead">From enterprise AI platforms to design systems and research-led product work — a growing journey of turning complex problems into clear user experiences.</p>
+      </div>
+    </div>
+
+    <div class="ab-exp-frame">
+      <div class="ab-exp-spine" aria-hidden="true"></div>
+      <div class="ab-exp-rail" id="abExpRail" role="region" aria-label="Experience timeline" tabindex="0">
+
+        <div class="ab-exp-item now on" data-i="0">
+          <div class="ab-exp-badge"><i aria-hidden="true"></i>Oct &rsquo;25 – Present</div>
+          <div class="ab-exp-conn" aria-hidden="true"><span></span><b></b><span></span></div>
+          <div class="ab-exp-card">
+            <div class="ab-exp-top">
+              <div class="ab-exp-logo">W</div>
+              <div>
+                <div class="ab-exp-role">UX / Product Designer</div>
+                <div class="ab-exp-co">WorldLink</div>
+                <div class="ab-exp-loc">Frisco, TX</div>
+              </div>
+            </div>
+            <div class="ab-exp-div"></div>
+            <ul class="ab-exp-bul">
+              <li>Designing <b>AI-powered enterprise products</b>, internal tools, and Fortune 100 proof-of-concept experiences</li>
+              <li>Led UX across <b>GRC, Velox, 7-Eleven AI Ops</b>, Coffee Digital Twin, and GTN simulation workflows</li>
+              <li>Contributed to <b>WorldKIT design system</b> — improving consistency, accessibility, and design-to-dev handoff</li>
+              <li>Partnered with product, engineering &amp; leadership to simplify complex workflows into scalable experiences</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="ab-exp-item" data-i="1">
+          <div class="ab-exp-badge">Jun &rsquo;25 – Present</div>
+          <div class="ab-exp-conn" aria-hidden="true"><span></span><b></b><span></span></div>
+          <div class="ab-exp-card">
+            <div class="ab-exp-top">
+              <div class="ab-exp-logo" style="background:linear-gradient(135deg,#d8f0e8,#b8e4d0);color:#146346;">S</div>
+              <div>
+                <div class="ab-exp-role">UX Designer</div>
+                <div class="ab-exp-co">Saayam For All</div>
+                <div class="ab-exp-loc">Remote</div>
+              </div>
+            </div>
+            <div class="ab-exp-div"></div>
+            <ul class="ab-exp-bul">
+              <li>Designed <b>donor, volunteer, and nonprofit support</b> workflows for a community-focused platform</li>
+              <li>Improved donation and payment experiences through <b>clearer flows</b>, simplified UI, and reusable design patterns</li>
+              <li>Supported usability testing, <b>design system updates</b>, and cross-functional handoff</li>
+              <li>Made social-impact technology <b>easier, faster, and more trustworthy</b> to use</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="ab-exp-item" data-i="2">
+          <div class="ab-exp-badge">Jul &rsquo;24 – May &rsquo;25</div>
+          <div class="ab-exp-conn" aria-hidden="true"><span></span><b></b><span></span></div>
+          <div class="ab-exp-card">
+            <div class="ab-exp-top">
+              <div class="ab-exp-logo" style="background:linear-gradient(135deg,#8B0000,#c0392b);color:#fff;">A</div>
+              <div>
+                <div class="ab-exp-role">Digital Assistant / UX Designer</div>
+                <div class="ab-exp-co">ASU Business &amp; Finance</div>
+                <div class="ab-exp-loc">Tempe, AZ</div>
+              </div>
+            </div>
+            <div class="ab-exp-div"></div>
+            <ul class="ab-exp-bul">
+              <li>Redesigned and maintained <b>70+ Drupal pages</b> across ASU Business &amp; Finance digital experiences</li>
+              <li>Improved <b>navigation, accessibility</b>, content structure, and task completion for students, staff, and internal teams</li>
+              <li>Conducted <b>audits, usability reviews</b>, and content cleanup to create clearer service and policy journeys</li>
+              <li>Collaborated with communications and stakeholder teams to ship <b>consistent website updates</b></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="ab-exp-item" data-i="3">
+          <div class="ab-exp-badge">Sep &rsquo;22 – Jun &rsquo;23</div>
+          <div class="ab-exp-conn" aria-hidden="true"><span></span><b></b><span></span></div>
+          <div class="ab-exp-card">
+            <div class="ab-exp-top">
+              <div class="ab-exp-logo" style="background:linear-gradient(135deg,#fde8d8,#fbd0b4);color:#93450c;">I</div>
+              <div>
+                <div class="ab-exp-role">UX Designer</div>
+                <div class="ab-exp-co">Infotop Solutions</div>
+                <div class="ab-exp-loc">Rajkot, India</div>
+              </div>
+            </div>
+            <div class="ab-exp-div"></div>
+            <ul class="ab-exp-bul">
+              <li>Designed <b>fintech and enterprise web experiences</b> with responsive layouts and reusable UI patterns</li>
+              <li>Created <b>wireframes, prototypes, and user flows</b> for complex financial product journeys</li>
+              <li>Worked closely with developers to improve <b>usability and implementation clarity</b></li>
+              <li>Supported <b>Drupal-based</b> product and website design improvements</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="ab-exp-item" data-i="4">
+          <div class="ab-exp-badge">May &rsquo;22 – Aug &rsquo;22</div>
+          <div class="ab-exp-conn" aria-hidden="true"><span></span><b></b><span></span></div>
+          <div class="ab-exp-card">
+            <div class="ab-exp-top">
+              <div class="ab-exp-logo" style="background:linear-gradient(135deg,#fef3c7,#fde68a);color:#7a5a00;">T</div>
+              <div>
+                <div class="ab-exp-role">UX Designer</div>
+                <div class="ab-exp-co">Thinkwik Technologies</div>
+                <div class="ab-exp-loc">Ahmedabad, India</div>
+              </div>
+            </div>
+            <div class="ab-exp-div"></div>
+            <ul class="ab-exp-bul">
+              <li>Designed <b>B2B dashboard concepts</b>, enterprise workflows, and high-fidelity product screens</li>
+              <li>Created early-stage <b>user flows, wireframes, and prototypes</b> for web and SaaS products</li>
+              <li>Collaborated with engineering teams to <b>translate requirements</b> into usable product interfaces</li>
+              <li>Strengthened foundations in <b>product thinking, visual design</b>, and design-to-dev collaboration</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="ab-exp-ctrl">
+      <button class="ab-exp-arrow" id="abExpPrev" aria-label="Previous experience">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="ab-exp-pips" id="abExpPips"></div>
+      <button class="ab-exp-arrow" id="abExpNext" aria-label="Next experience">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ══════════ EDUCATION + TOOLS ══════════ -->
+  <section class="ax-section" id="edu-tools">
+    <div class="ax-wrap">
+      <div class="ab-et">
+        <div class="ax-rise">
+          <div class="ax-eyebrow"><b></b>Education</div>
+          <h2 class="ab-sub-h">Academic Background</h2>
+          <div class="ab-edu">
+            <div>
+              <div class="ab-edu-deg">Master of Science in User Experience</div>
+              <div class="ab-edu-school">Arizona State University</div>
+            </div>
+            <div class="ab-edu-yr">2023 – 2025</div>
+          </div>
+          <div class="ab-edu">
+            <div>
+              <div class="ab-edu-deg">B.E. in Computer Engineering</div>
+              <div class="ab-edu-school">Gujarat Technological University</div>
+            </div>
+            <div class="ab-edu-yr">2018 – 2022</div>
+          </div>
+        </div>
+
+        <div class="ax-rise" style="transition-delay:.08s">
+          <div class="ax-eyebrow"><b></b>Tools &amp; Stack</div>
+          <h2 class="ab-sub-h">What I Work With</h2>
+          <div class="ab-tools">
+            <div class="ab-tool"><i aria-hidden="true">🎨</i><div><div class="ab-tool-name">Figma</div><div class="ab-tool-cat">Design Tool</div></div></div>
+            <div class="ab-tool"><i aria-hidden="true">⚡</i><div><div class="ab-tool-name">Framer</div><div class="ab-tool-cat">No Code Dev</div></div></div>
+            <div class="ab-tool"><i aria-hidden="true">✏️</i><div><div class="ab-tool-name">Illustrator</div><div class="ab-tool-cat">Vector Design</div></div></div>
+            <div class="ab-tool"><i aria-hidden="true">🖼️</i><div><div class="ab-tool-name">Photoshop</div><div class="ab-tool-cat">Photo Editing</div></div></div>
+            <div class="ab-tool"><i aria-hidden="true">📋</i><div><div class="ab-tool-name">Notion</div><div class="ab-tool-cat">Project Mgmt</div></div></div>
+            <div class="ab-tool"><i aria-hidden="true">🤖</i><div><div class="ab-tool-name">ChatGPT</div><div class="ab-tool-cat">AI Assistant</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ SKILLS ══════════ -->
+  <section class="ax-section" id="skills">
+    <div class="ax-wrap">
+      <div class="ax-rise"><div class="ax-eyebrow"><b></b>Skills</div></div>
+      <div class="ax-rise" style="transition-delay:.06s"><h2 class="ax-h2">What I bring to <em>the table</em>.</h2></div>
+      <div class="ax-rise" style="transition-delay:.12s">
+        <div class="ab-cloud">
+          <span class="ab-tag">A/B Testing</span><span class="ab-tag">Accessibility</span><span class="ab-tag">Design Research</span>
+          <span class="ab-tag">Design Systems</span><span class="ab-tag">Prototyping</span><span class="ab-tag">Visual Design</span>
+          <span class="ab-tag">Interaction Design</span><span class="ab-tag">Journey Mapping</span><span class="ab-tag">Typography</span>
+          <span class="ab-tag">Qualitative Research</span><span class="ab-tag">Quantitative Research</span><span class="ab-tag">No Code</span>
+          <span class="ab-tag">Mix-methods Research</span><span class="ab-tag">Usability Testing</span><span class="ab-tag">User Experience (UX)</span>
+          <span class="ab-tag">User Research</span><span class="ab-tag">Data Visualization</span><span class="ab-tag">Information Architecture</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ CTA ══════════ -->
+  <section class="ax-section" id="ax-connect">
+    <div class="ax-wrap">
+      <div class="ax-rise">
+        <div class="ax-contact">
+          <h2 class="ax-contact-h">Let&rsquo;s design <em style="font-style:normal;font-family:'Caveat',cursive;font-weight:700;font-size:1.16em;background:linear-gradient(100deg,#1f6dff,#7b5cf0 60%,#f0577f);-webkit-background-clip:text;background-clip:text;color:transparent;">incredible</em><br>work together.</h2>
+          <p class="ax-lead" style="margin:18px auto 0;text-align:center;position:relative;">Open to full-time roles, freelance projects, and collaborations.</p>
+          <a href="mailto:achyutkhanpara7@gmail.com" class="ax-mail">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 7l8 6 8-6"/></svg>
+            achyutkhanpara7@gmail.com
+          </a>
+          <div class="ax-socials">
+            <a class="ax-social" href="https://linkedin.com/in/achyut-khanpara/" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
+            <a class="ax-social" href="v2.html" aria-label="Back to home">↩</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="ax-footer">
+    <div class="ax-wrap">
+      <div class="ax-footer-row">
+        <span>© 2026 Achyut Khanpara</span>
+        <span><a href="v2.html">Home</a> &nbsp;·&nbsp; <a href="mailto:achyutkhanpara7@gmail.com">Email</a> &nbsp;·&nbsp; <a href="https://linkedin.com/in/achyut-khanpara/" target="_blank" rel="noopener">LinkedIn</a></span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+
+<script>
+(function () {
+  'use strict';
+  var $  = function (s, c) { return (c || document).querySelector(s); };
+  var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ── boot sequence ───────────────────────────────────────────── */
+  var boot = $('#axBoot'), topnav = $('#axTopnav');
+  document.body.style.overflow = 'hidden';
+  setTimeout(function () { boot.classList.add('go'); }, 90);
+  setTimeout(function () {
+    boot.classList.add('done');
+    document.body.style.overflow = '';
+    topnav.classList.add('show');
+    setTimeout(function () { boot.style.display = 'none'; }, 900);
+  }, reduced ? 200 : 1900);
+
+  /* ── scroll: progress bar + nav state ────────────────────────── */
+  var progress = $('#axProgress'), ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      ticking = false;
+      var total = document.documentElement.scrollHeight - window.innerHeight;
+      if (total > 0) progress.style.width = (window.scrollY / total * 100) + '%';
+      topnav.classList.toggle('stuck', window.scrollY > 40);
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  /* ── scroll reveals ──────────────────────────────────────────── */
+  var revealIO = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add('in'); revealIO.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  $$('.ax-rise').forEach(function (el) { revealIO.observe(el); });
+
+  /* ── compact nav menu (tablet + phone) ───────────────────────── */
+  var navToggle = $('#axNavToggle'), navMenu = $('#axNavMenu');
+  if (navToggle && navMenu) {
+    var setMenu = function (open) {
+      navMenu.classList.toggle('open', open);
+      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      navToggle.setAttribute('aria-label', (open ? 'Close' : 'Open') + ' navigation menu');
+    };
+    navToggle.addEventListener('click', function (e) {
+      e.stopPropagation();
+      setMenu(navToggle.getAttribute('aria-expanded') !== 'true');
+    });
+    $$('a', navMenu).forEach(function (a) {
+      a.addEventListener('click', function () { setMenu(false); });
+    });
+    document.addEventListener('click', function (e) {
+      if (navMenu.classList.contains('open') && !navMenu.contains(e.target)) setMenu(false);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && navMenu.classList.contains('open')) { setMenu(false); navToggle.focus(); }
+    });
+  }
+
+  /* ── experience rail ─────────────────────────────────────────────
+     A scroll-snap track. Whichever card sits nearest the rail's centre
+     is the active one; the arrows and pips just scroll it there, so the
+     rail stays the single source of truth whether you drag, swipe,
+     arrow-key or click.                                              */
+  var rail = $('#abExpRail');
+  if (rail) {
+    var items = $$('.ab-exp-item', rail);
+    var pips  = $('#abExpPips');
+    var prev  = $('#abExpPrev'), next = $('#abExpNext');
+    var index = 0;
+
+    items.forEach(function (_, i) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('aria-label', 'Show experience ' + (i + 1) + ' of ' + items.length);
+      b.addEventListener('click', function () { scrollTo(i); });
+      pips.appendChild(b);
+    });
+    var dots = $$('button', pips);
+
+    function paint(i) {
+      index = i;
+      items.forEach(function (el, n) { el.classList.toggle('on', n === i); });
+      dots.forEach(function (d, n) {
+        d.classList.toggle('on', n === i);
+        d.setAttribute('aria-current', n === i ? 'true' : 'false');
+      });
+      prev.disabled = i === 0;
+      next.disabled = i === items.length - 1;
+    }
+
+    function scrollTo(i) {
+      i = Math.max(0, Math.min(items.length - 1, i));
+      var el = items[i];
+      rail.scrollTo({
+        left: el.offsetLeft - (rail.clientWidth - el.clientWidth) / 2,
+        behavior: reduced ? 'auto' : 'smooth'
+      });
+      paint(i);
+    }
+
+    function nearest() {
+      var mid = rail.scrollLeft + rail.clientWidth / 2, best = 0, gap = Infinity;
+      items.forEach(function (el, i) {
+        var d = Math.abs(el.offsetLeft + el.clientWidth / 2 - mid);
+        if (d < gap) { gap = d; best = i; }
+      });
+      return best;
+    }
+
+    var raf = false;
+    rail.addEventListener('scroll', function () {
+      if (raf) return;
+      raf = true;
+      requestAnimationFrame(function () { raf = false; paint(nearest()); });
+    }, { passive: true });
+
+    prev.addEventListener('click', function () { scrollTo(index - 1); });
+    next.addEventListener('click', function () { scrollTo(index + 1); });
+    rail.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { e.preventDefault(); scrollTo(index + 1); }
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); scrollTo(index - 1); }
+    });
+
+    /* drag to pan, pointer devices only */
+    var down = false, startX = 0, startL = 0, moved = 0;
+    rail.addEventListener('pointerdown', function (e) {
+      if (e.pointerType === 'touch') return;
+      down = true; moved = 0; startX = e.clientX; startL = rail.scrollLeft;
+      rail.style.cursor = 'grabbing';
+    });
+    rail.addEventListener('pointermove', function (e) {
+      if (!down) return;
+      var dx = e.clientX - startX;
+      moved = Math.max(moved, Math.abs(dx));
+      rail.scrollLeft = startL - dx;
+    });
+    ['pointerup', 'pointerleave', 'pointercancel'].forEach(function (ev) {
+      rail.addEventListener(ev, function () {
+        if (!down) return;
+        down = false; rail.style.cursor = '';
+        if (moved > 4) scrollTo(nearest());
+      });
+    });
+
+    paint(0);
+  }
+})();
+
+</script>
+</body>
+</html>
