@@ -539,7 +539,7 @@
        Two columns instead of one centred stack — the stack is what made
        the old footer 811px tall. Tokens flip on this ground: #fff for
        headings, white at .66 for body, which is ~7:1 on #0a0f1c.       */
-    .ax-foot { position: relative; overflow: hidden; margin-top: 60px; background: #0a0f1c; color: #fff; }
+    .ax-foot { position: relative; overflow: hidden; margin-top: 60px; background: var(--ink); color: #fff; }
     .ax-foot-glow { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
     .ax-foot-glow span { position: absolute; border-radius: 50%; filter: blur(80px); opacity: .5; }
     .ax-foot-glow .g1 { width: 520px; height: 520px; left: -140px; top: -200px; background: radial-gradient(circle, #1f6dff, transparent 68%); animation: axFootA 22s ease-in-out infinite; }
@@ -567,7 +567,7 @@
     .ax-foot-up:hover { color: #fff; }
     .ax-foot-up span {
       width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; flex: none;
-      background: #fff; color: #0a0f1c;
+      background: #fff; color: var(--ink);
       transition: transform .35s var(--spring), box-shadow .35s var(--ease);
     }
     .ax-foot-up svg { width: 16px; height: 16px; }
@@ -582,6 +582,22 @@
     }
     @keyframes axFootShimmer { 0%,100% { background-position: 0% 50% } 50% { background-position: 100% 50% } }
     .ax-foot-sub { margin: 18px 0 0; font-size: 15px; line-height: 1.7; color: rgba(255,255,255,.66); max-width: 42ch; }
+    .ax-foot-cta {
+      display: inline-flex; align-items: center; gap: 14px; margin-top: 26px;
+      padding: 7px 7px 7px 26px; border-radius: 999px; text-decoration: none;
+      font-size: 15px; font-weight: 600; color: #fff;
+      background: linear-gradient(140deg, #2f6fe8, #0e47c4);
+      box-shadow: 0 16px 38px -12px rgba(31,109,255,.9), inset 0 1px 0 rgba(255,255,255,.3);
+      transition: transform .32s var(--spring), box-shadow .32s var(--ease);
+    }
+    .ax-foot-cta span {
+      width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; flex: none;
+      background: #fff; color: #0e47c4;
+      transition: transform .32s var(--spring);
+    }
+    .ax-foot-cta svg { width: 15px; height: 15px; }
+    .ax-foot-cta:hover { transform: translateY(-3px); box-shadow: 0 24px 50px -14px rgba(31,109,255,1), inset 0 1px 0 rgba(255,255,255,.3); }
+    .ax-foot-cta:hover span { transform: translate(3px, -3px); }
 
     .ax-foot-card {
       padding: 26px 28px; border-radius: 26px;
@@ -639,11 +655,12 @@
     @media (max-width: 900px) {
       .ax-foot-inner { padding: 34px 20px 22px; }
       .ax-foot-main { grid-template-columns: 1fr; gap: 28px; padding: 30px 0 28px; }
+      .ax-foot-cta { margin-top: 22px; }
       .ax-foot-bar { justify-content: flex-start; }
     }
     @media (prefers-reduced-motion: reduce) {
       .ax-foot-glow span, .ax-foot-h em, .ax-foot-mark span, .ax-foot-status i { animation: none; }
-      .ax-foot-up span, .ax-foot-soc, .ax-foot-mail::after { transition: none; }
+      .ax-foot-up span, .ax-foot-soc, .ax-foot-mail::after, .ax-foot-cta, .ax-foot-cta span { transition: none; }
     }
 
     /* reveal helper */
@@ -1741,6 +1758,10 @@
         <div>
           <h2 class="ax-foot-h">Let&rsquo;s design <em>incredible</em><br />work together.</h2>
           <p class="ax-foot-sub">Actively looking for my next role. If you need someone who will own the problem rather than just the screens, I&rsquo;d like to hear about it.</p>
+          <a class="ax-foot-cta" href="https://calendly.com/achyutkhanpara7/30min" target="_blank" rel="noopener noreferrer">
+            Book a call
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg></span>
+          </a>
         </div>
 
         <div class="ax-foot-card">
