@@ -547,10 +547,10 @@
       border-top: 1px solid rgba(255,255,255,.9);
     }
     .ax-foot-glow { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
-    .ax-foot-glow span { position: absolute; border-radius: 50%; filter: blur(80px); opacity: .3; }
-    .ax-foot-glow .g1 { width: 520px; height: 520px; left: -140px; top: -200px; background: radial-gradient(circle, #1f6dff, transparent 68%); animation: axFootA 22s ease-in-out infinite; }
-    .ax-foot-glow .g2 { width: 440px; height: 440px; right: -90px; top: -140px; background: radial-gradient(circle, #2f9fd4, transparent 68%); animation: axFootB 27s ease-in-out infinite; }
-    .ax-foot-glow .g3 { width: 380px; height: 380px; left: 44%; bottom: -230px; opacity: .30; background: radial-gradient(circle, #4f93ff, transparent 70%); animation: axFootA 31s ease-in-out infinite reverse; }
+    .ax-foot-glow span { position: absolute; border-radius: 50%; filter: blur(80px); opacity: .62; }
+    .ax-foot-glow .g1 { width: 520px; height: 520px; left: -140px; top: -200px; background: radial-gradient(circle at 38% 38%, #bcdaff, #dceaff 58%, transparent 72%); animation: axFootA 22s ease-in-out infinite; }
+    .ax-foot-glow .g2 { width: 440px; height: 440px; right: -90px; top: -140px; background: radial-gradient(circle at 58% 42%, #e3d5ff, #f1ebff 58%, transparent 72%); animation: axFootB 27s ease-in-out infinite; }
+    .ax-foot-glow .g3 { width: 380px; height: 380px; left: 44%; bottom: -230px; opacity: .5; background: radial-gradient(circle at 50% 50%, #ffdae5, #fff0f4 58%, transparent 72%); animation: axFootA 31s ease-in-out infinite reverse; }
     @keyframes axFootA { 0%,100% { transform: translate3d(0,0,0) scale(1) }   50% { transform: translate3d(60px,40px,0) scale(1.12) } }
     @keyframes axFootB { 0%,100% { transform: translate3d(0,0,0) scale(1.05) } 50% { transform: translate3d(-70px,30px,0) scale(.92) } }
 
@@ -582,11 +582,14 @@
     .ax-foot-main { display: grid; grid-template-columns: 1.08fr .92fr; gap: 48px; align-items: center; padding: 38px 0 34px; }
     .ax-foot-h { margin: 0; font-size: clamp(30px, 3.9vw, 50px); font-weight: 600; letter-spacing: -.04em; line-height: 1.06; }
     .ax-foot-h em {
-      font-style: normal; background: linear-gradient(100deg, #2f6fe8, #1352e0 55%, #0e47c4);
+      font-style: normal; background: linear-gradient(100deg, #1f6dff 0%, #7b5cf0 46%, #f0577f 92%);
       background-size: 220% 100%; -webkit-background-clip: text; background-clip: text; color: transparent;
       animation: axFootShimmer 8s ease-in-out infinite;
     }
-    @keyframes axFootShimmer { 0%,100% { background-position: 0% 50% } 50% { background-position: 100% 50% } }
+    /* the sweep stops short of the gradient's pink tail: "incredible" is a
+       long word, so a full 0-100% travel drags it entirely into the pink,
+       where the hero's short keyword never leaves the blue-violet range */
+    @keyframes axFootShimmer { 0%,100% { background-position: 0% 50% } 50% { background-position: 48% 50% } }
     .ax-foot-sub { margin: 18px 0 0; font-size: 15px; line-height: 1.7; color: var(--ink-2); max-width: 42ch; }
     .ax-foot-cta {
       display: inline-flex; align-items: center; gap: 14px; margin-top: 26px;
@@ -622,7 +625,7 @@
     }
     .ax-foot-mail::after {
       content: ''; position: absolute; left: 0; right: 0; bottom: -5px; height: 2px; border-radius: 2px;
-      background: linear-gradient(90deg, #2f6fe8, #1352e0 55%, #0e47c4);
+      background: linear-gradient(90deg, #1f6dff, #7b5cf0 46%, #f0577f);
       transform: scaleX(0); transform-origin: left center; transition: transform .45s var(--spring);
     }
     .ax-foot-mail:hover::after, .ax-foot-mail:focus-visible::after { transform: scaleX(1); }
@@ -649,7 +652,7 @@
       text-decoration: none; background: none; border: 0; padding: 0; cursor: pointer; font-family: inherit;
     }
     .ax-foot-mark span {
-      background: linear-gradient(100deg, #2f6fe8, #1352e0 55%, #0e47c4); background-size: 220% 100%;
+      background: linear-gradient(100deg, #1f6dff 0%, #7b5cf0 46%, #f0577f 92%); background-size: 190% 100%;
       -webkit-background-clip: text; background-clip: text; color: transparent;
       animation: axFootShimmer 8s ease-in-out infinite;
     }
