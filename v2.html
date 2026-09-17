@@ -489,18 +489,37 @@
     .ax-feed-org { font-size: 13px; color: var(--blue); font-weight: 500; margin-top: 3px; }
     .ax-feed-desc { margin-top: 9px; font-size: 14px; line-height: 1.6; color: var(--ink-2); }
 
-    /* ── toolkit marquee ───────────────────────────────────────────── */
-    .ax-marquee { position: relative; overflow: hidden; margin-top: 40px; padding: 6px 0; -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent); mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent); }
-    .ax-marquee-track { display: flex; gap: 10px; width: max-content; animation: axScroll 38s linear infinite; }
-    .ax-marquee:hover .ax-marquee-track { animation-play-state: paused; }
-    .ax-marquee.rev .ax-marquee-track { animation-direction: reverse; animation-duration: 46s; }
+    /* -- hero capability band: one row, pinned to the hero's bottom edge -- */
+    .ax-hmarquee {
+      position: absolute; left: 0; right: 0; bottom: 0; z-index: 4;
+      padding: 15px 0 16px; overflow: hidden;
+      background: linear-gradient(90deg,
+        rgba(226,240,255,.72) 0%, rgba(243,248,255,.90) 35%,
+        rgba(243,248,255,.90) 65%, rgba(226,240,255,.72) 100%);
+      backdrop-filter: blur(20px) saturate(160%); -webkit-backdrop-filter: blur(20px) saturate(160%);
+      border-top: 1px solid rgba(255,255,255,.60);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.70), inset 0 -1px 0 rgba(125,170,235,.22), 0 -18px 60px rgba(93,150,238,.14);
+      opacity: 0; transition: opacity .9s var(--ease) 1.25s;
+    }
+    .ax-hero.lit .ax-hmarquee { opacity: 1; }
+    .ax-hmarquee-mask {
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+      mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+    }
+    .ax-hmarquee-track { display: flex; align-items: center; gap: 14px; width: max-content; animation: axScroll 38s linear infinite; }
+    .ax-hmarquee:hover .ax-hmarquee-track { animation-play-state: paused; }
     @keyframes axScroll { from { transform: translateX(0) } to { transform: translateX(-50%) } }
-    .ax-skill {
-      padding: 12px 22px; border-radius: 999px; white-space: nowrap; font-size: 14px; font-weight: 500;
-      background: rgba(255,255,255,.7); border: 1px solid rgba(255,255,255,.95);
+    .ax-hpill {
+      padding: 9px 20px; border-radius: 999px; white-space: nowrap; font-size: 13.5px; font-weight: 500;
+      background: rgba(255,255,255,.72); border: 1px solid rgba(255,255,255,.95);
       box-shadow: var(--shadow-sm); color: var(--ink-2);
     }
-    .ax-skill.hot { background: linear-gradient(140deg,#4f93ff,#1352e0); color: #fff; border-color: transparent; box-shadow: 0 10px 26px -10px rgba(31,109,255,.7); }
+    .ax-hsep { flex: none; display: grid; place-items: center; }
+    .ax-hsep svg { width: 7px; height: 7px; display: block; fill: var(--blue); }
+    @media (prefers-reduced-motion: reduce) {
+      .ax-hmarquee-track { animation: none; }
+    }
 
     /* ── testimonials ──────────────────────────────────────────────── */
     .ax-tmarquee { overflow: hidden; margin-top: 46px; -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); }
@@ -735,7 +754,7 @@
     /* ── hero shell ──────────────────────────────────────────────── */
     .ax-hero {
       min-height: 100svh; display: flex; align-items: center;
-      padding: 132px 28px 96px; position: relative;
+      padding: 132px 28px 128px; position: relative;
     }
     .ax-hero-inner {
       max-width: 1280px; margin: 0 auto; width: 100%;
@@ -1074,7 +1093,7 @@
 
     /* ── scroll cue ──────────────────────────────────────────────── */
     .ax-cue {
-      position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%);
+      position: absolute; left: 50%; bottom: 84px; transform: translateX(-50%);
       display: flex; flex-direction: column; align-items: center; gap: 9px; z-index: 3;
       font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: var(--ink-3);
       background: none; border: 0; cursor: pointer; font-family: inherit; padding: 6px 10px;
@@ -1112,7 +1131,7 @@
 
     /* tablet — one column, portrait below the copy, nav collapses */
     @media (max-width: 980px) {
-      .ax-hero { padding: 124px 24px 72px; min-height: 0; }
+      .ax-hero { padding: 124px 24px 140px; min-height: 0; }
       .ax-hero-inner { grid-template-columns: 1fr; gap: 40px; justify-items: center; }
       .ax-hero-copy { max-width: 640px; width: 100%; }
       .ax-hero-h1 { font-size: clamp(30px, 5vw, 48px); }
@@ -1131,7 +1150,7 @@
     }
 
     @media (max-width: 760px) {
-      .ax-hero { padding: 106px 18px 64px; }
+      .ax-hero { padding: 106px 18px 132px; }
       .ax-hero-inner { gap: 30px; }
       /* the pill reads as a small two-line card once it can't hold one line */
       .ax-avail { align-items: flex-start; border-radius: 16px; padding: 9px 15px; line-height: 1.5; }
@@ -1379,6 +1398,13 @@
     </div>
 
     <button class="ax-cue" data-scroll="ax-snapshot">Scroll<i aria-hidden="true"></i></button>
+
+    <!-- capability band: one row, toolkit content carried over from index.html -->
+    <div class="ax-hmarquee" id="ax-toolkit">
+      <div class="ax-hmarquee-mask">
+        <div class="ax-hmarquee-track" id="axHeroSkills"></div>
+      </div>
+    </div>
   </section>
 
   <!-- ══════════ SNAPSHOT (the dashboard cards) ══════════ -->
@@ -1659,15 +1685,6 @@
     </div>
   </section>
 
-  <!-- ══════════ TOOLKIT ══════════ -->
-  <section class="ax-section" id="ax-toolkit">
-    <div class="ax-wrap">
-      <div class="ax-rise"><div class="ax-eyebrow"><b></b>Toolkit</div></div>
-      <div class="ax-rise" style="transition-delay:.06s"><h2 class="ax-h2">What I work <em>with</em>.</h2></div>
-    </div>
-    <div class="ax-marquee"><div class="ax-marquee-track" id="axSkillsA"></div></div>
-    <div class="ax-marquee rev" style="margin-top:10px"><div class="ax-marquee-track" id="axSkillsB"></div></div>
-  </section>
 
   <!-- ══════════ RECOMMENDATIONS ══════════ -->
   <section class="ax-section" id="ax-voices">
@@ -1730,17 +1747,23 @@
   for (var d = 0; d < 36; d++) dots += '<i class="' + (d % 5 === 2 || d > 27 ? 'on' : '') + '"></i>';
   $('#axDotGrid').innerHTML = dots;
 
-  var SKILLS_A = ['Figma','Design Systems','Enterprise UX','UX Research','Framer','Prototyping','Design Tokens','Usability Testing','Storybook'];
-  var SKILLS_B = ['AI Products','Claude','Cursor','Product Strategy','WCAG 2.2','Journey Mapping','Tailwind CSS','Design Sprints','Information Architecture'];
-  function marquee(el, list, hot) {
+  /* hero capability band: one row, order carried over from index.html.
+     The list renders twice so the -50% scroll loops seamlessly; the second
+     pass is aria-hidden so screen readers do not announce it twice. */
+  var TOOLKIT = ['Figma','Claude','Framer','Cursor','Enterprise UX','AI Products','Design Systems','UX Research','Product Strategy','Accessibility'];
+  (function heroToolkit() {
+    var el = $('#axHeroSkills');
+    if (!el) return;
+    var sep = '<span class="ax-hsep" aria-hidden="true"><svg viewBox="0 0 8 8"><polygon points="4,0 8,4 4,8 0,4"/></svg></span>';
     var h = '';
-    list.concat(list).forEach(function (s, i) {
-      h += '<span class="ax-skill' + (i % hot.m === hot.r ? ' hot' : '') + '">' + s + '</span>';
-    });
+    for (var pass = 0; pass < 2; pass++) {
+      var hide = pass ? ' aria-hidden="true"' : '';
+      TOOLKIT.forEach(function (s) {
+        h += '<span class="ax-hpill"' + hide + '>' + s + '</span>' + sep;
+      });
+    }
     el.innerHTML = h;
-  }
-  marquee($('#axSkillsA'), SKILLS_A, { m: 4, r: 1 });
-  marquee($('#axSkillsB'), SKILLS_B, { m: 5, r: 2 });
+  })();
 
   var STAR = '<svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
   var VOICES = [
