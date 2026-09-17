@@ -3,183 +3,227 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>AK monogram — options</title>
+<title>AK monogram — constructed marks</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <style>
   /* ════════════════════════════════════════════════════════════════
-     AK MONOGRAM — six directions, on the portfolio's own tokens.
-     Every mark is live CSS/SVG, so it scales, themes and animates
-     without an image asset.
+     AK — six CONSTRUCTED marks. Geometry, negative space, calligraphy
+     and facets, not type with a gradient on it. Everything is drawn in
+     SVG on the portfolio's own tokens.
   ════════════════════════════════════════════════════════════════ */
   :root {
     --ink: #0b1220; --ink-2: #3d4657; --ink-3: #505b70;
-    --blue: #1f6dff; --violet: #7b5cf0; --pink: #f0577f;
-    --sweep: linear-gradient(100deg, #1f6dff 0%, #7b5cf0 46%, #f0577f 92%);
     --ease: cubic-bezier(.22,1,.36,1); --spring: cubic-bezier(.16,1,.3,1);
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     font-family: 'Poppins', system-ui, sans-serif; color: var(--ink);
     background: radial-gradient(120% 90% at 50% -10%, #fff 0%, #eef1f5 45%, #e4e9ee 100%);
-    padding: 48px 28px 80px;
+    padding: 46px 28px 80px;
   }
-  .wrap { max-width: 1180px; margin: 0 auto; }
+  .wrap { max-width: 1200px; margin: 0 auto; }
   h1 { font-size: 34px; font-weight: 600; letter-spacing: -.035em; }
-  h1 em { font-style: normal; background: var(--sweep); -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .lede { margin-top: 10px; font-size: 15px; color: var(--ink-2); max-width: 62ch; line-height: 1.65; }
-
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 18px; margin-top: 34px; }
-  .opt {
-    border-radius: 24px; overflow: hidden; background: rgba(255,255,255,.72);
-    border: 1px solid rgba(255,255,255,.95); box-shadow: 0 1px 2px rgba(14,24,44,.05), 0 8px 24px -12px rgba(14,24,44,.18);
-  }
+  h1 em { font-style: normal; background: linear-gradient(100deg,#1f6dff,#7b5cf0 46%,#f0577f 92%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .lede { margin-top: 10px; font-size: 15px; color: var(--ink-2); max-width: 66ch; line-height: 1.65; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(345px, 1fr)); gap: 18px; margin-top: 34px; }
+  .opt { border-radius: 24px; overflow: hidden; background: rgba(255,255,255,.74); border: 1px solid rgba(255,255,255,.95); box-shadow: 0 1px 2px rgba(14,24,44,.05), 0 10px 26px -14px rgba(14,24,44,.3); }
   .opt-head { padding: 18px 22px 0; }
   .opt-n { font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; }
   .opt-t { font-size: 17px; font-weight: 600; letter-spacing: -.02em; margin-top: 4px; }
-  .opt-d { font-size: 12.5px; color: var(--ink-2); line-height: 1.55; margin-top: 6px; min-height: 40px; }
-  .stage { display: grid; place-items: center; gap: 18px; padding: 26px 22px; }
-  .stage.lt { background: linear-gradient(180deg, rgba(255,255,255,.5), rgba(226,234,246,.7)); }
+  .opt-d { font-size: 12.5px; color: var(--ink-2); line-height: 1.55; margin-top: 6px; min-height: 54px; }
+  .stage { display: grid; place-items: center; padding: 26px 20px; }
+  .stage.lt { background: linear-gradient(180deg, rgba(255,255,255,.5), rgba(226,234,246,.72)); }
   .stage.dk { background: var(--ink); }
-  .row { display: flex; align-items: center; gap: 22px; }
-  .cap { font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); }
+  .row { display: flex; align-items: center; gap: 24px; }
+  .cell { display: grid; place-items: center; gap: 8px; }
+  .cap { font-size: 9.5px; letter-spacing: .14em; color: var(--ink-3); }
   .stage.dk .cap { color: rgba(255,255,255,.5); }
+  .mk { display: block; overflow: visible; }
 
-  /* ── 1 · gradient tile ─────────────────────────────────────────── */
-  .ak-tile {
-    display: grid; place-items: center; border-radius: 28%;
-    background: var(--sweep); background-size: 200% 100%;
-    color: #fff; font-weight: 700; letter-spacing: -.055em;
-    box-shadow: 0 10px 26px -10px rgba(31,109,255,.75);
-    animation: akSweep 7s ease-in-out infinite;
-    transition: transform .4s var(--spring), box-shadow .4s var(--ease);
-  }
-  .ak-tile:hover { transform: translateY(-3px) rotate(-3deg); box-shadow: 0 18px 38px -12px rgba(31,109,255,.9); }
-  @keyframes akSweep { 0%,100% { background-position: 0% 50% } 50% { background-position: 60% 50% } }
+  /* strokes + facets pick the light-ground ramp, then the dark one */
+  .lt .g-s { stroke: url(#rampA) } .dk .g-s { stroke: url(#rampB) }
+  .lt .g-f { fill:   url(#rampA) } .dk .g-f { fill:   url(#rampB) }
+  .lt .ink-f { fill: #0b1220 }     .dk .ink-f { fill: #fff }
 
-  /* ── 2 · knockout disc ─────────────────────────────────────────── */
-  .ak-disc { position: relative; border-radius: 50%; overflow: hidden; background: var(--ink); display: grid; place-items: center; }
-  .ak-disc::before {
-    content: ''; position: absolute; inset: -30%;
-    background: conic-gradient(from 0deg, #1f6dff, #7b5cf0, #f0577f, #1f6dff);
-    animation: akSpin 9s linear infinite;
-  }
-  @keyframes akSpin { to { transform: rotate(360deg) } }
-  .ak-disc b {
-    position: relative; z-index: 1; color: var(--ink); font-weight: 700; letter-spacing: -.055em;
-    mix-blend-mode: screen; background: #fff; -webkit-background-clip: text; background-clip: text;
-  }
-  .ak-disc .cut { position: relative; z-index: 1; font-weight: 700; letter-spacing: -.055em; color: #0b1220; }
-  .ak-disc .plate { position: absolute; z-index: 1; inset: 9%; border-radius: 50%; background: #fff; }
-  .stage.dk .ak-disc .plate { background: var(--ink); }
-  .stage.dk .ak-disc .cut { color: #fff; }
+  /* 1 · ligature — five strokes, drawn in reading order */
+  .m1 path { fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; animation: draw 5.5s var(--ease) infinite; }
+  .m1 path:nth-child(2){animation-delay:.09s} .m1 path:nth-child(3){animation-delay:.18s}
+  .m1 path:nth-child(4){animation-delay:.27s} .m1 path:nth-child(5){animation-delay:.36s}
+  @keyframes draw { 0% { stroke-dashoffset: 1 } 38%,100% { stroke-dashoffset: 0 } }
 
-  /* ── 3 · monoline mark ─────────────────────────────────────────── */
-  .ak-line path { fill: none; stroke: url(#akGrad); stroke-linecap: round; stroke-linejoin: round; }
-  .ak-line .s { stroke-dasharray: 1; stroke-dashoffset: 0; animation: akDraw 5.5s var(--ease) infinite; }
-  .ak-line .s:nth-child(2) { animation-delay: .1s } .ak-line .s:nth-child(3) { animation-delay: .2s }
-  .ak-line .s:nth-child(4) { animation-delay: .3s } .ak-line .s:nth-child(5) { animation-delay: .4s }
-  @keyframes akDraw { 0% { stroke-dashoffset: 1 } 34%,100% { stroke-dashoffset: 0 } }
-  .stage.dk .ak-line path { stroke: url(#akGradL); }
+  /* 2 · negative space — rotating the masked plate dragged the letters
+     round with it, so the plate is fixed and a sheen sweeps through it */
+  .m2 .sheen { animation: sheen 5.5s var(--ease) infinite; }
+  @keyframes sheen { 0% { transform: translateX(-70px) } 55%,100% { transform: translateX(120px) } }
+  @keyframes turn { to { transform: rotate(360deg) } }
 
-  /* ── 4 · split slab ────────────────────────────────────────────── */
-  .ak-split { display: inline-flex; align-items: center; font-weight: 700; letter-spacing: -.05em; }
-  .ak-split .a { color: var(--ink); animation: akInL 4.5s var(--spring) infinite; }
-  .ak-split .k { background: var(--sweep); -webkit-background-clip: text; background-clip: text; color: transparent; animation: akInR 4.5s var(--spring) infinite; }
-  .ak-split i { display: block; width: 2px; border-radius: 2px; background: var(--sweep); margin: 0 .16em; animation: akBar 4.5s var(--spring) infinite; }
-  .stage.dk .ak-split .a { color: #fff; }
-  @keyframes akInL { 0% { transform: translateX(.3em); opacity: 0 } 26%,100% { transform: none; opacity: 1 } }
-  @keyframes akInR { 0% { transform: translateX(-.3em); opacity: 0 } 26%,100% { transform: none; opacity: 1 } }
-  @keyframes akBar { 0% { transform: scaleY(0) } 30%,100% { transform: scaleY(1) } }
+  /* 3 · calligraphy — the swash writes itself under the script */
+  .m3 .swash { fill: none; stroke-linecap: round; stroke-dasharray: 1; animation: draw 5.5s var(--ease) infinite; animation-delay: .25s; }
+  .m3 .nib { opacity: 0; animation: ink 5.5s var(--ease) infinite; }
+  .m3 .nib:nth-child(2){animation-delay:.07s} .m3 .nib:nth-child(3){animation-delay:.14s}
+  .m3 .nib:nth-child(4){animation-delay:.21s} .m3 .nib:nth-child(5){animation-delay:.28s}
+  .m3 .nib:nth-child(6){animation-delay:.35s}
+  @keyframes ink { 0% { opacity: 0; transform: translateY(3px) } 32%,100% { opacity: 1; transform: none } }
 
-  /* ── 5 · underline mark ────────────────────────────────────────── */
-  .ak-rule { display: inline-block; position: relative; font-weight: 700; letter-spacing: -.05em; color: var(--ink); padding-bottom: .14em; }
-  .stage.dk .ak-rule { color: #fff; }
-  .ak-rule::after {
-    content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: .09em; border-radius: 99px;
-    background: var(--sweep); transform-origin: left center; animation: akRule 4.5s var(--ease) infinite;
-  }
-  @keyframes akRule { 0% { transform: scaleX(0) } 30%,70% { transform: scaleX(1) } 100% { transform: scaleX(1) } }
+  /* 4 · facets — bands fold down in sequence */
+  .m4 polygon { transform-origin: 50% 100%; animation: fold 5.5s var(--spring) infinite; }
+  .m4 polygon:nth-child(2){animation-delay:.06s} .m4 polygon:nth-child(3){animation-delay:.12s}
+  .m4 polygon:nth-child(4){animation-delay:.18s} .m4 polygon:nth-child(5){animation-delay:.24s}
+  .m4 polygon:nth-child(6){animation-delay:.30s}
+  @keyframes fold { 0% { opacity: 0; transform: scaleY(.55) } 34%,100% { opacity: 1; transform: none } }
 
-  /* ── 6 · expanding wordmark ────────────────────────────────────── */
-  .ak-word { display: inline-flex; align-items: baseline; font-weight: 700; letter-spacing: -.04em; color: var(--ink); white-space: nowrap; cursor: default; }
-  .stage.dk .ak-word { color: #fff; }
-  .ak-word .g { background: var(--sweep); -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .ak-word .rest {
-    display: inline-block; overflow: hidden; max-width: 0; opacity: 0;
-    transition: max-width .6s var(--spring), opacity .4s var(--ease);
-  }
-  .ak-word:hover .rest { max-width: 8em; opacity: 1; }
+  /* 5 · badge — the tick ring rotates around a fixed mark */
+  .m5 .ring { animation: turn 22s linear infinite; transform-origin: 50% 50%; }
+  .m5 path.st { fill: none; stroke-linecap: round; stroke-linejoin: round; }
 
-  .note { margin-top: 34px; font-size: 13px; color: var(--ink-2); line-height: 1.7; }
+  /* 6 · offset print — two plates in slight misregistration */
+  .m6 .plateB { transform: translate(2.6px, 2.6px); transition: transform .45s var(--spring); }
+  .m6:hover .plateB { transform: translate(6px, 6px); }
+  .lt .m6 .plateB { mix-blend-mode: multiply; }
+  /* the ink plate inherited --ink, the exact colour of the dark ground,
+     so on dark it vanished entirely — it is set per ground now */
+  .lt .m6 .plateA { stroke: #0b1220; opacity: .92 }
+  .dk .m6 .plateA { stroke: #ffffff; opacity: .95 }
+
+  .note { margin-top: 32px; font-size: 13px; color: var(--ink-2); line-height: 1.7; max-width: 76ch; }
   .note b { color: var(--ink); }
   @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
 </style>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <defs>
-    <linearGradient id="akGrad" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="68" y2="48">
-      <stop offset="0" stop-color="#1f6dff"/><stop offset=".46" stop-color="#7b5cf0"/><stop offset=".92" stop-color="#f0577f"/>
-    </linearGradient>
-    <linearGradient id="akGradL" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="68" y2="48">
-      <stop offset="0" stop-color="#4f93ff"/><stop offset=".46" stop-color="#a78bfa"/><stop offset=".92" stop-color="#f472a6"/>
-    </linearGradient>
-  </defs>
-</svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <linearGradient id="rampA" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="112" y2="64">
+    <stop offset="0" stop-color="#1f6dff"/><stop offset=".46" stop-color="#7b5cf0"/><stop offset=".92" stop-color="#f0577f"/>
+  </linearGradient>
+  <linearGradient id="rampB" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="112" y2="64">
+    <stop offset="0" stop-color="#4f93ff"/><stop offset=".46" stop-color="#a78bfa"/><stop offset=".92" stop-color="#f472a6"/>
+  </linearGradient>
+  <linearGradient id="face1" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="112" y2="64">
+    <stop offset="0" stop-color="#4f93ff"/><stop offset="1" stop-color="#1f6dff"/></linearGradient>
+  <linearGradient id="face2" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="112" y2="64">
+    <stop offset="0" stop-color="#7b5cf0"/><stop offset="1" stop-color="#5b3fd0"/></linearGradient>
+  <linearGradient id="face3" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="112" y2="64">
+    <stop offset="0" stop-color="#f0577f"/><stop offset="1" stop-color="#c8365f"/></linearGradient>
+  <linearGradient id="sheenG" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".55"/>
+    <stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+</defs></svg>
 
 <div class="wrap">
-  <h1>AK monogram — <em>six directions</em>.</h1>
-  <p class="lede">Every mark is live CSS or SVG on your existing tokens, so it scales to any size, inverts for dark, and animates without an image file. Each is shown at 96px (hero), 40px (nav) and 28px (favicon) on both grounds — small sizes are where monograms usually fail.</p>
-
+  <h1>AK — <em>constructed marks</em>.</h1>
+  <p class="lede">Drawn, not set. A shared-stem ligature, letters cut out of a solid, a calligraphic swash, folded facets, a seal and an offset-print build. Each is shown at 96, 40 and 28px on both grounds — the 28px column is the one that decides it.</p>
   <div class="grid" id="grid"></div>
-
-  <p class="note">
-    <b>Reading the small sizes.</b> A mark that only works at 96px is not a logo. Check the 28px column first — that is your favicon and your avatar.
-    All six respect <b>prefers-reduced-motion</b>.
-  </p>
+  <p class="note"><b>The ligature is the idea worth noticing.</b> In options 1, 5 and 6 the A's right leg and the K's stem are the same stroke — the two letters are genuinely fused rather than placed side by side. That is what makes a monogram a monogram.</p>
 </div>
 
 <script>
 (function () {
   var SIZES = [96, 40, 28];
 
-  function tile(s)  { return '<span class="ak-tile" style="width:' + s + 'px;height:' + s + 'px;font-size:' + (s * .42) + 'px">AK</span>'; }
-  function disc(s)  { return '<span class="ak-disc" style="width:' + s + 'px;height:' + s + 'px">' +
-                             '<span class="plate"></span><span class="cut" style="font-size:' + (s * .40) + 'px">AK</span></span>'; }
-  function line(s)  {
-    return '<svg class="ak-line" width="' + (s * 1.45) + '" height="' + s + '" viewBox="0 0 68 48" aria-label="AK">' +
-      '<g stroke-width="' + (s < 34 ? 6 : 5) + '">' +
-      '<path class="s" pathLength="1" d="M4 42 L15 7"/><path class="s" pathLength="1" d="M15 7 L26 42"/>' +
-      '<path class="s" pathLength="1" d="M9 31 L21 31"/>' +
-      '<path class="s" pathLength="1" d="M42 7 L42 42"/><path class="s" pathLength="1" d="M62 7 L42 25 L62 42"/>' +
+  /* 1 · shared-stem ligature: the A's right leg IS the K's stem */
+  function ligature(s, cls) {
+    var w = (s * 72 / 64);
+    return '<svg class="mk ' + (cls || 'm1') + '" width="' + w + '" height="' + s + '" viewBox="0 0 72 64" aria-label="AK">' +
+      '<g class="g-s" stroke-width="' + (s < 34 ? 7.5 : 6) + '">' +
+      '<path pathLength="1" d="M36 12 L36 56"/>' +
+      '<path pathLength="1" d="M10 56 L36 12"/>' +
+      '<path pathLength="1" d="M21 41 L36 41"/>' +
+      '<path pathLength="1" d="M36 36 L60 12"/>' +
+      '<path pathLength="1" d="M36 36 L60 56"/>' +
       '</g></svg>';
   }
-  function split(s) { return '<span class="ak-split" style="font-size:' + s + 'px">' +
-                             '<span class="a">A</span><i style="height:' + (s * .62) + 'px"></i><span class="k">K</span></span>'; }
-  function rule(s)  { return '<span class="ak-rule" style="font-size:' + s + 'px">AK</span>'; }
-  function word(s)  { return '<span class="ak-word" style="font-size:' + (s * .62) + 'px">A<span class="rest">CHYUT&nbsp;</span>' +
-                             '<span class="g">K<span class="rest">HANPARA</span></span></span>'; }
+
+  /* 2 · negative space: the letters are holes in the plate */
+  function negative(s) {
+    var id = 'cut' + Math.random().toString(36).slice(2, 8);
+    return '<svg class="mk m2" width="' + s + '" height="' + s + '" viewBox="0 0 96 96" aria-label="AK">' +
+      '<defs><mask id="' + id + '">' +
+        '<rect width="96" height="96" fill="#000"/>' +
+        '<rect x="2" y="2" width="92" height="92" rx="29" fill="#fff"/>' +
+        '<g fill="none" stroke="#000" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">' +
+          '<path d="M46 22 L46 74"/><path d="M18 74 L46 22"/><path d="M29 58 L46 58"/>' +
+          '<path d="M46 50 L76 24"/><path d="M46 50 L76 74"/>' +
+        '</g>' +
+      '</mask></defs>' +
+      '<g mask="url(#' + id + ')">' +
+        '<rect class="g-f" x="2" y="2" width="92" height="92" rx="29"/>' +
+        '<rect class="sheen" x="-30" y="-24" width="26" height="150" fill="url(#sheenG)" transform="rotate(18 48 48)"/>' +
+      '</g></svg>';
+  }
+
+  /* 3 · calligraphy: script letterforms over a drawn swash */
+  function script(s) {
+    /* broad-nib construction: every stroke is a filled outline that swells on
+       the pulls and tapers on the lifts — drawn, so no webfont to wait on */
+    return '<svg class="mk m3" width="' + (s * 104 / 64) + '" height="' + s + '" viewBox="0 0 104 64" aria-label="AK">' +
+      '<g class="g-f">' +
+        '<path class="nib" d="M9 57 C 16 43, 26 25, 35 10 L38.5 12.5 C 30 27, 20 45, 13.5 58 Z"/>' +
+        '<path class="nib" d="M35 10 L41 11.5 C 48 27, 55 43, 60 57 L50 58 C 45.5 44, 40.5 28, 34.5 12.5 Z"/>' +
+        '<path class="nib" d="M18 42 C 28 39.5, 39 39.5, 49 41.5 L48 45.5 C 38.5 43.5, 28.5 43.5, 19 46 Z"/>' +
+        '<path class="nib" d="M67 10 L75 11.5 C 76 27, 76 42, 75 57 L67 55.5 C 68 40, 68 25, 67 10 Z"/>' +
+        '<path class="nib" d="M75 33 C 82 25, 89 17, 95 10 L98.5 13.5 C 91 21.5, 83.5 30, 77.5 37.5 Z"/>' +
+        '<path class="nib" d="M77 29 C 84 38, 91 47, 97.5 55 L90 59 C 84 50.5, 77 41.5, 71.5 34 Z"/>' +
+      '</g>' +
+      '<path class="swash g-s" pathLength="1" fill="none" stroke-width="' + (s < 34 ? 3.4 : 2.4) + '" ' +
+        'd="M6 55 C 26 66, 70 64, 96 52"/></svg>';
+  }
+
+  /* 4 · folded facets: every stroke is a band with its own face */
+  function facet(s) {
+    var w = s * 112 / 64;
+    return '<svg class="mk m4" width="' + w + '" height="' + s + '" viewBox="0 0 112 64" aria-label="AK">' +
+      '<polygon fill="url(#face1)" points="6,56 18,56 40,12 30,12"/>' +
+      '<polygon fill="url(#face2)" points="30,12 40,12 56,56 45,56"/>' +
+      '<polygon fill="url(#face1)" points="19,43 46,43 46,35 19,35"/>' +
+      '<polygon fill="url(#face2)" points="66,12 77,12 77,56 66,56"/>' +
+      '<polygon fill="url(#face1)" points="77,33 97,12 109,12 83,39"/>' +
+      '<polygon fill="url(#face3)" points="83,28 109,56 97,56 77,34"/>' +
+      '</svg>';
+  }
+
+  /* 5 · seal: the ligature inside a rotating tick ring */
+  function badge(s) {
+    return '<svg class="mk m5" width="' + s + '" height="' + s + '" viewBox="0 0 96 96" aria-label="AK">' +
+      '<g class="ring"><circle class="g-s" cx="48" cy="48" r="43" fill="none" stroke-width="2.4" ' +
+        'stroke-dasharray="1.5 7" stroke-linecap="round"/></g>' +
+      '<g class="g-s" stroke-width="' + (s < 34 ? 6.5 : 5.5) + '" fill="none" stroke-linecap="round" stroke-linejoin="round">' +
+        '<path class="st" d="M48 28 L48 68"/><path class="st" d="M29 68 L48 28"/><path class="st" d="M37 55 L48 55"/>' +
+        '<path class="st" d="M48 50 L66 30"/><path class="st" d="M48 50 L66 68"/>' +
+      '</g></svg>';
+  }
+
+  /* 6 · offset print: an ink plate and a colour plate, out of register */
+  function offset(s) {
+    var w = s * 72 / 64, sw = (s < 34 ? 7.5 : 6);
+    function plate(cls, fill) {
+      return '<g class="' + cls + '" ' + fill + ' stroke-width="' + sw + '" fill="none" stroke-linecap="round" stroke-linejoin="round">' +
+        '<path d="M36 12 L36 56"/><path d="M10 56 L36 12"/><path d="M21 41 L36 41"/>' +
+        '<path d="M36 36 L60 12"/><path d="M36 36 L60 56"/></g>';
+    }
+    /* stroke comes from CSS per ground, not from currentColor */
+    return '<svg class="mk m6" width="' + w + '" height="' + s + '" viewBox="0 0 72 64" aria-label="AK">' +
+      plate('plateB g-s', '') + plate('plateA', '') + '</svg>';
+  }
 
   var OPTIONS = [
-    { n: 'Option 01', t: 'Gradient tile',      d: 'App-icon shape, letters reversed out. The gradient breathes; the tile tips on hover. Strongest at small sizes.', f: tile },
-    { n: 'Option 02', t: 'Rotating disc',      d: 'A conic sweep turning behind a plate, so the ring of colour moves but the letters stay still. Reads as an avatar.', f: disc },
-    { n: 'Option 03', t: 'Monoline mark',      d: 'Drawn in strokes, not type — the five strokes redraw themselves on a loop. The only option that is a true mark.', f: line },
-    { n: 'Option 04', t: 'Split slab',         d: 'Ink A, gradient K, divided by a rule that grows between them. Closest to the wordmark already in your footer.', f: split },
-    { n: 'Option 05', t: 'Underline',          d: 'Plain AK over a gradient rule that sweeps out — the same gesture as the email link in your footer.', f: rule },
-    { n: 'Option 06', t: 'Expanding wordmark', d: 'AK that opens into ACHYUT KHANPARA on hover. Built for the nav, where space is tight until it is not.', f: word }
+    { n: 'Option 01', t: 'Shared-stem ligature', d: 'One vertical serves as the A’s right leg and the K’s spine, so the letters are fused, not adjacent. Five strokes redraw in reading order.', f: function (s) { return ligature(s); } },
+    { n: 'Option 02', t: 'Negative space',        d: 'The mark is the hole. Letters are cut clean out of a squircle so the ground shows through, and a sheen sweeps across the plate behind them.', f: negative },
+    { n: 'Option 03', t: 'Calligraphic swash',    d: 'Broad-nib construction — every stroke swells on the pulls and tapers on the lifts, drawn as outlines so there is no font to wait on. The swash writes itself last.', f: script },
+    { n: 'Option 04', t: 'Folded facets',         d: 'Each stroke is a band with its own face, lit like folded paper. Six polygons, no strokes, dropping in one after another.', f: facet },
+    { n: 'Option 05', t: 'Seal',                  d: 'The ligature held inside a rotating ring of ticks. Reads as a stamp or an avatar, and the ring gives it presence at small sizes.', f: badge },
+    { n: 'Option 06', t: 'Offset print',          d: 'Two plates slightly out of register — ink over colour, the way a misprint looks. They pull further apart on hover.', f: offset }
   ];
 
   document.getElementById('grid').innerHTML = OPTIONS.map(function (o) {
     function bank(cls) {
       return '<div class="stage ' + cls + '"><div class="row">' +
-        SIZES.map(function (s) { return '<div style="display:grid;place-items:center;gap:8px">' + o.f(s) + '<span class="cap">' + s + '</span></div>'; }).join('') +
+        SIZES.map(function (s) { return '<div class="cell">' + o.f(s) + '<span class="cap">' + s + '</span></div>'; }).join('') +
         '</div></div>';
     }
-    return '<div class="opt">' +
-      '<div class="opt-head"><div class="opt-n">' + o.n + '</div><div class="opt-t">' + o.t + '</div><div class="opt-d">' + o.d + '</div></div>' +
-      bank('lt') + bank('dk') + '</div>';
+    return '<div class="opt"><div class="opt-head"><div class="opt-n">' + o.n + '</div><div class="opt-t">' + o.t +
+      '</div><div class="opt-d">' + o.d + '</div></div>' + bank('lt') + bank('dk') + '</div>';
   }).join('');
 })();
 </script>
