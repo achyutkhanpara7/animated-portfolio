@@ -191,40 +191,146 @@
     .ax-h2 em { font-style: normal; background: linear-gradient(100deg,#1f6dff,#7b5cf0 60%,#f0577f); -webkit-background-clip: text; background-clip: text; color: transparent; }
     .ax-lead { margin-top: 16px; font-size: 16.5px; line-height: 1.65; color: var(--ink-2); max-width: 62ch; }
 
-    /* ── contact ───────────────────────────────────────────────────── */
-    .ax-contact {
-      position: relative; border-radius: 36px; padding: 70px 40px; text-align: center; overflow: hidden;
-      background: linear-gradient(170deg, rgba(255,255,255,.78), rgba(232,240,250,.7));
-      border: 1px solid rgba(255,255,255,.95);
-      backdrop-filter: blur(26px); -webkit-backdrop-filter: blur(26px); box-shadow: var(--shadow-md);
+    /* ── footer ──────────────────────────────────────────────────────
+       Two columns and a slim bar instead of one centred stack — the stack
+       is what made the old footer 811px tall.                          */
+    /* the muted token is 3.9:1 on this ground — under AA at footer sizes —
+       so the slab runs the darker slate the hero already uses */
+    .ax-foot {
+      position: relative; overflow: hidden; margin-top: 60px; color: var(--ink); --ink-3: #505b70;
+      background: linear-gradient(180deg, rgba(255,255,255,.55), rgba(226,234,246,.85));
+      border-top: 1px solid rgba(255,255,255,.9);
     }
-    .ax-contact::before {
-      content: ''; position: absolute; width: 460px; height: 460px; border-radius: 50%;
-      left: 50%; top: -180px; transform: translateX(-50%);
-      background: radial-gradient(circle, rgba(31,109,255,.18), transparent 65%);
+    .ax-foot-glow { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+    .ax-foot-glow span { position: absolute; border-radius: 50%; filter: blur(80px); opacity: .62; }
+    .ax-foot-glow .g1 { width: 520px; height: 520px; left: -140px; top: -200px; background: radial-gradient(circle at 38% 38%, #bcdaff, #dceaff 58%, transparent 72%); animation: axFootA 22s ease-in-out infinite; }
+    .ax-foot-glow .g2 { width: 440px; height: 440px; right: -90px; top: -140px; background: radial-gradient(circle at 58% 42%, #e3d5ff, #f1ebff 58%, transparent 72%); animation: axFootB 27s ease-in-out infinite; }
+    .ax-foot-glow .g3 { width: 380px; height: 380px; left: 44%; bottom: -230px; opacity: .5; background: radial-gradient(circle at 50% 50%, #ffdae5, #fff0f4 58%, transparent 72%); animation: axFootA 31s ease-in-out infinite reverse; }
+    @keyframes axFootA { 0%,100% { transform: translate3d(0,0,0) scale(1) }   50% { transform: translate3d(60px,40px,0) scale(1.12) } }
+    @keyframes axFootB { 0%,100% { transform: translate3d(0,0,0) scale(1.05) } 50% { transform: translate3d(-70px,30px,0) scale(.92) } }
+
+    .ax-foot-inner { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; padding: 44px 24px 26px; }
+
+    .ax-foot-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .ax-foot-status {
+      display: inline-flex; align-items: center; gap: 10px; padding: 8px 16px; border-radius: 999px;
+      background: rgba(255,255,255,.78); border: 1px solid rgba(255,255,255,.95);
+      box-shadow: var(--shadow-sm); font-size: 12.5px; font-weight: 500; color: var(--ink-2);
     }
-    .ax-contact-h { font-size: clamp(32px, 5vw, 60px); font-weight: 600; letter-spacing: -.04em; line-height: 1.05; position: relative; }
-    .ax-mail {
-      display: inline-flex; align-items: center; gap: 11px; margin-top: 30px; position: relative;
-      padding: 15px 30px; border-radius: 999px; font-size: clamp(15px, 1.8vw, 19px); font-weight: 600;
-      background: linear-gradient(140deg,#4f93ff,#1352e0); color: #fff; text-decoration: none;
-      box-shadow: 0 18px 48px -14px rgba(31,109,255,.8), inset 0 1px 0 rgba(255,255,255,.35);
-      transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+    .ax-foot-status i { width: 7px; height: 7px; border-radius: 50%; flex: none; background: #3ddc97; animation: axFootPulse 2.4s ease-in-out infinite; }
+    @keyframes axFootPulse { 0%,100% { box-shadow: 0 0 0 0 rgba(61,220,151,.55) } 60% { box-shadow: 0 0 0 9px rgba(61,220,151,0) } }
+    .ax-foot-up {
+      display: inline-flex; align-items: center; gap: 12px; text-decoration: none; padding: 0;
+      font-size: 13px; font-weight: 500; color: var(--ink-2);
+      background: none; border: 0; cursor: pointer; font-family: inherit;
+      transition: color .3s var(--ease);
     }
-    .ax-mail:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 26px 60px -16px rgba(31,109,255,.9); }
-    .ax-mail svg { width: 17px; height: 17px; }
-    .ax-socials { display: flex; justify-content: center; gap: 10px; margin-top: 26px; position: relative; }
-    .ax-social {
-      width: 46px; height: 46px; border-radius: 16px; display: grid; place-items: center;
-      background: rgba(255,255,255,.85); border: 1px solid rgba(255,255,255,.95);
-      box-shadow: var(--shadow-sm); color: var(--ink-2); text-decoration: none;
-      font-size: 14px; font-weight: 600; transition: all .28s var(--ease);
+    .ax-foot-up:hover { color: var(--ink); }
+    .ax-foot-up span {
+      width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; flex: none;
+      background: var(--ink); color: #fff;
+      transition: transform .35s var(--spring), box-shadow .35s var(--ease);
     }
-    .ax-social:hover { transform: translateY(-4px); color: var(--blue); box-shadow: var(--shadow-md); }
-    .ax-footer { padding: 40px 0 46px; text-align: center; }
-    .ax-footer-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 12.5px; color: var(--ink-3); }
-    .ax-footer-row a { color: var(--ink-2); text-decoration: none; font-weight: 500; }
-    .ax-footer-row a:hover { color: var(--blue); }
+    .ax-foot-up svg { width: 16px; height: 16px; }
+    .ax-foot-up:hover span { transform: translateY(-4px); box-shadow: 0 14px 30px -8px rgba(14,24,44,.5); }
+
+    .ax-foot-main { display: grid; grid-template-columns: 1.08fr .92fr; gap: 48px; align-items: center; padding: 38px 0 34px; }
+    .ax-foot-h { margin: 0; font-size: clamp(30px, 3.9vw, 50px); font-weight: 600; letter-spacing: -.04em; line-height: 1.06; }
+    .ax-foot-h em {
+      font-style: normal; background: linear-gradient(100deg, #1f6dff 0%, #7b5cf0 46%, #f0577f 92%);
+      background-size: 220% 100%; -webkit-background-clip: text; background-clip: text; color: transparent;
+      animation: axFootShimmer 8s ease-in-out infinite;
+    }
+    /* the sweep stops short of the gradient's pink tail: "incredible" is a
+       long word, so a full 0-100% travel drags it entirely into the pink,
+       where the hero's short keyword never leaves the blue-violet range */
+    @keyframes axFootShimmer { 0%,100% { background-position: 0% 50% } 50% { background-position: 48% 50% } }
+    .ax-foot-sub { margin: 18px 0 0; font-size: 15px; line-height: 1.7; color: var(--ink-2); max-width: 42ch; }
+    .ax-foot-cta {
+      display: inline-flex; align-items: center; gap: 14px; margin-top: 26px;
+      padding: 7px 7px 7px 26px; border-radius: 999px; text-decoration: none;
+      font-size: 15px; font-weight: 600; color: #fff;
+      background: linear-gradient(140deg, #2f6fe8, #0e47c4);
+      box-shadow: 0 16px 38px -12px rgba(31,109,255,.9), inset 0 1px 0 rgba(255,255,255,.3);
+      transition: transform .32s var(--spring), box-shadow .32s var(--ease);
+    }
+    .ax-foot-cta span {
+      width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; flex: none;
+      background: #fff; color: #0e47c4;
+      transition: transform .32s var(--spring);
+    }
+    .ax-foot-cta svg { width: 15px; height: 15px; }
+    .ax-foot-cta:hover { transform: translateY(-3px); box-shadow: 0 24px 50px -14px rgba(31,109,255,1), inset 0 1px 0 rgba(255,255,255,.3); }
+    .ax-foot-cta:hover span { transform: translate(3px, -3px); }
+
+    .ax-foot-card {
+      padding: 26px 28px; border-radius: 26px;
+      background: rgba(255,255,255,.72); border: 1px solid rgba(255,255,255,.95);
+      box-shadow: var(--shadow-md); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    }
+    .ax-foot-me { display: flex; align-items: center; gap: 13px; }
+    .ax-foot-av { width: 46px; height: 46px; border-radius: 50%; overflow: hidden; flex: none; border: 2px solid rgba(14,24,44,.1); }
+    .ax-foot-av img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .ax-foot-me b { display: block; font-size: 15px; font-weight: 600; letter-spacing: -.01em; }
+    .ax-foot-me i { display: block; font-style: normal; font-size: 12.5px; color: var(--ink-3); margin-top: 2px; }
+    .ax-foot-label { margin-top: 22px; font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; font-weight: 600; color: var(--ink-3); }
+    .ax-foot-mail {
+      display: inline-block; position: relative; margin-top: 7px; text-decoration: none; color: var(--ink);
+      font-size: clamp(17px, 1.7vw, 22px); font-weight: 600; letter-spacing: -.02em;
+    }
+    .ax-foot-mail::after {
+      content: ''; position: absolute; left: 0; right: 0; bottom: -5px; height: 2px; border-radius: 2px;
+      background: linear-gradient(90deg, #1f6dff, #7b5cf0 46%, #f0577f);
+      transform: scaleX(0); transform-origin: left center; transition: transform .45s var(--spring);
+    }
+    .ax-foot-mail:hover::after, .ax-foot-mail:focus-visible::after { transform: scaleX(1); }
+    .ax-foot-socials { display: flex; gap: 8px; margin-top: 22px; }
+    .ax-foot-soc {
+      width: 42px; height: 42px; border-radius: 14px; display: grid; place-items: center; text-decoration: none;
+      background: #ffffff; border: 1px solid rgba(14,24,44,.08); box-shadow: var(--shadow-sm);
+      color: var(--ink-2); font-size: 12.5px; font-weight: 600;
+      transition: transform .3s var(--spring), background .3s var(--ease), color .3s var(--ease), box-shadow .3s var(--ease), border-color .3s var(--ease);
+    }
+    .ax-foot-soc:hover {
+      transform: translateY(-4px); color: #fff; border-color: transparent;
+      background: linear-gradient(140deg, #2f6fe8, #0e47c4);
+      box-shadow: 0 14px 28px -10px rgba(31,109,255,.9);
+    }
+
+    .ax-foot-bar {
+      display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap;
+      padding-top: 22px; border-top: 1px solid rgba(14,24,44,.1);
+      font-size: 12.5px; color: var(--ink-3);
+    }
+    .ax-foot-mark {
+      font-size: 14px; font-weight: 700; letter-spacing: .14em; color: var(--ink);
+      text-decoration: none; background: none; border: 0; padding: 0; cursor: pointer; font-family: inherit;
+    }
+    .ax-foot-mark span {
+      background: linear-gradient(100deg, #1f6dff 0%, #7b5cf0 46%, #f0577f 92%); background-size: 190% 100%;
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      animation: axFootShimmer 8s ease-in-out infinite;
+    }
+    .ax-foot-links { display: flex; gap: 18px; }
+    .ax-foot-bar a { color: var(--ink-2); text-decoration: none; transition: color .25s var(--ease); }
+    .ax-foot-bar a:hover { color: var(--blue); }
+    .ax-foot :focus-visible { outline: 2px solid #1352e0; outline-offset: 3px; border-radius: 12px; }
+
+    @media (max-width: 900px) {
+      .ax-foot-inner { padding: 34px 20px 22px; }
+      .ax-foot-main { grid-template-columns: 1fr; gap: 28px; padding: 30px 0 28px; }
+      .ax-foot-cta { margin-top: 22px; }
+      .ax-foot-bar { justify-content: flex-start; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .ax-foot-glow span, .ax-foot-h em, .ax-foot-mark span, .ax-foot-status i { animation: none; }
+      .ax-foot-up span, .ax-foot-soc, .ax-foot-mail::after, .ax-foot-cta, .ax-foot-cta span { transition: none; }
+    }
+
+    /* reveal helper */
+    .ax-rise { opacity: 0; transform: translateY(26px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+    .ax-rise.in { opacity: 1; transform: none; }
+
 
     /* reveal helper */
     .ax-rise { opacity: 0; transform: translateY(26px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
@@ -898,31 +1004,58 @@
     </div>
   </section>
 
-  <!-- ══════════ CTA ══════════ -->
-  <section class="ax-section" id="ax-connect">
-    <div class="ax-wrap">
-      <div class="ax-rise">
-        <div class="ax-contact">
-          <h2 class="ax-contact-h">Let&rsquo;s design <em style="font-style:normal;font-family:'Caveat',cursive;font-weight:700;font-size:1.16em;background:linear-gradient(100deg,#1f6dff,#7b5cf0 60%,#f0577f);-webkit-background-clip:text;background-clip:text;color:transparent;">incredible</em><br>work together.</h2>
-          <p class="ax-lead" style="margin:18px auto 0;text-align:center;position:relative;">Open to full-time roles, freelance projects, and collaborations.</p>
-          <a href="mailto:achyutkhanpara7@gmail.com" class="ax-mail">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 7l8 6 8-6"/></svg>
-            achyutkhanpara7@gmail.com
+
+  <!-- ══════════ FOOTER ══════════ -->
+  <footer class="ax-foot" id="ax-connect">
+    <div class="ax-foot-glow" aria-hidden="true"><span class="g1"></span><span class="g2"></span><span class="g3"></span></div>
+
+    <div class="ax-foot-inner">
+      <div class="ax-foot-top">
+        <span class="ax-foot-status"><i aria-hidden="true"></i>Available for work</span>
+        <a class="ax-foot-up" href="#top" data-top>
+          Back to top
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="M6 11l6-6 6 6"/></svg></span>
+        </a>
+      </div>
+
+      <div class="ax-foot-main">
+        <div>
+          <h2 class="ax-foot-h">Let&rsquo;s design <em>incredible</em><br />work together.</h2>
+          <p class="ax-foot-sub">Actively looking for my next role. If you need someone who will own the problem rather than just the screens, I&rsquo;d like to hear about it.</p>
+          <a class="ax-foot-cta" href="https://calendly.com/achyutkhanpara7/30min" target="_blank" rel="noopener noreferrer">
+            Book a call
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg></span>
           </a>
-          <div class="ax-socials">
-            <a class="ax-social" href="https://linkedin.com/in/achyut-khanpara/" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
-            <a class="ax-social" href="v2.html" aria-label="Back to home">↩</a>
+        </div>
+
+        <div class="ax-foot-card">
+          <div class="ax-foot-me">
+            <span class="ax-foot-av"><img src="assets/images/profile.png" alt="" /></span>
+            <span>
+              <b>Achyut Khanpara</b>
+              <i>Product Designer &amp; UX Researcher</i>
+            </span>
+          </div>
+
+          <div class="ax-foot-label">Contact me</div>
+          <a class="ax-foot-mail" href="mailto:achyutkhanpara7@gmail.com">achyutkhanpara7@gmail.com</a>
+
+          <div class="ax-foot-socials">
+            <a class="ax-foot-soc" href="https://linkedin.com/in/achyut-khanpara/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a>
+            <a class="ax-foot-soc" href="https://www.behance.net/" target="_blank" rel="noopener noreferrer" aria-label="Behance">Be</a>
+            <a class="ax-foot-soc" href="https://dribbble.com/" target="_blank" rel="noopener noreferrer" aria-label="Dribbble">Db</a>
+            <a class="ax-foot-soc" href="https://github.com/achyutkhanpara7" target="_blank" rel="noopener noreferrer" aria-label="GitHub">Gh</a>
           </div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <footer class="ax-footer">
-    <div class="ax-wrap">
-      <div class="ax-footer-row">
-        <span>© 2026 Achyut Khanpara</span>
-        <span><a href="v2.html">Home</a> &nbsp;·&nbsp; <a href="mailto:achyutkhanpara7@gmail.com">Email</a> &nbsp;·&nbsp; <a href="https://linkedin.com/in/achyut-khanpara/" target="_blank" rel="noopener">LinkedIn</a></span>
+      <div class="ax-foot-bar">
+        <a class="ax-foot-mark" href="#top" data-top>ACHYUT <span>KHANPARA</span></a>
+        <span>&copy; 2026 Achyut Khanpara</span>
+        <span class="ax-foot-links">
+          <a href="index.html">Classic design</a>
+          <a href="v2.html">Home</a>
+        </span>
       </div>
     </div>
   </footer>
@@ -999,6 +1132,14 @@
      is the active one; the arrows and pips just scroll it there, so the
      rail stays the single source of truth whether you drag, swipe,
      arrow-key or click.                                              */
+  /* back to top: this page carries no in-page scroll wiring of its own */
+  $$('[data-top]').forEach(function (el) {
+    el.addEventListener('click', function (e) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' });
+    });
+  });
+
   var rail = $('#abExpRail');
   if (rail) {
     var items = $$('.ab-exp-item', rail);
