@@ -267,9 +267,12 @@
     .ax-gauge-track { fill: none; stroke: rgba(255,255,255,.2); stroke-width: 7; stroke-linecap: round; }
     .ax-gauge-fill  { fill: none; stroke: url(#axGaugeGrad); stroke-width: 7; stroke-linecap: round;
       filter: drop-shadow(0 0 8px rgba(120,220,255,.9)); }
-    .ax-gauge-cap { position: absolute; inset: auto 0 2px; text-align: center; }
-    .ax-gauge-cap b { display: block; font-size: 30px; font-weight: 600; letter-spacing: -.02em; }
-    .ax-gauge-cap span { font-size: 12.5px; opacity: .85; }
+    .ax-gauge-cap { position: absolute; inset: auto 0 4px; text-align: center; }
+    .ax-gauge-cap b { display: block; font-size: 42px; font-weight: 600; letter-spacing: -.03em; line-height: 1.05; }
+    .ax-gauge-cap > span {
+      display: block; font-size: 14px; font-weight: 500; letter-spacing: .01em;
+      opacity: .95; margin-bottom: 4px;
+    }
 
     .ax-legend { margin-top: auto; padding-top: 16px; display: grid; gap: 11px; }
     .ax-legend-row { display: flex; align-items: center; gap: 9px; font-size: 13.5px; }
@@ -299,7 +302,6 @@
     }
     .ax-white-head { font-size: 12px; color: var(--ink-3); margin-top: 14px; }
     .ax-white-title { font-size: 24px; font-weight: 600; letter-spacing: -.02em; }
-    .ax-white-sub { font-size: 11.5px; line-height: 1.45; color: var(--ink-3); margin-top: 5px; }
     .ax-ticks { margin-top: 12px; }
     .ax-tick-num { font-size: 18px; font-weight: 500; letter-spacing: -.01em; }
     .ax-tick-bars { display: flex; align-items: flex-end; gap: 3px; height: 40px; margin-top: 4px; }
@@ -1402,7 +1404,7 @@
       <div class="ax-rise">
         <div class="ax-snap-head">
           <div>
-            <div class="ax-eyebrow"><b></b>Impact snapshot</div>
+            <div class="ax-eyebrow"><b></b>Snapshot</div>
             <h2 class="ax-h2">The work, <em>by the numbers</em>.</h2>
           </div>
         </div>
@@ -1415,7 +1417,7 @@
             <button class="ax-arrow-btn" aria-label="See selected work" data-scroll="ax-work"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg></button>
             <div class="ax-card-label">Experience<br />Overview</div>
             <div class="ax-card-value"><span data-count="4" data-suffix="+ Years">4+ Years</span></div>
-            <div class="ax-card-delta"><i>▲</i> 15+ enterprise workflows designed end-to-end</div>
+            <div class="ax-card-delta"><i>▲</i> 15+ projects shipped end-to-end</div>
 
             <div class="ax-gauge">
               <svg viewBox="0 0 220 118">
@@ -1428,49 +1430,49 @@
                 <path class="ax-gauge-fill" id="axGauge" d="M18 110 A92 92 0 0 1 202 110" />
               </svg>
               <div class="ax-gauge-cap">
-                <span>Enterprise product focus</span>
-                <b><span data-count="4" data-suffix="+ Years">4+ Years</span></b>
+                <span>Enterprise &amp; AI focus</span>
+                <b><span data-count="89" data-suffix="%">89%</span></b>
               </div>
             </div>
 
             <div class="ax-legend">
-              <div class="ax-legend-row"><b style="background:#dff3ff"></b><span>Enterprise &amp; AI Products</span><span>Core focus</span></div>
-              <div class="ax-legend-row"><b style="background:#b9e6ff"></b><span>Design Systems</span><span>Scaled</span></div>
-              <div class="ax-legend-row"><b style="background:#8fd6ff"></b><span>UX Research</span><span>Mixed methods</span></div>
-              <div class="ax-legend-row"><b style="background:#63c4ff"></b><span>Product Strategy</span><span>End-to-end</span></div>
+              <div class="ax-legend-row"><b style="background:#dff3ff"></b><span>Enterprise AI Products</span><span>42%</span></div>
+              <div class="ax-legend-row"><b style="background:#b9e6ff"></b><span>Design Systems</span><span>28%</span></div>
+              <div class="ax-legend-row"><b style="background:#8fd6ff"></b><span>UX Research</span><span>18%</span></div>
+              <div class="ax-legend-row"><b style="background:#63c4ff"></b><span>Product Strategy</span><span>12%</span></div>
             </div>
           </div>
 
           <div class="ax-card white" data-tilt>
             <div class="ax-pill-dark">Overview</div>
             <div class="ax-blobart"></div>
-            <div class="ax-white-head">Product breadth</div>
-            <div class="ax-white-title">Complex workflows</div>
-            <div class="ax-white-sub">Enterprise, AI, GRC, retail, fintech, healthtech</div>
+            <div class="ax-white-head">Design output</div>
+            <div class="ax-white-title">Case studies</div>
             <div class="ax-ticks">
               <div class="ax-tick-num">15+</div>
               <div class="ax-tick-bars" id="axTickBars"></div>
-              <div class="ax-tick-labels"><span>2022</span><span>2023</span><span>2024</span><span>2025</span><span>2026</span></div>
+              <div class="ax-tick-labels"><span>2021</span><span>2022</span><span>2023</span><span>2024</span><span>2025</span></div>
             </div>
           </div>
 
           <div class="ax-card purple" data-tilt>
-            <div class="ax-card-label">Organizations supported</div>
-            <div class="ax-card-value"><span data-count="5" data-suffix="+">5+</span></div>
-            <div class="ax-card-delta"><i>▲</i> Across enterprise, retail, finance, healthcare, and education</div>
+            <div class="ax-card-label">People reached</div>
+            <div class="ax-card-value"><span data-count="12" data-suffix="K+">12K+</span></div>
+            <div class="ax-card-delta"><i>▲</i> across 5 enterprise products</div>
             <div class="ax-wave">
               <svg viewBox="0 0 320 60" preserveAspectRatio="none">
                 <path d="M0,42 C34,10 62,10 96,34 C130,58 158,58 192,30 C226,4 254,4 288,26 L320,34" />
                 <circle class="ax-wave-dot" cx="288" cy="26" r="5" />
               </svg>
             </div>
-            <div class="ax-xaxis"><span>JPMC</span><span>Citi</span><span>AbbVie</span><span>7-Eleven</span><span>ASU</span></div>
+            <div class="ax-yaxis"><span>100</span><span>70</span><span>50</span><span>20</span></div>
+            <div class="ax-xaxis"><span>Citi</span><span>AbbVie</span><span>JPMC</span><span>7-Eleven</span><span>WorldKit</span></div>
           </div>
 
           <div class="ax-trio">
             <div class="ax-card mini m1" data-tilt>
-              <div class="ax-card-label">Pages<br />redesigned</div>
-              <div class="ax-dots-num">70+</div>
+              <div class="ax-card-label">Certifications<br />earned</div>
+              <div class="ax-dots-num">10+</div>
               <div class="ax-mini-art">
                 <svg viewBox="0 0 120 40" preserveAspectRatio="none">
                   <path d="M0,32 C18,30 26,14 44,16 C62,18 70,6 88,9 C100,11 110,6 120,4" />
@@ -1479,8 +1481,8 @@
               </div>
             </div>
             <div class="ax-card mini m2" data-tilt>
-              <div class="ax-card-label">Less design<br />rework</div>
-              <div class="ax-dots-num">45%</div>
+              <div class="ax-card-label">Research<br />sessions</div>
+              <div class="ax-dots-num">50+</div>
               <div class="ax-mini-art">
                 <svg viewBox="0 0 120 40" preserveAspectRatio="none">
                   <path d="M0,20 C12,4 24,36 36,20 C48,4 60,36 72,20 C84,4 96,36 108,20 C114,12 118,16 120,18" />
@@ -1488,8 +1490,8 @@
               </div>
             </div>
             <div class="ax-card mini m3" data-tilt>
-              <div class="ax-card-label">Navigation<br />efficiency</div>
-              <div class="ax-dots-num">+30%</div>
+              <div class="ax-card-label">Master&rsquo;s<br />GPA</div>
+              <div class="ax-dots-num">4.0</div>
               <div class="ax-dotgrid" id="axDotGrid"></div>
             </div>
           </div>
@@ -1514,7 +1516,7 @@
         <div class="ax-rise" style="transition-delay:.18s">
           <div class="ax-kpis">
             <div class="ax-kpi"><b><span data-count="4" data-suffix="+">4+</span></b><span>Years designing enterprise AI products, design systems &amp; research</span></div>
-            <div class="ax-kpi"><b>F100</b><span>Citi, AbbVie, Samsung — products built to scale</span></div>
+            <div class="ax-kpi"><b>F100</b><span>Citi, AbbVie, JPMC — products built to scale</span></div>
             <div class="ax-kpi"><b><span data-count="40" data-suffix="%+">40%+</span></b><span>Workflow efficiency gains across shipped products</span></div>
           </div>
         </div>
