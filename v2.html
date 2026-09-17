@@ -689,6 +689,8 @@
       transition: color .25s var(--ease), transform .3s var(--spring);
     }
     .ax-topnav .ax-tab:hover { color: var(--ink); }
+    /* one tab is a link to another page rather than an in-page button */
+    a.ax-tab { text-decoration: none; display: inline-flex; align-items: center; }
     .ax-topnav .ax-tab.on { color: var(--ink); font-weight: 600; }
     /* the pill only appears once a section actually owns the viewport */
     .ax-tab-pill { opacity: 0; transition: opacity .3s var(--ease), left .45s var(--spring), width .45s var(--spring); }
@@ -729,12 +731,15 @@
       transition: opacity .3s var(--ease), transform .35s var(--spring), visibility 0s linear .3s;
     }
     .ax-navmenu.open { opacity: 1; transform: none; pointer-events: auto; visibility: visible; transition-delay: 0s; }
-    .ax-navmenu button {
+    .ax-navmenu button,
+    .ax-navmenu a {
       text-align: left; padding: 11px 15px; border: 0; border-radius: 14px; cursor: pointer;
       background: transparent; font-family: inherit; font-size: 14.5px; font-weight: 500; color: var(--ink-2);
+      text-decoration: none;
       transition: background .2s var(--ease), color .2s var(--ease);
     }
-    .ax-navmenu button:hover { background: rgba(31,109,255,.08); color: var(--ink); }
+    .ax-navmenu button:hover,
+    .ax-navmenu a:hover { background: rgba(31,109,255,.08); color: var(--ink); }
 
     /* ── hero shell ──────────────────────────────────────────────── */
     .ax-hero {
@@ -1247,7 +1252,7 @@
     <div class="ax-tabs" id="axTabs">
       <span class="ax-tab-pill" id="axTabPill" aria-hidden="true"></span>
       <button class="ax-tab" data-to="ax-work">Work</button>
-      <button class="ax-tab" data-to="ax-about">About</button>
+      <a class="ax-tab" href="about-v2.html">About</a>
       <button class="ax-tab" data-to="ax-voices">Recommendations</button>
       <button class="ax-tab" data-to="ax-connect">Contact</button>
     </div>
@@ -1257,7 +1262,7 @@
     </button>
     <div class="ax-navmenu" id="axNavMenu">
       <button data-scroll="ax-work">Work</button>
-      <button data-scroll="ax-about">About</button>
+      <a href="about-v2.html">About</a>
       <button data-scroll="ax-voices">Recommendations</button>
       <button data-scroll="ax-connect">Contact</button>
     </div>
@@ -1740,7 +1745,12 @@
   setTimeout(function () {
     boot.classList.add('done');
     document.body.style.overflow = '';
-    window.scrollTo(0, 0);
+    /* the boot overlay locks scrolling, so an incoming #hash has to be
+       re-applied once it lifts — otherwise a deep link from another page
+       (the about page's Work / Recommendations / Contact) lands at the top. */
+    var landing = location.hash.length > 1 && document.getElementById(location.hash.slice(1));
+    if (landing) landing.scrollIntoView({ behavior: 'auto', block: 'start' });
+    else window.scrollTo(0, 0);
     topnav.classList.add('show');
     document.querySelector('.ax-hero').classList.add('lit');
     setTimeout(function () { boot.style.display = 'none'; }, 900);
@@ -1780,7 +1790,9 @@
     return set;
   }
 
-  var setTab = pill('#axTabs', '#axTabPill', '.ax-tab', function (b) { goTo(b.getAttribute('data-to')); });
+  var setTab = pill('#axTabs', '#axTabPill', '.ax-tab', function (b) {
+    if (b.hasAttribute('data-to')) goTo(b.getAttribute('data-to'));
+  });
   pill('#axSeg', '#axSegPill', '.ax-seg-btn', function (b) {
     var n = b.getAttribute('data-panel');
     $$('.ax-panel').forEach(function (p) { p.classList.toggle('on', p.getAttribute('data-panel') === n); });
@@ -1947,7 +1959,7 @@
       e.stopPropagation();
       setMenu(navToggle.getAttribute('aria-expanded') !== 'true');
     });
-    $$('button', navMenu).forEach(function (b) {
+    $$('button, a', navMenu).forEach(function (b) {
       b.addEventListener('click', function () { setMenu(false); });
     });
     document.addEventListener('click', function (e) {
