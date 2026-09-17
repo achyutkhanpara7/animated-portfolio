@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AK monogram — options</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* ════════════════════════════════════════════════════════════════
+     AK MONOGRAM — six directions, on the portfolio's own tokens.
+     Every mark is live CSS/SVG, so it scales, themes and animates
+     without an image asset.
+  ════════════════════════════════════════════════════════════════ */
+  :root {
+    --ink: #0b1220; --ink-2: #3d4657; --ink-3: #505b70;
+    --blue: #1f6dff; --violet: #7b5cf0; --pink: #f0577f;
+    --sweep: linear-gradient(100deg, #1f6dff 0%, #7b5cf0 46%, #f0577f 92%);
+    --ease: cubic-bezier(.22,1,.36,1); --spring: cubic-bezier(.16,1,.3,1);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Poppins', system-ui, sans-serif; color: var(--ink);
+    background: radial-gradient(120% 90% at 50% -10%, #fff 0%, #eef1f5 45%, #e4e9ee 100%);
+    padding: 48px 28px 80px;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; }
+  h1 { font-size: 34px; font-weight: 600; letter-spacing: -.035em; }
+  h1 em { font-style: normal; background: var(--sweep); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .lede { margin-top: 10px; font-size: 15px; color: var(--ink-2); max-width: 62ch; line-height: 1.65; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 18px; margin-top: 34px; }
+  .opt {
+    border-radius: 24px; overflow: hidden; background: rgba(255,255,255,.72);
+    border: 1px solid rgba(255,255,255,.95); box-shadow: 0 1px 2px rgba(14,24,44,.05), 0 8px 24px -12px rgba(14,24,44,.18);
+  }
+  .opt-head { padding: 18px 22px 0; }
+  .opt-n { font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; }
+  .opt-t { font-size: 17px; font-weight: 600; letter-spacing: -.02em; margin-top: 4px; }
+  .opt-d { font-size: 12.5px; color: var(--ink-2); line-height: 1.55; margin-top: 6px; min-height: 40px; }
+  .stage { display: grid; place-items: center; gap: 18px; padding: 26px 22px; }
+  .stage.lt { background: linear-gradient(180deg, rgba(255,255,255,.5), rgba(226,234,246,.7)); }
+  .stage.dk { background: var(--ink); }
+  .row { display: flex; align-items: center; gap: 22px; }
+  .cap { font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); }
+  .stage.dk .cap { color: rgba(255,255,255,.5); }
+
+  /* ── 1 · gradient tile ─────────────────────────────────────────── */
+  .ak-tile {
+    display: grid; place-items: center; border-radius: 28%;
+    background: var(--sweep); background-size: 200% 100%;
+    color: #fff; font-weight: 700; letter-spacing: -.055em;
+    box-shadow: 0 10px 26px -10px rgba(31,109,255,.75);
+    animation: akSweep 7s ease-in-out infinite;
+    transition: transform .4s var(--spring), box-shadow .4s var(--ease);
+  }
+  .ak-tile:hover { transform: translateY(-3px) rotate(-3deg); box-shadow: 0 18px 38px -12px rgba(31,109,255,.9); }
+  @keyframes akSweep { 0%,100% { background-position: 0% 50% } 50% { background-position: 60% 50% } }
+
+  /* ── 2 · knockout disc ─────────────────────────────────────────── */
+  .ak-disc { position: relative; border-radius: 50%; overflow: hidden; background: var(--ink); display: grid; place-items: center; }
+  .ak-disc::before {
+    content: ''; position: absolute; inset: -30%;
+    background: conic-gradient(from 0deg, #1f6dff, #7b5cf0, #f0577f, #1f6dff);
+    animation: akSpin 9s linear infinite;
+  }
+  @keyframes akSpin { to { transform: rotate(360deg) } }
+  .ak-disc b {
+    position: relative; z-index: 1; color: var(--ink); font-weight: 700; letter-spacing: -.055em;
+    mix-blend-mode: screen; background: #fff; -webkit-background-clip: text; background-clip: text;
+  }
+  .ak-disc .cut { position: relative; z-index: 1; font-weight: 700; letter-spacing: -.055em; color: #0b1220; }
+  .ak-disc .plate { position: absolute; z-index: 1; inset: 9%; border-radius: 50%; background: #fff; }
+  .stage.dk .ak-disc .plate { background: var(--ink); }
+  .stage.dk .ak-disc .cut { color: #fff; }
+
+  /* ── 3 · monoline mark ─────────────────────────────────────────── */
+  .ak-line path { fill: none; stroke: url(#akGrad); stroke-linecap: round; stroke-linejoin: round; }
+  .ak-line .s { stroke-dasharray: 1; stroke-dashoffset: 0; animation: akDraw 5.5s var(--ease) infinite; }
+  .ak-line .s:nth-child(2) { animation-delay: .1s } .ak-line .s:nth-child(3) { animation-delay: .2s }
+  .ak-line .s:nth-child(4) { animation-delay: .3s } .ak-line .s:nth-child(5) { animation-delay: .4s }
+  @keyframes akDraw { 0% { stroke-dashoffset: 1 } 34%,100% { stroke-dashoffset: 0 } }
+  .stage.dk .ak-line path { stroke: url(#akGradL); }
+
+  /* ── 4 · split slab ────────────────────────────────────────────── */
+  .ak-split { display: inline-flex; align-items: center; font-weight: 700; letter-spacing: -.05em; }
+  .ak-split .a { color: var(--ink); animation: akInL 4.5s var(--spring) infinite; }
+  .ak-split .k { background: var(--sweep); -webkit-background-clip: text; background-clip: text; color: transparent; animation: akInR 4.5s var(--spring) infinite; }
+  .ak-split i { display: block; width: 2px; border-radius: 2px; background: var(--sweep); margin: 0 .16em; animation: akBar 4.5s var(--spring) infinite; }
+  .stage.dk .ak-split .a { color: #fff; }
+  @keyframes akInL { 0% { transform: translateX(.3em); opacity: 0 } 26%,100% { transform: none; opacity: 1 } }
+  @keyframes akInR { 0% { transform: translateX(-.3em); opacity: 0 } 26%,100% { transform: none; opacity: 1 } }
+  @keyframes akBar { 0% { transform: scaleY(0) } 30%,100% { transform: scaleY(1) } }
+
+  /* ── 5 · underline mark ────────────────────────────────────────── */
+  .ak-rule { display: inline-block; position: relative; font-weight: 700; letter-spacing: -.05em; color: var(--ink); padding-bottom: .14em; }
+  .stage.dk .ak-rule { color: #fff; }
+  .ak-rule::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: .09em; border-radius: 99px;
+    background: var(--sweep); transform-origin: left center; animation: akRule 4.5s var(--ease) infinite;
+  }
+  @keyframes akRule { 0% { transform: scaleX(0) } 30%,70% { transform: scaleX(1) } 100% { transform: scaleX(1) } }
+
+  /* ── 6 · expanding wordmark ────────────────────────────────────── */
+  .ak-word { display: inline-flex; align-items: baseline; font-weight: 700; letter-spacing: -.04em; color: var(--ink); white-space: nowrap; cursor: default; }
+  .stage.dk .ak-word { color: #fff; }
+  .ak-word .g { background: var(--sweep); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .ak-word .rest {
+    display: inline-block; overflow: hidden; max-width: 0; opacity: 0;
+    transition: max-width .6s var(--spring), opacity .4s var(--ease);
+  }
+  .ak-word:hover .rest { max-width: 8em; opacity: 1; }
+
+  .note { margin-top: 34px; font-size: 13px; color: var(--ink-2); line-height: 1.7; }
+  .note b { color: var(--ink); }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="akGrad" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="68" y2="48">
+      <stop offset="0" stop-color="#1f6dff"/><stop offset=".46" stop-color="#7b5cf0"/><stop offset=".92" stop-color="#f0577f"/>
+    </linearGradient>
+    <linearGradient id="akGradL" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="68" y2="48">
+      <stop offset="0" stop-color="#4f93ff"/><stop offset=".46" stop-color="#a78bfa"/><stop offset=".92" stop-color="#f472a6"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<div class="wrap">
+  <h1>AK monogram — <em>six directions</em>.</h1>
+  <p class="lede">Every mark is live CSS or SVG on your existing tokens, so it scales to any size, inverts for dark, and animates without an image file. Each is shown at 96px (hero), 40px (nav) and 28px (favicon) on both grounds — small sizes are where monograms usually fail.</p>
+
+  <div class="grid" id="grid"></div>
+
+  <p class="note">
+    <b>Reading the small sizes.</b> A mark that only works at 96px is not a logo. Check the 28px column first — that is your favicon and your avatar.
+    All six respect <b>prefers-reduced-motion</b>.
+  </p>
+</div>
+
+<script>
+(function () {
+  var SIZES = [96, 40, 28];
+
+  function tile(s)  { return '<span class="ak-tile" style="width:' + s + 'px;height:' + s + 'px;font-size:' + (s * .42) + 'px">AK</span>'; }
+  function disc(s)  { return '<span class="ak-disc" style="width:' + s + 'px;height:' + s + 'px">' +
+                             '<span class="plate"></span><span class="cut" style="font-size:' + (s * .40) + 'px">AK</span></span>'; }
+  function line(s)  {
+    return '<svg class="ak-line" width="' + (s * 1.45) + '" height="' + s + '" viewBox="0 0 68 48" aria-label="AK">' +
+      '<g stroke-width="' + (s < 34 ? 6 : 5) + '">' +
+      '<path class="s" pathLength="1" d="M4 42 L15 7"/><path class="s" pathLength="1" d="M15 7 L26 42"/>' +
+      '<path class="s" pathLength="1" d="M9 31 L21 31"/>' +
+      '<path class="s" pathLength="1" d="M42 7 L42 42"/><path class="s" pathLength="1" d="M62 7 L42 25 L62 42"/>' +
+      '</g></svg>';
+  }
+  function split(s) { return '<span class="ak-split" style="font-size:' + s + 'px">' +
+                             '<span class="a">A</span><i style="height:' + (s * .62) + 'px"></i><span class="k">K</span></span>'; }
+  function rule(s)  { return '<span class="ak-rule" style="font-size:' + s + 'px">AK</span>'; }
+  function word(s)  { return '<span class="ak-word" style="font-size:' + (s * .62) + 'px">A<span class="rest">CHYUT&nbsp;</span>' +
+                             '<span class="g">K<span class="rest">HANPARA</span></span></span>'; }
+
+  var OPTIONS = [
+    { n: 'Option 01', t: 'Gradient tile',      d: 'App-icon shape, letters reversed out. The gradient breathes; the tile tips on hover. Strongest at small sizes.', f: tile },
+    { n: 'Option 02', t: 'Rotating disc',      d: 'A conic sweep turning behind a plate, so the ring of colour moves but the letters stay still. Reads as an avatar.', f: disc },
+    { n: 'Option 03', t: 'Monoline mark',      d: 'Drawn in strokes, not type — the five strokes redraw themselves on a loop. The only option that is a true mark.', f: line },
+    { n: 'Option 04', t: 'Split slab',         d: 'Ink A, gradient K, divided by a rule that grows between them. Closest to the wordmark already in your footer.', f: split },
+    { n: 'Option 05', t: 'Underline',          d: 'Plain AK over a gradient rule that sweeps out — the same gesture as the email link in your footer.', f: rule },
+    { n: 'Option 06', t: 'Expanding wordmark', d: 'AK that opens into ACHYUT KHANPARA on hover. Built for the nav, where space is tight until it is not.', f: word }
+  ];
+
+  document.getElementById('grid').innerHTML = OPTIONS.map(function (o) {
+    function bank(cls) {
+      return '<div class="stage ' + cls + '"><div class="row">' +
+        SIZES.map(function (s) { return '<div style="display:grid;place-items:center;gap:8px">' + o.f(s) + '<span class="cap">' + s + '</span></div>'; }).join('') +
+        '</div></div>';
+    }
+    return '<div class="opt">' +
+      '<div class="opt-head"><div class="opt-n">' + o.n + '</div><div class="opt-t">' + o.t + '</div><div class="opt-d">' + o.d + '</div></div>' +
+      bank('lt') + bank('dk') + '</div>';
+  }).join('');
+})();
+</script>
+</body>
+</html>
