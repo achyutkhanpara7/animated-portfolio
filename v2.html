@@ -520,168 +520,34 @@
     .ax-panel-stat span { display: block; margin-top: 5px; font-size: 12.5px; color: var(--ink-3); line-height: 1.35; }
 
 
-    /* -- hero capability band ------------------------------------------
-       A slightly tilted ink slab across the hero's bottom edge. The hero
-       clips it (overflow: clip), so the tilt shows on the top edge while
-       the bottom stays flush with the section below.
-       ------------------------------------------------------------------ */
+    /* -- hero capability band: one row, pinned to the hero's bottom edge -- */
     .ax-hmarquee {
-      position: absolute; left: -7%; right: -7%; bottom: -40px; z-index: 4;
-      padding: 15px 0 70px; overflow: hidden;
-      transform: rotate(-1.7deg);
-      background: linear-gradient(101deg, #0a1120 0%, #101d33 46%, #0a1322 100%);
-      border-top: 1px solid rgba(255,255,255,.10);
-      box-shadow: 0 -22px 60px -26px rgba(9,17,33,.55), inset 0 1px 0 rgba(255,255,255,.06);
+      position: absolute; left: 0; right: 0; bottom: 0; z-index: 4;
+      padding: 15px 0 16px; overflow: hidden;
+      background: linear-gradient(90deg,
+        rgba(226,240,255,.72) 0%, rgba(243,248,255,.90) 35%,
+        rgba(243,248,255,.90) 65%, rgba(226,240,255,.72) 100%);
+      backdrop-filter: blur(20px) saturate(160%); -webkit-backdrop-filter: blur(20px) saturate(160%);
+      border-top: 1px solid rgba(255,255,255,.60);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.70), inset 0 -1px 0 rgba(125,170,235,.22), 0 -18px 60px rgba(93,150,238,.14);
       opacity: 0; transition: opacity .9s var(--ease) 1.25s;
     }
     .ax-hero.lit .ax-hmarquee { opacity: 1; }
-    /* blueprint grid inside the slab */
-    .ax-hmarquee::before {
-      content: ''; position: absolute; inset: 0; pointer-events: none; opacity: .55;
-      background-image:
-        linear-gradient(rgba(142,182,255,.075) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(142,182,255,.075) 1px, transparent 1px);
-      background-size: 26px 26px;
-      -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
-      mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
-    }
-    /* blue wash so the dark slab still belongs to the light hero */
-    .ax-hmarquee::after {
-      content: ''; position: absolute; inset: 0; pointer-events: none;
-      background: radial-gradient(56% 150% at 50% 118%, rgba(31,109,255,.22), transparent 72%);
-    }
     .ax-hmarquee-mask {
-      position: relative; z-index: 1; overflow: hidden;
-      -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
-      mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+      mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
     }
-    .ax-hmarquee-track { display: flex; align-items: center; width: max-content; animation: axScroll 52s linear infinite; }
-    .ax-hmarquee:hover .ax-hmarquee-track,
-    .ax-hmarquee:focus-within .ax-hmarquee-track,
-    .ax-hmarquee.is-held .ax-hmarquee-track { animation-play-state: paused; }
+    .ax-hmarquee-track { display: flex; align-items: center; gap: 14px; width: max-content; animation: axScroll 38s linear infinite; }
+    .ax-hmarquee:hover .ax-hmarquee-track { animation-play-state: paused; }
     @keyframes axScroll { from { transform: translateX(0) } to { transform: translateX(-50%) } }
-
-    .ax-hchip {
-      display: flex; align-items: center; gap: 11px; flex: none;
-      padding: 8px 15px 8px 8px; border-radius: 15px;
-      border: 1px solid transparent; outline: none; cursor: default;
-      -webkit-tap-highlight-color: transparent;
-      transition: background .3s var(--ease), border-color .3s var(--ease),
-                  transform .45s var(--ease), box-shadow .45s var(--ease), opacity .3s var(--ease);
+    .ax-hpill {
+      padding: 9px 20px; border-radius: 999px; white-space: nowrap; font-size: 13.5px; font-weight: 500;
+      background: rgba(255,255,255,.72); border: 1px solid rgba(255,255,255,.95);
+      box-shadow: var(--shadow-sm); color: var(--ink-2);
     }
-    /* the rest of the row steps back while one chip is being read */
-    .ax-hmarquee.is-held .ax-hchip { opacity: .38; }
-    .ax-hmarquee.is-held .ax-hchip.is-live { opacity: 1; }
-    .ax-hchip.is-live {
-      background: rgba(255,255,255,.055);
-      border-color: rgba(122,172,255,.3);
-      transform: translateY(-3px);
-      box-shadow: 0 18px 34px -18px rgba(31,109,255,.8), inset 0 1px 0 rgba(255,255,255,.08);
-    }
-    .ax-hlogo {
-      width: 38px; height: 38px; flex: none; border-radius: 12px; display: grid; place-items: center;
-      background: linear-gradient(160deg, #142139, #0a1120);
-      border: 1px solid rgba(255,255,255,.09);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.07);
-      transition: transform .5s var(--ease), border-color .3s var(--ease);
-    }
-    .ax-hlogo svg { width: 19px; height: 19px; display: block; }
-    .ax-hchip.is-live .ax-hlogo { transform: scale(1.07) rotate(-5deg); border-color: rgba(122,172,255,.45); }
-    /* craft chips carry no brand, so they carry the house accent instead */
-    .ax-hchip.craft .ax-hlogo {
-      background: linear-gradient(160deg, rgba(79,147,255,.24), rgba(31,109,255,.07));
-      border-color: rgba(122,172,255,.24);
-    }
-    .ax-hname { font-size: 15px; font-weight: 600; letter-spacing: -.01em; color: #eaf1fb; white-space: nowrap; }
-    .ax-htag {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: 9px; line-height: 1; letter-spacing: .16em; text-transform: uppercase;
-      color: rgba(197,216,246,.6); padding: 5px 8px 4px; border-radius: 7px;
-      border: 1px solid rgba(255,255,255,.13); background: rgba(255,255,255,.03);
-      white-space: nowrap; transition: color .3s var(--ease), border-color .3s var(--ease);
-    }
-    .ax-hchip.is-live .ax-htag { color: #c2daff; border-color: rgba(122,172,255,.45); }
-    .ax-hsep { flex: none; display: grid; place-items: center; width: 12px; height: 12px; margin: 0 6px; opacity: .3; }
-    .ax-hsep svg { width: 100%; height: 100%; display: block; fill: #9fc0f5; }
-
-    /* -- chip tooltip: fixed, so the hero's clip never cuts it ---------- */
-    .ax-tip {
-      position: fixed; left: 0; top: 0; z-index: 8500; width: 268px;
-      padding: 14px 16px 16px; border-radius: 18px; pointer-events: none;
-      font-family: 'Poppins', 'Manrope', system-ui, -apple-system, sans-serif;
-      background: linear-gradient(165deg, rgba(17,28,49,.97), rgba(9,15,28,.97));
-      border: 1px solid rgba(130,175,255,.22);
-      box-shadow: 0 34px 70px -30px rgba(5,11,24,.9), inset 0 1px 0 rgba(255,255,255,.07);
-      opacity: 0; visibility: hidden;
-      transform: translate(-50%, -100%) translateY(2px) scale(.92);
-      transform-origin: 50% 112%;
-      transition: opacity .2s cubic-bezier(.22,1,.36,1),
-                  transform .42s cubic-bezier(.22,1,.36,1),
-                  visibility 0s .45s;
-    }
-    .ax-tip.on {
-      opacity: 1; visibility: visible;
-      transform: translate(-50%, -100%) translateY(-14px) scale(1);
-      transition: opacity .2s cubic-bezier(.22,1,.36,1),
-                  transform .42s cubic-bezier(.22,1,.36,1), visibility 0s;
-    }
-    .ax-tip::after {
-      content: ''; position: absolute; left: var(--cx, 50%); bottom: -6px;
-      width: 11px; height: 11px; margin-left: -5.5px; transform: rotate(45deg);
-      background: rgba(10,16,30,.97);
-      border-right: 1px solid rgba(130,175,255,.22);
-      border-bottom: 1px solid rgba(130,175,255,.22);
-    }
-    /* flipped under the chip when the card would clear the viewport top */
-    .ax-tip.below { transform: translate(-50%, 0) translateY(-2px) scale(.92); transform-origin: 50% -14%; }
-    .ax-tip.below.on { transform: translate(-50%, 0) translateY(14px) scale(1); }
-    .ax-tip.below::after {
-      bottom: auto; top: -6px; border: 0;
-      border-left: 1px solid rgba(130,175,255,.22);
-      border-top: 1px solid rgba(130,175,255,.22);
-    }
-    .ax-tip-shine { position: absolute; inset: 0; border-radius: inherit; overflow: hidden; pointer-events: none; }
-    .ax-tip-shine::before {
-      content: ''; position: absolute; top: 0; bottom: 0; left: -50%; width: 40%;
-      background: linear-gradient(100deg, transparent, rgba(255,255,255,.13), transparent);
-    }
-    .ax-tip.on .ax-tip-shine::before { animation: axTipShine .95s cubic-bezier(.22,1,.36,1) .16s 1; }
-    @keyframes axTipShine { from { left: -50% } to { left: 118% } }
-
-    .ax-tip-top { position: relative; display: flex; align-items: center; gap: 11px; }
-    .ax-tip-logo {
-      width: 32px; height: 32px; flex: none; border-radius: 11px; display: grid; place-items: center;
-      background: rgba(255,255,255,.055); border: 1px solid rgba(255,255,255,.1);
-    }
-    .ax-tip-logo svg { width: 17px; height: 17px; display: block; }
-    .ax-tip.on .ax-tip-logo { animation: axTipPop .6s cubic-bezier(.22,1,.36,1) .05s both; }
-    @keyframes axTipPop {
-      0%   { transform: scale(.4) rotate(-24deg); opacity: 0 }
-      60%  { transform: scale(1.14) rotate(5deg); opacity: 1 }
-      100% { transform: scale(1) rotate(0); opacity: 1 }
-    }
-    .ax-tip-name { font-size: 14px; font-weight: 600; letter-spacing: -.01em; color: #fff; }
-    .ax-tip-tag {
-      margin-top: 3px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: 8.5px; letter-spacing: .17em; text-transform: uppercase; color: rgba(163,192,238,.78);
-    }
-    .ax-tip-body { position: relative; margin: 12px 0 0; font-size: 12.6px; line-height: 1.58; color: rgba(215,228,248,.84); }
-    .ax-tip.on .ax-tip-body { animation: axTipUp .5s cubic-bezier(.22,1,.36,1) .1s both; }
-    @keyframes axTipUp { from { opacity: 0; transform: translateY(8px) } to { opacity: 1; transform: none } }
-    .ax-tip-meter { position: relative; margin-top: 13px; height: 3px; border-radius: 3px; background: rgba(255,255,255,.09); overflow: hidden; }
-    .ax-tip-meter i { display: block; height: 100%; width: 0; border-radius: 3px; background: linear-gradient(90deg, #2f9fd4, #4f93ff, #7b5cf0); }
-    .ax-tip.on .ax-tip-meter i { animation: axTipFill .9s cubic-bezier(.22,1,.36,1) .12s forwards; }
-    @keyframes axTipFill { to { width: 100% } }
-
-    @media (max-width: 760px) {
-      .ax-hmarquee { left: -11%; right: -11%; bottom: -32px; padding: 11px 0 58px; transform: rotate(-1.3deg); }
-      .ax-hchip { padding: 7px 12px 7px 7px; gap: 9px; }
-      .ax-hlogo { width: 33px; height: 33px; border-radius: 11px; }
-      .ax-hlogo svg { width: 17px; height: 17px; }
-      .ax-hname { font-size: 13.5px; }
-      .ax-htag { display: none; }
-      .ax-tip { width: 232px; }
-    }
+    .ax-hsep { flex: none; display: grid; place-items: center; }
+    .ax-hsep svg { width: 7px; height: 7px; display: block; fill: var(--blue); }
     @media (prefers-reduced-motion: reduce) {
       .ax-hmarquee-track { animation: none; }
     }
@@ -1377,8 +1243,7 @@
 
     /* ── scroll cue ──────────────────────────────────────────────── */
     .ax-cue {
-      /* sits clear of the capability band's top edge */
-      position: absolute; left: 50%; bottom: 118px; transform: translateX(-50%);
+      position: absolute; left: 50%; bottom: 84px; transform: translateX(-50%);
       display: flex; flex-direction: column; align-items: center; gap: 9px; z-index: 3;
       font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: var(--ink-3);
       background: none; border: 0; cursor: pointer; font-family: inherit; padding: 6px 10px;
@@ -1994,163 +1859,22 @@
   for (var d = 0; d < 36; d++) dots += '<i class="' + (d % 5 === 2 || d > 27 ? 'on' : '') + '"></i>';
   $('#axDotGrid').innerHTML = dots;
 
-  /* hero capability band ------------------------------------------------
-     One row of chips: a mark, the name, and a mono tag. Hovering (or
-     focusing) a chip stops the row and opens the tooltip below.
-     Edit CAPS to change the row — { k: mark key, n: name, t: tag,
-     d: tooltip line, craft: true for the house-accent tile }.
-     --------------------------------------------------------------------- */
-  var G = function (b) { return "<svg viewBox='0 0 24 24' fill='none' stroke='#8ab8ff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'>" + b + "</svg>"; };
-
-  var MARK = {
-    figma: "<svg viewBox='0 0 12 18'><path fill='#0ACF83' d='M3 18a3 3 0 0 0 3-3v-3H3a3 3 0 0 0 0 6z'/><path fill='#A259FF' d='M0 9a3 3 0 0 1 3-3h3v6H3a3 3 0 0 1-3-3z'/><path fill='#F24E1E' d='M0 3a3 3 0 0 1 3-3h3v6H3a3 3 0 0 1-3-3z'/><path fill='#FF7262' d='M6 0h3a3 3 0 1 1 0 6H6V0z'/><path fill='#1ABCFE' d='M6 9a3 3 0 1 1 6 0 3 3 0 0 1-6 0z'/></svg>",
-    framer: "<svg viewBox='0 0 12 18'><path fill='#fff' d='M1 0h10v6H6zM1 6h10l-5 6H1zM1 12h5v6l-5-6z'/></svg>",
-    claude: "<svg viewBox='0 0 24 24' fill='none' stroke='#D97757' stroke-width='2.6' stroke-linecap='round'><path d='M12 3.6v16.8M4.7 7.8l14.6 8.4M4.7 16.2l14.6-8.4'/></svg>",
-    cursor: "<svg viewBox='0 0 24 24'><path fill='#fff' fill-opacity='.95' d='M12 2.2 21.6 7.7 12 13.2 2.4 7.7z'/><path fill='#fff' fill-opacity='.5' d='M2.4 8.9 12 14.4v7.4L2.4 16.3z'/><path fill='#fff' fill-opacity='.75' d='M21.6 8.9 12 14.4v7.4l9.6-5.5z'/></svg>",
-    story:  "<svg viewBox='0 0 24 24'><rect width='24' height='24' rx='5.5' fill='#FF4785'/><path fill='#fff' d='M13.9 10.1c0 .5 2.5.2 2.8-.1 0-2.1-1.1-3.2-3.1-3.2-2.1 0-3.2 1.1-3.2 2.8 0 2.9 3.9 2.9 3.9 4.5 0 .4-.2.7-.7.7-.6 0-.9-.3-.9-1.3 0-.4-2.7-.5-2.8 0-.1 2.1 1.1 2.8 3.7 2.8 2 0 3.6-1.1 3.6-2.9 0-3-3.9-2.9-3.9-4.4 0-.4.3-.6.6-.6.4 0 .6.2.6.5z'/></svg>",
-    tw:     "<svg viewBox='0 0 24 24'><path fill='#38BDF8' d='M12 6c-2.67 0-4.33 1.33-5 4 1-1.33 2.17-1.83 3.5-1.5.76.19 1.31.74 1.91 1.35.98 1 2.11 2.15 4.59 2.15 2.67 0 4.33-1.33 5-4-1 1.33-2.17 1.83-3.5 1.5-.76-.19-1.3-.74-1.91-1.35C15.61 7.15 14.48 6 12 6zM7 12c-2.67 0-4.33 1.33-5 4 1-1.33 2.17-1.83 3.5-1.5.76.19 1.31.74 1.91 1.35.98 1 2.11 2.15 4.59 2.15 2.67 0 4.33-1.33 5-4-1 1.33-2.17 1.83-3.5 1.5-.76-.19-1.3-.74-1.91-1.35C10.61 13.15 9.48 12 7 12z'/></svg>",
-
-    sys:    G("<rect x='3.2' y='3.2' width='7.6' height='7.6' rx='2'/><rect x='13.2' y='3.2' width='7.6' height='7.6' rx='2'/><rect x='3.2' y='13.2' width='7.6' height='7.6' rx='2'/><rect x='13.2' y='13.2' width='7.6' height='7.6' rx='2'/>"),
-    ent:    G("<path d='M12 2.8 21.4 8 12 13.2 2.6 8z'/><path d='M2.6 12.4 12 17.6l9.4-5.2'/><path d='M2.6 16.6 12 21.8l9.4-5.2'/>"),
-    res:    G("<circle cx='10.6' cy='10.6' r='6.6'/><path d='M15.4 15.4 20.8 20.8'/>"),
-    ai:     G("<path d='M11 4.2 12.8 9.2 17.8 11 12.8 12.8 11 17.8 9.2 12.8 4.2 11 9.2 9.2z'/><path d='M18.4 3.2v3.4M20.1 4.9h-3.4'/>"),
-    strat:  G("<circle cx='12' cy='12' r='8.6'/><circle cx='12' cy='12' r='4.4'/><circle cx='12' cy='12' r='1' fill='#8ab8ff'/>"),
-    a11y:   G("<circle cx='12' cy='4.4' r='2'/><path d='M4.6 8.2c4.8 1.6 10 1.6 14.8 0'/><path d='M12 10.2v4.2M12 14.4 8.8 21.4M12 14.4 15.2 21.4'/>")
-  };
-
-  var CAPS = [
-    { k:'figma',  n:'Figma',             t:'Design',     d:'Screens, systems and specs — where most of the working day actually happens.' },
-    { k:'claude', n:'Claude',            t:'AI Partner', d:'Research synthesis, copy passes and a second pair of eyes on every flow.' },
-    { k:'framer', n:'Framer',            t:'Prototype',  d:'High-fidelity prototypes and live pages that behave like the real product.' },
-    { k:'cursor', n:'Cursor',            t:'AI Dev',     d:'Prototyping in real code when a static frame cannot answer the question.' },
-    { k:'story',  n:'Storybook',         t:'Handoff',    d:'Components documented next to the code, so handoff is a link and not a deck.' },
-    { k:'tw',     n:'Tailwind CSS',      t:'Styling',    d:'Tokens straight into markup — I build the UI I design instead of redlining it.' },
-    { k:'sys',    n:'Design Systems',    t:'Systems',    d:'Tokens, components and the rules that keep forty screens looking like one product.', craft: 1 },
-    { k:'ent',    n:'Enterprise UX',     t:'Enterprise', d:'Dense, permission-heavy tools made calm enough to live in all day.', craft: 1 },
-    { k:'res',    n:'UX Research',       t:'Research',   d:'Interviews, diary studies and synthesis that kill the wrong ideas early.', craft: 1 },
-    { k:'ai',     n:'AI Products',       t:'AI UX',      d:'Designing for models that are confident, occasionally wrong and sometimes slow.', craft: 1 },
-    { k:'strat',  n:'Product Strategy',  t:'Strategy',   d:'Framing the problem before the pixels — scope, bets and the trade-offs behind them.', craft: 1 },
-    { k:'a11y',   n:'Accessibility',     t:'WCAG 2.2',   d:'Contrast, focus order and keyboard paths checked before handoff, not after launch.', craft: 1 }
-  ];
-
-  var CAP_MAP = {};
-  CAPS.forEach(function (c) { CAP_MAP[c.k] = c; });
-
-  /* The row renders twice so the -50% scroll loops seamlessly; the second
-     pass is aria-hidden and untabbable so it is never announced twice. */
+  /* hero capability band: one row, order carried over from index.html.
+     The list renders twice so the -50% scroll loops seamlessly; the second
+     pass is aria-hidden so screen readers do not announce it twice. */
+  var TOOLKIT = ['Figma','Claude','Framer','Cursor','Enterprise UX','AI Products','Design Systems','UX Research','Product Strategy','Accessibility'];
   (function heroToolkit() {
     var el = $('#axHeroSkills');
     if (!el) return;
-    var sep = '<span class="ax-hsep" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 1.6c1 5.2 4.2 8.4 9.4 9.4v2c-5.2 1-8.4 4.2-9.4 9.4h-2c-1-5.2-4.2-8.4-9.4-9.4v-2c5.2-1 8.4-4.2 9.4-9.4z"/></svg></span>';
+    var sep = '<span class="ax-hsep" aria-hidden="true"><svg viewBox="0 0 8 8"><polygon points="4,0 8,4 4,8 0,4"/></svg></span>';
     var h = '';
     for (var pass = 0; pass < 2; pass++) {
-      CAPS.forEach(function (c) {
-        h += '<span class="ax-hchip' + (c.craft ? ' craft' : '') + '" data-k="' + c.k + '"' +
-             (pass ? ' aria-hidden="true"'
-                   : ' tabindex="0" role="listitem" aria-label="' + c.n + ' \u2014 ' + c.t + '. ' + c.d + '"') +
-             '><span class="ax-hlogo">' + MARK[c.k] + '</span>' +
-             '<span class="ax-hname">' + c.n + '</span>' +
-             '<span class="ax-htag">' + c.t + '</span></span>' + sep;
+      var hide = pass ? ' aria-hidden="true"' : '';
+      TOOLKIT.forEach(function (s) {
+        h += '<span class="ax-hpill"' + hide + '>' + s + '</span>' + sep;
       });
     }
     el.innerHTML = h;
-    el.setAttribute('role', 'list');
-  })();
-
-  /* chip tooltip: hover or focus stops the row and opens the card */
-  (function capTooltip() {
-    var band = $('.ax-hmarquee');
-    if (!band) return;
-    var tip = null, live = null;
-
-    function build() {
-      if (tip) return tip;
-      tip = document.createElement('div');
-      tip.className = 'ax-tip';
-      tip.setAttribute('role', 'tooltip');
-      tip.innerHTML =
-        '<span class="ax-tip-shine"></span>' +
-        '<div class="ax-tip-top"><span class="ax-tip-logo"></span>' +
-        '<div><div class="ax-tip-name"></div><div class="ax-tip-tag"></div></div></div>' +
-        '<p class="ax-tip-body"></p>' +
-        '<div class="ax-tip-meter"><i></i></div>';
-      document.body.appendChild(tip);
-      return tip;
-    }
-
-    function place(chip) {
-      var r = chip.getBoundingClientRect();
-      var w = tip.offsetWidth || 268, hgt = tip.offsetHeight || 150;
-      var cx = r.left + r.width / 2;
-      var x = Math.min(Math.max(cx, w / 2 + 12), window.innerWidth - w / 2 - 12);
-      var below = (r.top - hgt - 14) < 88;      /* clear the viewport top and the nav */
-      tip.classList.toggle('below', below);
-      tip.style.left = x + 'px';
-      tip.style.top = (below ? r.bottom : r.top) + 'px';
-      tip.style.setProperty('--cx', (cx - x + w / 2) + 'px');
-    }
-
-    function show(chip) {
-      var c = CAP_MAP[chip.getAttribute('data-k')];
-      if (!c) return;
-      build();
-      if (live && live !== chip) live.classList.remove('is-live');
-      live = chip;
-      chip.classList.add('is-live');
-      band.classList.add('is-held');
-
-      $('.ax-tip-logo', tip).innerHTML = MARK[c.k];
-      $('.ax-tip-name', tip).textContent = c.n;
-      $('.ax-tip-tag', tip).textContent = c.t;
-      $('.ax-tip-body', tip).textContent = c.d;
-
-      tip.classList.remove('on');
-      void tip.offsetWidth;                     /* replay the entry animations */
-      place(chip);
-      tip.classList.add('on');
-    }
-
-    function hide() {
-      if (live) live.classList.remove('is-live');
-      live = null;
-      band.classList.remove('is-held');
-      if (tip) tip.classList.remove('on');
-    }
-
-    function chipOf(node) {
-      while (node && node.nodeType === 1) {
-        var cls = ' ' + (node.getAttribute('class') || '') + ' ';
-        if (cls.indexOf(' ax-hchip ') > -1) return node;
-        if (cls.indexOf(' ax-hmarquee ') > -1) return null;   /* reached the band */
-        node = node.parentNode;
-      }
-      return null;
-    }
-
-    band.addEventListener('pointerover', function (e) {
-      var chip = chipOf(e.target);
-      if (chip && chip !== live) show(chip);
-    });
-    band.addEventListener('pointerleave', hide);
-    band.addEventListener('focusin', function (e) {
-      var chip = chipOf(e.target);
-      if (chip) show(chip);
-    });
-    band.addEventListener('focusout', hide);
-    /* tapping away closes it on touch, where pointerleave never fires */
-    document.addEventListener('pointerdown', function (e) {
-      if (live && !chipOf(e.target)) hide();
-    }, true);
-    /* tabbing to a chip scrolls it into view, so follow the chip rather
-       than close on the scroll that opening the card just caused */
-    window.addEventListener('scroll', function () {
-      if (!live) return;
-      var r = live.getBoundingClientRect();
-      if (r.bottom < 0 || r.top > window.innerHeight) hide();
-      else place(live);
-    }, { passive: true });
-    window.addEventListener('resize', function () { if (live) hide(); });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && live) hide(); });
   })();
 
   var STAR = '<svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
