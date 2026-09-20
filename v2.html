@@ -881,6 +881,18 @@
       position: relative; z-index: 3; text-align: left;
     }
     .ax-hero-copy { display: flex; flex-direction: column; align-items: flex-start; }
+
+    /* ── large screens: cap the two columns, spend the rest on space ──
+       The columns were the only unbounded things in the hero — the
+       headline already clamps at 50px and the panel's internals are
+       fixed px, so capping the two children is enough. Both caps sit
+       above the 1440 laptop sizes (copy 694, panel 562), so that
+       layout is untouched; past ~1600 the columns stop growing and the
+       extra width becomes centre gutter instead. The copy stays flush
+       left and the panel flush right, so the hero keeps sharing the
+       page's left/right boundary with every section below it. */
+    .ax-hero-copy { width: 100%; max-width: 730px; }
+    .ax-hpanel    { width: 100%; max-width: 620px; justify-self: end; }
     }
 
     /* cursor-following glow — desktop pointers only */
