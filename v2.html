@@ -386,22 +386,6 @@
     .ax-h2 em { font-style: normal; background: linear-gradient(100deg,#1f6dff,#7b5cf0 60%,#f0577f); -webkit-background-clip: text; background-clip: text; color: transparent; }
     .ax-lead { margin-top: 16px; font-size: 16.5px; line-height: 1.65; color: var(--ink-2); max-width: 62ch; }
 
-    /* statement */
-    .ax-statement {
-      font-size: clamp(24px, 3.4vw, 44px); font-weight: 500; letter-spacing: -.03em;
-      line-height: 1.28; max-width: 22ch;
-    }
-    .ax-statement .g { background: linear-gradient(100deg,#1f6dff,#7b5cf0); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .ax-statement .dim { color: rgba(11,18,32,.32); }
-    .ax-statement-grid { display: grid; grid-template-columns: 1.3fr .7fr; gap: 40px; align-items: end; }
-    .ax-kpis { display: grid; gap: 12px; }
-    .ax-kpi {
-      display: flex; align-items: baseline; gap: 12px; padding: 16px 18px; border-radius: var(--radius-sm);
-      background: rgba(255,255,255,.62); border: 1px solid rgba(255,255,255,.9); box-shadow: var(--shadow-sm);
-    }
-    .ax-kpi b { font-size: 26px; font-weight: 600; letter-spacing: -.03em; min-width: 74px; background: linear-gradient(140deg,#1f6dff,#7b5cf0); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .ax-kpi span { font-size: 13px; color: var(--ink-3); line-height: 1.35; }
-
     /* ── work ──────────────────────────────────────────────────────── */
     .ax-works { display: grid; gap: 18px; margin-top: 46px; }
     .ax-work {
@@ -702,7 +686,6 @@
       .ax-board { grid-template-columns: 1fr; }
     }
     @media (max-width: 900px) {
-      .ax-statement-grid { grid-template-columns: 1fr; gap: 28px; }
       .ax-work { grid-template-columns: 1fr; }
       .ax-preview { order: -1; }
       .ax-panel-stats { grid-template-columns: 1fr; }
@@ -1641,26 +1624,6 @@
 
 
   <!-- ══════════ STATEMENT ══════════ -->
-  <section class="ax-section" id="ax-intro">
-    <div class="ax-wrap">
-      <div class="ax-rise"><div class="ax-eyebrow"><b></b>What I do</div></div>
-      <div class="ax-statement-grid" style="margin-top:28px">
-        <div class="ax-rise" style="transition-delay:.08s">
-          <p class="ax-statement">
-            I turn messy, real-world problems into products people <span class="g">actually understand</span> — interfaces that feel obvious, systems that scale, and details that quietly <span class="dim">do the work.</span>
-          </p>
-        </div>
-        <div class="ax-rise" style="transition-delay:.18s">
-          <div class="ax-kpis">
-            <div class="ax-kpi"><b><span data-count="4" data-suffix="+">4+</span></b><span>Years designing enterprise AI products, design systems &amp; research</span></div>
-            <div class="ax-kpi"><b>F100</b><span>Citi, AbbVie, JPMC — products built to scale</span></div>
-            <div class="ax-kpi"><b><span data-count="40" data-suffix="%+">40%+</span></b><span>Workflow efficiency gains across shipped products</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- ══════════ WORK ══════════ -->
   <section class="ax-section" id="ax-work">
     <div class="ax-wrap">
