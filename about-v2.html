@@ -47,7 +47,21 @@
 
     /* page canvas — painted behind everything, never on <body> so the
        classic design's globals stay untouched */
-    html, body { overflow-x: hidden; margin: 0; }
+    html, body { margin: 0; }
+
+    /* same width system as v2.html, so both pages share one grid */
+    :root {
+      --page-max:    1520px;
+      --gutter:      clamp(20px, 4.2vw, 72px);
+      --section-gap: clamp(64px, 7vw, 120px);
+    }
+    .ax-wrap,
+    .ax-foot-inner,
+    .ab-hero-inner {
+      width: min(100% - (var(--gutter) * 2), var(--page-max));
+      margin-inline: auto;
+    }
+    .ab-hero-inner > *, .ax-wrap > * { min-width: 0; }
     .ax-canvas {
       position: fixed;
       inset: 0;
@@ -175,7 +189,7 @@
       transition: left .45s var(--ease), width .45s var(--ease);
     }
 
-    .ax-wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+    .ax-wrap { max-width: none; }
     .ax-section { padding: 92px 0; position: relative; }
     .ax-eyebrow {
       display: inline-flex; align-items: center; gap: 9px; padding: 7px 15px; border-radius: 999px;
@@ -209,7 +223,7 @@
     @keyframes axFootA { 0%,100% { transform: translate3d(0,0,0) scale(1) }   50% { transform: translate3d(60px,40px,0) scale(1.12) } }
     @keyframes axFootB { 0%,100% { transform: translate3d(0,0,0) scale(1.05) } 50% { transform: translate3d(-70px,30px,0) scale(.92) } }
 
-    .ax-foot-inner { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; padding: 44px 24px 26px; }
+    .ax-foot-inner { position: relative; z-index: 1; max-width: none; padding: 44px 0 26px; }
 
     .ax-foot-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
     .ax-foot-status {
@@ -436,8 +450,9 @@
     /* ── hero ──────────────────────────────────────────────────────── */
     .ab-hero { padding: 152px 0 88px; position: relative; }
     .ab-hero-inner {
-      max-width: 1100px; margin: 0 auto; padding: 0 24px;
-      display: grid; grid-template-columns: 1fr 360px; gap: 80px; align-items: center;
+      max-width: none; padding: 0;
+      display: grid; grid-template-columns: minmax(0, 1fr) minmax(min(100%, 320px), 400px);
+      gap: clamp(40px, 5vw, 96px); align-items: center;
     }
     .ab-greet {
       display: inline-flex; align-items: center; gap: 9px; padding: 8px 17px; border-radius: 999px;
