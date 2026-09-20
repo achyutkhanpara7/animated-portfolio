@@ -396,7 +396,7 @@
       transition: transform .55s var(--ease), box-shadow .55s var(--ease);
       will-change: transform;
     }
-    .ax-work.w1 { background: linear-gradient(150deg, #4d7ca3 0%, #2f8fbc 45%, #1f9fd4 100%); }
+    .ax-work.w1 { background: linear-gradient(150deg, #e8394b 0%, #d61f33 45%, #a50f23 100%); }
     .ax-work.w2 { background: linear-gradient(150deg, #b3a1ff 0%, #8b6cf0 48%, #6f4fe6 100%); }
     .ax-work.w3 { background: linear-gradient(150deg, #ff9ab4 0%, #f4678e 48%, #e94f7c 100%); }
     .ax-work::before {
@@ -442,6 +442,17 @@
     .ax-preview-body i:nth-child(3) { height: 60%; animation-delay: .4s }
     .ax-preview-body i:nth-child(4) { height: 92%; background: rgba(255,255,255,.62); animation-delay: .6s }
     @keyframes axRise { 0%,100% { transform: scaleY(1) } 50% { transform: scaleY(.86) } }
+
+    /* cover artwork variant of the preview (case-study cover image) */
+    .ax-work.has-cover { grid-template-columns: 1fr .96fr; }
+    .ax-preview.cover {
+      padding: 8px; background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.34);
+      box-shadow: 0 26px 60px -24px rgba(90,4,16,.72);
+    }
+    .ax-preview.cover img {
+      display: block; width: 100%; aspect-ratio: 1306 / 916; object-fit: cover; object-position: center;
+      border-radius: 12px; box-shadow: 0 8px 24px -14px rgba(90,4,16,.6);
+    }
 
     /* ── perspectives (segmented) ──────────────────────────────────── */
     .ax-seg {
@@ -712,7 +723,7 @@
       .ax-board { grid-template-columns: 1fr; }
     }
     @media (max-width: 900px) {
-      .ax-work { grid-template-columns: 1fr; }
+      .ax-work, .ax-work.has-cover { grid-template-columns: 1fr; }
       .ax-preview { order: -1; }
       .ax-panel-stats { grid-template-columns: 1fr; }
     }
@@ -1659,7 +1670,7 @@
 
       <div class="ax-works">
         <div class="ax-rise">
-          <article class="ax-work w1" data-tilt>
+          <article class="ax-work w1 has-cover" data-tilt>
             <div>
               <div class="ax-work-meta"><span class="ax-badge">01</span><span class="ax-badge">2025</span></div>
               <h3 class="ax-work-title">Compliance that doesn&rsquo;t slow you down.</h3>
@@ -1667,9 +1678,8 @@
               <div class="ax-tags"><span class="ax-tag">GRC</span><span class="ax-tag">AI / ML</span><span class="ax-tag">Enterprise</span><span class="ax-tag">B2B</span></div>
               <a href="case-study.html" class="ax-work-cta">View Case Study <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg></a>
             </div>
-            <div class="ax-preview">
-              <div class="ax-preview-bar"><i></i><i></i><i></i></div>
-              <div class="ax-preview-body"><i></i><i></i><i></i><i></i></div>
+            <div class="ax-preview cover">
+              <img src="assets/images/grc-cover.webp" alt="AI-powered GRC platform — executive dashboard and regulatory extraction engine" loading="lazy" decoding="async" />
             </div>
           </article>
         </div>
