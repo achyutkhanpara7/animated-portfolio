@@ -475,6 +475,32 @@
     .ax-panel-body { margin-top: 14px; font-size: 15.5px; line-height: 1.7; color: var(--ink-2); max-width: 68ch; }
     .ax-panel-note { display: inline-block; margin-top: 16px; font-size: 14px; font-weight: 500; color: var(--blue); }
     .ax-panel-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 28px; }
+
+    /* ── wide screens: letter left, stat rail right ────────────────
+       The card runs the full page grid (~1450px inside at 1920) but
+       the copy is capped at a readable measure, so everything used to
+       trail off into empty space on the right. Pinning the letter to
+       the left edge and the stats to the right turns that leftover
+       into a deliberate gap between two aligned blocks. */
+    @media (min-width: 900px) {
+      .ax-panel.on {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(300px, 440px);
+        column-gap: clamp(40px, 3.6vw, 76px);
+        align-items: stretch;
+      }
+      .ax-panel-title, .ax-panel-body, .ax-panel-note { grid-column: 1; }
+      .ax-panel-body { max-width: 76ch; }
+      .ax-panel-note { justify-self: start; }
+      .ax-panel-stats {
+        grid-column: 2; grid-row: 1 / span 3; align-self: stretch;
+        grid-template-columns: 1fr; grid-auto-rows: 1fr; gap: 12px; margin-top: 0;
+      }
+      .ax-panel-card { min-height: 0; }
+      .ax-panel-stat { display: flex; align-items: center; gap: 16px; padding: 18px 24px; }
+      .ax-panel-stat b { min-width: 76px; }
+      .ax-panel-stat span { margin-top: 0; }
+    }
     .ax-panel-stat {
       padding: 18px; border-radius: var(--radius-sm); background: rgba(255,255,255,.7);
       border: 1px solid rgba(255,255,255,.95); box-shadow: var(--shadow-sm);
