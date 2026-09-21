@@ -1,0 +1,8 @@
+# Raw video footage — encode into assets/case-studies/<slug>/ instead.
+_raw/
+*.mov
+*.MOV
+*.mkv
+
+node_modules/
+.DS_Store
