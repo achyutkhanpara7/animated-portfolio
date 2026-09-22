@@ -19,7 +19,15 @@ and a missing poster is obvious at a glance.
 
 1. Trim the recording to **8–12 seconds**. Length is the biggest lever on
    file size by far — trim before you touch encoder settings.
-2. Run the encoder, which writes both the clip and its poster:
+2. Drop the original into `_raw/<slug>/<name>.mov` and encode everything
+   in one pass — each clip gets its poster alongside it:
+
+   ```
+   scripts/encode-all.sh --dry-run   # check the mapping first
+   scripts/encode-all.sh
+   ```
+
+   For a single file without the `_raw/` layout:
 
    ```
    scripts/encode-video.sh ~/Desktop/raw.mov 7-eleven store-manager
