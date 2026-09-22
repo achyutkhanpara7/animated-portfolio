@@ -306,7 +306,7 @@
       font-size: 12px; color: #555; font-family: 'Plus Jakarta Sans', sans-serif;
       max-width: 360px; margin: 0 auto;
     }
-    .browser video { width: 100%; display: block; }
+    .browser video { width: 100%; display: block; aspect-ratio: auto 16 / 10; background: #eef1f4; }
     /* features */
     .module-features { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; margin-bottom: 16px; }
     .feat-item { display: flex; align-items: flex-start; gap: 10px; }
@@ -631,7 +631,7 @@
         <div class="tl tl-r"></div><div class="tl tl-y"></div><div class="tl tl-g"></div>
         <div class="url-bar">GRC-Enterprise.com</div>
       </div>
-      <video autoplay loop muted playsinline>
+      <video data-inview loop muted playsinline preload="none">
         <source src="https://framerusercontent.com/assets/MLWPbW1dUQawJLhhun3dBwpgJak.mp4" type="video/mp4" />
       </video>
     </div>
@@ -658,7 +658,7 @@
         <div class="tl tl-r"></div><div class="tl tl-y"></div><div class="tl tl-g"></div>
         <div class="url-bar">GRC-Enterprise.com</div>
       </div>
-      <video autoplay loop muted playsinline>
+      <video data-inview loop muted playsinline preload="none">
         <source src="https://framerusercontent.com/assets/MLWPbW1dUQawJLhhun3dBwpgJak.mp4" type="video/mp4" />
       </video>
     </div>
@@ -682,7 +682,7 @@
         <div class="tl tl-r"></div><div class="tl tl-y"></div><div class="tl tl-g"></div>
         <div class="url-bar">GRC-Enterprise.com</div>
       </div>
-      <video autoplay loop muted playsinline>
+      <video data-inview loop muted playsinline preload="none">
         <source src="https://framerusercontent.com/assets/MLWPbW1dUQawJLhhun3dBwpgJak.mp4" type="video/mp4" />
       </video>
     </div>
@@ -706,7 +706,7 @@
         <div class="tl tl-r"></div><div class="tl tl-y"></div><div class="tl tl-g"></div>
         <div class="url-bar">GRC-Enterprise.com</div>
       </div>
-      <video autoplay loop muted playsinline>
+      <video data-inview loop muted playsinline preload="none">
         <source src="https://framerusercontent.com/assets/MLWPbW1dUQawJLhhun3dBwpgJak.mp4" type="video/mp4" />
       </video>
     </div>
@@ -733,7 +733,7 @@
         <div class="tl tl-r"></div><div class="tl tl-y"></div><div class="tl tl-g"></div>
         <div class="url-bar">GRC-Enterprise.com</div>
       </div>
-      <video autoplay loop muted playsinline>
+      <video data-inview loop muted playsinline preload="none">
         <source src="https://framerusercontent.com/assets/MLWPbW1dUQawJLhhun3dBwpgJak.mp4" type="video/mp4" />
       </video>
     </div>
@@ -757,7 +757,7 @@
         <div class="tl tl-r"></div><div class="tl tl-y"></div><div class="tl tl-g"></div>
         <div class="url-bar">GRC-Enterprise.com</div>
       </div>
-      <video autoplay loop muted playsinline>
+      <video data-inview loop muted playsinline preload="none">
         <source src="https://framerusercontent.com/assets/MLWPbW1dUQawJLhhun3dBwpgJak.mp4" type="video/mp4" />
       </video>
     </div>
@@ -811,5 +811,6 @@
     document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
   });
 </script>
+<script src="assets/js/video-frame.js"></script>
 </body>
 </html>
