@@ -3,1659 +3,1169 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>VERRDICT — GRC Case Study &middot; Achyut Khanpara</title>
+<title>VERRDICT — UX Case Study · Achyut Khanpara</title>
 <meta name="description" content="Designing trust into network governance for a large financial company. A UX case study by Achyut Khanpara.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<noscript><style>[data-reveal]{opacity:1 !important;transform:none !important;}</style></noscript>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Instrument+Serif:ital@1&family=Caveat:wght@600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-/* ===========================================================
-   VERRDICT — UX Case Study
-   Design tokens carried over from the VERRDICT deck:
-   navy #002D72, primary #0B5CD5, teal #1AA7C7 (text-safe #12798F),
-   canvas #F7F9FC, Inter Tight / Inter / JetBrains Mono.
-   =========================================================== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
 
 :root{
+  --ink:#0b0b0b;
+  --body:#374151;
+  --muted:#6b7280;
+  --border:#d7e3f0;
+  --bg:#eef5fc;
+  --bg-alt:#e3edf9;
+  --white:#fff;
+
   --navy:#002D72;
   --primary:#0B5CD5;
   --teal:#1AA7C7;
-  --teal-text:#12798F;
-  --canvas:#F7F9FC;
-  --canvas-alt:#EEF3FA;
-  --ink:#0A1A33;
-  --body:#33455C;
-  --label:#4A5D78;
-  --label-strong:#3E5069;
-  --line:rgba(11,92,213,0.14);
-  --line-strong:rgba(11,92,213,0.24);
-  --glass-bg:rgba(255,255,255,0.62);
-  --glass-bg-strong:rgba(255,255,255,0.82);
-  --glass-border:rgba(255,255,255,0.6);
-  --shadow:0 20px 60px rgba(2,32,71,0.10);
-  --shadow-sm:0 10px 28px rgba(2,32,71,0.08);
+  --gap-c:#B03A2E;
+  --review:#9A6008;
+  --compliant:#127A52;
 
-  --verdict-gap:#B03A2E;
-  --verdict-review:#A3540A;
-  --verdict-compliant:#127A52;
+  --cost-bg:#fff6ea;
+  --cost-border:#e8a33d;
+  --todo-bg:#fff8e8;
+  --todo-border:#c8880a;
+  --todo-text:#8a5a05;
 
-  --radius:20px;
-  --radius-sm:12px;
-  --radius-lg:28px;
+  --serif:'Instrument Serif', Georgia, serif;
+  --hand:'Caveat', cursive;
+  --sans:'Plus Jakarta Sans', sans-serif;
+  --mono:'JetBrains Mono', monospace;
 
-  --font-display:'Inter Tight', sans-serif;
-  --font-body:'Inter', sans-serif;
-  --font-mono:'JetBrains Mono', monospace;
-
-  --maxw:1240px;
+  --max:1100px;
+  --radius:18px;
+  --text-w:680px;
 }
 
-*{box-sizing:border-box;}
-html{scroll-behavior:smooth;}
 body{
-  margin:0;
-  background:var(--canvas);
-  color:var(--ink);
-  font-family:var(--font-body);
+  font-family:var(--sans);
+  color:var(--body);
+  background:linear-gradient(180deg, #eaf2fb 0%, #f6fafd 6%, #fff 18%);
+  line-height:1.7;
+  overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
 }
 img{max-width:100%;display:block;}
-a{color:var(--primary);text-decoration:none;}
-a:hover{color:var(--teal-text);}
+a{color:var(--primary);}
+h1,h2,h3,h4{color:var(--ink);}
+strong{color:var(--ink);font-weight:700;}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 32px;}
 
-h1,h2,h3,h4{font-family:var(--font-display);margin:0;color:var(--navy);}
+/* ── SITE NAV (pill) ── */
+#nav{
+  position:fixed;top:20px;left:50%;transform:translateX(-50%);
+  z-index:300;
+  background:rgba(255,255,255,0.9);
+  backdrop-filter:blur(16px);
+  border-radius:999px;padding:8px 8px;
+  display:flex;align-items:center;gap:4px;
+  box-shadow:0 2px 20px rgba(0,0,0,0.09), 0 0 0 1px rgba(0,0,0,0.06);
+}
+.nav-back{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:#555;text-decoration:none;padding:7px 14px;border-radius:999px;border:1.5px solid var(--border);transition:all .2s;}
+.nav-back:hover{background:var(--bg);color:var(--ink);}
+.nav-avatar{width:36px;height:36px;border-radius:50%;overflow:hidden;background:#e0e0e0;flex-shrink:0;}
+.nav-avatar img{width:100%;height:100%;object-fit:cover;}
+.nav-name{font-size:14px;font-weight:700;padding:0 10px 0 6px;letter-spacing:-0.02em;color:var(--ink);}
+.nav-link{font-size:14px;font-weight:600;color:#555;text-decoration:none;padding:7px 14px;border-radius:999px;}
+.nav-link:hover{background:var(--bg);}
+.nav-cta{font-size:14px;font-weight:700;color:#fff;background:var(--navy);text-decoration:none;padding:8px 18px;border-radius:999px;}
 
-.wrap{max-width:var(--maxw);margin:0 auto;padding:0 40px;position:relative;}
+/* ── SIDE PROGRESS NAV ── */
+.side-nav{position:fixed;left:24px;top:50%;transform:translateY(-50%);z-index:60;display:flex;flex-direction:column;gap:14px;}
+.side-nav a{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--muted);font-family:var(--mono);font-size:13px;letter-spacing:0.04em;opacity:0.55;transition:opacity .25s;}
+.side-nav a .dot{width:7px;height:7px;border-radius:50%;background:var(--muted);flex:none;transition:background .25s, transform .25s;}
+.side-nav a .lbl{white-space:nowrap;max-width:0;overflow:hidden;transition:max-width .25s;}
+.side-nav:hover a .lbl{max-width:160px;}
+.side-nav a:hover, .side-nav a.active{opacity:1;color:var(--ink);}
+.side-nav a.active .dot{background:var(--primary);transform:scale(1.3);}
+@media (max-width:1180px){ .side-nav{display:none;} }
 
-.eyebrow{
-  font-family:var(--font-mono);
-  font-size:15px;
-  letter-spacing:0.16em;
-  color:var(--primary);
-  text-transform:uppercase;
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-.eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--teal);flex:none;}
-
-.section{
-  position:relative;
-  padding:120px 0;
-}
-.section + .section{border-top:1px solid var(--line);}
-.section-head{
-  display:flex;
-  flex-direction:column;
-  gap:20px;
-  max-width:800px;
-  margin-bottom:64px;
-}
-.section-head h2{font-size:44px;line-height:1.15;letter-spacing:-0.02em;}
-.section-head p{font-size:19px;line-height:1.55;color:var(--body);margin:0;max-width:640px;}
-
-.kicker{font-size:19px;line-height:1.5;color:var(--body);max-width:620px;}
-
-/* ---------- glass surfaces ---------- */
-.glass{
-  background:var(--glass-bg);
-  border:1px solid var(--glass-border);
-  border-radius:var(--radius);
-  backdrop-filter:blur(20px) saturate(160%);
-  -webkit-backdrop-filter:blur(20px) saturate(160%);
-  box-shadow:var(--shadow-sm);
-}
-.glass-strong{
-  background:var(--glass-bg-strong);
-}
-.card{
-  padding:32px;
-  transition:transform .25s cubic-bezier(.2,.7,.3,1), box-shadow .25s;
-}
-.card:hover{transform:translateY(-4px);box-shadow:var(--shadow);}
-
-/* ---------- placeholders (things Achyut still needs to fill in) ---------- */
-.fill{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:6px 14px;
-  border:1px dashed var(--line-strong);
-  border-radius:999px;
-  font-family:var(--font-mono);
-  font-size:14px;
-  color:var(--label);
-  font-style:italic;
-  background:rgba(11,92,213,0.04);
-}
-.image-slot{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border:2px dashed var(--line-strong);
-  border-radius:var(--radius);
-  background:rgba(11,92,213,0.04);
-  color:var(--label);
-  font-family:var(--font-mono);
-  font-size:15px;
-  text-align:center;
-  padding:40px;
-  min-height:280px;
-}
-.image-slot img{border-radius:calc(var(--radius) - 4px);width:100%;height:100%;object-fit:cover;}
-
-/* ---------- hero ---------- */
-.hero{
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  padding:64px 0 80px;
-  background:
-    radial-gradient(42% 52% at 88% 8%, rgba(26,167,199,0.16), transparent 66%),
-    radial-gradient(48% 56% at 4% 96%, rgba(11,92,213,0.12), transparent 70%),
-    var(--canvas);
-  position:relative;
-  overflow:hidden;
-}
-.hero > .wrap{width:100%;}
-.hero-top{width:100%;display:flex;align-items:center;justify-content:space-between;font-family:var(--font-mono);font-size:17px;letter-spacing:0.14em;color:var(--label);}
-.hero-title{
-  font-family:var(--font-display);
-  font-weight:600;
-  font-size:clamp(64px, 13vw, 210px);
-  line-height:0.86;
-  letter-spacing:-0.045em;
-  color:var(--navy);
-  margin:32px 0 24px;
-}
-.hero-rule{height:6px;width:180px;border-radius:3px;background:linear-gradient(90deg,var(--navy),var(--primary) 55%, var(--teal));margin-bottom:28px;transform-origin:left center;}
-.hero-sub{font-size:clamp(22px,3vw,32px);line-height:1.35;color:var(--body);max-width:900px;}
-.hero-meta{
-  margin-top:56px;
-  display:grid;
-  grid-template-columns:repeat(4,auto);
-  gap:56px;
-  padding-top:32px;
-  border-top:1px solid var(--line-strong);
-}
-.hero-meta div{display:flex;flex-direction:column;gap:8px;}
-.hero-meta span.k{font-family:var(--font-mono);font-size:15px;letter-spacing:0.1em;color:var(--label);}
-.hero-meta span.v{font-size:21px;color:var(--navy);font-weight:500;}
-
-.scroll-cue{
-  position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
-  font-family:var(--font-mono);font-size:13px;letter-spacing:0.12em;color:var(--label);
-  display:flex;flex-direction:column;align-items:center;gap:8px;opacity:.7;
-}
-.scroll-cue .bar{width:1px;height:34px;background:linear-gradient(var(--label),transparent);animation:pulse-bar 1.8s ease-in-out infinite;}
-@keyframes pulse-bar{0%,100%{opacity:.3}50%{opacity:1}}
-
-/* ---------- sticky section nav ---------- */
-.tocbar{
-  position:sticky;top:0;z-index:50;
-  background:rgba(247,249,252,0.86);
-  backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--line);
-}
-.tocbar-inner{
-  max-width:var(--maxw);margin:0 auto;padding:0 40px;
-  display:flex;align-items:center;gap:28px;height:64px;overflow-x:auto;
-  scrollbar-width:none;
-}
-.tocbar-inner::-webkit-scrollbar{display:none;}
-.tocbar a{
-  font-family:var(--font-mono);font-size:14px;letter-spacing:0.05em;
-  color:var(--label);white-space:nowrap;padding:6px 2px;border-bottom:2px solid transparent;
-}
-.tocbar a:hover, .tocbar a.active{color:var(--navy);border-color:var(--teal);}
-.tocbar .brand{font-family:var(--font-display);font-weight:600;color:var(--navy);font-size:18px;margin-right:8px;}
-
-/* ---------- reveal animation ---------- */
-[data-reveal]{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.2,.7,.3,1), transform .7s cubic-bezier(.2,.7,.3,1);}
+/* ── reveal on scroll ── */
+[data-reveal]{opacity:0;transform:translateY(22px);transition:opacity .65s cubic-bezier(.16,1,.3,1), transform .65s cubic-bezier(.16,1,.3,1);}
 [data-reveal].in{opacity:1;transform:none;}
-[data-reveal-delay="1"]{transition-delay:.08s;}
-[data-reveal-delay="2"]{transition-delay:.16s;}
-[data-reveal-delay="3"]{transition-delay:.24s;}
-[data-reveal-delay="4"]{transition-delay:.32s;}
-[data-reveal-delay="5"]{transition-delay:.4s;}
 
-/* ---------- generic grids ---------- */
-.grid{display:grid;gap:24px;}
-.grid-2{grid-template-columns:repeat(2,1fr);}
-.grid-3{grid-template-columns:repeat(3,1fr);}
-.grid-4{grid-template-columns:repeat(4,1fr);}
-.grid-5{grid-template-columns:repeat(5,1fr);}
-.grid-6{grid-template-columns:repeat(6,1fr);}
-
-.stat{
-  display:flex;flex-direction:column;gap:6px;
+/* Staggered child reveal: grid items and steps animate in one after another
+   once their [data-reveal] ancestor becomes visible, no extra markup needed. */
+[data-reveal] .card-grid > *, [data-reveal] .quotes-grid > *, [data-reveal] .loop4 > *,
+[data-reveal] .state-grid > *, [data-reveal] .steps > *, [data-reveal] .stat-row > *,
+[data-reveal] .swatch-row > *{
+  opacity:0;transform:translateY(14px);
+  transition:opacity .5s cubic-bezier(.16,1,.3,1), transform .5s cubic-bezier(.16,1,.3,1);
 }
-.stat .num{font-family:var(--font-display);font-weight:600;font-size:64px;letter-spacing:-0.03em;color:var(--navy);line-height:1;}
-.stat .lbl{font-size:17px;color:var(--body);}
+[data-reveal].in .card-grid > *, [data-reveal].in .quotes-grid > *, [data-reveal].in .loop4 > *,
+[data-reveal].in .state-grid > *, [data-reveal].in .steps > *, [data-reveal].in .stat-row > *,
+[data-reveal].in .swatch-row > *{ opacity:1;transform:none; }
+[data-reveal].in .card-grid > *:nth-child(2), [data-reveal].in .quotes-grid > *:nth-child(2),
+[data-reveal].in .loop4 > *:nth-child(2), [data-reveal].in .state-grid > *:nth-child(2),
+[data-reveal].in .steps > *:nth-child(2), [data-reveal].in .stat-row > *:nth-child(2),
+[data-reveal].in .swatch-row > *:nth-child(2){ transition-delay:.08s; }
+[data-reveal].in .card-grid > *:nth-child(3), [data-reveal].in .quotes-grid > *:nth-child(3),
+[data-reveal].in .loop4 > *:nth-child(3), [data-reveal].in .state-grid > *:nth-child(3),
+[data-reveal].in .steps > *:nth-child(3), [data-reveal].in .stat-row > *:nth-child(3),
+[data-reveal].in .swatch-row > *:nth-child(3){ transition-delay:.16s; }
+[data-reveal].in .card-grid > *:nth-child(4), [data-reveal].in .quotes-grid > *:nth-child(4),
+[data-reveal].in .loop4 > *:nth-child(4), [data-reveal].in .state-grid > *:nth-child(4),
+[data-reveal].in .steps > *:nth-child(4), [data-reveal].in .stat-row > *:nth-child(4),
+[data-reveal].in .swatch-row > *:nth-child(4){ transition-delay:.24s; }
+[data-reveal].in .steps > *:nth-child(5){ transition-delay:.32s; }
 
-.chip{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:8px 16px;border-radius:999px;
-  background:rgba(11,92,213,0.08);
-  color:var(--navy);font-size:15px;font-weight:500;
-}
-.chip.filled{background:var(--primary);color:#fff;}
-
-.pill-label{
-  font-family:var(--font-mono);font-size:14px;letter-spacing:0.12em;color:var(--teal-text);
-  text-transform:uppercase;
-}
-
-.divider-quote{
-  font-family:var(--font-display);
-  font-weight:600;
-  font-size:clamp(32px,5vw,56px);
-  line-height:1.25;
-  color:var(--navy);
-  letter-spacing:-0.02em;
-  max-width:980px;
+@media (prefers-reduced-motion: reduce){
+  [data-reveal]{opacity:1 !important;transform:none !important;transition:none !important;}
+  [data-reveal] .card-grid > *, [data-reveal] .quotes-grid > *, [data-reveal] .loop4 > *,
+  [data-reveal] .state-grid > *, [data-reveal] .steps > *, [data-reveal] .stat-row > *,
+  [data-reveal] .swatch-row > *{ opacity:1 !important;transform:none !important;transition:none !important; }
 }
 
-.icon{width:26px;height:26px;stroke:var(--primary);fill:none;stroke-width:1.8;flex:none;}
-.icon-tile{
-  width:56px;height:56px;border-radius:16px;
-  display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(150deg, rgba(11,92,213,0.14), rgba(26,167,199,0.14));
-  border:1px solid var(--line);
+/* ── eyebrow / tag-pills ── */
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:16px;}
+.eyebrow .diamond{color:var(--teal);font-size:11px;}
+.tag-pills{display:flex;flex-wrap:wrap;gap:8px;}
+.tag-pill{font-size:14px;font-weight:600;color:#3a4a5e;background:var(--bg);border:1.5px solid var(--border);border-radius:999px;padding:7px 16px;}
+
+/* ── TODO placeholder ── */
+.todo{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:12px;background:var(--todo-bg);border:1.5px dashed var(--todo-border);color:var(--todo-text);font-family:var(--mono);font-size:13px;font-weight:600;}
+.todo::before{content:"TODO";font-weight:800;letter-spacing:0.06em;}
+.todo.block{display:flex;width:100%;min-height:64px;}
+
+/* ── generic layout ── */
+.cs-section{padding:100px 32px;}
+.cs-prose{max-width:var(--text-w);margin:0 auto;}
+.cs-wide{max-width:var(--max);margin:0 auto;}
+.cs-h2{font-family:var(--sans);font-weight:800;font-size:clamp(30px,4vw,48px);letter-spacing:-0.03em;line-height:1.1;margin-bottom:20px;}
+.cs-pullquote{font-family:var(--serif);font-style:italic;font-size:clamp(28px,3.6vw,42px);line-height:1.3;color:var(--ink);max-width:860px;}
+.cs-hand{font-family:var(--hand);font-weight:700;color:var(--primary);}
+.cs-p{font-size:17px;color:var(--body);margin-bottom:18px;line-height:1.75;}
+.cs-p:last-child{margin-bottom:0;}
+.divider{border-top:1px solid var(--border);}
+
+/* ── hero ── */
+.hero{padding:150px 32px 0;position:relative;overflow:hidden;}
+.hero::before{
+  content:"";position:absolute;top:-220px;right:-160px;width:640px;height:640px;border-radius:50%;
+  background:radial-gradient(circle, rgba(11,92,213,0.16), transparent 70%);pointer-events:none;
+}
+.hero::after{
+  content:"";position:absolute;bottom:-260px;left:-180px;width:560px;height:560px;border-radius:50%;
+  background:radial-gradient(circle, rgba(26,167,199,0.14), transparent 70%);pointer-events:none;
+}
+.hero-inner{max-width:var(--max);margin:0 auto;position:relative;}
+.hero-title{font-family:var(--sans);font-weight:800;font-size:clamp(56px,9vw,104px);letter-spacing:-0.04em;line-height:0.95;color:var(--navy);margin:18px 0 20px;}
+.hero-sub{font-size:20px;color:var(--body);max-width:620px;margin-bottom:36px;}
+.meta-row{display:grid;grid-template-columns:repeat(5,1fr);border:1.5px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:56px;background:rgba(255,255,255,0.6);backdrop-filter:blur(6px);}
+.meta-cell{padding:16px 20px;border-right:1.5px solid var(--border);}
+.meta-cell:last-child{border-right:none;}
+.meta-label{font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;}
+.meta-value{font-size:15px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:6px;}
+.live-dot{width:7px;height:7px;background:#9ca3af;border-radius:50%;display:inline-block;}
+.hero-frame{
+  position:relative;border-radius:20px;overflow:hidden;border:1px solid var(--border);
+  box-shadow:0 40px 90px rgba(0,20,60,0.18);
+}
+.hero-frame-bar{display:flex;align-items:center;gap:6px;padding:12px 16px;background:#f0f1f3;border-bottom:1px solid var(--border);}
+.hero-frame-bar span{width:10px;height:10px;border-radius:50%;background:#d7d9dd;}
+
+/* ── TL;DR glass card ── */
+.tldr{
+  max-width:var(--max);margin:-56px auto 0;position:relative;z-index:10;
+  background:rgba(255,255,255,0.72);backdrop-filter:blur(20px) saturate(160%);
+  border:1px solid rgba(255,255,255,0.6);border-radius:22px;
+  padding:40px 44px;box-shadow:0 24px 60px rgba(20,40,70,0.12);
+}
+.tldr-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;margin-bottom:28px;}
+.tldr-grid h4{font-size:13px;font-weight:800;letter-spacing:0.08em;color:var(--teal);text-transform:uppercase;margin-bottom:10px;}
+.tldr-grid p{font-size:16px;color:var(--body);line-height:1.6;}
+.tldr-jump{display:flex;gap:24px;flex-wrap:wrap;padding-top:24px;border-top:1px solid var(--border);}
+.tldr-jump a{font-size:14px;font-weight:700;text-decoration:none;}
+
+/* ── rich cards (pain-card style: hover bar + lift) ── */
+.card-grid{display:grid;gap:20px;}
+.card-grid.c2{grid-template-columns:1fr 1fr;}
+.card-grid.c3{grid-template-columns:1fr 1fr 1fr;}
+.card-grid.c4{grid-template-columns:repeat(4,1fr);}
+.rich-card{
+  background:var(--white);border:1.5px solid var(--border);border-radius:20px;padding:30px 28px;
+  position:relative;overflow:hidden;
+  transition:transform .28s cubic-bezier(.16,1,.3,1), box-shadow .28s cubic-bezier(.16,1,.3,1), border-color .28s;
+}
+.rich-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--primary),var(--teal));opacity:0;transition:opacity .3s;}
+.rich-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(10,30,60,0.10);border-color:rgba(11,92,213,0.28);}
+.rich-card:hover::before{opacity:1;}
+.rich-card h4{font-size:18px;font-weight:800;color:var(--ink);letter-spacing:-0.01em;margin-bottom:9px;}
+.rich-card p{font-size:15px;color:var(--body);line-height:1.6;margin:0;}
+.rich-card .badge{
+  display:inline-flex;font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--primary);
+  background:var(--bg);border:1px solid rgba(11,92,213,0.2);border-radius:99px;padding:4px 12px;margin-bottom:16px;
+}
+@media (max-width:900px){ .card-grid.c2,.card-grid.c3,.card-grid.c4{grid-template-columns:1fr;} }
+
+/* ── step diagrams ── */
+.steps{display:flex;gap:0;position:relative;}
+.step{flex:1;position:relative;padding:0 16px;text-align:left;}
+.step::before{content:"";position:absolute;top:13px;left:0;right:0;height:2px;background:var(--border);}
+.step:first-child::before{left:50%;}
+.step:last-child::before{right:50%;}
+.step-node{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--teal));color:#fff;display:flex;align-items:center;justify-content:center;position:relative;z-index:2;font-family:var(--mono);font-size:12px;font-weight:700;margin-bottom:16px;box-shadow:0 4px 12px rgba(11,92,213,0.3);}
+.step-title{font-size:17px;font-weight:700;color:var(--ink);margin-bottom:5px;}
+.step-desc{font-size:14px;color:var(--muted);line-height:1.55;}
+@media (max-width:820px){ .steps{flex-direction:column;gap:28px;} .step::before{display:none;} }
+
+/* ── 4-part loop diagram ── */
+.loop4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.loop4 > div{padding:24px;border-radius:16px;background:var(--white);border:1.5px solid var(--border);}
+.loop4 .n{font-family:var(--mono);font-size:13px;color:var(--teal);margin-bottom:9px;font-weight:600;}
+.loop4 h5{font-size:17px;color:var(--ink);margin-bottom:7px;font-weight:700;}
+.loop4 p{font-size:14.5px;color:var(--muted);line-height:1.55;}
+@media (max-width:820px){ .loop4{grid-template-columns:1fr;} }
+
+/* ── current-state diagram ── */
+.current-state{display:flex;align-items:center;gap:0;flex-wrap:wrap;}
+.cs-box{border:1.5px solid var(--border);border-radius:14px;padding:20px 24px;font-size:14px;color:var(--body);background:var(--white);}
+.cs-arrow{padding:0 20px;color:var(--teal);font-size:22px;}
+.cs-manual{background:#fdf3f1;border-color:#eecfc8;color:#7a2e21;font-weight:700;}
+@media (max-width:820px){ .current-state{flex-direction:column;align-items:stretch;} .cs-arrow{padding:14px 0;text-align:center;} }
+
+/* ── quote-card (personas + interview quote) ── */
+.quotes-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+.quote-card{
+  background:var(--bg);border-radius:20px;padding:28px 26px 24px;position:relative;overflow:hidden;
+  transition:box-shadow .25s ease, background .25s ease, transform .25s ease;
+}
+.quote-card:hover{background:#e4eefb;box-shadow:0 8px 30px rgba(11,92,213,0.10);transform:translateY(-3px);}
+.quote-card::before{content:"\201C";position:absolute;top:8px;right:18px;font-family:var(--serif);font-size:80px;line-height:1;color:var(--primary);opacity:0.12;pointer-events:none;}
+.quote-tag{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--primary);background:rgba(11,92,213,0.08);border-radius:99px;padding:5px 12px;margin-bottom:18px;letter-spacing:0.04em;text-transform:uppercase;}
+.quote-text{font-size:17px;font-weight:600;color:var(--ink);line-height:1.5;position:relative;}
+@media (max-width:900px){ .quotes-grid{grid-template-columns:1fr 1fr;} }
+@media (max-width:600px){ .quotes-grid{grid-template-columns:1fr;} }
+
+/* ── screen figure with dots + lightbox ── */
+.screen-fig{margin-top:32px;}
+.screen-mockup{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--border);box-shadow:0 26px 60px rgba(20,30,50,0.14);cursor:zoom-in;}
+.screen-mockup-bar{display:flex;align-items:center;gap:6px;padding:10px 14px;background:#f0f1f3;border-bottom:1px solid var(--border);}
+.screen-mockup-bar span{width:9px;height:9px;border-radius:50%;background:#d7d9dd;}
+.dot-marker{position:absolute;width:26px;height:26px;border-radius:50%;background:var(--primary);color:#fff;font-family:var(--mono);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 4px rgba(11,92,213,0.25), 0 2px 8px rgba(0,0,0,0.3);transform:translate(-50%,-50%);}
+.screen-callouts{display:flex;flex-direction:column;gap:14px;}
+.screen-callout{display:flex;gap:14px;align-items:flex-start;}
+.screen-callout .n{font-family:var(--mono);font-size:12px;font-weight:700;color:#fff;background:var(--primary);width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none;}
+.screen-callout p{font-size:15.5px;color:var(--body);margin:0;padding-top:2px;line-height:1.5;}
+.screen-principle{font-family:var(--mono);font-size:13px;letter-spacing:0.05em;color:var(--teal);text-transform:uppercase;margin-bottom:12px;font-weight:600;}
+.screen-spotlight{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;padding:64px 0;border-top:1px solid var(--border);}
+.screen-spotlight:first-child{border-top:none;padding-top:0;}
+.screen-spotlight.reverse{direction:rtl;}
+.screen-spotlight.reverse > *{direction:ltr;}
+@media (max-width:900px){ .screen-spotlight, .screen-spotlight.reverse{grid-template-columns:1fr;direction:ltr;gap:32px;} }
+
+/* lightbox */
+.lightbox{position:fixed;inset:0;z-index:1000;background:rgba(10,12,18,0.92);display:none;align-items:center;justify-content:center;padding:40px;}
+.lightbox.open{display:flex;}
+.lightbox img{max-width:100%;max-height:100%;border-radius:8px;}
+.lightbox-close{position:absolute;top:24px;right:32px;color:#fff;font-size:32px;background:none;border:none;cursor:pointer;line-height:1;}
+
+/* ── decisions (centerpiece, pastel tint + hover lift) ── */
+.decision{border-radius:24px;padding:44px;margin-bottom:24px;transition:transform .28s cubic-bezier(.16,1,.3,1), box-shadow .28s cubic-bezier(.16,1,.3,1);box-shadow:0 2px 14px rgba(10,30,60,0.05);}
+.decision:hover{transform:translateY(-4px);box-shadow:0 20px 50px rgba(10,30,60,0.12);}
+.decision:last-child{margin-bottom:0;}
+.decision-top{display:flex;gap:28px;align-items:flex-start;margin-bottom:32px;}
+.decision-num{font-family:var(--sans);font-weight:800;font-size:52px;line-height:1;flex:none;letter-spacing:-0.03em;}
+.decision-top h3{font-family:var(--sans);font-weight:800;font-size:28px;line-height:1.25;color:var(--ink);margin-bottom:10px;letter-spacing:-0.02em;}
+.decision-top p{font-size:16px;color:var(--body);}
+.decision-rows{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;border-top:1.5px solid rgba(10,30,60,0.08);}
+.decision-rows > div{padding:22px 24px;border-right:1.5px solid rgba(10,30,60,0.08);}
+.decision-rows > div:last-child{border-right:none;background:rgba(255,255,255,0.55);border-left:2px solid var(--cost-border);margin-left:-1.5px;border-radius:0 0 8px 0;}
+.decision-rows h5{font-family:var(--mono);font-size:13px;letter-spacing:0.06em;color:var(--muted);text-transform:uppercase;margin-bottom:10px;font-weight:600;}
+.decision-rows p{font-size:15.5px;color:var(--body);margin:0;line-height:1.55;}
+.decision-1{background:#f2f7ff;} .decision-1 .decision-num{color:var(--primary);}
+.decision-2{background:#f0fbfc;} .decision-2 .decision-num{color:var(--teal);}
+.decision-3{background:#f6f4ff;} .decision-3 .decision-num{color:#6d4fd6;}
+.decision-4{background:#fff8f0;} .decision-4 .decision-num{color:#c8760f;}
+.decision-5{background:#f2faf5;} .decision-5 .decision-num{color:var(--compliant);}
+@media (max-width:900px){
+  .decision{padding:28px;}
+  .decision-rows{grid-template-columns:1fr;}
+  .decision-rows > div{border-right:none;border-bottom:1.5px solid rgba(10,30,60,0.08);}
+  .decision-rows > div:last-child{border-left:none;border-top:2px solid var(--cost-border);margin-left:0;}
 }
 
-.ghost-num{
-  font-family:var(--font-display);font-weight:600;
-  font-size:56px;color:rgba(11,92,213,0.16);letter-spacing:-0.02em;line-height:1;
-}
+/* ── integrations diagram ── */
+.integ{display:grid;grid-template-columns:1fr auto 1fr;gap:32px;align-items:center;}
+.integ-col{display:flex;flex-direction:column;gap:12px;}
+.integ-col h5{font-family:var(--mono);font-size:13px;letter-spacing:0.06em;color:var(--muted);text-transform:uppercase;margin-bottom:6px;font-weight:600;}
+.integ-item{border:1.5px solid var(--border);border-radius:12px;padding:15px 16px;font-size:15px;background:var(--white);}
+.integ-item b{color:var(--ink);}
+.integ-tag{font-family:var(--mono);font-size:13px;letter-spacing:0.04em;padding:3px 9px;border-radius:999px;background:var(--bg);color:var(--muted);margin-left:6px;}
+.integ-center{width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--primary));color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;font-size:14px;font-weight:700;padding:12px;box-shadow:0 12px 32px rgba(0,45,114,0.3);}
+@media (max-width:820px){ .integ{grid-template-columns:1fr;justify-items:center;} }
 
-.mono-num{font-family:var(--font-mono);color:var(--teal-text);font-size:16px;}
+/* ── severity bar ── */
+.severity{display:flex;border-radius:16px;overflow:hidden;box-shadow:0 2px 14px rgba(10,30,60,0.05);}
+.severity > div{flex:1;padding:22px 16px;}
+.severity .band{font-weight:800;font-size:16px;margin-bottom:5px;}
+.severity .window{font-family:var(--mono);font-size:13px;color:var(--muted);margin-bottom:12px;}
+.severity .action{font-size:14.5px;color:var(--body);line-height:1.5;}
+.sev-low{background:#f4f5f7;} .sev-low .band{color:#4b5563;}
+.sev-med{background:#eafbfd;} .sev-med .band{color:var(--teal);}
+.sev-high{background:#fdf6e8;} .sev-high .band{color:var(--review);}
+.sev-crit{background:#fdedec;} .sev-crit .band{color:var(--gap-c);}
+.sev-over{background:#fbe4e2;} .sev-over .band{color:#7a1f17;}
+@media (max-width:900px){ .severity{flex-direction:column;} }
 
-/* ---------- act divider ---------- */
-.act-divider{
-  padding:100px 0;
-  background:linear-gradient(140deg,#002D72 0%, #0B5CD5 62%, #1AA7C7 100%);
-  color:#fff;
-  position:relative;
-  overflow:hidden;
-}
-.act-divider .wrap{display:flex;flex-direction:column;gap:20px;}
-.act-divider .eyebrow{color:rgba(255,255,255,0.82);}
-.act-divider .eyebrow .dot{background:#fff;}
-.act-divider h2{color:#fff;font-size:clamp(36px,6vw,68px);letter-spacing:-0.02em;}
-.act-divider p{color:rgba(255,255,255,0.85);font-size:20px;max-width:640px;}
-.act-divider .ring{position:absolute;border-radius:50%;border:1px solid rgba(255,255,255,0.18);}
+/* ── stats / outcome (gradient-tint) ── */
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+.stat-box{border-radius:16px;padding:24px;background:linear-gradient(135deg,#f0f6ff,#e8f4fd);border:1.5px solid var(--border);}
+.stat-box .num{font-family:var(--sans);font-weight:800;font-size:42px;color:var(--navy);line-height:1;letter-spacing:-0.03em;}
+.stat-box .lbl{font-size:14px;color:var(--muted);margin-top:9px;line-height:1.4;}
+.risk-bar{display:flex;height:30px;border-radius:10px;overflow:hidden;margin-top:10px;}
+.risk-legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:14px;font-size:14px;color:var(--body);}
+.risk-legend .sw{width:10px;height:10px;border-radius:3px;display:inline-block;margin-right:6px;}
+@media (max-width:900px){ .stat-row{grid-template-columns:1fr 1fr;} }
 
-/* ---------- table ---------- */
-.tbl{width:100%;border-collapse:collapse;}
-.tbl th{
-  text-align:left;font-family:var(--font-mono);font-size:14px;letter-spacing:0.08em;
-  color:var(--label);text-transform:uppercase;padding:14px 18px;border-bottom:1px solid var(--line-strong);
-}
-.tbl td{padding:18px;border-bottom:1px solid var(--line);font-size:17px;color:var(--body);}
-.tbl tr:last-child td{border-bottom:none;}
-.tbl tr.highlight td{color:var(--navy);font-weight:600;background:rgba(11,92,213,0.05);}
-
-/* ---------- decision rows ---------- */
-.decision{
-  display:grid;grid-template-columns:0.9fr 1.4fr;gap:56px;align-items:start;
-  padding:56px 0;border-bottom:1px solid var(--line);
-}
-.decision:last-child{border-bottom:none;}
-.decision-num{font-family:var(--font-mono);font-size:16px;color:var(--teal-text);margin-bottom:14px;}
-.decision h3{font-size:32px;line-height:1.2;letter-spacing:-0.01em;}
-.decision-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;}
-.decision-cols div h4{
-  font-family:var(--font-mono);font-size:14px;letter-spacing:0.1em;color:var(--label);
-  text-transform:uppercase;margin-bottom:10px;font-weight:500;
-}
-.decision-cols div p{font-size:16px;line-height:1.5;color:var(--body);margin:0;}
-
-/* ---------- personas / severity / states ---------- */
-.persona-card{display:flex;flex-direction:column;gap:14px;}
-.persona-card h4{font-size:22px;color:var(--navy);}
-.persona-card .quote{font-style:italic;color:var(--body);font-size:18px;}
-
-.severity-row{
-  display:grid;grid-template-columns:0.5fr 1fr 1fr 1.4fr;gap:20px;align-items:center;
-  padding:20px 0;border-bottom:1px solid var(--line);
-}
-.severity-row:last-child{border-bottom:none;}
-.severity-dot{width:12px;height:12px;border-radius:50%;}
-.severity-band{font-family:var(--font-display);font-weight:600;font-size:19px;color:var(--navy);}
-.severity-window{font-family:var(--font-mono);font-size:15px;color:var(--label);}
-.severity-action{font-size:16px;color:var(--body);}
-
-.state-card h4{display:flex;align-items:center;gap:10px;font-size:20px;color:var(--navy);margin-bottom:10px;}
-.state-card p{font-size:16px;color:var(--body);line-height:1.5;margin:0;}
-
-/* ---------- screen showcase ---------- */
-.screen-block{
-  display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;
-  padding:80px 0;border-bottom:1px solid var(--line);
-}
-.screen-block:last-child{border-bottom:none;}
-.screen-block.reverse{direction:rtl;}
-.screen-block.reverse > *{direction:ltr;}
-.screen-copy h3{font-size:34px;line-height:1.2;letter-spacing:-0.01em;margin-bottom:10px;}
-.screen-copy .principle{margin-bottom:18px;}
-.callout-list{display:flex;flex-direction:column;gap:16px;margin-top:24px;}
-.callout{display:flex;gap:16px;align-items:flex-start;}
-.callout .n{
-  font-family:var(--font-mono);font-size:15px;color:#fff;background:var(--primary);
-  width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none;
-}
-.callout p{margin:0;font-size:16px;color:var(--body);line-height:1.5;padding-top:2px;}
-.screen-frame{
-  border-radius:var(--radius-lg);overflow:hidden;box-shadow:0 40px 90px rgba(0,20,60,0.18);
-  border:1px solid var(--glass-border);
-}
-.screen-frame img{width:100%;display:block;}
-
-/* ---------- collaboration ---------- */
-.collab-wrap{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;position:relative;}
-.collab-core{padding:36px;display:flex;flex-direction:column;gap:26px;}
-.collab-row{display:flex;flex-direction:column;gap:10px;}
-.collab-row .lbl{font-family:var(--font-mono);font-size:13px;letter-spacing:0.1em;color:var(--teal-text);text-transform:uppercase;}
-.collab-people{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:16px;color:var(--navy);}
-.collab-people .arrow{color:var(--label);font-size:15px;}
-.collab-caption{font-size:15px;color:var(--body);line-height:1.5;border-top:1px solid var(--line);padding-top:18px;}
-.collab-right{display:flex;flex-direction:column;gap:20px;}
-.collab-card{padding:22px 26px;}
-.collab-card .lbl{font-family:var(--font-mono);font-size:13px;letter-spacing:0.1em;color:var(--teal-text);text-transform:uppercase;margin-bottom:6px;display:block;}
-.collab-card .headcount{font-size:19px;color:var(--navy);font-weight:600;margin-bottom:4px;}
-.collab-card .sub{font-size:15px;color:var(--body);}
-
-/* ---------- footer ---------- */
-.footer{
-  padding:120px 0 80px;
-  background:linear-gradient(150deg,#002D72, #0B5CD5 70%, #1AA7C7);
-  color:#fff;
-  text-align:center;
-}
-.footer h2{color:#fff;font-size:clamp(48px,8vw,96px);letter-spacing:-0.03em;margin-bottom:20px;}
-.footer p{color:rgba(255,255,255,0.85);font-size:20px;margin-bottom:56px;}
-.footer-contact{display:flex;justify-content:center;gap:48px;flex-wrap:wrap;font-size:17px;}
-.footer-contact div{display:flex;flex-direction:column;gap:6px;}
-.footer-contact span.k{font-family:var(--font-mono);font-size:13px;letter-spacing:0.1em;color:rgba(255,255,255,0.6);text-transform:uppercase;}
-.footer-contact a{color:#fff;}
-.footer-contact a:hover{color:#cdeffa;}
-
-/* ---------- swatches ---------- */
+/* ── design system swatches ── */
 .swatch-row{display:flex;gap:20px;flex-wrap:wrap;}
-.swatch{display:flex;flex-direction:column;gap:10px;align-items:flex-start;}
-.swatch .block{width:88px;height:88px;border-radius:16px;border:1px solid var(--line);}
-.swatch .hex{font-family:var(--font-mono);font-size:14px;color:var(--label);}
-.swatch .name{font-size:15px;color:var(--navy);font-weight:500;}
+.swatch{display:flex;flex-direction:column;gap:8px;}
+.swatch .block{width:76px;height:76px;border-radius:14px;border:1px solid var(--border);}
+.swatch .hex{font-family:var(--mono);font-size:13px;color:var(--muted);}
+.token-list{font-family:var(--mono);font-size:14px;display:flex;flex-direction:column;gap:12px;}
+.token-list div{display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding-bottom:10px;}
 
-/* ---------- proportional bar ---------- */
-.propbar{display:flex;width:100%;height:32px;border-radius:8px;overflow:hidden;background:var(--canvas-alt);}
-.propbar span{height:100%;}
-.legend{display:flex;gap:24px;flex-wrap:wrap;margin-top:16px;font-size:14px;color:var(--body);}
-.legend .k{display:inline-flex;align-items:center;gap:8px;}
-.legend .sw{width:12px;height:12px;border-radius:3px;}
+/* ── before/after ── */
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+.ba-slot{border:1.5px dashed var(--todo-border);border-radius:16px;min-height:220px;display:flex;align-items:center;justify-content:center;background:var(--todo-bg);color:var(--todo-text);font-family:var(--mono);font-size:14px;text-align:center;padding:20px;}
+@media (max-width:820px){ .ba{grid-template-columns:1fr;} }
 
-/* ---------- responsive ---------- */
-@media (max-width: 980px){
-  .wrap{padding:0 24px;}
-  .section{padding:80px 0;}
-  .grid-2,.grid-3,.grid-4,.grid-5,.grid-6{grid-template-columns:1fr 1fr;}
-  .decision{grid-template-columns:1fr;gap:24px;}
-  .decision-cols{grid-template-columns:1fr;}
-  .screen-block, .screen-block.reverse{grid-template-columns:1fr;direction:ltr;}
-  .collab-wrap{grid-template-columns:1fr;}
-  .hero-meta{grid-template-columns:1fr 1fr;}
-  .severity-row{grid-template-columns:1fr;gap:6px;}
-}
-@media (max-width: 640px){
-  .wrap{padding:0 20px;}
-  .grid-2,.grid-3,.grid-4,.grid-5,.grid-6{grid-template-columns:1fr;}
-  .hero-meta{grid-template-columns:1fr;}
-  .footer-contact{flex-direction:column;gap:24px;}
+/* ── states ── */
+.state-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+@media (max-width:900px){ .state-grid{grid-template-columns:1fr 1fr;} }
+@media (max-width:600px){ .state-grid{grid-template-columns:1fr;} }
+
+/* ── requirement table -> stacked cards on mobile ── */
+.req-table{width:100%;border-collapse:collapse;background:var(--white);border-radius:16px;overflow:hidden;box-shadow:0 2px 14px rgba(10,30,60,0.05);}
+.req-table td{padding:20px 22px;border-bottom:1px solid var(--border);font-size:15px;vertical-align:top;}
+.req-table tr:last-child td{border-bottom:none;}
+.req-table td:first-child{color:var(--muted);width:45%;}
+.req-table td:last-child{color:var(--ink);font-weight:600;}
+@media (max-width:700px){
+  .req-table, .req-table tbody, .req-table tr, .req-table td{display:block;width:100%;}
+  .req-table tr{border:1px solid var(--border);border-radius:14px;margin-bottom:14px;padding:16px;box-shadow:0 2px 10px rgba(10,30,60,0.05);}
+  .req-table td{border:none;padding:6px 0;}
 }
 
+/* ── outcome cols ── */
+.outcome-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;}
+.outcome-card{border-radius:18px;padding:32px 28px;background:linear-gradient(135deg,#f0fff8,#e8f4fd);border:1.5px solid var(--border);}
+.outcome-card h4{font-family:var(--mono);font-size:13px;font-weight:700;letter-spacing:0.06em;color:var(--muted);text-transform:uppercase;margin-bottom:11px;}
+.outcome-card p{font-size:15.5px;color:var(--body);line-height:1.6;}
+@media (max-width:900px){ .outcome-grid{grid-template-columns:1fr;} }
 
-    /* ── SITE NAV (pill, matches the rest of the portfolio) ── */
-    #nav {
-      position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-      z-index: 200;
-      background: rgba(255,255,255,0.9);
-      backdrop-filter: blur(16px);
-      border-radius: 999px; padding: 8px 8px;
-      display: flex; align-items: center; gap: 4px;
-      box-shadow: 0 2px 20px rgba(0,0,0,0.09), 0 0 0 1px rgba(0,0,0,0.06);
-      font-family: 'Inter', sans-serif;
-    }
-    .nav-back { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; color: #555; text-decoration: none; padding: 7px 14px; border-radius: 999px; border: 1.5px solid var(--line); transition: all 0.2s; }
-    .nav-back:hover { background: var(--canvas-alt); color: var(--navy); }
-    .nav-avatar { width: 36px; height: 36px; border-radius: 50%; overflow: hidden; background: #e0e0e0; flex-shrink: 0; }
-    .nav-avatar img { width: 100%; height: 100%; object-fit: cover; }
-    .nav-name { font-size: 14px; font-weight: 700; padding: 0 10px 0 6px; letter-spacing: -0.03em; color: var(--navy); }
-    .nav-link { font-size: 14px; font-weight: 600; color: #555; text-decoration: none; padding: 7px 14px; border-radius: 999px; }
-    .nav-link:hover { background: var(--canvas-alt); }
-    .nav-cta { font-size: 14px; font-weight: 700; color: #fff; background: var(--navy); text-decoration: none; padding: 8px 18px; border-radius: 999px; }
+/* ── reflection paper notes ── */
+.paper-notes{display:grid;grid-template-columns:1fr 1fr;gap:40px;}
+.paper-note{background:var(--white);border-radius:6px;padding:36px 32px;box-shadow:0 10px 40px rgba(10,30,60,0.12), 0 2px 8px rgba(0,0,0,0.04);position:relative;}
+.paper-note:nth-child(1){transform:rotate(-1.2deg);}
+.paper-note:nth-child(2){transform:rotate(1deg);}
+.paper-note-label{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:18px;}
+.paper-note-body{font-family:var(--hand);font-size:26px;font-weight:700;color:var(--ink);line-height:1.35;}
+@media (max-width:820px){ .paper-notes{grid-template-columns:1fr;} }
 
-    /* Give the hero room under the fixed pill nav */
-    .hero { padding-top: 128px; }
+/* ── section background washes ── */
+.wash-blue{background:linear-gradient(160deg, #eaf3fc 0%, #f6fafd 60%, #fff 100%);}
+.wash-navy{background:linear-gradient(150deg,#002D72 0%, #0B5CD5 62%, #1AA7C7 100%);color:#fff;}
+.wash-navy .cs-h2, .wash-navy h3{color:#fff;}
+.wash-navy .cs-p{color:rgba(255,255,255,0.85);}
+.wash-navy .eyebrow{color:#bfe3ee;}
 
+/* ── footer ── */
+.cs-footer{background:var(--navy);padding:88px 32px;text-align:center;}
+.cs-footer h3{font-family:var(--sans);font-weight:800;font-size:36px;color:#fff;letter-spacing:-0.03em;margin-bottom:14px;}
+.cs-footer > .wrap > p{font-size:15px;color:rgba(255,255,255,0.6);margin-bottom:40px;}
+.footer-nav{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:48px;}
+.fbtn{display:inline-flex;align-items:center;font-size:14px;font-weight:700;text-decoration:none;border-radius:999px;padding:12px 26px;}
+.fbtn-primary{background:var(--teal);color:var(--navy);}
+.fbtn-ghost{border:1.5px solid rgba(255,255,255,0.28);color:#fff;}
+.fbtn-ghost:hover{border-color:rgba(255,255,255,0.6);}
+.footer-contact{display:flex;gap:32px;justify-content:center;flex-wrap:wrap;font-size:14px;color:rgba(255,255,255,0.55);}
+.footer-contact a{color:#fff;font-weight:600;}
+
+@media (max-width:640px){
+  .cs-section{padding:64px 20px;}
+  .hero{padding:120px 20px 0;}
+  .tldr{padding:28px 22px;margin-top:-32px;}
+  .tldr-grid{grid-template-columns:1fr;gap:20px;}
+  .meta-row{grid-template-columns:1fr 1fr;}
+  .meta-cell:nth-child(2n){border-right:none;}
+}
 </style>
 </head>
 <body>
 
-
 <!-- NAV -->
 <nav id="nav">
-  <a href="index.html" class="nav-back">&larr; Back</a>
-  <a href="index.html" style="display:flex;align-items:center;gap:6px;text-decoration:none;color:inherit;">
+  <a href="v2.html#ax-work" class="nav-back">&larr; Back</a>
+  <a href="v2.html" style="display:flex;align-items:center;gap:6px;text-decoration:none;color:inherit;">
     <div class="nav-avatar"><img src="assets/images/profile.png" alt="Achyut" onerror="this.style.display='none';this.parentElement.innerHTML='AK';" /></div>
     <span class="nav-name">ACHYUT</span>
   </a>
-  <a href="about.html" class="nav-link">About</a>
+  <a href="about-v2.html" class="nav-link">About</a>
   <a href="#" class="nav-cta">Resume</a>
 </nav>
 
+<!-- SIDE PROGRESS NAV -->
+<nav class="side-nav" aria-label="Section progress">
+  <a href="#context" data-section="context"><span class="dot"></span><span class="lbl">Context</span></a>
+  <a href="#problem" data-section="problem"><span class="dot"></span><span class="lbl">Problem</span></a>
+  <a href="#discovery" data-section="discovery"><span class="dot"></span><span class="lbl">Discovery</span></a>
+  <a href="#define" data-section="define"><span class="dot"></span><span class="lbl">Define</span></a>
+  <a href="#decisions" data-section="decisions"><span class="dot"></span><span class="lbl">Decisions</span></a>
+  <a href="#connects" data-section="connects"><span class="dot"></span><span class="lbl">Connects</span></a>
+  <a href="#design" data-section="design"><span class="dot"></span><span class="lbl">Design</span></a>
+  <a href="#outcome" data-section="outcome"><span class="dot"></span><span class="lbl">Outcome</span></a>
+</nav>
 
-<!-- ===================== HERO ===================== -->
-<header class="hero" id="hook">
-  <div class="wrap hero-top" data-reveal>
-    <span>UX CASE STUDY</span><span>2026</span>
-  </div>
-  <div class="wrap">
-    <h1 class="hero-title" data-reveal data-reveal-delay="1">VERRDICT</h1>
-    <div class="hero-rule" data-reveal data-reveal-delay="2"></div>
-    <p class="hero-sub" data-reveal data-reveal-delay="3">Designing trust into network governance for a large financial company.</p>
-    <div class="hero-meta" data-reveal data-reveal-delay="4">
-      <div><span class="k">DESIGNER</span><span class="v">Achyut Khanpara</span></div>
-      <div><span class="k">ROLE</span><span class="v">Lead UX Designer</span></div>
-      <div><span class="k">DOMAIN</span><span class="v">Network governance</span></div>
-      <div><span class="k">MODULES</span><span class="v">Six modules</span></div>
+<!-- ═══════════ HERO ═══════════ -->
+<header class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow" data-reveal><span class="diamond">&#9670;</span>UX Case Study &middot; Network Governance &middot; 2026</div>
+    <h1 class="hero-title" data-reveal>VERRDICT</h1>
+    <p class="hero-sub" data-reveal>Designing trust into network governance for a large financial company.</p>
+    <div class="meta-row" data-reveal>
+      <div class="meta-cell"><div class="meta-label">Role</div><div class="meta-value">Lead UX Designer</div></div>
+      <div class="meta-cell"><div class="meta-label">Client</div><div class="meta-value">Large financial company</div></div>
+      <div class="meta-cell"><div class="meta-label">Type</div><div class="meta-value">Full redesign</div></div>
+      <div class="meta-cell"><div class="meta-label">Scope</div><div class="meta-value">6 modules</div></div>
+      <div class="meta-cell"><div class="meta-label">Status</div><div class="meta-value"><span class="live-dot"></span>Design project</div></div>
     </div>
+    <figure class="hero-frame" data-reveal>
+      <div class="hero-frame-bar"><span></span><span></span><span></span></div>
+      <img src="assets/case-studies/verrdict/screen-overview.png" alt="VERRDICT Overview dashboard — ranked attention list, four governance metrics, and a device risk breakdown">
+    </figure>
   </div>
-  <div class="scroll-cue"><span>SCROLL</span><span class="bar"></span></div>
 </header>
 
-<!-- ===================== WHAT THIS COVERS ===================== -->
-<section class="section" id="covers">
-  <div class="wrap">
-    <div class="grid grid-2" style="align-items:center;gap:80px;">
-      <div data-reveal>
-        <div class="eyebrow"><span class="dot"></span>WHAT THIS COVERS</div>
-        <div style="display:flex;align-items:baseline;gap:16px;margin:20px 0;">
-          <span class="stat num" data-count="6" style="font-size:120px;">0</span>
-          <span style="font-family:var(--font-display);font-weight:500;font-size:32px;color:var(--primary);">areas</span>
+<!-- ═══════════ TL;DR ═══════════ -->
+<div class="wrap">
+  <div class="tldr" data-reveal>
+    <div class="tldr-grid">
+      <div><h4>Problem</h4><p>Governance work was spread across tools, and the reasoning behind every verdict was hidden.</p></div>
+      <div><h4>Solution</h4><p>One platform where every flag is ranked, sourced, explained, and actionable in place.</p></div>
+      <div><h4>My role</h4><p>Owned design end to end — audit, IA, flows, UI, design system — as the only designer.</p></div>
+    </div>
+    <div class="tldr-jump">
+      <a href="#problem">Problem</a>
+      <a href="#discovery">Discovery</a>
+      <a href="#decisions">Decisions</a>
+      <a href="#design">Design</a>
+      <a href="#outcome">Outcome</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ CONTEXT & CONSTRAINTS ═══════════ -->
+<section class="cs-section" id="context">
+  <div class="cs-prose" data-reveal>
+    <div class="eyebrow"><span class="diamond">&#9670;</span>01 &middot; Context &amp; constraints</div>
+    <h2 class="cs-h2">Scattered network checks in one place, so every decision can be explained.</h2>
+    <div class="tag-pills">
+      <span class="tag-pill">Everything in one view</span>
+      <span class="tag-pill">Reasoning always visible</span>
+      <span class="tag-pill">No black boxes</span>
+    </div>
+  </div>
+
+  <div class="cs-wide" style="margin-top:64px;" data-reveal>
+    <p class="cs-p" style="font-size:19px;max-width:var(--text-w);">Governance is a loop, not a report.</p>
+    <div class="loop4" style="margin-top:24px;">
+      <div><div class="n">01</div><h5>Estate</h5><p>Thousands of devices, versions, vendors.</p></div>
+      <div><div class="n">02</div><h5>Warnings</h5><p>Vendor warnings keep arriving.</p></div>
+      <div><div class="n">03</div><h5>Verdict</h5><p>Compliant, gap, or needs review.</p></div>
+      <div><div class="n">04</div><h5>Evidence</h5><p>It has to hold up when audited.</p></div>
+    </div>
+  </div>
+  <div class="cs-prose" style="margin-top:40px;" data-reveal>
+    <p class="cs-pullquote">Break one link and you can no longer explain the result.</p>
+  </div>
+
+  <div class="cs-wide" style="margin-top:96px;" data-reveal>
+    <div class="eyebrow"><span class="diamond">&#9670;</span>What I had to design within</div>
+    <div class="card-grid c4">
+      <div class="rich-card"><h4>Two-week build window</h4><p>The design had to be buildable inside the sprint the team already had planned.</p></div>
+      <div class="rich-card"><h4>One designer</h4><p>No research team, no second pair of hands.</p></div>
+      <div class="rich-card"><h4>Build on what exists</h4><p>New screens had to reuse the existing component set.</p></div>
+      <div class="rich-card"><h4>Fixed requirements</h4><p>The freedom was in how modules behaved, not what shipped.</p></div>
+    </div>
+  </div>
+
+  <div class="cs-wide" style="margin-top:96px;" data-reveal>
+    <div class="eyebrow"><span class="diamond">&#9670;</span>Who I worked with</div>
+    <div class="loop4">
+      <div><div class="n">Core design</div><h5>Me + 1 SME</h5><p>Owned design end to end.</p></div>
+      <div><div class="n">Leadership</div><h5>1 Project Manager</h5><p>Owned delivery.</p></div>
+      <div><div class="n">Build</div><h5>5 Developers</h5><p>Built from the design system.</p></div>
+      <div><div class="n">Business</div><h5>1 Chief Delivery, 1 CSO, 1 Sales Manager</h5><p>Delivery &amp; client relationship.</p></div>
+    </div>
+    <p class="cs-p" style="margin-top:18px;font-style:italic;">I owned design end to end; the PM owned delivery.</p>
+  </div>
+</section>
+
+<!-- ═══════════ THE PROBLEM ═══════════ -->
+<section class="cs-section wash-blue" id="problem">
+  <div class="cs-prose" data-reveal>
+    <div class="eyebrow"><span class="diamond">&#9670;</span>02 &middot; The problem</div>
+    <p class="cs-pullquote">When you can't see how a decision was made, every decision is a risk.</p>
+  </div>
+
+  <div class="cs-wide" style="margin-top:64px;" data-reveal>
+    <div class="current-state">
+      <div class="cs-box">Vendor advisories<br>Asset inventory<br>Change records</div>
+      <span class="cs-arrow">&rarr;</span>
+      <div class="cs-box cs-manual">MANUAL<br>Spreadsheets and email</div>
+      <span class="cs-arrow">&rarr;</span>
+      <div class="cs-box">A decision with nothing behind it: two people, same device, different conclusions.</div>
+    </div>
+  </div>
+
+  <div class="cs-wide" style="margin-top:96px;" data-reveal>
+    <div class="eyebrow"><span class="diamond">&#9670;</span>Who it's for</div>
+    <div class="todo" style="margin-bottom:24px;">Confirm these are the real personas from research, not drafted stand-ins</div>
+    <div class="quotes-grid">
+      <div class="quote-card"><span class="quote-tag">Network analyst</span><p class="quote-text">Where do I start today?</p></div>
+      <div class="quote-card"><span class="quote-tag">Change reviewer</span><p class="quote-text">Why does it say gap?</p></div>
+      <div class="quote-card"><span class="quote-tag">Compliance officer</span><p class="quote-text">What is our exposure?</p></div>
+      <div class="quote-card"><span class="quote-tag">Platform admin</span><p class="quote-text">Is this data current?</p></div>
+    </div>
+  </div>
+
+  <div class="cs-wide" style="margin-top:96px;" data-reveal>
+    <div class="eyebrow"><span class="diamond">&#9670;</span>Where the old screens lost the reviewer</div>
+    <div class="todo block">Drop the annotated before-state screenshot here</div>
+    <div class="screen-callouts" style="margin-top:20px;">
+      <div class="screen-callout"><span class="n">1</span><p>No sense of priority.</p></div>
+      <div class="screen-callout"><span class="n">2</span><p>Verdicts without reasons.</p></div>
+      <div class="screen-callout"><span class="n">3</span><p>Data of unknown age.</p></div>
+      <div class="screen-callout"><span class="n">4</span><p>Dead ends: seeing and fixing were separate trips.</p></div>
+    </div>
+  </div>
+
+  <div class="cs-prose" style="margin-top:96px;" data-reveal>
+    <p class="cs-pullquote">The work was spread across tools and the reasoning was hidden.</p>
+    <p class="cs-p" style="margin-top:16px;">A data problem &rarr; a clarity problem.</p>
+  </div>
+
+  <div class="cs-wide" style="margin-top:64px;" data-reveal>
+    <div class="eyebrow"><span class="diamond">&#9670;</span>Success criteria, set before any design</div>
+    <div class="card-grid c3">
+      <div class="rich-card"><h4>One place to look</h4><p>Devices, risk and open decisions without leaving the page.</p></div>
+      <div class="rich-card"><h4>Every flag explains itself</h4><p>No status appears without a way to see why.</p></div>
+      <div class="rich-card"><h4>Calm under load</h4><p>Hundreds of alerts should feel like a to-do list.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ DISCOVERY ═══════════ -->
+<section class="cs-section" id="discovery">
+  <div class="cs-prose" data-reveal>
+    <div class="eyebrow"><span class="diamond">&#9670;</span>03 &middot; Discovery</div>
+    <h2 class="cs-h2">Audit first, then explore.</h2>
+    <p class="cs-p">Steps 1 and 2 ran together; the problem kept shifting as the audit went deeper.</p>
+  </div>
+
+  <div class="cs-wide" style="margin-top:56px;" data-reveal>
+    <div class="steps">
+      <div class="step"><div class="step-node">01</div><div class="step-title">Understand</div><div class="step-desc">Audit the tool against fixed questions.</div></div>
+      <div class="step"><div class="step-node">02</div><div class="step-title">Agree</div><div class="step-desc">Group the findings into one problem.</div></div>
+      <div class="step"><div class="step-node">03</div><div class="step-title">Design</div><div class="step-desc">Structure, flows, components.</div></div>
+      <div class="step"><div class="step-node">04</div><div class="step-title">Validate</div><div class="step-desc">Check the work against the criteria.</div></div>
+    </div>
+  </div>
+
+  <div class="cs-prose" style="margin-top:64px;" data-reveal>
+    <div class="eyebrow"><span class="diamond">&#9670;</span>Methods</div>
+    <div class="tag-pills">
+      <span class="tag-pill">Usability audit</span>
+      <span class="tag-pill">Team interviews</span>
+      <span class="tag-pill">Requirements review</span>
+      <span class="tag-pill">Competitive comparison</span>
+      <span class="tag-pill">Task &amp; structure analysis</span>
+      <span class="tag-pill">Design system build</span>
+    </div>
+  </div>
+
+  <div class="cs-wide" style="margin-top:64px;" data-reveal>
+    <div class="eyebrow"><span class="diamond">&#9670;</span>Five audit questions</div>
+    <table class="req-table">
+      <tbody>
+        <tr><td>Can I tell what matters most?</td><td>Nothing was ranked.</td></tr>
+        <tr><td>Can I see why it says that?</td><td>No route to the evidence.</td></tr>
+        <tr><td>Do I know where this came from?</td><td>Internal and vendor looked alike.</td></tr>
+        <tr><td>Can I act from here?</td><td>Reading and fixing were separate.</td></tr>
+        <tr><td>Would this survive an audit?</td><td>No trail from decision to record.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="cs-wide" style="margin-top:64px;" data-reveal>
+    <div class="card-grid c2">
+      <div>
+        <div class="eyebrow"><span class="diamond">&#9670;</span>What I probed for</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:12px;font-size:15px;color:var(--body);">
+          <li>Where do you go first?</li>
+          <li>What makes you distrust a number?</li>
+          <li>What do you show a challenger?</li>
+          <li>What would you stop doing in a spreadsheet?</li>
+        </ul>
+      </div>
+      <div class="quote-card" style="display:flex;flex-direction:column;justify-content:center;">
+        <div class="todo block">Add the interview quote that changed how I thought about the problem, and the (anonymised) role</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cs-wide" style="margin-top:64px;" data-reveal>
+    <div class="eyebrow"><span class="diamond">&#9670;</span>How other tools do it</div>
+    <table class="req-table">
+      <tbody>
+        <tr><td>Vulnerability scanners</td><td>Partial consolidation, no explanation, partial audit trail.</td></tr>
+        <tr><td>Asset inventories</td><td>Assets only, no explanation, no audit trail.</td></tr>
+        <tr><td>Change &amp; ticketing</td><td>No consolidation, partial explanation, strong audit trail.</td></tr>
+        <tr><td><strong>VERRDICT</strong></td><td>Consolidated by design, explains itself by default, audit trail built in.</td></tr>
+      </tbody>
+    </table>
+    <p class="cs-p" style="margin-top:16px;max-width:var(--text-w);">The gap was not more data. It was the link between data and judgement.</p>
+  </div>
+
+  <div class="cs-wide" style="margin-top:64px;" data-reveal>
+    <div class="eyebrow"><span class="diamond">&#9670;</span>Findings, in three groups</div>
+    <div class="card-grid c3">
+      <div class="rich-card"><h4>Attention</h4><p>Flat urgency, no first move, alert fatigue.</p></div>
+      <div class="rich-card"><h4>Trust</h4><p>Unsourced numbers, stale data, black-box verdicts.</p></div>
+      <div class="rich-card"><h4>Continuity</h4><p>Read here, act there. Lost context, no trail.</p></div>
+    </div>
+  </div>
+
+  <div class="cs-wide" style="margin-top:64px;" data-reveal>
+    <div class="eyebrow"><span class="diamond">&#9670;</span>Three insights</div>
+    <div style="display:flex;flex-direction:column;gap:20px;">
+      <div class="rich-card">
+        <p class="cs-p"><strong>Evidence:</strong> Reviewers didn't need more alerts; they needed to know which one to open first.</p>
+        <p class="cs-p" style="margin:0;"><strong>So I designed:</strong> a ranked attention list first on the dashboard.</p>
+      </div>
+      <div class="rich-card">
+        <p class="cs-p"><strong>Evidence:</strong> A verdict without a reason is a liability, not an answer.</p>
+        <p class="cs-p" style="margin:0;"><strong>So I designed:</strong> every decision carries its reasons, one click away.</p>
+      </div>
+      <div class="rich-card">
+        <p class="cs-p"><strong>Evidence:</strong> Where data came from mattered as much as what it said.</p>
+        <p class="cs-p" style="margin:0;"><strong>So I designed:</strong> source and age became permanent labels.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="cs-wide" style="margin-top:64px;" data-reveal>
+    <div class="eyebrow"><span class="diamond">&#9670;</span>Finding &rarr; change</div>
+    <table class="req-table">
+      <tbody>
+        <tr><td>No order of work</td><td>Ranked attention queue.</td></tr>
+        <tr><td>No basis for verdicts</td><td>Reasons revealed step by step.</td></tr>
+        <tr><td>Invisible source and age</td><td>Permanent source labels.</td></tr>
+        <tr><td>Separate reading and resolving</td><td>An action on every row.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════ DEFINE ═══════════ -->
+<section class="cs-section wash-blue" id="define">
+  <div class="cs-prose" data-reveal>
+    <div class="eyebrow"><span class="diamond">&#9670;</span>04 &middot; Define</div>
+    <p class="cs-pullquote">How do we make every decision something a reviewer can act on and explain, in one place?</p>
+    <div class="tag-pills" style="margin-top:24px;">
+      <span class="tag-pill">Act on — not just read</span>
+      <span class="tag-pill">Explain — to someone who wasn't there</span>
+      <span class="tag-pill">One place — no reassembly</span>
+    </div>
+  </div>
+
+  <div class="cs-wide" style="margin-top:96px;" data-reveal>
+    <div class="eyebrow"><span class="diamond">&#9670;</span>Principles</div>
+    <div class="card-grid c2">
+      <div class="rich-card"><h4>P1 &middot; Explainable by default</h4><p>No status ships unless the reason is one click away.</p></div>
+      <div class="rich-card"><h4>P2 &middot; Priority over volume</h4><p>Rank the work; counts alone tell a reviewer nothing.</p></div>
+      <div class="rich-card"><h4>P3 &middot; Label the source</h4><p>External or internal, live or snapshot, and how old.</p></div>
+      <div class="rich-card"><h4>P4 &middot; Calm at density</h4><p>Colour is reserved for risk.</p></div>
+    </div>
+  </div>
+
+  <div class="cs-wide" style="margin-top:96px;" data-reveal>
+    <div class="eyebrow"><span class="diamond">&#9670;</span>How it's organised</div>
+    <div class="rich-card" style="margin-bottom:16px;"><h4>Overview</h4><p>The day's ranked work.</p></div>
+    <div class="card-grid c2">
+      <div class="rich-card"><h4>Intelligence — what is true</h4><p>Asset Intelligence, Lifecycle Alerts.</p></div>
+      <div class="rich-card"><h4>Assurance — what we decided</h4><p>Change Assurance, Trend Analysis.</p></div>
+    </div>
+    <p class="cs-p" style="margin-top:16px;max-width:var(--text-w);">Five places, one level deep. Nothing needed daily is buried.</p>
+  </div>
+
+  <div class="cs-wide" style="margin-top:96px;" data-reveal>
+    <div class="eyebrow"><span class="diamond">&#9670;</span>The main journey</div>
+    <div class="steps">
+      <div class="step"><div class="step-node">01</div><div class="step-title">Land</div><div class="step-desc">Ranked queue opens.</div></div>
+      <div class="step"><div class="step-node">02</div><div class="step-title">Open</div><div class="step-desc">Device and trigger named.</div></div>
+      <div class="step"><div class="step-node">03</div><div class="step-title">Inspect</div><div class="step-desc">Controls, records, source.</div></div>
+      <div class="step"><div class="step-node">04</div><div class="step-title">Decide</div><div class="step-desc">In place, on the row.</div></div>
+      <div class="step"><div class="step-node">05</div><div class="step-title">Trail</div><div class="step-desc">Written to the audit log.</div></div>
+    </div>
+    <p class="cs-p" style="margin-top:24px;max-width:var(--text-w);">The reviewer never leaves the record, and the trail is a by-product of deciding.</p>
+  </div>
+</section>
+
+<!-- ═══════════ DECISIONS (centerpiece) ═══════════ -->
+<section class="cs-section" id="decisions">
+  <div class="cs-prose" data-reveal>
+    <div class="eyebrow"><span class="diamond">&#9670;</span>05 &middot; Key UX decisions</div>
+    <h2 class="cs-h2">Five calls, and what each one cost.</h2>
+  </div>
+
+  <div class="cs-wide" style="margin-top:56px;">
+    <div class="decision decision-1" data-reveal>
+      <div class="decision-top">
+        <div class="decision-num">01</div>
+        <div><h3>Tell the reviewer what to open first.</h3><p>A ranked list of four, by business impact and deadline.</p></div>
+      </div>
+      <div class="decision-rows">
+        <div><h5>Instead of</h5><p>Better filters or sorting by severity.</p></div>
+        <div><h5>Why</h5><p>With 452 open alerts, filters only help someone who already knows what to look for.</p></div>
+        <div><h5>The cost</h5><p>They trust a ranking they didn't set, so the rule is printed under the list.</p></div>
+      </div>
+    </div>
+
+    <div class="decision decision-2" data-reveal>
+      <div class="decision-top">
+        <div class="decision-num">02</div>
+        <div><h3>Show the working, not just the verdict.</h3><p>Every verdict opens into its checks, controls, and records.</p></div>
+      </div>
+      <div class="decision-rows">
+        <div><h5>Instead of</h5><p>A methodology doc or a tooltip.</p></div>
+        <div><h5>Why</h5><p>Nobody signs off on a status they can't explain to someone else.</p></div>
+        <div><h5>The cost</h5><p>Denser rows, and every status needs stored evidence.</p></div>
+      </div>
+    </div>
+
+    <div class="decision decision-3" data-reveal>
+      <div class="decision-top">
+        <div class="decision-num">03</div>
+        <div><h3>Say where every number came from.</h3><p>Each feed shows external/internal, live/snapshot, and when it last ran.</p></div>
+      </div>
+      <div class="decision-rows">
+        <div><h5>Instead of</h5><p>One "updated 2 min ago" stamp in the header.</p></div>
+        <div><h5>Why</h5><p>A vendor advisory and our own inventory aren't equally authoritative.</p></div>
+        <div><h5>The cost</h5><p>More small labels, which is why colour stays reserved for risk.</p></div>
+      </div>
+    </div>
+
+    <div class="decision decision-4" data-reveal>
+      <div class="decision-top">
+        <div class="decision-num">04</div>
+        <div><h3>Warn 18 months before the deadline.</h3><p>Urgency steps up as the date closes in.</p></div>
+      </div>
+      <div class="decision-rows">
+        <div><h5>Instead of</h5><p>Alerting on the EOL date.</p></div>
+        <div><h5>Why</h5><p>Replacing a device takes approvals, build, testing, and a release window.</p></div>
+        <div><h5>The cost</h5><p>452 alerts instead of a handful. It only works because the queue is ranked.</p></div>
+      </div>
+    </div>
+
+    <div class="decision decision-5" data-reveal>
+      <div class="decision-top">
+        <div class="decision-num">05</div>
+        <div><h3>Act without leaving the record.</h3><p>Raise a pre-filled Jira ticket from the verdict and track it back to closed.</p></div>
+      </div>
+      <div class="decision-rows">
+        <div><h5>Instead of</h5><p>Exporting a list and raising tickets by hand.</p></div>
+        <div><h5>Why</h5><p>Evidence got retyped, and the reasoning stayed behind.</p></div>
+        <div><h5>The cost</h5><p>Ticket state can disagree with ours, so every record names the system it last heard from.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ HOW IT CONNECTS ═══════════ -->
+<section class="cs-section wash-navy" id="connects">
+  <div class="cs-prose" data-reveal>
+    <div class="eyebrow"><span class="diamond">&#9670;</span>06 &middot; How it connects</div>
+    <h2 class="cs-h2">VERRDICT sits between the systems, not beside them.</h2>
+  </div>
+
+  <div class="cs-wide" style="margin-top:56px;" data-reveal>
+    <div class="integ">
+      <div class="integ-col">
+        <h5 style="color:#bfe3ee;">Feeds in</h5>
+        <div class="integ-item"><b>Cisco PSIRT</b><span class="integ-tag">EXTERNAL</span></div>
+        <div class="integ-item"><b>Tenable</b><span class="integ-tag">EXTERNAL</span></div>
+        <div class="integ-item"><b>Splunk</b><span class="integ-tag">INTERNAL</span></div>
+        <div class="integ-item"><b>ServiceNow</b><span class="integ-tag">INTERNAL</span></div>
+      </div>
+      <div class="integ-center">VERRDICT<br>one record</div>
+      <div class="integ-col">
+        <h5 style="color:#bfe3ee;">Actions out</h5>
+        <div class="integ-item"><b>Jira</b><span class="integ-tag">TWO-WAY</span></div>
+        <div class="integ-item"><b>ServiceNow change record</b><span class="integ-tag">TWO-WAY</span></div>
+      </div>
+    </div>
+    <p class="cs-p" style="margin-top:24px;max-width:var(--text-w);">New services join as a declared connection, not a bespoke screen.</p>
+  </div>
+
+  <div class="cs-wide" style="margin-top:96px;" data-reveal>
+    <div class="eyebrow"><span class="diamond">&#9670;</span>The loop</div>
+    <div class="steps">
+      <div class="step"><div class="step-node" style="background:#fff;color:var(--navy);">01</div><div class="step-title" style="color:#fff;">Verdict reached</div></div>
+      <div class="step"><div class="step-node" style="background:#fff;color:var(--navy);">02</div><div class="step-title" style="color:#fff;">Ticket raised</div></div>
+      <div class="step"><div class="step-node" style="background:#fff;color:var(--navy);">03</div><div class="step-title" style="color:#fff;">Tracked in place</div></div>
+      <div class="step"><div class="step-node" style="background:#fff;color:var(--navy);">04</div><div class="step-title" style="color:#fff;">Fix confirmed</div></div>
+      <div class="step"><div class="step-node" style="background:#fff;color:var(--navy);">05</div><div class="step-title" style="color:#fff;">Trail kept</div></div>
+    </div>
+    <p class="cs-p" style="margin-top:24px;max-width:var(--text-w);">Before this, steps 2–5 happened in other people's tools, and nobody could reconstruct them afterwards.</p>
+  </div>
+
+  <div class="cs-wide" style="margin-top:96px;" data-reveal>
+    <div class="eyebrow"><span class="diamond">&#9670;</span>Severity timeline</div>
+    <div class="severity">
+      <div class="sev-low"><div class="band">Low</div><div class="window">12–18 mo</div><div class="action">Review and roadmap.</div></div>
+      <div class="sev-med"><div class="band">Medium</div><div class="window">6–12 mo</div><div class="action">Plan: options, owner, effort.</div></div>
+      <div class="sev-high"><div class="band">High</div><div class="window">3–6 mo</div><div class="action">Approve and raise the work.</div></div>
+      <div class="sev-crit"><div class="band">Critical</div><div class="window">0–3 mo</div><div class="action">Escalate and confirm the plan.</div></div>
+      <div class="sev-over"><div class="band">Overdue</div><div class="window">Passed</div><div class="action">Remediate, or grant an exception.</div></div>
+    </div>
+    <p class="cs-p" style="margin-top:16px;max-width:var(--text-w);">A way of ranking work that I proposed, not a published policy. <strong style="color:#fff;">EOS</strong> end of support &middot; <strong style="color:#fff;">EOL</strong> end of life &middot; <strong style="color:#fff;">EOVS</strong> end of vendor support.</p>
+  </div>
+
+  <div class="cs-wide" style="margin-top:96px;" data-reveal>
+    <div class="eyebrow"><span class="diamond">&#9670;</span>The state I designed against</div>
+    <div class="stat-row">
+      <div class="stat-box"><div class="num" data-count="455">0</div><div class="lbl">devices</div></div>
+      <div class="stat-box"><div class="num" data-count="452">0</div><div class="lbl">open alerts (208 active)</div></div>
+      <div class="stat-box"><div class="num" data-count="85">0</div><div class="lbl">past due</div></div>
+      <div class="stat-box"><div class="num" data-count="82">0</div><div class="lbl">devices, no lifecycle data (39% unknown)</div></div>
+    </div>
+    <div style="margin-top:24px;background:rgba(255,255,255,0.06);border-radius:16px;padding:24px;">
+      <div class="risk-bar">
+        <span style="width:15%;background:var(--gap-c);"></span>
+        <span style="width:32%;background:var(--review);"></span>
+        <span style="width:13%;background:var(--compliant);"></span>
+        <span style="width:40%;background:rgba(255,255,255,0.15);"></span>
+      </div>
+      <div class="risk-legend" style="color:rgba(255,255,255,0.85);">
+        <span><span class="sw" style="background:var(--gap-c);"></span>68 critical</span>
+        <span><span class="sw" style="background:var(--review);"></span>148 high</span>
+        <span><span class="sw" style="background:var(--compliant);"></span>60 low</span>
+        <span><span class="sw" style="background:rgba(255,255,255,0.3);"></span>82 unknown</span>
+      </div>
+      <p class="cs-p" style="margin-top:16px;">Unknown is its own category, never counted as compliant.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ DESIGN & CRAFT ═══════════ -->
+<section class="cs-section" id="design">
+  <div class="cs-prose" data-reveal>
+    <div class="eyebrow"><span class="diamond">&#9670;</span>07 &middot; Design &amp; craft</div>
+    <h2 class="cs-h2">Colour is only for risk.</h2>
+  </div>
+
+  <div class="cs-wide" style="margin-top:56px;" data-reveal>
+    <div class="card-grid c2">
+      <div>
+        <div class="eyebrow" style="margin-bottom:16px;"><span class="diamond">&#9670;</span>Structural colours</div>
+        <div class="swatch-row">
+          <div class="swatch"><div class="block" style="background:#002D72;"></div><span class="hex">Navy #002D72</span></div>
+          <div class="swatch"><div class="block" style="background:#0B5CD5;"></div><span class="hex">Primary #0B5CD5</span></div>
+          <div class="swatch"><div class="block" style="background:#1AA7C7;"></div><span class="hex">Teal #1AA7C7</span></div>
+          <div class="swatch"><div class="block" style="background:#F7F9FC;"></div><span class="hex">Canvas #F7F9FC</span></div>
         </div>
-        <p class="kicker">One argument, told in six parts. Roughly a thirty-minute read, and the last third is the design work itself.</p>
       </div>
       <div>
-        <ol style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;">
-          <li data-reveal style="display:grid;grid-template-columns:48px 1fr;gap:20px;padding:18px 0;border-bottom:1px solid var(--line);">
-            <span class="mono-num">01</span>
-            <span><strong style="color:var(--navy);font-family:var(--font-display);font-size:20px;font-weight:500;">Hook &amp; frame</strong><br><span style="color:var(--body);font-size:15px;">What VERRDICT is, who it serves, and the tension it exists to resolve.</span></span>
-          </li>
-          <li data-reveal style="display:grid;grid-template-columns:48px 1fr;gap:20px;padding:18px 0;border-bottom:1px solid var(--line);">
-            <span class="mono-num">02</span>
-            <span><strong style="color:var(--navy);font-family:var(--font-display);font-size:20px;font-weight:500;">Context &amp; problem</strong><br><span style="color:var(--body);font-size:15px;">How governance actually works at this scale, and where the old workflow broke.</span></span>
-          </li>
-          <li data-reveal style="display:grid;grid-template-columns:48px 1fr;gap:20px;padding:18px 0;border-bottom:1px solid var(--line);">
-            <span class="mono-num">03</span>
-            <span><strong style="color:var(--navy);font-family:var(--font-display);font-size:20px;font-weight:500;">Discovery</strong><br><span style="color:var(--body);font-size:15px;">The audit, the interviews, the look at other tools, and the three insights they produced.</span></span>
-          </li>
-          <li data-reveal style="display:grid;grid-template-columns:48px 1fr;gap:20px;padding:18px 0;border-bottom:1px solid var(--line);">
-            <span class="mono-num">04</span>
-            <span><strong style="color:var(--navy);font-family:var(--font-display);font-size:20px;font-weight:500;">Define &amp; decide</strong><br><span style="color:var(--body);font-size:15px;">The reframed question, four principles, how it's organised, and five decisions I can defend.</span></span>
-          </li>
-          <li data-reveal style="display:grid;grid-template-columns:48px 1fr;gap:20px;padding:18px 0;border-bottom:1px solid var(--line);">
-            <span class="mono-num">05</span>
-            <span><strong style="color:var(--navy);font-family:var(--font-display);font-size:20px;font-weight:500;">Design &amp; craft</strong><br><span style="color:var(--body);font-size:15px;">The system, six screens, the states nobody demos, and accessibility.</span></span>
-          </li>
-          <li data-reveal style="display:grid;grid-template-columns:48px 1fr;gap:20px;padding:18px 0;">
-            <span class="mono-num">06</span>
-            <span><strong style="color:var(--navy);font-family:var(--font-display);font-size:20px;font-weight:500;">Outcome</strong><br><span style="color:var(--body);font-size:15px;">What was delivered, what met the brief, what I'd do next.</span></span>
-          </li>
-        </ol>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== WHAT VERRDICT IS ===================== -->
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>WHAT VERRDICT IS</div>
-      <h2>Scattered network checks in one place, so every decision can be explained.</h2>
-    </div>
-    <div class="grid grid-3">
-      <div class="glass card" data-reveal>
-        <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 21V9"/></svg>
-        <h3 style="font-size:22px;margin-top:16px;">Everything in one view</h3>
-      </div>
-      <div class="glass card" data-reveal data-reveal-delay="1">
-        <svg class="icon" viewBox="0 0 24 24"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="9"/></svg>
-        <h3 style="font-size:22px;margin-top:16px;">Reasoning always visible</h3>
-      </div>
-      <div class="glass card" data-reveal data-reveal-delay="2">
-        <svg class="icon" viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5-3.4 8-8 10-4.6-2-8-5-8-10V6l8-4z"/></svg>
-        <h3 style="font-size:22px;margin-top:16px;">No black boxes</h3>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== AT A GLANCE ===================== -->
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>AT A GLANCE</div>
-      <h2>Scope of the work</h2>
-    </div>
-    <div class="glass card" data-reveal style="padding:0;overflow:hidden;">
-      <table class="tbl">
-        <tbody>
-          <tr><td style="width:220px;"><span class="pill-label">ROLE</span></td><td style="color:var(--navy);font-weight:500;">Lead UX Designer</td><td>Audit · structure · flows · UI · system</td></tr>
-          <tr><td><span class="pill-label">CLIENT</span></td><td style="color:var(--navy);font-weight:500;">Large financial company</td><td>Network governance teams</td></tr>
-          <tr><td><span class="pill-label">TYPE</span></td><td style="color:var(--navy);font-weight:500;">Full redesign</td><td>Built to stated requirements</td></tr>
-          <tr><td><span class="pill-label">MODULES</span></td><td style="color:var(--navy);font-weight:500;">Six modules</td><td>Overview, Assets, Lifecycle, Assurance, Trends, Remediation</td></tr>
-          <tr><td><span class="pill-label">TIMELINE</span></td><td><span class="fill">add duration</span></td><td><span class="fill">add phases</span></td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== CONSTRAINTS ===================== -->
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>CONSTRAINTS</div>
-      <h2>What I had to design within</h2>
-    </div>
-    <div class="grid grid-4">
-      <div class="glass card" data-reveal>
-        <h3 style="font-size:20px;">Two-week build window</h3>
-        <p style="color:var(--body);font-size:15px;margin-top:10px;">The design had to be buildable inside the sprint the team already had planned.</p>
-      </div>
-      <div class="glass card" data-reveal data-reveal-delay="1">
-        <h3 style="font-size:20px;">One designer</h3>
-        <p style="color:var(--body);font-size:15px;margin-top:10px;">No research team, no second pair of hands. Every artefact here is mine.</p>
-      </div>
-      <div class="glass card" data-reveal data-reveal-delay="2">
-        <h3 style="font-size:20px;">Build on what exists</h3>
-        <p style="color:var(--body);font-size:15px;margin-top:10px;">New screens had to reuse the existing component set rather than start a new one.</p>
-      </div>
-      <div class="glass card" data-reveal data-reveal-delay="3">
-        <h3 style="font-size:20px;">Requirements were fixed</h3>
-        <p style="color:var(--body);font-size:15px;margin-top:10px;">The brief named the modules. The freedom was in how they behaved, not what shipped.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== COLLABORATION ===================== -->
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>COLLABORATION</div>
-      <h2>Who I worked with</h2>
-    </div>
-    <div class="collab-wrap">
-      <div class="glass collab-core" data-reveal>
-        <span class="pill-label">CORE PROJECT GROUP</span>
-        <div class="collab-row">
-          <span class="lbl">Design</span>
-          <div class="collab-people">
-            <span class="chip filled">1 UX Designer (Me)</span>
-            <span class="arrow">&harr;</span>
-            <span class="chip">1 SME</span>
-          </div>
-        </div>
-        <div class="collab-row">
-          <span class="lbl">Project leadership</span>
-          <div class="collab-people"><span class="chip">1 Project Manager</span></div>
-        </div>
-        <p class="collab-caption">I owned the design end to end — audit, structure, flows, UI, and the design system — and took requirements directly from the client. The Project Manager owned timelines and delivery coordination.</p>
-      </div>
-      <div class="collab-right">
-        <div class="glass collab-card" data-reveal data-reveal-delay="1">
-          <span class="lbl">Development</span>
-          <div class="headcount">5 Developers</div>
-          <div class="sub">Built the UI from my design system &amp; specs.</div>
-        </div>
-        <div class="glass collab-card" data-reveal data-reveal-delay="2">
-          <span class="lbl">Delivery</span>
-          <div class="headcount">1 Chief Delivery Person</div>
-          <div class="sub">Delivery oversight &amp; client handoff.</div>
-        </div>
-        <div class="glass collab-card" data-reveal data-reveal-delay="3">
-          <span class="lbl">Sales / Business</span>
-          <div class="headcount">1 CSO · 1 Sales Manager</div>
-          <div class="sub">Client relationship &amp; requirements.</div>
+        <div class="eyebrow" style="margin-bottom:16px;"><span class="diamond">&#9670;</span>Verdict tokens</div>
+        <div class="token-list">
+          <div><span>--color-verdict-gap</span><span style="color:var(--gap-c);">#B03A2E</span></div>
+          <div><span>--color-verdict-review</span><span style="color:var(--review);">#9A6008</span></div>
+          <div><span>--color-verdict-compliant</span><span style="color:var(--compliant);">#127A52</span></div>
+          <div><span>--space-row-y</span><span>16px</span></div>
+          <div><span>--radius-card</span><span>12px</span></div>
         </div>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- ===================== THE TENSION (divider) ===================== -->
-<section class="act-divider">
-  <div class="ring" style="width:600px;height:600px;top:-200px;right:-160px;"></div>
-  <div class="ring" style="width:340px;height:340px;top:80px;right:160px;"></div>
-  <div class="wrap" data-reveal>
-    <div class="eyebrow"><span class="dot"></span>THE TENSION</div>
-    <h2>When you can't see how a decision was made, every decision is a risk.</h2>
-  </div>
-</section>
-
-<!-- ===================== HOW THIS RUNS ===================== -->
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>HOW THIS RUNS</div>
-      <h2>Six acts, one argument</h2>
-      <p>Each act builds on the last.</p>
-    </div>
-    <div class="grid grid-6">
-      <div class="glass card" style="padding:22px;" data-reveal>
-        <div class="icon-tile"><svg class="icon" viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18.5 21 12 16.5 5.5 21l2-7.5L2 9h7z"/></svg></div>
-        <div class="ghost-num" style="margin-top:14px;">01</div>
-        <h4 style="font-size:17px;margin-top:6px;color:var(--navy);">Hook &amp; frame</h4>
-        <p style="font-size:13px;color:var(--body);margin-top:6px;">What VERRDICT is and who it serves.</p>
-      </div>
-      <div class="glass card" style="padding:22px;" data-reveal data-reveal-delay="1">
-        <div class="icon-tile"><svg class="icon" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg></div>
-        <div class="ghost-num" style="margin-top:14px;">02</div>
-        <h4 style="font-size:17px;margin-top:6px;color:var(--navy);">Context &amp; problem</h4>
-        <p style="font-size:13px;color:var(--body);margin-top:6px;">How the work runs, and where it broke.</p>
-      </div>
-      <div class="glass card" style="padding:22px;" data-reveal data-reveal-delay="2">
-        <div class="icon-tile"><svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></div>
-        <div class="ghost-num" style="margin-top:14px;">03</div>
-        <h4 style="font-size:17px;margin-top:6px;color:var(--navy);">Discovery</h4>
-        <p style="font-size:13px;color:var(--body);margin-top:6px;">The audit, interviews, and findings.</p>
-      </div>
-      <div class="glass card" style="padding:22px;" data-reveal data-reveal-delay="3">
-        <div class="icon-tile"><svg class="icon" viewBox="0 0 24 24"><path d="M4 20V4M4 4l6 6M4 4l-6 6"/><path d="M20 4v16M20 20l-6-6M20 20l6-6"/></svg></div>
-        <div class="ghost-num" style="margin-top:14px;">04</div>
-        <h4 style="font-size:17px;margin-top:6px;color:var(--navy);">Define &amp; decide</h4>
-        <p style="font-size:13px;color:var(--body);margin-top:6px;">Question, principles, the calls.</p>
-      </div>
-      <div class="glass card" style="padding:22px;" data-reveal data-reveal-delay="4">
-        <div class="icon-tile"><svg class="icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></svg></div>
-        <div class="ghost-num" style="margin-top:14px;">05</div>
-        <h4 style="font-size:17px;margin-top:6px;color:var(--navy);">Design &amp; craft</h4>
-        <p style="font-size:13px;color:var(--body);margin-top:6px;">The system, the modules, the states.</p>
-      </div>
-      <div class="glass card" style="padding:22px;" data-reveal data-reveal-delay="5">
-        <div class="icon-tile"><svg class="icon" viewBox="0 0 24 24"><path d="M4 18l6-8 4 5 6-9"/></svg></div>
-        <div class="ghost-num" style="margin-top:14px;">06</div>
-        <h4 style="font-size:17px;margin-top:6px;color:var(--navy);">Outcome</h4>
-        <p style="font-size:13px;color:var(--body);margin-top:6px;">What landed, and what's next.</p>
-      </div>
+    <p class="cs-p" style="margin-top:24px;max-width:var(--text-w);">Type: Inter Tight for display, Inter for UI, JetBrains Mono for serials. 4pt base, 8pt row rhythm. Every verdict colour is a token — no screen picks its own red.</p>
+    <div class="tag-pills" style="margin-top:20px;">
+      <span class="tag-pill" style="background:#fdf1ef;color:var(--gap-c);border-color:#f0d2cb;">GAP</span>
+      <span class="tag-pill" style="background:#fbf3e4;color:var(--review);border-color:#eddcb3;">NEEDS REVIEW</span>
+      <span class="tag-pill" style="background:#eaf6ef;color:var(--compliant);border-color:#c7e6d3;">COMPLIANT</span>
+      <span class="tag-pill">EXTERNAL VENDOR FEED</span>
+      <span class="tag-pill">INTERNAL</span>
     </div>
   </div>
-</section>
 
-<!-- ===================== ACT 2: CONTEXT ===================== -->
-<section class="act-divider" id="context">
-  <div class="ring" style="width:500px;height:500px;bottom:-220px;left:-140px;"></div>
-  <div class="wrap" data-reveal>
-    <div class="eyebrow">ACT 02</div>
-    <h2>Context &amp; problem</h2>
-    <p>What the job asks of a reviewer, and where the old setup broke down.</p>
+  <div class="cs-wide" style="margin-top:96px;" data-reveal>
+    <div class="eyebrow"><span class="diamond">&#9670;</span>Rough &rarr; final</div>
+    <div class="ba">
+      <div class="ba-slot">Drop the wireframe here</div>
+      <div class="ba-slot">Drop the final dashboard here</div>
+    </div>
+    <p class="cs-p" style="margin-top:16px;max-width:var(--text-w);">Kept: the ranked list on top. Changed: metrics became four tiles, and data age moved into the header.</p>
   </div>
-</section>
 
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>THE DOMAIN</div>
-      <h2>Governance is a loop, not a report</h2>
-    </div>
-    <div class="grid grid-4">
-      <div data-reveal><span class="mono-num">01</span><h4 style="font-size:19px;margin:10px 0 6px;color:var(--navy);">Estate</h4><p style="font-size:15px;color:var(--body);margin:0;">Thousands of devices, versions, vendors.</p></div>
-      <div data-reveal data-reveal-delay="1"><span class="mono-num">02</span><h4 style="font-size:19px;margin:10px 0 6px;color:var(--navy);">Warnings</h4><p style="font-size:15px;color:var(--body);margin:0;">Vendor warnings keep arriving.</p></div>
-      <div data-reveal data-reveal-delay="2"><span class="mono-num">03</span><h4 style="font-size:19px;margin:10px 0 6px;color:var(--navy);">Verdict</h4><p style="font-size:15px;color:var(--body);margin:0;">Compliant, gap, or needs review.</p></div>
-      <div data-reveal data-reveal-delay="3"><span class="mono-num">04</span><h4 style="font-size:19px;margin:10px 0 6px;color:var(--navy);">Evidence</h4><p style="font-size:15px;color:var(--body);margin:0;">It has to hold up when audited.</p></div>
-    </div>
-    <p class="divider-quote" style="margin-top:56px;font-size:26px;" data-reveal>Break one link and you can no longer explain the result.</p>
-  </div>
-</section>
+  <!-- SIX SCREENS (alternating spotlight) -->
+  <div class="cs-wide" style="margin-top:96px;">
+    <div class="eyebrow"><span class="diamond">&#9670;</span>The six modules</div>
 
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>WHY THE STAKES DIFFER</div>
-      <h2>Too big to hold in your head, too consequential to guess</h2>
-    </div>
-    <div class="grid grid-3">
-      <div data-reveal>
-        <div class="stat"><span class="num" data-count="209">0</span><span class="lbl">devices — more estate than any one person can track by memory.</span></div>
-      </div>
-      <div data-reveal data-reveal-delay="1">
-        <div class="stat"><span class="num" data-count="208">0</span><span class="lbl">open alerts — someone who wasn't there will check these decisions later.</span></div>
-      </div>
-      <div data-reveal data-reveal-delay="2" style="display:flex;align-items:center;">
-        <span class="fill">add the one constraint you're cleared to share</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>WHO IT'S FOR</div>
-      <h2>Four people, one shared record</h2>
-    </div>
-    <div class="grid grid-4">
-      <div class="glass card persona-card" data-reveal><h4>Network analyst</h4><p class="quote">"Where do I start today?"</p></div>
-      <div class="glass card persona-card" data-reveal data-reveal-delay="1"><h4>Change reviewer</h4><p class="quote">"Why does it say gap?"</p></div>
-      <div class="glass card persona-card" data-reveal data-reveal-delay="2"><h4>Compliance officer</h4><p class="quote">"What is our exposure?"</p></div>
-      <div class="glass card persona-card" data-reveal data-reveal-delay="3"><h4>Platform admin</h4><p class="quote">"Is this data current?"</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>CURRENT STATE</div>
-      <h2>Every decision was pieced together by hand</h2>
-    </div>
-    <div class="grid grid-2" style="align-items:center;">
-      <div class="glass card" data-reveal>
-        <div style="display:flex;flex-direction:column;gap:10px;font-size:16px;color:var(--body);">
-          <div>Vendor advisories</div>
-          <div>Asset inventory</div>
-          <div>Change records</div>
-        </div>
-        <div style="margin-top:18px;"><span class="chip" style="background:rgba(179,58,46,0.1);color:var(--verdict-gap);">MANUAL · spreadsheets and email</span></div>
-      </div>
-      <div data-reveal data-reveal-delay="1">
-        <h3 style="font-size:26px;line-height:1.3;">A decision with nothing behind it</h3>
-        <p class="kicker">Two people, same device, different conclusions.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>PAIN POINTS, ANNOTATED</div>
-      <h2>Where the old screens lost the reviewer</h2>
-    </div>
-    <div class="grid grid-2" style="gap:56px;align-items:center;">
-      <div class="image-slot" data-reveal>Drop the before-state screenshot here</div>
-      <div style="display:flex;flex-direction:column;gap:24px;" data-reveal data-reveal-delay="1">
-        <div class="callout"><span class="n">1</span><p><strong style="color:var(--navy);">No sense of priority</strong> — everything looked equally urgent.</p></div>
-        <div class="callout"><span class="n">2</span><p><strong style="color:var(--navy);">Verdicts without reasons</strong> — the status showed, the reason did not.</p></div>
-        <div class="callout"><span class="n">3</span><p><strong style="color:var(--navy);">Data of unknown age</strong> — nothing said when it was last checked.</p></div>
-        <div class="callout"><span class="n">4</span><p><strong style="color:var(--navy);">Dead ends</strong> — seeing and fixing were separate trips.</p></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>THE CORE PROBLEM</div>
-      <h2 class="divider-quote">The work was spread across tools and the reasoning was hidden.</h2>
-      <p class="kicker" style="margin-top:8px;">A data problem &rarr; a clarity problem.</p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>SUCCESS CRITERIA</div>
-      <h2>What good had to mean before I drew anything</h2>
-    </div>
-    <div class="grid grid-3">
-      <div class="glass card" data-reveal>
-        <span class="pill-label">CRITERION 01</span>
-        <h3 style="font-size:22px;margin:12px 0 8px;">One place to look</h3>
-        <p style="font-size:15px;color:var(--body);margin:0;">Devices, risk and open decisions without leaving the page.</p>
-      </div>
-      <div class="glass card" data-reveal data-reveal-delay="1">
-        <span class="pill-label">CRITERION 02</span>
-        <h3 style="font-size:22px;margin:12px 0 8px;">Every flag explains itself</h3>
-        <p style="font-size:15px;color:var(--body);margin:0;">No status appears without a way to see why.</p>
-      </div>
-      <div class="glass card" data-reveal data-reveal-delay="2">
-        <span class="pill-label">CRITERION 03</span>
-        <h3 style="font-size:22px;margin:12px 0 8px;">Calm under load</h3>
-        <p style="font-size:15px;color:var(--body);margin:0;">Hundreds of alerts should feel like a to-do list.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== ACT 3: DISCOVERY ===================== -->
-<section class="act-divider" id="discovery">
-  <div class="ring" style="width:520px;height:520px;top:-200px;right:-120px;"></div>
-  <div class="wrap" data-reveal>
-    <div class="eyebrow">ACT 03</div>
-    <h2>Discovery</h2>
-    <p>The audit, the conversations, and the three insights that set the direction.</p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>MY PROCESS</div>
-      <h2>Audit first, then explore</h2>
-    </div>
-    <div class="grid grid-4">
-      <div data-reveal><span class="mono-num">01</span><h4 style="font-size:19px;margin:10px 0 6px;color:var(--navy);">Understand</h4><p style="font-size:15px;color:var(--body);margin:0;">Audit the tool against fixed questions.</p></div>
-      <div data-reveal data-reveal-delay="1"><span class="mono-num">02</span><h4 style="font-size:19px;margin:10px 0 6px;color:var(--navy);">Agree</h4><p style="font-size:15px;color:var(--body);margin:0;">Group the findings into one problem.</p></div>
-      <div data-reveal data-reveal-delay="2"><span class="mono-num">03</span><h4 style="font-size:19px;margin:10px 0 6px;color:var(--navy);">Design</h4><p style="font-size:15px;color:var(--body);margin:0;">Structure, flows, components.</p></div>
-      <div data-reveal data-reveal-delay="3"><span class="mono-num">04</span><h4 style="font-size:19px;margin:10px 0 6px;color:var(--navy);">Validate</h4><p style="font-size:15px;color:var(--body);margin:0;">Check the work against the criteria.</p></div>
-    </div>
-    <p class="kicker" style="margin-top:36px;" data-reveal>01 and 02 ran together — the problem kept shifting as the audit went deeper.</p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>METHODS</div>
-      <h2>What I actually ran</h2>
-    </div>
-    <div class="grid grid-3">
-      <div class="chip" data-reveal>Usability audit</div>
-      <div class="chip" data-reveal data-reveal-delay="1">Interviews with the team</div>
-      <div class="chip" data-reveal data-reveal-delay="2">Requirements review</div>
-      <div class="chip" data-reveal data-reveal-delay="3">Comparison with other tools</div>
-      <div class="chip" data-reveal data-reveal-delay="4">Task and structure analysis</div>
-      <div class="chip" data-reveal data-reveal-delay="5">Design system build</div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>THE AUDIT QUESTIONS</div>
-      <h2>Five questions I asked of every screen</h2>
-    </div>
-    <div class="glass" style="padding:8px 0;" data-reveal>
-      <table class="tbl">
-        <tbody>
-          <tr><td style="width:60px;"><span class="mono-num">01</span></td><td style="color:var(--navy);font-weight:500;">Can I tell what matters most?</td><td>Nothing was ranked</td></tr>
-          <tr><td><span class="mono-num">02</span></td><td style="color:var(--navy);font-weight:500;">Can I see why it says that?</td><td>No route to the evidence</td></tr>
-          <tr><td><span class="mono-num">03</span></td><td style="color:var(--navy);font-weight:500;">Do I know where this came from?</td><td>Internal and vendor looked alike</td></tr>
-          <tr><td><span class="mono-num">04</span></td><td style="color:var(--navy);font-weight:500;">Can I act from here?</td><td>Reading and fixing were separate</td></tr>
-          <tr><td><span class="mono-num">05</span></td><td style="color:var(--navy);font-weight:500;">Would this survive an audit?</td><td>No trail from decision to record</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="grid grid-2" style="gap:64px;">
-      <div data-reveal>
-        <div class="eyebrow"><span class="dot"></span>TALKING TO THE TEAM</div>
-        <h2 style="margin-top:16px;">What I probed for</h2>
-        <div style="display:flex;flex-direction:column;gap:14px;margin-top:24px;font-size:16px;color:var(--body);">
-          <div>01&nbsp;&nbsp;Where do you go first?</div>
-          <div>02&nbsp;&nbsp;What makes you distrust a number?</div>
-          <div>03&nbsp;&nbsp;What do you show a challenger?</div>
-          <div>04&nbsp;&nbsp;What would you stop doing in a spreadsheet?</div>
+    <div class="screen-spotlight" data-reveal>
+      <div>
+        <div class="screen-principle">Screen 01 &middot; Overview &middot; P2 Priority over volume</div>
+        <h3 class="cs-h2" style="font-size:26px;">The day starts ranked, not counted.</h3>
+        <div class="screen-callouts" style="margin-top:20px;">
+          <div class="screen-callout"><span class="n">1</span><p>Four tiles, one question each.</p></div>
+          <div class="screen-callout"><span class="n">2</span><p>"What needs attention", ranked 1–4.</p></div>
+          <div class="screen-callout"><span class="n">3</span><p>Every row carries its verb.</p></div>
+          <div class="screen-callout"><span class="n">4</span><p>Freshness in the header.</p></div>
         </div>
       </div>
-      <div class="glass card" data-reveal data-reveal-delay="1" style="display:flex;flex-direction:column;justify-content:center;gap:16px;">
-        <span style="font-size:48px;color:var(--teal);line-height:1;">&ldquo;</span>
-        <p class="fill" style="font-size:16px;padding:12px 18px;">add the one quote that changed how you thought about the problem</p>
-        <p class="fill">add role, anonymised</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>HOW OTHER TOOLS DO IT</div>
-      <h2>Everyone shows the risk. Almost nobody shows the reasoning.</h2>
-    </div>
-    <div class="glass" style="padding:8px 0;overflow-x:auto;" data-reveal>
-      <table class="tbl" style="min-width:640px;">
-        <thead><tr><th>Tool category</th><th>Consolidated</th><th>Explains itself</th><th>Audit trail</th></tr></thead>
-        <tbody>
-          <tr><td>Vulnerability scanners</td><td>Partial</td><td>No</td><td>Partial</td></tr>
-          <tr><td>Asset inventories</td><td>Assets only</td><td>No</td><td>No</td></tr>
-          <tr><td>Change / ticketing</td><td>No</td><td>Partial</td><td>Strong</td></tr>
-          <tr class="highlight"><td>VERRDICT</td><td>By design</td><td>By default</td><td>Built in</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="kicker" style="margin-top:28px;" data-reveal>The gap was not more data. It was the link between data and judgement.</p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>WHAT THE FINDINGS ADDED UP TO</div>
-      <h2>Everything I found fell into three groups</h2>
-    </div>
-    <div class="grid grid-3">
-      <div class="glass card" data-reveal>
-        <span class="pill-label">GROUP A</span>
-        <h3 style="font-size:24px;margin:12px 0;">Attention</h3>
-        <p style="font-size:15px;color:var(--body);">Flat urgency, no first move, alert fatigue.</p>
-      </div>
-      <div class="glass card" data-reveal data-reveal-delay="1">
-        <span class="pill-label">GROUP B</span>
-        <h3 style="font-size:24px;margin:12px 0;">Trust</h3>
-        <p style="font-size:15px;color:var(--body);">Unsourced numbers, stale data, black-box verdicts.</p>
-      </div>
-      <div class="glass card" data-reveal data-reveal-delay="2">
-        <span class="pill-label">GROUP C</span>
-        <h3 style="font-size:24px;margin:12px 0;">Continuity</h3>
-        <p style="font-size:15px;color:var(--body);">Read here, act there. Lost context, no trail.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>INSIGHT 01 / 03</div>
-      <h2>Reviewers did not need more alerts. They needed to know which one to open first.</h2>
-    </div>
-    <div class="grid grid-2">
-      <div data-reveal><span class="pill-label">EVIDENCE</span><p style="font-size:16px;color:var(--body);margin-top:8px;">Severity does not tell you what to do first.</p></div>
-      <div data-reveal data-reveal-delay="1"><span class="pill-label">SO I DESIGNED</span><p style="font-size:16px;color:var(--navy);margin-top:8px;">A ranked attention list became the first thing on the dashboard.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>INSIGHT 02 / 03</div>
-      <h2>A verdict without a reason is a liability, not an answer.</h2>
-    </div>
-    <div class="grid grid-2">
-      <div data-reveal><span class="pill-label">EVIDENCE</span><p style="font-size:16px;color:var(--body);margin-top:8px;">Unexplained flags got escalated instead of resolved.</p></div>
-      <div data-reveal data-reveal-delay="1"><span class="pill-label">SO I DESIGNED</span><p style="font-size:16px;color:var(--navy);margin-top:8px;">Every decision now carries its reasons, one click away.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>INSIGHT 03 / 03</div>
-      <h2>Where the data came from mattered as much as what it said.</h2>
-    </div>
-    <div class="grid grid-2">
-      <div data-reveal><span class="pill-label">EVIDENCE</span><p style="font-size:16px;color:var(--body);margin-top:8px;">Vendor notices and internal records looked identical.</p></div>
-      <div data-reveal data-reveal-delay="1"><span class="pill-label">SO I DESIGNED</span><p style="font-size:16px;color:var(--navy);margin-top:8px;">Source and age became permanent labels on screen.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>FROM FINDING TO CHANGE</div>
-      <h2>Each finding earned one change</h2>
-    </div>
-    <div class="glass" style="padding:8px 0;" data-reveal>
-      <table class="tbl">
-        <tbody>
-          <tr><td>Alerts had no order of work</td><td style="color:var(--navy);font-weight:500;">&rarr; A ranked attention queue</td></tr>
-          <tr><td>Verdicts arrived without a basis</td><td style="color:var(--navy);font-weight:500;">&rarr; Reasons revealed step by step</td></tr>
-          <tr><td>Source and age were invisible</td><td style="color:var(--navy);font-weight:500;">&rarr; Permanent source labels</td></tr>
-          <tr><td>Reading and resolving were separate</td><td style="color:var(--navy);font-weight:500;">&rarr; An action on every row</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== ACT 4: DEFINE & DECIDE ===================== -->
-<section class="act-divider" id="decide">
-  <div class="ring" style="width:540px;height:540px;bottom:-240px;right:-140px;"></div>
-  <div class="wrap" data-reveal>
-    <div class="eyebrow">ACT 04</div>
-    <h2>Define &amp; decide</h2>
-    <p>The reframed question, the principles, and five decisions with their trade-offs.</p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>THE QUESTION I DESIGNED AGAINST</div>
-      <h2>How do we make every decision something a reviewer can act on and explain, in one place?</h2>
-    </div>
-    <div class="grid grid-3">
-      <div data-reveal><span class="chip">Act on</span><p style="font-size:14px;color:var(--body);margin-top:10px;">not just read</p></div>
-      <div data-reveal data-reveal-delay="1"><span class="chip">Explain</span><p style="font-size:14px;color:var(--body);margin-top:10px;">to someone who was not there</p></div>
-      <div data-reveal data-reveal-delay="2"><span class="chip">One place</span><p style="font-size:14px;color:var(--body);margin-top:10px;">no reassembly</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>SUCCESS METRICS</div>
-      <h2>How this should be judged once it is live</h2>
-    </div>
-    <div class="grid grid-4">
-      <div class="glass card" data-reveal>
-        <span class="pill-label">ENGAGEMENT</span>
-        <h3 style="font-size:19px;margin:12px 0 6px;">Time to first decision</h3>
-        <p style="font-size:14px;color:var(--body);margin:0;">Minutes from opening the dashboard to acting on the top-ranked item.</p>
-      </div>
-      <div class="glass card" data-reveal data-reveal-delay="1">
-        <span class="pill-label">THROUGHPUT</span>
-        <h3 style="font-size:19px;margin:12px 0 6px;">Share of alerts triaged</h3>
-        <p style="font-size:14px;color:var(--body);margin:0;">Proportion of the queue that reaches a verdict instead of being scrolled past.</p>
-      </div>
-      <div class="glass card" data-reveal data-reveal-delay="2">
-        <span class="pill-label">TRUST</span>
-        <h3 style="font-size:19px;margin:12px 0 6px;">Evidence attached</h3>
-        <p style="font-size:14px;color:var(--body);margin:0;">Verdicts that carry a source and a timestamp when an auditor asks.</p>
-      </div>
-      <div class="glass card" data-reveal data-reveal-delay="3">
-        <span class="pill-label">COVERAGE</span>
-        <h3 style="font-size:19px;margin:12px 0 6px;">Unknowns closed</h3>
-        <p style="font-size:14px;color:var(--body);margin:0;">Devices moving out of the unknown bucket week over week.</p>
-      </div>
-    </div>
-    <p class="kicker" style="margin-top:32px;" data-reveal>No live numbers yet. These are the measures I proposed, and the reason each screen exposes a timestamp and a source.</p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>DESIGN PRINCIPLES</div>
-      <h2>Four rules I designed against</h2>
-    </div>
-    <div class="grid grid-2">
-      <div class="glass card" data-reveal><span class="mono-num">P1</span><h3 style="font-size:22px;margin:12px 0 8px;">Explainable by default</h3><p style="font-size:15px;color:var(--body);margin:0;">No status ships unless the reason is one click away.</p></div>
-      <div class="glass card" data-reveal data-reveal-delay="1"><span class="mono-num">P2</span><h3 style="font-size:22px;margin:12px 0 8px;">Priority over volume</h3><p style="font-size:15px;color:var(--body);margin:0;">Rank the work. Counts alone tell a reviewer nothing.</p></div>
-      <div class="glass card" data-reveal data-reveal-delay="2"><span class="mono-num">P3</span><h3 style="font-size:22px;margin:12px 0 8px;">Label the source</h3><p style="font-size:15px;color:var(--body);margin:0;">External or internal, live or snapshot, and how old.</p></div>
-      <div class="glass card" data-reveal data-reveal-delay="3"><span class="mono-num">P4</span><h3 style="font-size:22px;margin:12px 0 8px;">Calm at density</h3><p style="font-size:15px;color:var(--body);margin:0;">Colour is reserved for risk. Nothing else competes.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>HOW IT IS ORGANISED</div>
-      <h2>Two halves: what is true, what we decided</h2>
-    </div>
-    <div class="glass card" data-reveal style="margin-bottom:24px;">
-      <span class="pill-label">OVERVIEW</span>
-      <p style="font-size:15px;color:var(--body);margin-top:6px;">The day's ranked work.</p>
-    </div>
-    <div class="grid grid-2">
-      <div class="glass card" data-reveal data-reveal-delay="1">
-        <span class="pill-label">INTELLIGENCE · what is true</span>
-        <h4 style="font-size:19px;margin:14px 0 4px;">Asset Intelligence</h4>
-        <p style="font-size:14px;color:var(--body);margin:0 0 14px;">Vendor sources · inventory · warning map</p>
-        <h4 style="font-size:19px;margin:14px 0 4px;">Lifecycle Alerts</h4>
-        <p style="font-size:14px;color:var(--body);margin:0;">EOL status · milestones · audit ledger</p>
-      </div>
-      <div class="glass card" data-reveal data-reveal-delay="2">
-        <span class="pill-label">ASSURANCE · what we decided</span>
-        <h4 style="font-size:19px;margin:14px 0 4px;">Change Assurance</h4>
-        <p style="font-size:14px;color:var(--body);margin:0 0 14px;">Change records · issues · verdict</p>
-        <h4 style="font-size:19px;margin:14px 0 4px;">Trend Analysis</h4>
-        <p style="font-size:14px;color:var(--body);margin:0;">Exposure · failure trend · risk groups</p>
-      </div>
-    </div>
-    <p class="kicker" style="margin-top:28px;" data-reveal>Five places, one level deep. Nothing needed daily is buried.</p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>THE MAIN JOURNEY</div>
-      <h2>From a ranked alert to a decision you can explain</h2>
-    </div>
-    <div class="grid grid-5">
-      <div data-reveal><span class="mono-num">01</span><h4 style="font-size:17px;margin:10px 0 4px;color:var(--navy);">Land</h4><p style="font-size:13px;color:var(--body);margin:0;">Ranked queue opens</p></div>
-      <div data-reveal data-reveal-delay="1"><span class="mono-num">02</span><h4 style="font-size:17px;margin:10px 0 4px;color:var(--navy);">Open</h4><p style="font-size:13px;color:var(--body);margin:0;">Device and trigger named</p></div>
-      <div data-reveal data-reveal-delay="2"><span class="mono-num">03</span><h4 style="font-size:17px;margin:10px 0 4px;color:var(--navy);">Inspect</h4><p style="font-size:13px;color:var(--body);margin:0;">Controls, records, source</p></div>
-      <div data-reveal data-reveal-delay="3"><span class="mono-num">04</span><h4 style="font-size:17px;margin:10px 0 4px;color:var(--navy);">Decide</h4><p style="font-size:13px;color:var(--body);margin:0;">In place, on the row</p></div>
-      <div data-reveal data-reveal-delay="4"><span class="mono-num">05</span><h4 style="font-size:17px;margin:10px 0 4px;color:var(--navy);">Trail</h4><p style="font-size:13px;color:var(--body);margin:0;">Written to the audit log</p></div>
-    </div>
-    <p class="kicker" style="margin-top:32px;" data-reveal>The reviewer never leaves the record, and the trail is a by-product of deciding.</p>
-  </div>
-</section>
-
-<!-- ===================== DECISIONS ===================== -->
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>DECISIONS</div>
-      <h2>Five calls I can defend</h2>
+      <figure class="screen-fig" style="margin-top:0;">
+        <div class="screen-mockup" data-lightbox="assets/case-studies/verrdict/screen-overview.png">
+          <div class="screen-mockup-bar"><span></span><span></span><span></span></div>
+          <img src="assets/case-studies/verrdict/screen-overview.png" alt="Overview dashboard: four governance metric tiles, a ranked What Needs Attention list, and a risk distribution donut chart">
+          <span class="dot-marker" style="left:52%;top:28%;">1</span>
+          <span class="dot-marker" style="left:20%;top:58%;">2</span>
+          <span class="dot-marker" style="left:62%;top:58%;">3</span>
+          <span class="dot-marker" style="left:27%;top:18%;">4</span>
+        </div>
+      </figure>
     </div>
 
-    <div class="decision" data-reveal>
-      <div><div class="decision-num">DECISION 01 / 05</div><h3>Tell the reviewer what to open first</h3><p class="kicker" style="margin-top:14px;">A short ranked list of four, ordered by business impact and deadline.</p></div>
-      <div class="decision-cols">
-        <div><h4>Instead of</h4><p>Better filters, or sorting the table by severity.</p></div>
-        <div><h4>Why</h4><p>452 open alerts. Filters only help someone who already knows what to look for.</p></div>
-        <div><h4>The cost</h4><p>They trust a ranking they did not set, so the rule is printed under the list.</p></div>
-      </div>
-    </div>
-
-    <div class="decision" data-reveal>
-      <div><div class="decision-num">DECISION 02 / 05</div><h3>Show the working, not just the verdict</h3><p class="kicker" style="margin-top:14px;">Every verdict opens into the checks, controls and records behind it.</p></div>
-      <div class="decision-cols">
-        <div><h4>Instead of</h4><p>A methodology document, or a tooltip on the badge.</p></div>
-        <div><h4>Why</h4><p>Nobody signs off on a status they cannot explain to someone else.</p></div>
-        <div><h4>The cost</h4><p>Denser rows, and every status needs its evidence stored.</p></div>
-      </div>
-    </div>
-
-    <div class="decision" data-reveal>
-      <div><div class="decision-num">DECISION 03 / 05</div><h3>Say where every number came from</h3><p class="kicker" style="margin-top:14px;">Each feed states external or internal, live or snapshot, and when it last ran.</p></div>
-      <div class="decision-cols">
-        <div><h4>Instead of</h4><p>One "updated 2 minutes ago" stamp in the header.</p></div>
-        <div><h4>Why</h4><p>A vendor advisory and our own inventory are not equally authoritative.</p></div>
-        <div><h4>The cost</h4><p>More small labels, which is why colour stays reserved for risk.</p></div>
-      </div>
-    </div>
-
-    <div class="decision" data-reveal>
-      <div><div class="decision-num">DECISION 04 / 05</div><h3>Warn eighteen months before the deadline</h3><p class="kicker" style="margin-top:14px;">Alerts start 18 months out and step up in urgency as the date closes in.</p></div>
-      <div class="decision-cols">
-        <div><h4>Instead of</h4><p>Alerting on the EOL date, or just showing the date.</p></div>
-        <div><h4>Why</h4><p>Replacing a device takes approvals, build, testing and a release window.</p></div>
-        <div><h4>The cost</h4><p>452 open alerts instead of a handful. Only workable because the queue is ranked.</p></div>
-      </div>
-    </div>
-
-    <div class="decision" data-reveal>
-      <div><div class="decision-num">DECISION 05 / 05</div><h3>Let the reviewer act without leaving the record</h3><p class="kicker" style="margin-top:14px;">Raise the Jira ticket from the verdict, pre-filled with the evidence — and track it back to closed.</p></div>
-      <div class="decision-cols">
-        <div><h4>Instead of</h4><p>Exporting a list and raising the ticket by hand.</p></div>
-        <div><h4>Why</h4><p>The decision and the fix lived in different tools, so evidence got retyped and the reasoning stayed behind.</p></div>
-        <div><h4>The cost</h4><p>Ticket state can disagree with ours, so every record names the system it last heard from.</p></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== INTEGRATIONS / REMEDIATION LOOP ===================== -->
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>PLATFORM · CONNECTED SERVICES</div>
-      <h2>VERRDICT sits between the systems, not beside them</h2>
-    </div>
-    <div class="grid grid-2" style="gap:56px;">
-      <div data-reveal>
-        <span class="pill-label">FEEDS IN</span>
-        <div style="display:flex;flex-direction:column;gap:16px;margin-top:16px;">
-          <div class="glass card" style="padding:18px 22px;"><strong style="color:var(--navy);">Cisco PSIRT</strong> <span class="chip" style="margin-left:8px;font-size:12px;padding:4px 10px;">EXTERNAL</span><p style="font-size:14px;color:var(--body);margin:8px 0 0;">Vendor advisories for network hardware.</p></div>
-          <div class="glass card" style="padding:18px 22px;"><strong style="color:var(--navy);">Tenable</strong> <span class="chip" style="margin-left:8px;font-size:12px;padding:4px 10px;">EXTERNAL</span><p style="font-size:14px;color:var(--body);margin:8px 0 0;">Vulnerability scan results.</p></div>
-          <div class="glass card" style="padding:18px 22px;"><strong style="color:var(--navy);">Splunk</strong> <span class="chip" style="margin-left:8px;font-size:12px;padding:4px 10px;">INTERNAL</span><p style="font-size:14px;color:var(--body);margin:8px 0 0;">Telemetry and config drift.</p></div>
-          <div class="glass card" style="padding:18px 22px;"><strong style="color:var(--navy);">ServiceNow</strong> <span class="chip" style="margin-left:8px;font-size:12px;padding:4px 10px;">INTERNAL</span><p style="font-size:14px;color:var(--body);margin:8px 0 0;">Asset inventory and change records.</p></div>
+    <div class="screen-spotlight reverse" data-reveal>
+      <div>
+        <div class="screen-principle">Screen 02 &middot; Lifecycle Alerts &middot; P4 Calm at density</div>
+        <h3 class="cs-h2" style="font-size:26px;">Overdue and upcoming are different jobs.</h3>
+        <div class="screen-callouts" style="margin-top:20px;">
+          <div class="screen-callout"><span class="n">1</span><p>One banner, one device.</p></div>
+          <div class="screen-callout"><span class="n">2</span><p>Breached vs. 18-month look-ahead.</p></div>
+          <div class="screen-callout"><span class="n">3</span><p>The team's own words as filters.</p></div>
+          <div class="screen-callout"><span class="n">4</span><p>Ranking rules and audit ledger as tabs.</p></div>
         </div>
       </div>
-      <div data-reveal data-reveal-delay="1">
-        <span class="pill-label">ACTION OUT</span>
-        <div style="display:flex;flex-direction:column;gap:16px;margin-top:16px;">
-          <div class="glass card" style="padding:18px 22px;"><strong style="color:var(--navy);">Jira</strong> <span class="chip" style="margin-left:8px;font-size:12px;padding:4px 10px;">TWO-WAY</span><p style="font-size:14px;color:var(--body);margin:8px 0 0;">Ticket raised from the verdict; status returns.</p></div>
-          <div class="glass card" style="padding:18px 22px;"><strong style="color:var(--navy);">ServiceNow</strong> <span class="chip" style="margin-left:8px;font-size:12px;padding:4px 10px;">TWO-WAY</span><p style="font-size:14px;color:var(--body);margin:8px 0 0;">Change record for approved remediation.</p></div>
+      <figure class="screen-fig" style="margin-top:0;">
+        <div class="screen-mockup" data-lightbox="assets/case-studies/verrdict/screen-lifecycle-alerts.png">
+          <div class="screen-mockup-bar"><span></span><span></span><span></span></div>
+          <img src="assets/case-studies/verrdict/screen-lifecycle-alerts.png" alt="Lifecycle Alerts screen: a critical breach banner, threshold and advance-notice tiles, and a filterable EOL status table">
+          <span class="dot-marker" style="left:50%;top:16%;">1</span>
+          <span class="dot-marker" style="left:71%;top:29%;">2</span>
+          <span class="dot-marker" style="left:31%;top:55%;">3</span>
+          <span class="dot-marker" style="left:68%;top:55%;">4</span>
         </div>
-        <p style="font-size:14px;color:var(--body);margin-top:20px;">Every feed is labelled external or internal, live or snapshot, with the time it last ran. The verdict, its evidence, and the ticket raised against it stay on one record. New services join as a declared connection, not a bespoke screen.</p>
-      </div>
+      </figure>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>THE LOOP</div>
-      <h2>From verdict to closed, without leaving the record</h2>
-    </div>
-    <div class="grid grid-5">
-      <div data-reveal><span class="mono-num">01</span><h4 style="font-size:17px;margin:10px 0 4px;color:var(--navy);">Verdict reached</h4><p style="font-size:13px;color:var(--body);margin:0;">The check runs and the reason is attached to the record.</p></div>
-      <div data-reveal data-reveal-delay="1"><span class="mono-num">02</span><h4 style="font-size:17px;margin:10px 0 4px;color:var(--navy);">Ticket raised</h4><p style="font-size:13px;color:var(--body);margin:0;">Sent to Jira pre-filled with records, controls and a link back.</p></div>
-      <div data-reveal data-reveal-delay="2"><span class="mono-num">03</span><h4 style="font-size:17px;margin:10px 0 4px;color:var(--navy);">Tracked in place</h4><p style="font-size:13px;color:var(--body);margin:0;">Assignee, status and age read back from Jira, shown on the record.</p></div>
-      <div data-reveal data-reveal-delay="3"><span class="mono-num">04</span><h4 style="font-size:17px;margin:10px 0 4px;color:var(--navy);">Fix confirmed</h4><p style="font-size:13px;color:var(--body);margin:0;">Status returns and the record closes against its own evidence.</p></div>
-      <div data-reveal data-reveal-delay="4"><span class="mono-num">05</span><h4 style="font-size:17px;margin:10px 0 4px;color:var(--navy);">Trail kept</h4><p style="font-size:13px;color:var(--body);margin:0;">Reason, action and outcome sit on one object for the audit.</p></div>
-    </div>
-    <p class="kicker" style="margin-top:32px;" data-reveal>Before this, steps two to five happened in other people's tools, and nobody could reconstruct them afterwards.</p>
-  </div>
-</section>
-
-<!-- ===================== THE NUMBERS ===================== -->
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>THE STATE I DESIGNED AGAINST</div>
-      <h2>452 alerts, 455 devices, and a gap nobody was counting</h2>
-    </div>
-    <div class="grid grid-3">
-      <div class="glass card" data-reveal>
-        <span class="pill-label">ALERT INTELLIGENCE</span>
-        <div class="stat" style="margin-top:16px;"><span class="num" data-count="452" style="font-size:52px;">0</span><span class="lbl">active alerts</span></div>
-        <div style="margin-top:16px;font-size:14px;color:var(--body);line-height:1.8;">
-          85 past due<br>182 advance notices<br>185 monitor and plan
+    <div class="screen-spotlight" data-reveal>
+      <div>
+        <div class="screen-principle">Screen 03 &middot; Change Assurance &middot; P1 Explainable by default</div>
+        <h3 class="cs-h2" style="font-size:26px;">The verdict shows its work.</h3>
+        <div class="screen-callouts" style="margin-top:20px;">
+          <div class="screen-callout"><span class="n">1</span><p>Implementation &middot; Test &middot; Tier-2, then verdict.</p></div>
+          <div class="screen-callout"><span class="n">2</span><p>Evidence gaps counted separately.</p></div>
+          <div class="screen-callout"><span class="n">3</span><p>Deadlines stated as time, not colour.</p></div>
+          <div class="screen-callout"><span class="n">4</span><p>Source of record, named.</p></div>
         </div>
       </div>
-      <div class="glass card" data-reveal data-reveal-delay="1">
-        <span class="pill-label">BY MILESTONE TYPE</span>
-        <div style="margin-top:16px;font-size:15px;color:var(--body);line-height:2;">
-          <div style="display:flex;justify-content:space-between;"><span>EOVS</span><strong style="color:var(--navy);">179</strong></div>
-          <div style="display:flex;justify-content:space-between;"><span>Advisory</span><strong style="color:var(--navy);">176</strong></div>
-          <div style="display:flex;justify-content:space-between;"><span>EOS</span><strong style="color:var(--navy);">64</strong></div>
-          <div style="display:flex;justify-content:space-between;"><span>EOL</span><strong style="color:var(--navy);">22</strong></div>
-          <div style="display:flex;justify-content:space-between;"><span>N / N-1</span><strong style="color:var(--navy);">11</strong></div>
+      <figure class="screen-fig" style="margin-top:0;">
+        <div class="screen-mockup" data-lightbox="assets/case-studies/verrdict/screen-change-assurance.png">
+          <div class="screen-mockup-bar"><span></span><span></span><span></span></div>
+          <img src="assets/case-studies/verrdict/screen-change-assurance.png" alt="Change Assurance screen: total changes, evidence gaps, and a change records table with implementation, test, tier-2, and verdict columns">
+          <span class="dot-marker" style="left:76%;top:73%;">1</span>
+          <span class="dot-marker" style="left:47%;top:26%;">2</span>
+          <span class="dot-marker" style="left:58%;top:40%;">3</span>
+          <span class="dot-marker" style="left:80%;top:40%;">4</span>
+        </div>
+      </figure>
+    </div>
+
+    <div class="screen-spotlight reverse" data-reveal>
+      <div>
+        <div class="screen-principle">Screen 04 &middot; Asset Intelligence &middot; P3 Label the source</div>
+        <h3 class="cs-h2" style="font-size:26px;">Where every number came from.</h3>
+        <div class="screen-callouts" style="margin-top:20px;">
+          <div class="screen-callout"><span class="n">1</span><p>External and internal are tabs.</p></div>
+          <div class="screen-callout"><span class="n">2</span><p>Live or snapshot, per feed.</p></div>
+          <div class="screen-callout"><span class="n">3</span><p>1,744 loaded, 6 relevant — shown as a visible narrowing.</p></div>
+          <div class="screen-callout"><span class="n">4</span><p>Manual uploads follow the same path.</p></div>
         </div>
       </div>
-      <div class="glass card" data-reveal data-reveal-delay="2">
-        <span class="pill-label">RISK ACROSS 455 DEVICES</span>
-        <div class="propbar" style="margin-top:18px;">
-          <span style="width:15%;background:var(--verdict-gap);" data-bar-fill="15"></span>
-          <span style="width:32%;background:var(--verdict-review);" data-bar-fill="32"></span>
-          <span style="width:13%;background:var(--verdict-compliant);" data-bar-fill="13"></span>
-          <span style="width:40%;background:var(--canvas-alt);border-left:1px solid var(--line-strong);" data-bar-fill="40"></span>
+      <figure class="screen-fig" style="margin-top:0;">
+        <div class="screen-mockup" data-lightbox="assets/case-studies/verrdict/screen-asset-intelligence.png">
+          <div class="screen-mockup-bar"><span></span><span></span><span></span></div>
+          <img src="assets/case-studies/verrdict/screen-asset-intelligence.png" alt="Asset Intelligence screen: vendor source tabs, records-ingested and signals-retained tiles, and connected vendor feed cards">
+          <span class="dot-marker" style="left:26%;top:15%;">1</span>
+          <span class="dot-marker" style="left:30%;top:66%;">2</span>
+          <span class="dot-marker" style="left:41%;top:38%;">3</span>
+          <span class="dot-marker" style="left:37%;top:91%;">4</span>
         </div>
-        <div class="legend">
-          <span class="k"><span class="sw" style="background:var(--verdict-gap);"></span>68 critical</span>
-          <span class="k"><span class="sw" style="background:var(--verdict-review);"></span>148 high</span>
-          <span class="k"><span class="sw" style="background:var(--verdict-compliant);"></span>60 low</span>
-          <span class="k"><span class="sw" style="background:var(--canvas-alt);border:1px solid var(--line-strong);"></span>82 no lifecycle data</span>
-        </div>
-        <p style="font-size:13px;color:var(--body);margin-top:14px;">Unknown is its own category — never counted as compliant.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>SEVERITY FRAMEWORK</div>
-      <h2>Time left becomes a severity. Severity names the next action.</h2>
-    </div>
-    <div class="glass" style="padding:12px 32px;" data-reveal>
-      <div class="severity-row">
-        <span style="display:flex;align-items:center;gap:10px;"><span class="severity-dot" style="background:#4A5D78;"></span><span class="severity-band">Low</span></span>
-        <span class="severity-window">12–18 mo</span>
-        <span class="severity-action">Review and roadmap it</span>
-        <span></span>
-      </div>
-      <div class="severity-row">
-        <span style="display:flex;align-items:center;gap:10px;"><span class="severity-dot" style="background:var(--teal-text);"></span><span class="severity-band">Medium</span></span>
-        <span class="severity-window">6–12 mo</span>
-        <span class="severity-action">Plan: options, owner, effort</span>
-        <span></span>
-      </div>
-      <div class="severity-row">
-        <span style="display:flex;align-items:center;gap:10px;"><span class="severity-dot" style="background:var(--verdict-review);"></span><span class="severity-band">High</span></span>
-        <span class="severity-window">3–6 mo</span>
-        <span class="severity-action">Approve and raise the work</span>
-        <span></span>
-      </div>
-      <div class="severity-row">
-        <span style="display:flex;align-items:center;gap:10px;"><span class="severity-dot" style="background:var(--verdict-gap);"></span><span class="severity-band">Critical</span></span>
-        <span class="severity-window">0–3 mo</span>
-        <span class="severity-action">Escalate and confirm the plan</span>
-        <span></span>
-      </div>
-      <div class="severity-row">
-        <span style="display:flex;align-items:center;gap:10px;"><span class="severity-dot" style="background:#7A1F17;"></span><span class="severity-band">Overdue</span></span>
-        <span class="severity-window">passed</span>
-        <span class="severity-action">Remediate or except it</span>
-        <span></span>
-      </div>
-    </div>
-    <p style="font-size:14px;color:var(--label);margin-top:20px;" data-reveal>EOS end of support · EOL end of life · EOVS end of vendor support. A way of ranking work that I proposed, not a published policy.</p>
-  </div>
-</section>
-
-<!-- ===================== ACT 5: CRAFT ===================== -->
-<section class="act-divider" id="craft">
-  <div class="ring" style="width:520px;height:520px;top:-200px;left:-140px;"></div>
-  <div class="wrap" data-reveal>
-    <div class="eyebrow">ACT 05</div>
-    <h2>Design &amp; craft</h2>
-    <p>The system, the six modules it produced, and how it behaves under stress.</p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>DESIGN SYSTEM</div>
-      <h2>Colour is only for risk</h2>
-    </div>
-    <div class="grid grid-2" style="gap:56px;">
-      <div data-reveal>
-        <span class="pill-label">STRUCTURE</span>
-        <div class="swatch-row" style="margin-top:16px;">
-          <div class="swatch"><div class="block" style="background:#002D72;"></div><span class="name">Navy</span><span class="hex">#002D72</span></div>
-          <div class="swatch"><div class="block" style="background:#0B5CD5;"></div><span class="name">Primary</span><span class="hex">#0B5CD5</span></div>
-          <div class="swatch"><div class="block" style="background:#1AA7C7;"></div><span class="name">Teal</span><span class="hex">#1AA7C7</span></div>
-          <div class="swatch"><div class="block" style="background:#F7F9FC;"></div><span class="name">Canvas</span><span class="hex">#F7F9FC</span></div>
-        </div>
-        <p style="font-size:14px;color:var(--body);margin-top:20px;">Everything structural stays neutral. Colour is reserved for critical/gap, high/review and compliant states only.</p>
-      </div>
-      <div data-reveal data-reveal-delay="1">
-        <span class="pill-label">TYPE &amp; SPACE</span>
-        <div style="margin-top:16px;display:flex;flex-direction:column;gap:10px;">
-          <div style="font-family:var(--font-display);font-size:22px;color:var(--navy);">Inter Tight — display</div>
-          <div style="font-family:var(--font-body);font-size:18px;color:var(--navy);">Inter — body and UI</div>
-          <div style="font-family:var(--font-mono);font-size:18px;color:var(--navy);">JetBrains Mono — serials</div>
-        </div>
-        <p style="font-size:14px;color:var(--body);margin-top:20px;">4pt base, rows on an 8pt rhythm.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>COMPONENTS &amp; TOKENS</div>
-      <h2>Handed over as tokens, not screenshots</h2>
-    </div>
-    <div class="grid grid-2" style="gap:56px;">
-      <div class="glass card" data-reveal style="font-family:var(--font-mono);font-size:15px;display:flex;flex-direction:column;gap:14px;">
-        <div style="display:flex;justify-content:space-between;"><span style="color:var(--label);">--color-verdict-gap</span><span style="color:var(--verdict-gap);">#B03A2E</span></div>
-        <div style="display:flex;justify-content:space-between;"><span style="color:var(--label);">--color-verdict-review</span><span style="color:var(--verdict-review);">#A3540A</span></div>
-        <div style="display:flex;justify-content:space-between;"><span style="color:var(--label);">--color-verdict-compliant</span><span style="color:var(--verdict-compliant);">#127A52</span></div>
-        <div style="display:flex;justify-content:space-between;"><span style="color:var(--label);">--space-row-y</span><span style="color:var(--navy);">16px</span></div>
-        <div style="display:flex;justify-content:space-between;"><span style="color:var(--label);">--radius-card</span><span style="color:var(--navy);">12px</span></div>
-      </div>
-      <div class="glass card" data-reveal data-reveal-delay="1">
-        <span class="pill-label">METRIC TILE</span>
-        <div class="stat" style="margin-top:14px;"><span class="num" data-count="208" style="font-size:52px;">0</span><span class="lbl">Active lifecycle alerts · awaiting acknowledgement</span></div>
-        <p style="font-size:14px;color:var(--body);margin-top:18px;">Every verdict colour is a token. No screen picks its own red.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>ROUGH &rarr; FINAL</div>
-      <h2>The dashboard, twice</h2>
-    </div>
-    <div class="grid grid-2" style="gap:40px;">
-      <div data-reveal>
-        <span class="pill-label">01 · ROUGH SKETCH</span>
-        <div class="image-slot" style="margin-top:16px;">Drop the wireframe here</div>
-      </div>
-      <div data-reveal data-reveal-delay="1">
-        <span class="pill-label">02 · FINAL</span>
-        <div class="image-slot" style="margin-top:16px;">Drop the final dashboard here</div>
-      </div>
-    </div>
-    <p class="kicker" style="margin-top:28px;" data-reveal>Kept: the ranked list on top. Changed: metrics became four tiles, and data age moved into the header.</p>
-  </div>
-</section>
-
-<!-- ===================== SCREENS ===================== -->
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>THE SCREENS</div>
-      <h2>Six modules, annotated</h2>
+      </figure>
     </div>
 
-    <div class="screen-block" data-reveal>
-      <div class="screen-copy">
-        <span class="pill-label principle">SCREEN 01 · OVERVIEW · P2 Priority over volume</span>
-        <h3>The day starts ranked, not counted</h3>
-        <div class="callout-list">
-          <div class="callout"><span class="n">1</span><p>Four tiles, one question each</p></div>
-          <div class="callout"><span class="n">2</span><p>"What needs attention", ranked 1–4</p></div>
-          <div class="callout"><span class="n">3</span><p>Every row carries its verb</p></div>
-          <div class="callout"><span class="n">4</span><p>Freshness in the header</p></div>
+    <div class="screen-spotlight" data-reveal>
+      <div>
+        <div class="screen-principle">Screen 05 &middot; Trend Analysis &middot; P1 Explainable by default</div>
+        <h3 class="cs-h2" style="font-size:26px;">Exposure with a named cause.</h3>
+        <div class="screen-callouts" style="margin-top:20px;">
+          <div class="screen-callout"><span class="n">1</span><p>A sentence before the charts.</p></div>
+          <div class="screen-callout"><span class="n">2</span><p>Primary exposure with its controls.</p></div>
+          <div class="screen-callout"><span class="n">3</span><p>Method one click below the claim.</p></div>
+          <div class="screen-callout"><span class="n">4</span><p>Trend against the prior period.</p></div>
         </div>
       </div>
-      <div class="screen-frame"><img src="assets/case-studies/verrdict/screen-overview.png" alt="VERRDICT Overview screen"></div>
+      <figure class="screen-fig" style="margin-top:0;">
+        <div class="screen-mockup" data-lightbox="assets/case-studies/verrdict/screen-trend-analysis.png">
+          <div class="screen-mockup-bar"><span></span><span></span><span></span></div>
+          <img src="assets/case-studies/verrdict/screen-trend-analysis.png" alt="Trend Analysis screen: a primary regulatory exposure card, methodology disclosure, and a failure-rate trend chart against the prior period">
+          <span class="dot-marker" style="left:31%;top:13%;">1</span>
+          <span class="dot-marker" style="left:37%;top:41%;">2</span>
+          <span class="dot-marker" style="left:26%;top:54%;">3</span>
+          <span class="dot-marker" style="left:41%;top:83%;">4</span>
+        </div>
+      </figure>
     </div>
 
-    <div class="screen-block reverse" data-reveal>
-      <div class="screen-copy">
-        <span class="pill-label principle">SCREEN 02 · LIFECYCLE ALERTS · P4 Calm at density</span>
-        <h3>Overdue and upcoming are different jobs</h3>
-        <div class="callout-list">
-          <div class="callout"><span class="n">1</span><p>One banner, one device</p></div>
-          <div class="callout"><span class="n">2</span><p>Breached vs. 18-month look-ahead</p></div>
-          <div class="callout"><span class="n">3</span><p>The team's own words as filters</p></div>
-          <div class="callout"><span class="n">4</span><p>Ranking rules and audit ledger as tabs</p></div>
+    <div class="screen-spotlight reverse" data-reveal>
+      <div>
+        <div class="screen-principle">Screen 06 &middot; Remediation &middot; Closes the loop</div>
+        <h3 class="cs-h2" style="font-size:26px;">The verdict becomes work someone owns.</h3>
+        <div class="screen-callouts" style="margin-top:20px;">
+          <div class="screen-callout"><span class="n">1</span><p>Raise ticket sits on the verdict, not in a toolbar.</p></div>
+          <div class="screen-callout"><span class="n">2</span><p>Pre-filled: records, controls, link back to the evidence.</p></div>
+          <div class="screen-callout"><span class="n">3</span><p>Key, assignee, status and age read back from Jira.</p></div>
+          <div class="screen-callout"><span class="n">4</span><p>When the two disagree, we say when we last heard.</p></div>
         </div>
       </div>
-      <div class="screen-frame"><img src="assets/case-studies/verrdict/screen-lifecycle-alerts.png" alt="VERRDICT Lifecycle Alerts screen"></div>
+      <figure class="screen-fig" style="margin-top:0;">
+        <div class="todo block">Drop the Remediation screenshot here</div>
+      </figure>
     </div>
+  </div>
 
-    <div class="screen-block" data-reveal>
-      <div class="screen-copy">
-        <span class="pill-label principle">SCREEN 03 · CHANGE ASSURANCE · P1 Explainable by default</span>
-        <h3>The verdict shows its work</h3>
-        <div class="callout-list">
-          <div class="callout"><span class="n">1</span><p>Implementation · Test · Tier-2, then verdict</p></div>
-          <div class="callout"><span class="n">2</span><p>Evidence gaps counted separately</p></div>
-          <div class="callout"><span class="n">3</span><p>Deadlines stated as time, not colour</p></div>
-          <div class="callout"><span class="n">4</span><p>Source of record, named</p></div>
-        </div>
+  <div class="cs-wide" style="margin-top:96px;" data-reveal>
+    <div class="eyebrow"><span class="diamond">&#9670;</span>States nobody demos</div>
+    <div class="state-grid">
+      <div class="rich-card"><h4>Empty</h4><p>Zero is an achievement.</p></div>
+      <div class="rich-card"><h4>Loading</h4><p>Refresh is per source; the screen never blanks.</p></div>
+      <div class="rich-card"><h4>Stale</h4><p>Age is always on screen.</p></div>
+      <div class="rich-card"><h4>Critical</h4><p>One banner, never two.</p></div>
+    </div>
+  </div>
+
+  <div class="cs-wide" style="margin-top:64px;" data-reveal>
+    <div class="eyebrow"><span class="diamond">&#9670;</span>Accessibility</div>
+    <div class="todo" style="margin-bottom:20px;">Confirm this list against an actual audit before publishing</div>
+    <div class="card-grid c2">
+      <div class="rich-card"><h4>Status carries a word</h4><p>Not just colour.</p></div>
+      <div class="rich-card"><h4>Contrast 4.5:1 or better</h4><p>Across every screen.</p></div>
+      <div class="rich-card"><h4>Keyboard-operable rows</h4><p>Real focus rings on every action.</p></div>
+      <div class="rich-card"><h4>Serials in mono</h4><p>Read character by character.</p></div>
+    </div>
+  </div>
+
+  <div class="cs-wide" style="margin-top:64px;" data-reveal>
+    <div class="eyebrow"><span class="diamond">&#9670;</span>Handoff</div>
+    <div class="todo" style="margin-bottom:20px;">Confirm exactly what shipped before publishing</div>
+    <div class="card-grid c4">
+      <div class="rich-card"><h4>Annotated screens</h4><p>Every state and threshold.</p></div>
+      <div class="rich-card"><h4>Component specs</h4><p>Named tokens for new modules.</p></div>
+      <div class="rich-card"><h4>Walkthroughs</h4><p>With engineering before the build.</p></div>
+      <div class="rich-card"><h4>Design review</h4><p>Of the implemented build.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ OUTCOME & REFLECTION ═══════════ -->
+<section class="cs-section wash-blue" id="outcome">
+  <div class="cs-prose" data-reveal>
+    <div class="eyebrow"><span class="diamond">&#9670;</span>08 &middot; Outcome &amp; reflection</div>
+    <h2 class="cs-h2">Built to the brief, and moving toward adoption.</h2>
+  </div>
+
+  <div class="cs-wide" style="margin-top:56px;" data-reveal>
+    <div class="todo" style="margin-bottom:20px;">Confirm the exact requirement wording from the brief</div>
+    <table class="req-table">
+      <tbody>
+        <tr><td>Consolidate governance into one view</td><td>Six modules under one shell.</td></tr>
+        <tr><td>Track advisories and lifecycle milestones</td><td>Per-source feeds, with milestones matched to assets.</td></tr>
+        <tr><td>Verify changes against evidence</td><td>Three-stage assurance, with gaps tracked separately.</td></tr>
+        <tr><td>Report exposure to compliance</td><td>Trend analysis with a named primary exposure.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="cs-wide" style="margin-top:64px;" data-reveal>
+    <div class="outcome-grid">
+      <div class="outcome-card"><h4>Delivered</h4><p>Six modules, a component set, and flows checked against the agreed criteria.</p></div>
+      <div class="outcome-card"><h4>Status</h4><p>A design project; no live usage numbers yet, and none invented.</p></div>
+      <div class="outcome-card"><h4>Next</h4><p>Test the ranking rules on live data, then measure time to first decision.</p></div>
+    </div>
+  </div>
+
+  <div class="cs-wide" style="margin-top:64px;" data-reveal>
+    <div class="eyebrow"><span class="diamond">&#9670;</span>Proposed success metrics — proposed, not yet measured</div>
+    <div class="tag-pills">
+      <span class="tag-pill">Time to first decision</span>
+      <span class="tag-pill">Share of alerts triaged</span>
+      <span class="tag-pill">Evidence attached</span>
+      <span class="tag-pill">Unknowns closed</span>
+    </div>
+  </div>
+
+  <div class="cs-wide" style="margin-top:96px;" data-reveal>
+    <div class="paper-notes">
+      <div class="paper-note">
+        <div class="paper-note-label">What I learned</div>
+        <p class="paper-note-body">In regulated work, the interface is the argument.</p>
       </div>
-      <div class="screen-frame"><img src="assets/case-studies/verrdict/screen-change-assurance.png" alt="VERRDICT Change Assurance screen"></div>
-    </div>
-
-    <div class="screen-block reverse" data-reveal>
-      <div class="screen-copy">
-        <span class="pill-label principle">SCREEN 04 · ASSET INTELLIGENCE · P3 Label the source</span>
-        <h3>Where every number came from</h3>
-        <div class="callout-list">
-          <div class="callout"><span class="n">1</span><p>External and internal are tabs</p></div>
-          <div class="callout"><span class="n">2</span><p>Live or snapshot, per feed</p></div>
-          <div class="callout"><span class="n">3</span><p>1,744 loaded, 6 relevant — shown as a visible narrowing</p></div>
-          <div class="callout"><span class="n">4</span><p>Manual uploads follow the same path</p></div>
-        </div>
-      </div>
-      <div class="screen-frame"><img src="assets/case-studies/verrdict/screen-asset-intelligence.png" alt="VERRDICT Asset Intelligence screen"></div>
-    </div>
-
-    <div class="screen-block" data-reveal>
-      <div class="screen-copy">
-        <span class="pill-label principle">SCREEN 05 · TREND ANALYSIS · P1 Explainable by default</span>
-        <h3>Exposure with a named cause</h3>
-        <div class="callout-list">
-          <div class="callout"><span class="n">1</span><p>A sentence before the charts</p></div>
-          <div class="callout"><span class="n">2</span><p>Primary exposure with its controls</p></div>
-          <div class="callout"><span class="n">3</span><p>Method one click below the claim</p></div>
-          <div class="callout"><span class="n">4</span><p>Trend against the prior period</p></div>
-        </div>
-      </div>
-      <div class="screen-frame"><img src="assets/case-studies/verrdict/screen-trend-analysis.png" alt="VERRDICT Trend Analysis screen"></div>
-    </div>
-
-    <div class="screen-block reverse" data-reveal>
-      <div class="screen-copy">
-        <span class="pill-label principle">SCREEN 06 · REMEDIATION · Close the loop</span>
-        <h3>The verdict becomes work someone owns</h3>
-        <div class="callout-list">
-          <div class="callout"><span class="n">1</span><p>Raise ticket sits on the verdict, not in a toolbar</p></div>
-          <div class="callout"><span class="n">2</span><p>Pre-filled: records, controls, link back to the evidence</p></div>
-          <div class="callout"><span class="n">3</span><p>Key, assignee, status and age read back from Jira</p></div>
-          <div class="callout"><span class="n">4</span><p>When the two disagree, we say when we last heard</p></div>
-        </div>
-      </div>
-      <div class="image-slot" style="min-height:340px;">Drop the Remediation screenshot here</div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>INTERACTION &amp; STATES</div>
-      <h2>Designed for the states nobody demos</h2>
-    </div>
-    <div class="grid grid-4">
-      <div class="glass card state-card" data-reveal><h4>Empty</h4><p><strong style="color:var(--navy);">Zero is an achievement.</strong> "0 fully compliant · no change vs last 7 days" still reports the comparison.</p></div>
-      <div class="glass card state-card" data-reveal data-reveal-delay="1"><h4>Loading</h4><p><strong style="color:var(--navy);">Refresh is per source.</strong> One feed can scan while the rest stay readable. The screen never blanks.</p></div>
-      <div class="glass card state-card" data-reveal data-reveal-delay="2"><h4>Stale</h4><p><strong style="color:var(--navy);">Age is always on screen.</strong> Last run per feed, last sync per integration. Stale is labelled, not hidden.</p></div>
-      <div class="glass card state-card" data-reveal data-reveal-delay="3"><h4>Critical</h4><p><strong style="color:var(--navy);">One banner, never two.</strong> Only the single most urgent breach gets the top slot.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>ACCESSIBILITY</div>
-      <h2>Risk must never be colour alone</h2>
-    </div>
-    <div class="grid grid-2">
-      <div class="glass card" data-reveal><span class="pill-label">1.4.1</span><h4 style="font-size:19px;margin:10px 0 6px;">Status carries a word</h4><p style="font-size:15px;color:var(--body);margin:0;">PASS, FAIL, REVIEW, BREACHED, Gap — readable without colour.</p></div>
-      <div class="glass card" data-reveal data-reveal-delay="1"><span class="pill-label">1.4.3</span><h4 style="font-size:19px;margin:10px 0 6px;">Contrast holds</h4><p style="font-size:15px;color:var(--body);margin:0;">Body and headings clear 4.5:1 on the light canvas.</p></div>
-      <div class="glass card" data-reveal data-reveal-delay="2"><span class="pill-label">2.1 / 2.4</span><h4 style="font-size:19px;margin:10px 0 6px;">Tables are keyboard work</h4><p style="font-size:15px;color:var(--body);margin:0;">Row actions are real buttons in tab order with a focus ring.</p></div>
-      <div class="glass card" data-reveal data-reveal-delay="3"><span class="pill-label">DENSITY</span><h4 style="font-size:19px;margin:10px 0 6px;">Serials in mono</h4><p style="font-size:15px;color:var(--body);margin:0;">Read character by character, not word-shape.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>HANDOFF</div>
-      <h2>How this got to engineering</h2>
-    </div>
-    <div class="grid grid-4">
-      <div data-reveal><h4 style="font-size:18px;color:var(--navy);margin-bottom:8px;">Annotated screens</h4><p style="font-size:14px;color:var(--body);">Every state, every threshold, and the rule behind each ranking, written next to the screen it governs.</p></div>
-      <div data-reveal data-reveal-delay="1"><h4 style="font-size:18px;color:var(--navy);margin-bottom:8px;">Component specs</h4><p style="font-size:14px;color:var(--body);">Sizes, spacing, and the named tokens, so a new module inherits the risk language for free.</p></div>
-      <div data-reveal data-reveal-delay="2"><h4 style="font-size:18px;color:var(--navy);margin-bottom:8px;">Walkthrough sessions</h4><p style="font-size:14px;color:var(--body);">I walked engineering through the flows before the build, not after, and stayed available during it.</p></div>
-      <div data-reveal data-reveal-delay="3"><h4 style="font-size:18px;color:var(--navy);margin-bottom:8px;">Design review of the build</h4><p style="font-size:14px;color:var(--body);">I inspected the implemented screens against the specs and logged the differences that mattered.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== ACT 6: OUTCOME ===================== -->
-<section class="act-divider" id="outcome">
-  <div class="ring" style="width:520px;height:520px;bottom:-220px;left:-100px;"></div>
-  <div class="wrap" data-reveal>
-    <div class="eyebrow">ACT 06</div>
-    <h2>Outcome &amp; reflection</h2>
-    <p>What the project delivered, and what I would test next.</p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <h2>Six modules, one system</h2>
-    </div>
-    <div style="display:flex;flex-wrap:wrap;gap:14px;" data-reveal>
-      <span class="chip filled">Overview</span>
-      <span class="chip filled">Assets</span>
-      <span class="chip filled">Lifecycle</span>
-      <span class="chip filled">Assurance</span>
-      <span class="chip filled">Trends</span>
-      <span class="chip filled">Remediation</span>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>AGAINST THE BRIEF</div>
-      <h2>Requirement to solution</h2>
-    </div>
-    <div class="glass" style="padding:8px 0;" data-reveal>
-      <table class="tbl">
-        <tbody>
-          <tr><td>Consolidate governance into one view</td><td style="color:var(--navy);font-weight:500;">Six modules under one shell</td></tr>
-          <tr><td>Track advisories and lifecycle milestones</td><td style="color:var(--navy);font-weight:500;">Per-source feeds, milestones matched to assets</td></tr>
-          <tr><td>Verify changes against evidence</td><td style="color:var(--navy);font-weight:500;">Three-stage assurance, gaps tracked separately</td></tr>
-          <tr><td>Report exposure to compliance</td><td style="color:var(--navy);font-weight:500;">Trend analysis with a named primary exposure</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>OUTCOME</div>
-      <h2>Built to the brief, well received, and moving toward adoption.</h2>
-    </div>
-    <div class="grid grid-3">
-      <div class="glass card" data-reveal><span class="pill-label">DELIVERED</span><p style="font-size:16px;color:var(--body);margin-top:12px;">Six modules, a component set, and flows checked against the agreed criteria.</p></div>
-      <div class="glass card" data-reveal data-reveal-delay="1"><span class="pill-label">STATUS</span><p style="font-size:16px;color:var(--body);margin-top:12px;">A design project. No live usage numbers yet, and I have not invented any.</p></div>
-      <div class="glass card" data-reveal data-reveal-delay="2"><span class="pill-label">NEXT</span><p style="font-size:16px;color:var(--body);margin-top:12px;">Test the ranking rules on live data, then measure time to first decision.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div class="eyebrow"><span class="dot"></span>REFLECTION</div>
-    </div>
-    <div class="grid grid-2">
-      <div data-reveal>
-        <span class="pill-label">WHAT I LEARNED</span>
-        <p style="font-size:22px;color:var(--navy);font-family:var(--font-display);margin-top:14px;line-height:1.4;">In regulated work, the interface is the argument.</p>
-      </div>
-      <div data-reveal data-reveal-delay="1">
-        <span class="pill-label">WHAT I'D DO NEXT</span>
-        <p style="font-size:22px;color:var(--navy);font-family:var(--font-display);margin-top:14px;line-height:1.4;">Test the ranking with real reviewers, and design the escalation path.</p>
+      <div class="paper-note">
+        <div class="paper-note-label">What I'd do next</div>
+        <p class="paper-note-body">Test the ranking with real reviewers, and design the escalation path.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===================== FOOTER / THANK YOU ===================== -->
-<footer class="footer">
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="cs-footer">
   <div class="wrap">
-    <div class="eyebrow" style="justify-content:center;color:rgba(255,255,255,0.8);" data-reveal><span class="dot" style="background:#fff;"></span>VERRDICT · UX CASE STUDY</div>
-    <h2 data-reveal data-reveal-delay="1">Thank you</h2>
-    <p data-reveal data-reveal-delay="2">Questions welcome — including the hard ones about the trade-offs.</p>
-    <div class="footer-contact" data-reveal data-reveal-delay="3">
-      <div><span class="k">Designer</span><span>Achyut Khanpara</span></div>
-      <div><span class="k">Email</span><a href="mailto:achyutkhanpara7@gmail.com">achyutkhanpara7@gmail.com</a></div>
-      <div><span class="k">Phone</span><span>+1 (602) 403-5460</span></div>
-      <div><span class="k">Site</span><a href="https://achyutkhanpara.com" target="_blank" rel="noopener">achyutkhanpara.com</a></div>
-      <div><span class="k">LinkedIn</span><a href="https://linkedin.com/in/achyut-khanpara" target="_blank" rel="noopener">linkedin.com/in/achyut-khanpara</a></div>
+    <h3>Let's talk trade-offs.</h3>
+    <p>Questions welcome — including the hard ones.</p>
+    <div class="footer-nav">
+      <a href="case-study.html" class="fbtn fbtn-ghost">&larr; GRC Platform Design</a>
+      <a href="mailto:achyutkhanpara7@gmail.com" class="fbtn fbtn-primary">Email me</a>
+      <a href="case-study-7eleven.html" class="fbtn fbtn-ghost">7-Eleven Ops &rarr;</a>
+    </div>
+    <div class="footer-contact">
+      <span>Achyut Khanpara</span>
+      <a href="mailto:achyutkhanpara7@gmail.com">achyutkhanpara7@gmail.com</a>
+      <a href="https://achyutkhanpara.com" target="_blank" rel="noopener">achyutkhanpara.com</a>
+      <a href="https://linkedin.com/in/achyutkhanpara" target="_blank" rel="noopener">linkedin.com/in/achyutkhanpara</a>
     </div>
   </div>
 </footer>
 
-
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" aria-label="Close">&times;</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
 
 <script>
 (function(){
   "use strict";
 
   // ---- scroll reveal ----
-  // Direct viewport-position check rather than relying only on IntersectionObserver:
-  // guarantees every [data-reveal] node eventually gets shown on real user scrolling,
-  // including fast/short scroll jumps and elements taller than the viewport.
   var revealEls = Array.prototype.slice.call(document.querySelectorAll('[data-reveal]'));
   var pending = revealEls.slice();
   var tickScheduled = false;
@@ -1664,8 +1174,7 @@ h1,h2,h3,h4{font-family:var(--font-display);margin:0;color:var(--navy);}
     var vh = window.innerHeight || document.documentElement.clientHeight;
     pending = pending.filter(function(el){
       var r = el.getBoundingClientRect();
-      var visible = r.top < vh * 0.92 && r.bottom > 0;
-      if (visible) { el.classList.add('in'); return false; }
+      if (r.top < vh * 0.92 && r.bottom > 0) { el.classList.add('in'); return false; }
       return true;
     });
   }
@@ -1677,69 +1186,68 @@ h1,h2,h3,h4{font-family:var(--font-display);margin:0;color:var(--navy);}
   revealCheck();
   window.addEventListener('scroll', scheduleRevealCheck, { passive: true });
   window.addEventListener('resize', scheduleRevealCheck);
-  // Safety net: if anything is still hidden after everything should have settled
-  // (e.g. an unusual layout or a missed event), just show it rather than risk
-  // permanently-invisible content.
   setTimeout(function(){ pending.forEach(function(el){ el.classList.add('in'); }); pending = []; }, 4000);
 
   // ---- animated counters ----
+  var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function easeOutCubic(t){ return 1 - Math.pow(1 - t, 3); }
-  function formatNumber(value, decimals){
-    return value.toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  }
-  var counters = document.querySelectorAll('[data-count]');
-  if (counters.length) {
-    var counterIO = new IntersectionObserver(function(entries){
-      entries.forEach(function(entry){
-        if (!entry.isIntersecting) return;
-        var el = entry.target;
-        counterIO.unobserve(el);
-        var raw = el.getAttribute('data-count');
-        var target = parseFloat(raw);
-        var decimals = (raw.split('.')[1] || '').length;
-        var duration = 1200;
-        var start = null;
-        function step(ts){
-          if (start === null) start = ts;
-          var p = Math.min(1, (ts - start) / duration);
-          el.textContent = formatNumber(target * easeOutCubic(p), decimals);
-          if (p < 1) requestAnimationFrame(step);
-        }
-        requestAnimationFrame(step);
-      });
-    }, { threshold: 0.4 });
-    counters.forEach(function(el){ counterIO.observe(el); });
-  }
-
-  // ---- sticky nav active state ----
-  var navLinks = document.querySelectorAll('.tocbar a[href^="#"]');
-  var sections = [];
-  navLinks.forEach(function(link){
-    var id = link.getAttribute('href').slice(1);
-    var target = document.getElementById(id);
-    if (target) sections.push({ link: link, target: target });
-  });
-  function onScroll(){
-    var y = window.scrollY + 120;
-    var current = null;
-    sections.forEach(function(s){
-      if (s.target.offsetTop <= y) current = s;
+  var counters = Array.prototype.slice.call(document.querySelectorAll('[data-count]'));
+  var counterPending = counters.slice();
+  function counterCheck(){
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    counterPending = counterPending.filter(function(el){
+      var r = el.getBoundingClientRect();
+      if (r.top >= vh * 0.95 || r.bottom <= 0) return true;
+      var target = parseFloat(el.getAttribute('data-count'));
+      if (prefersReducedMotion) { el.textContent = target; return false; }
+      var duration = 1100, start = null;
+      function step(ts){
+        if (start === null) start = ts;
+        var p = Math.min(1, (ts - start) / duration);
+        el.textContent = Math.round(target * easeOutCubic(p));
+        if (p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+      return false;
     });
-    navLinks.forEach(function(l){ l.classList.remove('active'); });
+  }
+  var counterTick = false;
+  function scheduleCounterCheck(){ if (counterTick) return; counterTick = true; requestAnimationFrame(function(){ counterTick = false; counterCheck(); }); }
+  scheduleCounterCheck();
+  window.addEventListener('scroll', scheduleCounterCheck, { passive: true });
+  setTimeout(function(){ counterPending.forEach(function(el){ el.textContent = el.getAttribute('data-count'); }); counterPending = []; }, 4000);
+
+  // ---- side nav active-section highlighting ----
+  var links = Array.prototype.slice.call(document.querySelectorAll('.side-nav a'));
+  var sections = links.map(function(l){
+    return { link: l, target: document.getElementById(l.getAttribute('data-section')) };
+  }).filter(function(s){ return s.target; });
+  function onScroll(){
+    var y = window.scrollY + 160;
+    var current = null;
+    sections.forEach(function(s){ if (s.target.offsetTop <= y) current = s; });
+    links.forEach(function(l){ l.classList.remove('active'); });
     if (current) current.link.classList.add('active');
   }
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  // ---- proportional bars driven by data attributes ----
-  document.querySelectorAll('[data-bar-fill]').forEach(function(el){
-    var pct = el.getAttribute('data-bar-fill');
-    requestAnimationFrame(function(){
-      el.style.width = pct + '%';
+  // ---- lightbox ----
+  var lightbox = document.getElementById('lightbox');
+  var lightboxImg = document.getElementById('lightbox-img');
+  document.querySelectorAll('[data-lightbox]').forEach(function(el){
+    el.addEventListener('click', function(){
+      var src = el.getAttribute('data-lightbox');
+      lightboxImg.src = src;
+      lightboxImg.alt = el.querySelector('img') ? el.querySelector('img').alt : '';
+      lightbox.classList.add('open');
     });
   });
+  function closeLightbox(){ lightbox.classList.remove('open'); lightboxImg.src=''; }
+  lightbox.addEventListener('click', function(e){ if (e.target === lightbox) closeLightbox(); });
+  document.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeLightbox(); });
 })();
-
 </script>
 </body>
 </html>
